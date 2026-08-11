@@ -33,7 +33,10 @@ test("renders the finished Korean content site", async () => {
   assert.match(media, /ArticleThumbnail/);
   assert.match(media, /AUTOMATIC READING GUIDE/);
   assert.match(enrichment, /wikipedia\.org/);
-  assert.match(css, /article-thumbnail-sprite\.png/);
+  assert.match(media, /article-thumbnails/);
+  assert.match(media, /loading=\{variant === "hero" \? "eager" : "lazy"\}/);
+  assert.match(css, /object-fit:cover/);
+  assert.match(css, /object-fit:contain/);
   assert.match(css, /article-flow/);
   assert.match(search, /<a href={`\/posts\/\$\{p\.slug\}`}/);
   assert.match(article, /<a href={`\/posts\/\$\{item\.slug\}`}/);

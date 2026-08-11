@@ -1,13 +1,19 @@
-import type { CSSProperties } from "react";
 import type { Post } from "../../lib/content";
 import { enrichArticle, getThumbnailIndex } from "../../lib/article-enrichment";
 
 export function ArticleThumbnail({ post, variant = "card" }: { post: Post; variant?: "card" | "search" | "hero" }) {
   const index = getThumbnailIndex(post);
-  const column = index % 5;
-  const row = Math.floor(index / 5);
-  const style: CSSProperties = { backgroundPosition: `${column * 25}% ${row * 100}%` };
-  return <figure className={`article-thumbnail thumbnail-${variant}`} style={style} role="img" aria-label={`${post.title} 관련 편집 이미지`}>
+  const imageNumber = String(index + 1).padStart(2, "0");
+  return <figure className={`article-thumbnail thumbnail-${variant}`}>
+    <img
+      src={`/article-thumbnails/${imageNumber}.webp`}
+      alt={`${post.title} 관련 편집 이미지`}
+      width="355"
+      height="444"
+      loading={variant === "hero" ? "eager" : "lazy"}
+      decoding="async"
+      fetchPriority={variant === "hero" ? "high" : "auto"}
+    />
     <figcaption><span>{post.category}</span><strong>{post.visual}</strong></figcaption>
   </figure>;
 }
