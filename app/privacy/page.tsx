@@ -1,0 +1,4 @@
+import type { Metadata } from "next";
+import { InnerHeader, SiteFooter } from "../components/SiteChrome";
+export const metadata:Metadata={title:"개인정보처리방침",description:"퇴직하고 부자되기의 개인정보 처리와 외부 서비스 이용 원칙입니다.",alternates:{canonical:"/privacy"}};
+export default function Privacy(){return <><InnerHeader eyebrow="PRIVACY" title="개인정보처리방침" description="시행일: 2026년 8월 11일"/><main className="content-shell article-copy policy-copy"><h2>현재 수집하는 정보</h2><p>공개 콘텐츠를 읽거나 퇴직생활비 계산기를 사용하는 과정에서 이름, 이메일, 입력한 금액을 사이트 데이터베이스에 저장하지 않습니다. 계산은 방문자의 브라우저 안에서만 이루어집니다.</p><h2>호스팅과 접속 기록</h2><p>사이트 운영과 보안을 위해 호스팅 제공자가 IP 주소, 기기 정보, 접속 시간 등 통상적인 기술 로그를 처리할 수 있습니다. 해당 정보는 서비스 안정성과 부정 사용 방지 목적에 따라 제공자의 정책으로 관리됩니다.</p><h2>광고와 쿠키</h2><p>현재 사이트에는 개인 맞춤 광고 코드를 적용하지 않았습니다. 향후 Google AdSense 등 광고 서비스를 도입하면 쿠키와 광고 식별자 이용 내용, 선택 방법을 이 방침에 반영하고 적용 일자를 고지하겠습니다.</p><h2>방침 변경</h2><p>수집 항목이나 이용 서비스가 바뀌면 이 페이지의 내용과 시행일을 갱신합니다. 법령상 보관 의무가 생기는 별도 기능을 도입하는 경우 목적과 기간을 명확히 안내합니다.</p></main><SiteFooter/></>}

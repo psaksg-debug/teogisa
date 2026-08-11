@@ -1,0 +1,4 @@
+import type { Metadata } from "next";
+import { InnerHeader, SiteFooter } from "../components/SiteChrome";
+export const metadata:Metadata={title:"광고·투자 이용 안내",description:"광고, 제휴, 투자와 제도 정보 이용에 관한 고지입니다.",alternates:{canonical:"/disclosure"}};
+export default function Disclosure(){return <><InnerHeader eyebrow="DISCLOSURE" title="광고·투자 이용 안내" description="콘텐츠의 독립성과 독자의 판단을 보호하기 위한 기본 고지입니다."/><main className="content-shell article-copy policy-copy"><h2>광고와 제휴</h2><p>광고 또는 제휴 링크가 포함된 글은 독자가 알아보기 쉽게 해당 사실을 표시합니다. 대가를 받았다는 이유로 장점만 쓰거나 편집 원칙을 바꾸지 않습니다. 현재 공개 콘텐츠에는 별도의 제휴 추천이 없습니다.</p><h2>투자·세무 정보</h2><p>사이트의 계산과 사례는 교육과 정보 제공을 위한 것이며 개인 맞춤형 투자, 세무, 법률 자문이 아닙니다. 원금 손실 가능성과 개인별 적용 차이가 있으므로 실제 결정을 내리기 전 공식 기관 또는 전문가에게 확인하세요.</p><h2>제도 정보의 기준일</h2><p>지원금과 사회보험 제도는 바뀔 수 있습니다. 글에 표시된 발행일과 공식 출처를 확인하고, 신청 시점의 최신 안내를 기준으로 판단해야 합니다.</p></main><SiteFooter/></>}

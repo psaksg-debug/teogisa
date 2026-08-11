@@ -1,2 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-export default function About(){return <><header className="inner-header"><Link className="brand" href="/"><span className="brand-mark">퇴</span><span>퇴직하고 부자되기</span></Link><p className="eyebrow" style={{marginTop:60}}>ABOUT THE PROJECT</p><h1>말보다 숫자로 기록합니다.</h1></header><main className="content-shell article-copy"><p>퇴직하고 부자되기는 퇴직 이후 필요한 돈, 일, 부업과 재테크를 직접 공부하고 검증하는 콘텐츠 사이트입니다.</p><h2>월 300만 원 현금흐름부터</h2><p>한 번에 큰돈을 버는 방법보다 생활비를 방어하고, 작은 수입원을 만들고, 번 돈을 지키는 순서를 따릅니다. 공식 자료와 실제 실험 결과를 구분해 전달하겠습니다.</p><h2>콘텐츠 원칙</h2><p>정책과 제도는 공식 출처를 확인합니다. 투자와 부업의 수익을 보장하지 않습니다. AI가 초안을 도와도 숫자와 조건은 사람이 검토한 뒤 발행합니다.</p></main></>}
+import { InnerHeader, SiteFooter } from "../components/SiteChrome";
+
+export const metadata:Metadata={title:"사이트 소개",description:"퇴직하고 부자되기가 어떤 질문을 다루고 어떻게 자료를 검증하는지 소개합니다.",alternates:{canonical:"/about"}};
+
+export default function About(){return <><InnerHeader eyebrow="ABOUT THE PROJECT" title="막연한 부자가 아니라, 버틸 시간과 다음 수입을 계산합니다." description="퇴직 이후의 선택을 생활비 방어 → 일 소득 → 축적형 수입 → 자산 관리 순서로 풀어내는 독립 콘텐츠 사이트입니다."/><main className="content-shell article-copy policy-copy">
+  <h2>왜 이 사이트를 만들었나요?</h2><p>퇴직을 앞두면 정보는 넘치지만 내 상황에 맞는 순서는 잘 보이지 않습니다. 이곳은 ‘무엇을 사라’는 권유보다 한 달에 꼭 필요한 돈이 얼마인지, 지금 가진 자금으로 얼마나 준비할 수 있는지, 어떤 수입원을 먼저 시험할지 판단할 수 있는 기준을 제공합니다.</p>
+  <h2>무엇이 다른가요?</h2><p>제도와 정책은 정부·공공기관 원문을 우선 확인하고 출처와 확인 날짜를 남깁니다. 부업과 콘텐츠 수익은 결과만 보여주지 않고 투입 시간, 초기 비용, 실패 조건을 함께 기록합니다. 직접 계산할 수 있는 도구와 표를 만들어 독자가 자기 숫자로 다시 확인할 수 있게 합니다.</p>
+  <h2>AI는 어디까지 사용하나요?</h2><p>AI는 자료 정리와 초안 구조를 돕지만, 자동 생성한 글을 검토 없이 공개하지 않습니다. 숫자·날짜·대상 조건·원문 링크를 사람이 대조하고, 다른 글을 바꿔 쓴 내용보다 직접 만든 계산과 판단 기준을 더합니다.</p>
+  <div className="policy-links"><Link href="/editorial-policy">편집·검증 원칙 보기 →</Link><Link href="/author">운영자 소개 보기 →</Link></div>
+</main><SiteFooter/></>}

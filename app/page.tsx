@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { getPublishedPosts } from "../lib/repository";
+import { Brand, SiteFooter } from "./components/SiteChrome";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "../lib/site";
 
 const journeys = [
   { label: "생활비 방어", value: "실업급여·지원금", tone: "blue" },
@@ -21,21 +23,23 @@ const categories = [
 
 export default async function Home() {
   const posts = await getPublishedPosts();
+  const jsonLd = {"@context":"https://schema.org","@graph":[
+    {"@type":"Organization","@id":`${SITE_URL}/#organization`,name:SITE_NAME,url:SITE_URL,logo:{"@type":"ImageObject",url:`${SITE_URL}/og.png`}},
+    {"@type":"WebSite","@id":`${SITE_URL}/#website`,url:SITE_URL,name:SITE_NAME,description:SITE_DESCRIPTION,publisher:{"@id":`${SITE_URL}/#organization`},inLanguage:"ko-KR"}
+  ]};
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(jsonLd)}}/>
       <header className="site-header">
-        <Link className="brand" href="/" aria-label="퇴직하고 부자되기 홈">
-          <span className="brand-mark">퇴</span>
-          <span>퇴직하고 부자되기</span>
-        </Link>
+        <Brand/>
         <nav className="main-nav" aria-label="주요 메뉴">
           <a href="#roadmap">월 300만 원 로드맵</a>
           <a href="#latest">새 글</a>
           <a href="#topics">주제</a>
           <Link href="/about">소개</Link>
         </nav>
-        <div className="header-tools"><span className="verified-label">공식 자료 검토</span><Link className="search-link" href="/search" aria-label="글 검색">검색 <span>⌕</span></Link></div>
+        <div className="header-tools"><span className="verified-label">공식 자료 검토</span><Link className="tool-link" href="/tools/retirement-runway">생활비 계산기</Link><Link className="search-link" href="/search" aria-label="글 검색">검색 <span>⌕</span></Link></div>
       </header>
 
       <main>
@@ -45,8 +49,8 @@ export default async function Home() {
             <h1>퇴직은 끝이 아니라<br/><em>새 수입의 시작</em>입니다.</h1>
             <p className="hero-lead">퇴직 이후의 돈·일·부업·재테크를 직접 공부하고 실험합니다. 막연한 부자가 아니라, 매달 들어오는 300만 원부터 함께 만듭니다.</p>
             <div className="hero-actions">
-              <a className="primary-button" href="#roadmap">로드맵 따라가기 <span>→</span></a>
-              <a className="text-button" href="#latest">최근 실험 읽기</a>
+              <Link className="primary-button" href="/tools/retirement-runway">내 버틸 기간 계산하기 <span>→</span></Link>
+              <a className="text-button" href="#roadmap">로드맵 보기</a>
             </div>
           </div>
           <div className="income-ledger" aria-label="월 300만 원 수입 로드맵">
@@ -84,6 +88,11 @@ export default async function Home() {
             <div><span>검토</span><strong>AI 초안도 사람이 확인</strong><p>숫자, 날짜, 대상 조건을 대조한 뒤 공개합니다.</p></div>
             <div><span>실험</span><strong>수익은 과정까지 기록</strong><p>결과만 자랑하지 않고 걸린 시간과 비용을 함께 남깁니다.</p></div>
           </div>
+        </section>
+
+        <section className="tool-promo section-wrap" aria-labelledby="tool-title">
+          <div className="tool-promo-copy"><p className="eyebrow">FREE RETIREMENT TOOL</p><h2 id="tool-title">지금 가진 돈으로<br/>몇 개월을 버틸 수 있을까요?</h2><p>보유 자금, 월 필수생활비, 고정 수입 세 가지만 입력하면 재취업과 새 수입원을 준비할 수 있는 시간을 바로 계산합니다. 입력값은 저장하지 않습니다.</p><Link className="primary-button" href="/tools/retirement-runway">퇴직생활비 계산기 <span>→</span></Link></div>
+          <div className="tool-promo-result" aria-hidden="true"><span>예시 계산</span><strong>24개월</strong><p>자금 6,000만 원<br/>월 부족액 250만 원</p></div>
         </section>
 
         <section className="latest section-wrap" id="latest">
@@ -127,7 +136,7 @@ export default async function Home() {
         </section>
       </main>
 
-      <footer><Link className="brand footer-brand" href="/"><span className="brand-mark">퇴</span><span>퇴직하고 부자되기</span></Link><p>퇴직 이후의 돈·일·부업·재테크를 연구합니다.</p><div><Link href="/about">사이트 소개</Link><Link href="/search">전체 글</Link></div><small>© 2026 퇴직하고 부자되기. 정보는 참고용이며 투자 판단과 제도 신청의 최종 확인은 본인에게 있습니다.</small></footer>
+      <SiteFooter/>
     </>
   );
 }

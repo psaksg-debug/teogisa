@@ -1,2 +1,4 @@
-import type {MetadataRoute} from "next";import {getPublishedPosts} from "../lib/repository";
-export default async function sitemap():Promise<MetadataRoute.Sitemap>{const base="https://retire-rich-lab.sgk1.chatgpt.site";const posts=await getPublishedPosts();return [{url:base,lastModified:new Date(),changeFrequency:"weekly",priority:1},{url:`${base}/about`,lastModified:new Date(),changeFrequency:"monthly",priority:.5},...posts.map(p=>({url:`${base}/posts/${p.slug}`,lastModified:new Date(p.publishedAt),changeFrequency:"monthly" as const,priority:.8}))];}
+import type { MetadataRoute } from "next";
+import { getPublishedPosts } from "../lib/repository";
+import { SITE_URL } from "../lib/site";
+export default async function sitemap():Promise<MetadataRoute.Sitemap>{const posts=await getPublishedPosts();const staticPages=["","/about","/author","/editorial-policy","/privacy","/disclosure","/tools/retirement-runway"];return [...staticPages.map((path,index)=>({url:`${SITE_URL}${path}`,lastModified:new Date("2026-08-11"),changeFrequency:(index===0?"weekly":"monthly") as "weekly"|"monthly",priority:index===0 ? 1 : (path.includes("/tools/") ? 0.9 : 0.5)})),...posts.map(p=>({url:`${SITE_URL}/posts/${p.slug}`,lastModified:new Date(p.publishedAt),changeFrequency:"monthly" as const,priority:.8}))];}

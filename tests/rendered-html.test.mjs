@@ -29,3 +29,29 @@ test("keeps the editor and write APIs owner-protected", async () => {
   assert.match(exportApi, /requireOwnerApi/);
   assert.match(automationApi, /requireOwnerApi/);
 });
+
+test("ships mobile-first SEO, GEO, trust and original-value pages", async () => {
+  const [layout, post, sitemap, robots, llms, calculator, privacy, policy, css] = await Promise.all([
+    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/posts/[slug]/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/robots.ts", import.meta.url), "utf8"),
+    readFile(new URL("../public/llms.txt", import.meta.url), "utf8"),
+    readFile(new URL("../app/tools/retirement-runway/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/privacy/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/editorial-policy/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  ]);
+  assert.match(layout, /max-image-preview/);
+  assert.match(post, /BlogPosting/);
+  assert.match(post, /BreadcrumbList/);
+  assert.match(post, /related-posts/);
+  assert.match(sitemap, /retirement-runway/);
+  assert.match(robots, /GPTBot/);
+  assert.match(llms, /대표 가이드/);
+  assert.match(calculator, /입력값은 저장하지 않습니다/);
+  assert.match(privacy, /개인정보처리방침/);
+  assert.match(policy, /AI 초안은 검토 후 발행/);
+  assert.match(css, /scroll-snap-type:x mandatory/);
+  assert.match(css, /overflow-x:hidden/);
+});
