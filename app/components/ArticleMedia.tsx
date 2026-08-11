@@ -1,15 +1,14 @@
 import type { Post } from "../../lib/content";
-import { enrichArticle, getThumbnailIndex } from "../../lib/article-enrichment";
+import { enrichArticle, getThumbnailSeo } from "../../lib/article-enrichment";
 
 export function ArticleThumbnail({ post, variant = "card" }: { post: Post; variant?: "card" | "search" | "hero" }) {
-  const index = getThumbnailIndex(post);
-  const imageNumber = String(index + 1).padStart(2, "0");
+  const image = getThumbnailSeo(post);
   return <figure className={`article-thumbnail thumbnail-${variant}`}>
     <img
-      src={`/article-thumbnails/${imageNumber}.webp`}
-      alt={`${post.title} 관련 편집 이미지`}
-      width="355"
-      height="444"
+      src={image.src}
+      alt={image.alt}
+      width={image.width}
+      height={image.height}
       loading={variant === "hero" ? "eager" : "lazy"}
       decoding="async"
       fetchPriority={variant === "hero" ? "high" : "auto"}

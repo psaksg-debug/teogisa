@@ -33,7 +33,10 @@ test("renders the finished Korean content site", async () => {
   assert.match(media, /ArticleThumbnail/);
   assert.match(media, /AUTOMATIC READING GUIDE/);
   assert.match(enrichment, /wikipedia\.org/);
-  assert.match(media, /article-thumbnails/);
+  assert.match(enrichment, /article-thumbnails/);
+  assert.match(media, /alt=\{image\.alt\}/);
+  assert.match(enrichment, /thumbnailCatalog/);
+  assert.match(enrichment, /체크 표시가 된 퇴직 준비 체크리스트/);
   assert.match(media, /loading=\{variant === "hero" \? "eager" : "lazy"\}/);
   assert.match(css, /object-fit:cover/);
   assert.match(css, /object-fit:contain/);
@@ -87,9 +90,12 @@ test("ships mobile-first SEO, GEO, trust and original-value pages", async () => 
   ]);
   assert.match(layout, /max-image-preview/);
   assert.match(post, /BlogPosting/);
+  assert.match(post, /ImageObject/);
+  assert.match(post, /thumbnailUrl/);
   assert.match(post, /BreadcrumbList/);
   assert.match(post, /related-posts/);
   assert.match(sitemap, /retirement-runway/);
+  assert.match(sitemap, /images:/);
   assert.match(robots, /GPTBot/);
   assert.match(llms, /대표 가이드/);
   assert.match(calculator, /입력값은 저장하지 않습니다/);

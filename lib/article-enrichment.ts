@@ -7,6 +7,13 @@ export type ArticleEnrichment = {
   glossary: Array<{ term: string; url: string }>;
 };
 
+export type ThumbnailSeo = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+};
+
 const flows: Record<string, string[]> = {
   "퇴직 준비": ["현재 자금 확인", "최소생활비 계산", "필수 일정 기록", "3개월 뒤 실제값 반영"],
   "정부지원·실업급여": ["공식 원문 확인", "대상 조건 점검", "신청기한 기록", "담당기관에 최종 확인"],
@@ -31,12 +38,35 @@ const checklists: Record<string, Array<[string, string]>> = {
 
 const glossaryTerms = ["실업급여", "국민연금", "종합소득세", "인공지능", "블로그", "연금", "퇴직금", "재취업", "애드센스", "N잡"];
 
+const thumbnailCatalog = [
+  { file: "retirement-checklist.webp", description: "체크 표시가 된 퇴직 준비 체크리스트 일러스트" },
+  { file: "second-career-side-job.webp", description: "노트북으로 재취업과 부업을 준비하는 중장년 일러스트" },
+  { file: "ai-workflow.webp", description: "노트북과 인공지능을 활용하는 중장년 여성 일러스트" },
+  { file: "application-process-timeline.webp", description: "서류와 사람 아이콘으로 구성된 신청 절차 일러스트" },
+  { file: "retirement-pension-life.webp", description: "산과 해를 바라보는 은퇴 부부 일러스트" },
+  { file: "income-tax-calculation.webp", description: "표와 계산기, 원그래프로 구성된 소득·세금 계산 일러스트" },
+  { file: "retirement-asset-growth.webp", description: "집과 새싹, 사다리로 표현한 자산 성장 일러스트" },
+  { file: "three-bucket-budget.webp", description: "주거·생활·보험을 나눈 3칸 예산 일러스트" },
+  { file: "balanced-income-plan.webp", description: "여러 수입원을 균형 있게 쌓는 저울 일러스트" },
+  { file: "content-quality-review.webp", description: "별점 체크리스트를 검토하는 중장년 일러스트" },
+] as const;
+
 function thumbnailHash(value: string) {
   return [...value].reduce((total, character) => (total * 31 + character.charCodeAt(0)) >>> 0, 0);
 }
 
 export function getThumbnailIndex(post: Pick<Post, "id" | "slug">) {
   return post.id >= 1 && post.id <= 10 ? post.id - 1 : thumbnailHash(post.slug) % 10;
+}
+
+export function getThumbnailSeo(post: Pick<Post, "id" | "slug" | "title">): ThumbnailSeo {
+  const image = thumbnailCatalog[getThumbnailIndex(post)];
+  return {
+    src: `/article-thumbnails/${image.file}`,
+    alt: `${post.title} — ${image.description}`,
+    width: 355,
+    height: 444,
+  };
 }
 
 export function appendSourceUrl(body: string, sourceUrl?: string) {
