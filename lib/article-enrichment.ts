@@ -72,12 +72,16 @@ export function getThumbnailSeo(post: Pick<Post, "id" | "slug" | "title">): Thum
 export function appendSourceUrl(body: string, sourceUrl?: string) {
   const source = sourceUrl?.trim();
   if (!source || body.includes(source)) return body.trim();
+  if (/<(?:p|h[1-6]|div|figure|ul|ol|blockquote|table)\b/i.test(body)) {
+    const safeSource = source.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    return `${body.trim()}<p>출처: <a href="${safeSource}" target="_blank" rel="noreferrer">${safeSource}</a></p>`;
+  }
   return `${body.trim()}\n\n출처: ${source}`;
 }
 
 export function enrichArticle(post: Post): ArticleEnrichment {
   const text = `${post.title} ${post.body} ${post.tags.join(" ")}`;
-  const urls = Array.from(new Set((post.body.match(/https?:\/\/[^\s)]+/g) ?? []).map((url) => url.replace(/[.,;]+$/, ""))));
+  const urls = Array.from(new Set((post.body.match(/https?:\/\/[^\s)<>"']+/g) ?? []).map((url) => url.replace(/[.,;]+$/, ""))));
   const officialLinks = urls.slice(0, 3).map((url) => {
     try {
       const host = new URL(url).hostname.replace(/^www\./, "");

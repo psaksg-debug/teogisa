@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("renders the finished Korean content site", async () => {
-  const [page, layout, search, article, media, enrichment, footer, site, css] = await Promise.all([
+  const [page, layout, search, article, media, enrichment, footer, site, css, richEditor, articleHtml] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/search/page.tsx", import.meta.url), "utf8"),
@@ -13,6 +13,8 @@ test("renders the finished Korean content site", async () => {
     readFile(new URL("../app/components/SiteChrome.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/site.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(new URL("../app/admin/RichTextEditor.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../lib/article-html.ts", import.meta.url), "utf8"),
   ]);
   assert.match(layout, /퇴직하고 부자되기/);
   assert.match(page, /퇴직은 끝이 아니라/);
@@ -49,6 +51,14 @@ test("renders the finished Korean content site", async () => {
   assert.match(article, /linkGlossaryTerms/);
   assert.doesNotMatch(media, /어려운 용어/);
   assert.match(css, /glossary-link:hover/);
+  assert.match(richEditor, /HTML 보기/);
+  assert.match(richEditor, /링크 카드·영상/);
+  assert.match(richEditor, /addImage/);
+  assert.match(richEditor, /addTable/);
+  assert.match(article, /renderRichBody/);
+  assert.match(articleHtml, /sanitizeArticleHtml/);
+  assert.match(articleHtml, /blockedElements/);
+  assert.match(articleHtml, /youtube-nocookie/);
   assert.doesNotMatch(`${page}\n${search}\n${article}\n${footer}`, /next\/link|<Link/);
   assert.doesNotMatch(`${page}\n${layout}`, /codex-preview|react-loading-skeleton/i);
 });

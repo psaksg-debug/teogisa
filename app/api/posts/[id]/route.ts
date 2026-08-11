@@ -2,6 +2,7 @@ import { updatePost } from "../../../../lib/repository";
 import { slugify, type PostStatus } from "../../../../lib/content";
 import { requireOwnerApi } from "../../../../lib/site-admin";
 import { appendSourceUrl } from "../../../../lib/article-enrichment";
+import { articlePlainText, sanitizeArticleHtml } from "../../../../lib/article-html";
 
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const auth = await requireOwnerApi(request);
@@ -13,18 +14,19 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     if (!payload.title?.trim() || !payload.body?.trim()) {
       return Response.json({ error: "제목과 본문을 입력하세요." }, { status: 400 });
     }
-    const body = appendSourceUrl(payload.body, payload.sourceUrl);
+    const body = sanitizeArticleHtml(appendSourceUrl(payload.body, payload.sourceUrl));
+    const plainBody = articlePlainText(body);
     const post = await updatePost(Number(id), {
       title: payload.title.trim(),
       slug: slugify(payload.slug || payload.title),
-      excerpt: payload.excerpt?.trim() || body.slice(0, 120),
+      excerpt: payload.excerpt?.trim() || plainBody.slice(0, 120),
       body,
       category: payload.category || "퇴직 준비",
       tags: (payload.tags || "").split(",").map((tag) => tag.trim()).filter(Boolean),
       status,
       publishedAt: status === "published" ? (payload.publishedAt || new Date().toISOString().slice(0, 10)) : "",
       scheduledAt: status === "scheduled" ? payload.scheduledAt || null : null,
-      readingMinutes: Math.max(1, Math.ceil(body.length / 700)),
+      readingMinutes: Math.max(1, Math.ceil(plainBody.length / 700)),
       visual: payload.visual?.trim() || "NEW",
     });
     return Response.json({ post });

@@ -3,6 +3,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import type { Post } from "../../lib/content";
 import type { QueueItem } from "../../lib/repository";
+import RichTextEditor from "./RichTextEditor";
 
 const categories = ["퇴직 준비", "정부지원·실업급여", "재취업·N잡", "블로그·애드센스", "AI 활용", "온라인 부업", "투자·재테크", "실제 수익실험"];
 
@@ -102,7 +103,7 @@ export default function AdminClient({ username }: { username: string }) {
             <div className="form-row"><div className="field"><label htmlFor="category">카테고리</label><select id="category" name="category" defaultValue={selected?.category}>{categories.map((category) => <option key={category}>{category}</option>)}</select></div><div className="field"><label htmlFor="visual">표지 표시</label><input id="visual" name="visual" maxLength={6} defaultValue={selected?.visual} placeholder="예: 30D" /></div></div>
             <div className="field"><label htmlFor="tags">태그</label><input id="tags" name="tags" defaultValue={selected?.tags.join(", ")} placeholder="쉼표로 구분: 퇴직, 생활비" /></div>
             <div className="field"><label htmlFor="sourceUrl">공식자료 주소 <span>(선택)</span></label><input id="sourceUrl" name="sourceUrl" type="url" placeholder="https://www.work24.go.kr/..." /><small>입력하면 본문 끝에 출처 링크가 추가되고 공개 글의 공식자료 영역에 자동 표시됩니다.</small></div>
-            <div className="field"><label htmlFor="body">본문</label><textarea id="body" name="body" required defaultValue={selected?.body} placeholder={'첫 문단을 입력하세요.\n\n## 소제목\n\n내용을 이어갑니다.'} /></div>
+            <div className="field"><div className="field-label" id="body-editor-label">본문 편집기</div><RichTextEditor initialValue={selected?.body}/></div>
             <div className="form-row"><div className="field"><label htmlFor="status">저장 상태</label><select id="status" name="status" defaultValue={selected?.status || "draft"}><option value="draft">초안</option><option value="scheduled">예약</option><option value="published">바로 발행</option></select></div><div className="field"><label htmlFor="scheduledAt">예약 일시</label><input id="scheduledAt" name="scheduledAt" type="datetime-local" defaultValue={datetimeLocal(selected?.scheduledAt ?? null)} /></div></div>
             <input type="hidden" name="publishedAt" value={selected?.publishedAt || ""} />
             <button className="admin-button" disabled={saving}>{saving ? "저장 중…" : selected ? "변경사항 저장" : "글 저장"}</button>
