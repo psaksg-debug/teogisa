@@ -3,9 +3,11 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("renders the finished Korean content site", async () => {
-  const [page, layout, css] = await Promise.all([
+  const [page, layout, footer, site, css] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/SiteChrome.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../lib/site.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
   ]);
   assert.match(layout, /퇴직하고 부자되기/);
@@ -18,6 +20,10 @@ test("renders the finished Korean content site", async () => {
   assert.match(css, /trust-band/);
   assert.match(css, /grid-template-columns:1\.18fr \.82fr/);
   assert.match(layout, /og-v2\.png/);
+  assert.match(footer, /운영사/);
+  assert.match(footer, /애드블스가 운영합니다/);
+  assert.match(site, /Adbles\.com/);
+  assert.match(css, /footer-company/);
   assert.doesNotMatch(`${page}\n${layout}`, /codex-preview|react-loading-skeleton/i);
 });
 
