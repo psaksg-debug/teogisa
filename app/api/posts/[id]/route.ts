@@ -3,7 +3,7 @@ import { slugify, type PostStatus } from "../../../../lib/content";
 import { requireOwnerApi } from "../../../../lib/site-admin";
 
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const auth = await requireOwnerApi();
+  const auth = await requireOwnerApi(request);
   if (auth.response) return auth.response;
   try {
     const { id } = await params;

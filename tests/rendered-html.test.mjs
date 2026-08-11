@@ -16,14 +16,23 @@ test("renders the finished Korean content site", async () => {
   assert.doesNotMatch(`${page}\n${layout}`, /codex-preview|react-loading-skeleton/i);
 });
 
-test("keeps the editor and write APIs owner-protected", async () => {
-  const [adminPage, postsApi, exportApi, automationApi] = await Promise.all([
+test("keeps the independent editor and write APIs session-protected", async () => {
+  const [adminPage, loginPage, sessionRoute, siteAdmin, postsApi, exportApi, automationApi] = await Promise.all([
     readFile(new URL("../app/admin/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/admin/login/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/api/admin/session/route.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/site-admin.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/api/posts/route.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/api/export/route.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/api/automation/route.ts", import.meta.url), "utf8"),
   ]);
-  assert.match(adminPage, /requireSiteOwner/);
+  assert.match(adminPage, /getAdminSession/);
+  assert.match(loginPage, /독립 편집실 로그인/);
+  assert.match(sessionRoute, /authenticateAdmin/);
+  assert.match(siteAdmin, /PBKDF2/);
+  assert.match(siteAdmin, /HttpOnly; Secure; SameSite=Strict/);
+  assert.match(siteAdmin, /ADMIN_PASSWORD_HASH/);
+  assert.doesNotMatch(`${adminPage}\n${sessionRoute}\n${siteAdmin}`, /getChatGPTUser|requireChatGPTUser|hardcoded-password/);
   assert.match(adminPage, /force-dynamic/);
   assert.match(postsApi, /requireOwnerApi/);
   assert.match(exportApi, /requireOwnerApi/);

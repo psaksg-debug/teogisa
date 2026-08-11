@@ -1,15 +1,15 @@
 import { createAutomationDraft, getPostingQueue } from "../../../lib/repository";
 import { requireOwnerApi } from "../../../lib/site-admin";
 
-export async function GET() {
-  const auth = await requireOwnerApi();
+export async function GET(request:Request) {
+  const auth = await requireOwnerApi(request);
   if (auth.response) return auth.response;
   try { return Response.json({ queue: await getPostingQueue() }); }
   catch (error) { return Response.json({ error: error instanceof Error ? error.message : "발행 대기열을 불러오지 못했습니다." }, { status: 500 }); }
 }
 
 export async function POST(request: Request) {
-  const auth = await requireOwnerApi();
+  const auth = await requireOwnerApi(request);
   if (auth.response) return auth.response;
   try {
     const payload = (await request.json()) as Record<string, string>;

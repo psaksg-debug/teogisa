@@ -15,7 +15,7 @@ function datetimeLocal(value: string | null) {
   return local.toISOString().slice(0, 16);
 }
 
-export default function AdminClient({ displayName, email }: { displayName: string; email: string }) {
+export default function AdminClient({ username }: { username: string }) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [queue, setQueue] = useState<QueueItem[]>([]);
   const [selected, setSelected] = useState<Post | null>(null);
@@ -74,13 +74,15 @@ export default function AdminClient({ displayName, email }: { displayName: strin
     } else setMessage(data.error);
   }
 
+  async function logout(){await fetch("/api/admin/session",{method:"DELETE"});window.location.href="/admin/login";}
+
   const count = (status: string) => posts.filter((post) => post.status === status).length;
 
   return (
     <main className="admin-shell">
       <header className="admin-top">
-        <div><strong>퇴직하고 부자되기 · 편집실</strong><span>{displayName} · {email}</span></div>
-        <div className="admin-actions"><a className="admin-button secondary" href="/api/export">전체 백업</a><Link className="admin-button secondary" href="/">사이트 보기</Link><a className="admin-button secondary" href="/signout-with-chatgpt?return_to=/">로그아웃</a></div>
+        <div><strong>퇴직하고 부자되기 · 편집실</strong><span>{username} · 독립 관리자</span></div>
+        <div className="admin-actions"><a className="admin-button secondary" href="/api/export">전체 백업</a><Link className="admin-button secondary" href="/">사이트 보기</Link><button className="admin-button secondary" type="button" onClick={logout}>로그아웃</button></div>
       </header>
 
       <div className="admin-dashboard">
