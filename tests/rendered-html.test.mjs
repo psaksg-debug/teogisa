@@ -3,9 +3,11 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("renders the finished Korean content site", async () => {
-  const [page, layout, footer, site, css] = await Promise.all([
+  const [page, layout, search, article, footer, site, css] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/search/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/posts/[slug]/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components/SiteChrome.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/site.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
@@ -24,6 +26,9 @@ test("renders the finished Korean content site", async () => {
   assert.match(footer, /애드블스가 운영합니다/);
   assert.match(site, /Adbles\.com/);
   assert.match(css, /footer-company/);
+  assert.match(search, /<a href={`\/posts\/\$\{p\.slug\}`}/);
+  assert.match(article, /<a href={`\/posts\/\$\{item\.slug\}`}/);
+  assert.doesNotMatch(`${page}\n${search}\n${article}\n${footer}`, /next\/link|<Link/);
   assert.doesNotMatch(`${page}\n${layout}`, /codex-preview|react-loading-skeleton/i);
 });
 

@@ -1,8 +1,7 @@
-import Link from "next/link";
 import { COMPANY_NAME, COMPANY_URL } from "../../lib/site";
 
 export function Brand() {
-  return <Link className="brand" href="/" aria-label="퇴직하고 부자되기 홈"><span className="brand-mark">퇴</span><span>퇴직하고 부자되기</span></Link>;
+  return <a className="brand" href="/" aria-label="퇴직하고 부자되기 홈"><span className="brand-mark">퇴</span><span>퇴직하고 부자되기</span></a>;
 }
 
 export function InnerHeader({ eyebrow, title, description }:{ eyebrow:string; title:string; description?:string }) {
@@ -19,7 +18,7 @@ export function SiteFooter() {
       </div>
     </div>
     <nav aria-label="사이트 정보">
-      <Link href="/about">사이트 소개</Link><Link href="/author">운영자</Link><Link href="/editorial-policy">편집 원칙</Link><Link href="/privacy">개인정보처리방침</Link><Link href="/disclosure">이용 안내</Link>
+      <a href="/about">사이트 소개</a><a href="/author">운영자</a><a href="/editorial-policy">편집 원칙</a><a href="/privacy">개인정보처리방침</a><a href="/disclosure">이용 안내</a>
     </nav>
     <small>© 2026 {COMPANY_NAME}. All rights reserved. ‘퇴직하고 부자되기’는 애드블스가 운영합니다.<br/>정보는 참고용이며 투자 판단과 제도 신청의 최종 확인은 본인에게 있습니다.</small>
   </footer>;

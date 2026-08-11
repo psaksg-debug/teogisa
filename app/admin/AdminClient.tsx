@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
-import Link from "next/link";
 import type { Post } from "../../lib/content";
 import type { QueueItem } from "../../lib/repository";
 
@@ -82,7 +81,7 @@ export default function AdminClient({ username }: { username: string }) {
     <main className="admin-shell">
       <header className="admin-top">
         <div><strong>퇴직하고 부자되기 · 편집실</strong><span>{username} · 독립 관리자</span></div>
-        <div className="admin-actions"><a className="admin-button secondary" href="/api/export">전체 백업</a><Link className="admin-button secondary" href="/">사이트 보기</Link><button className="admin-button secondary" type="button" onClick={logout}>로그아웃</button></div>
+        <div className="admin-actions"><a className="admin-button secondary" href="/api/export">전체 백업</a><a className="admin-button secondary" href="/">사이트 보기</a><button className="admin-button secondary" type="button" onClick={logout}>로그아웃</button></div>
       </header>
 
       <div className="admin-dashboard">
