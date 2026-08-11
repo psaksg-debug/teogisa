@@ -45,6 +45,10 @@ test("renders the finished Korean content site", async () => {
   assert.match(css, /article-flow/);
   assert.match(search, /<a href={`\/posts\/\$\{p\.slug\}`}/);
   assert.match(article, /<a href={`\/posts\/\$\{item\.slug\}`}/);
+  assert.match(article, /className="glossary-link"/);
+  assert.match(article, /linkGlossaryTerms/);
+  assert.doesNotMatch(media, /어려운 용어/);
+  assert.match(css, /glossary-link:hover/);
   assert.doesNotMatch(`${page}\n${search}\n${article}\n${footer}`, /next\/link|<Link/);
   assert.doesNotMatch(`${page}\n${layout}`, /codex-preview|react-loading-skeleton/i);
 });
