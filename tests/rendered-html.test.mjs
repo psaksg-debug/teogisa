@@ -3,11 +3,13 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("renders the finished Korean content site", async () => {
-  const [page, layout, search, article, footer, site, css] = await Promise.all([
+  const [page, layout, search, article, media, enrichment, footer, site, css] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/search/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/posts/[slug]/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/ArticleMedia.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../lib/article-enrichment.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/components/SiteChrome.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/site.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
@@ -26,6 +28,13 @@ test("renders the finished Korean content site", async () => {
   assert.match(footer, /애드블스가 운영합니다/);
   assert.match(site, /Adbles\.com/);
   assert.match(css, /footer-company/);
+  assert.match(layout, /fonts\.googleapis\.com\/css2/);
+  assert.match(layout, /Noto\+Sans\+KR/);
+  assert.match(media, /ArticleThumbnail/);
+  assert.match(media, /AUTOMATIC READING GUIDE/);
+  assert.match(enrichment, /wikipedia\.org/);
+  assert.match(css, /article-thumbnail-sprite\.png/);
+  assert.match(css, /article-flow/);
   assert.match(search, /<a href={`\/posts\/\$\{p\.slug\}`}/);
   assert.match(article, /<a href={`\/posts\/\$\{item\.slug\}`}/);
   assert.doesNotMatch(`${page}\n${search}\n${article}\n${footer}`, /next\/link|<Link/);
@@ -33,12 +42,14 @@ test("renders the finished Korean content site", async () => {
 });
 
 test("keeps the independent editor and write APIs session-protected", async () => {
-  const [adminPage, loginPage, sessionRoute, siteAdmin, postsApi, exportApi, automationApi] = await Promise.all([
+  const [adminPage, adminClient, loginPage, sessionRoute, siteAdmin, postsApi, postUpdateApi, exportApi, automationApi] = await Promise.all([
     readFile(new URL("../app/admin/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/admin/AdminClient.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/admin/login/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/api/admin/session/route.ts", import.meta.url), "utf8"),
     readFile(new URL("../lib/site-admin.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/api/posts/route.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/api/posts/[id]/route.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/api/export/route.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/api/automation/route.ts", import.meta.url), "utf8"),
   ]);
@@ -51,6 +62,10 @@ test("keeps the independent editor and write APIs session-protected", async () =
   assert.doesNotMatch(`${adminPage}\n${sessionRoute}\n${siteAdmin}`, /getChatGPTUser|requireChatGPTUser|hardcoded-password/);
   assert.match(adminPage, /force-dynamic/);
   assert.match(postsApi, /requireOwnerApi/);
+  assert.match(postsApi, /appendSourceUrl/);
+  assert.match(postUpdateApi, /appendSourceUrl/);
+  assert.match(adminClient, /공식자료 주소/);
+  assert.match(adminClient, /전용 썸네일/);
   assert.match(exportApi, /requireOwnerApi/);
   assert.match(automationApi, /requireOwnerApi/);
 });

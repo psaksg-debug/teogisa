@@ -1,5 +1,6 @@
 import { getPublishedPosts } from "../lib/repository";
 import { Brand, SiteFooter } from "./components/SiteChrome";
+import { ArticleThumbnail } from "./components/ArticleMedia";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "../lib/site";
 
 const journeys = [
@@ -95,10 +96,7 @@ export default async function Home() {
           <div className="post-grid">
             {posts.slice(0, 3).map((post, index) => (
               <article className={`post-card post-${index + 1}`} key={post.slug}>
-                <div className="post-visual" aria-hidden="true">
-                  <span>{post.category}</span>
-                  <b>{post.visual}</b>
-                </div>
+                <ArticleThumbnail post={post}/>
                 <div className="post-body">
                   <p className="post-meta">{index === 0 ? "이번 주 대표 글" : post.category} · {post.readingMinutes}분</p>
                   <h3><a href={`/posts/${post.slug}`}>{post.title}</a></h3>

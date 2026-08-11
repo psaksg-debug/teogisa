@@ -101,6 +101,7 @@ export default function AdminClient({ username }: { username: string }) {
             <div className="field"><label htmlFor="excerpt">한 줄 요약</label><input id="excerpt" name="excerpt" defaultValue={selected?.excerpt} placeholder="검색 결과에 보일 120자 안팎의 설명" /></div>
             <div className="form-row"><div className="field"><label htmlFor="category">카테고리</label><select id="category" name="category" defaultValue={selected?.category}>{categories.map((category) => <option key={category}>{category}</option>)}</select></div><div className="field"><label htmlFor="visual">표지 표시</label><input id="visual" name="visual" maxLength={6} defaultValue={selected?.visual} placeholder="예: 30D" /></div></div>
             <div className="field"><label htmlFor="tags">태그</label><input id="tags" name="tags" defaultValue={selected?.tags.join(", ")} placeholder="쉼표로 구분: 퇴직, 생활비" /></div>
+            <div className="field"><label htmlFor="sourceUrl">공식자료 주소 <span>(선택)</span></label><input id="sourceUrl" name="sourceUrl" type="url" placeholder="https://www.work24.go.kr/..." /><small>입력하면 본문 끝에 출처 링크가 추가되고 공개 글의 공식자료 영역에 자동 표시됩니다.</small></div>
             <div className="field"><label htmlFor="body">본문</label><textarea id="body" name="body" required defaultValue={selected?.body} placeholder={'첫 문단을 입력하세요.\n\n## 소제목\n\n내용을 이어갑니다.'} /></div>
             <div className="form-row"><div className="field"><label htmlFor="status">저장 상태</label><select id="status" name="status" defaultValue={selected?.status || "draft"}><option value="draft">초안</option><option value="scheduled">예약</option><option value="published">바로 발행</option></select></div><div className="field"><label htmlFor="scheduledAt">예약 일시</label><input id="scheduledAt" name="scheduledAt" type="datetime-local" defaultValue={datetimeLocal(selected?.scheduledAt ?? null)} /></div></div>
             <input type="hidden" name="publishedAt" value={selected?.publishedAt || ""} />
@@ -110,7 +111,7 @@ export default function AdminClient({ username }: { username: string }) {
 
         <section className="panel automation-panel">
           <div className="panel-title"><div><p className="eyebrow">REVIEW QUEUE</p><h2>자동 포스팅 준비</h2></div><span className="queue-count">검토 {queue.filter((item) => item.status === "review").length}</span></div>
-          <p className="panel-help">공식 자료 주소와 주제를 넣으면 검토 체크리스트가 포함된 초안을 만듭니다. 초안을 확인해 예약 상태로 바꾸면 지정 시각 이후 자동으로 공개됩니다.</p>
+          <p className="panel-help">공식 자료 주소와 주제를 넣으면 검토 체크리스트가 포함된 초안을 만듭니다. 공개 글에는 전용 썸네일, 핵심 흐름 다이어그램, 확인표, 공식자료와 위키백과 용어 링크가 자동 구성됩니다. 초안을 확인해 예약 상태로 바꾸면 지정 시각 이후 자동으로 공개됩니다.</p>
           <form className="queue-form" onSubmit={createQueueDraft}>
             <div className="field"><label htmlFor="topic">글 주제</label><input id="topic" name="topic" required placeholder="예: 2026년 실업크레딧 신청 방법" /></div>
             <div className="field"><label htmlFor="sourceUrl">공식 자료 주소</label><input id="sourceUrl" name="sourceUrl" required type="url" placeholder="https://www.work24.go.kr/..." /></div>
