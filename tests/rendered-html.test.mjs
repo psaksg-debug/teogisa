@@ -30,6 +30,8 @@ test("renders the finished Korean content site", async () => {
   assert.match(css, /footer-company/);
   assert.match(layout, /fonts\.googleapis\.com\/css2/);
   assert.match(layout, /Noto\+Sans\+KR/);
+  assert.equal((layout.match(/google-adsense-account/g) ?? []).length, 1);
+  assert.match(layout, /<meta name="google-adsense-account" content="ca-pub-4030620718116834"\/>/);
   assert.match(media, /ArticleThumbnail/);
   assert.match(media, /AUTOMATIC READING GUIDE/);
   assert.match(enrichment, /wikipedia\.org/);
