@@ -1,8 +1,10 @@
 import { createPost, getAllPosts } from "../../../lib/repository";
 import { slugify, type PostStatus } from "../../../lib/content";
+import { requireOwnerApi } from "../../../lib/site-admin";
 
-export async function GET(){try{return Response.json({posts:await getAllPosts()});}catch(error){return Response.json({error:error instanceof Error?error.message:"글을 불러오지 못했습니다."},{status:500});}}
+export async function GET(){const auth=await requireOwnerApi();if(auth.response)return auth.response;try{return Response.json({posts:await getAllPosts()});}catch(error){return Response.json({error:error instanceof Error?error.message:"글을 불러오지 못했습니다."},{status:500});}}
 export async function POST(request:Request){
+  const auth=await requireOwnerApi();if(auth.response)return auth.response;
   try{
     const p=await request.json() as Record<string,string>;
     if(!p.title?.trim()||!p.body?.trim()) return Response.json({error:"제목과 본문을 입력하세요."},{status:400});

@@ -35,7 +35,7 @@ export default async function Home() {
           <a href="#topics">주제</a>
           <Link href="/about">소개</Link>
         </nav>
-        <Link className="search-link" href="/search" aria-label="글 검색">검색 <span>⌕</span></Link>
+        <div className="header-tools"><span className="verified-label">공식 자료 검토</span><Link className="search-link" href="/search" aria-label="글 검색">검색 <span>⌕</span></Link></div>
       </header>
 
       <main>
@@ -76,9 +76,19 @@ export default async function Home() {
           ))}
         </section>
 
+        <section className="trust-band" aria-label="콘텐츠 운영 원칙">
+          <p className="eyebrow">HOW WE VERIFY</p>
+          <h2>돈에 관한 글일수록<br/>근거와 날짜를 남깁니다.</h2>
+          <div className="trust-rules">
+            <div><span>원문</span><strong>정부·공공기관 자료 우선</strong><p>정책과 신청 조건은 경험담보다 공식 안내를 먼저 확인합니다.</p></div>
+            <div><span>검토</span><strong>AI 초안도 사람이 확인</strong><p>숫자, 날짜, 대상 조건을 대조한 뒤 공개합니다.</p></div>
+            <div><span>실험</span><strong>수익은 과정까지 기록</strong><p>결과만 자랑하지 않고 걸린 시간과 비용을 함께 남깁니다.</p></div>
+          </div>
+        </section>
+
         <section className="latest section-wrap" id="latest">
           <div className="section-heading">
-            <div><p className="eyebrow">LATEST FIELD NOTES</p><h2>이번 주에 먼저 볼 글</h2></div>
+            <div><p className="eyebrow">LATEST FIELD NOTES · {posts.length} ARTICLES</p><h2>이번 주에 먼저 볼 글</h2></div>
             <Link href="/search">모든 글 보기 →</Link>
           </div>
           <div className="post-grid">
@@ -110,13 +120,14 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="newsletter">
-          <div><p className="eyebrow">WEEKLY MONEY LETTER</p><h2>이번 주에 확인할<br/>돈 되는 정보만 보냅니다.</h2></div>
-          <form className="subscribe-form"><label htmlFor="email">이메일 주소</label><div><input id="email" type="email" placeholder="name@example.com"/><button type="submit">무료로 받아보기</button></div><p>광고보다 실험 결과를 먼저 전합니다. 언제든 해지할 수 있습니다.</p></form>
+        <section className="closing-note">
+          <p className="eyebrow">START WITH THE NUMBERS</p>
+          <h2>오늘 할 일은 하나면 됩니다.<br/><em>내 최소 생활비부터 적어보기.</em></h2>
+          <Link className="primary-button" href="/posts/first-30-days-after-retirement">첫 30일 체크리스트 <span>→</span></Link>
         </section>
       </main>
 
-      <footer><Link className="brand footer-brand" href="/"><span className="brand-mark">퇴</span><span>퇴직하고 부자되기</span></Link><p>퇴직 이후의 돈·일·부업·재테크를 연구합니다.</p><div><Link href="/about">사이트 소개</Link><Link href="/admin">글 관리</Link><a href="mailto:hello@example.com">문의</a></div><small>© 2026 퇴직하고 부자되기. 정보는 참고용이며 투자 판단의 책임은 본인에게 있습니다.</small></footer>
+      <footer><Link className="brand footer-brand" href="/"><span className="brand-mark">퇴</span><span>퇴직하고 부자되기</span></Link><p>퇴직 이후의 돈·일·부업·재테크를 연구합니다.</p><div><Link href="/about">사이트 소개</Link><Link href="/search">전체 글</Link></div><small>© 2026 퇴직하고 부자되기. 정보는 참고용이며 투자 판단과 제도 신청의 최종 확인은 본인에게 있습니다.</small></footer>
     </>
   );
 }
