@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { Post } from "../../lib/content";
 import type { QueueItem } from "../../lib/repository";
 import RichTextEditor from "./RichTextEditor";
@@ -21,6 +21,7 @@ export default function AdminClient({ username }: { username: string }) {
   const [selected, setSelected] = useState<Post | null>(null);
   const [message, setMessage] = useState("편집실을 준비하고 있습니다…");
   const [saving, setSaving] = useState(false);
+  const editorPanelRef = useRef<HTMLElement>(null);
 
   async function load() {
     const [postsResponse, queueResponse] = await Promise.all([fetch("/api/posts"), fetch("/api/automation")]);
@@ -29,13 +30,37 @@ export default function AdminClient({ username }: { username: string }) {
     if (postsResponse.ok && queueResponse.ok) {
       setPosts(postsData.posts);
       setQueue(queueData.queue);
-      setMessage("");
+      const requestedPostId = Number(new URLSearchParams(window.location.search).get("post"));
+      const requestedPost = postsData.posts.find((post: Post) => post.id === requestedPostId);
+      if (requestedPost) {
+        setSelected(requestedPost);
+        setMessage(`‘${requestedPost.title}’ 글을 편집기로 열었습니다.`);
+      } else {
+        setMessage("");
+      }
     } else {
       setMessage(postsData.error || queueData.error || "편집실 자료를 불러오지 못했습니다.");
     }
   }
 
   useEffect(() => { void load(); }, []);
+
+  function openEditor(post: Post) {
+    setSelected(post);
+    setMessage(`‘${post.title}’ 글을 편집기로 열었습니다.`);
+    window.history.replaceState(null, "", `/admin?post=${post.id}#article-editor`);
+    requestAnimationFrame(() => {
+      editorPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+
+  function startNewPost() {
+    setSelected(null);
+    window.history.replaceState(null, "", "/admin#article-editor");
+    requestAnimationFrame(() => {
+      editorPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
 
   async function savePost(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -89,14 +114,14 @@ export default function AdminClient({ username }: { username: string }) {
         <section>
           <div className="admin-stats"><div className="stat"><span>발행 글</span><strong>{count("published")}</strong></div><div className="stat"><span>초안</span><strong>{count("draft")}</strong></div><div className="stat"><span>예약</span><strong>{count("scheduled")}</strong></div></div>
           <div className="panel">
-            <div className="panel-title"><div><p className="eyebrow">CONTENT LIBRARY</p><h2>콘텐츠 보관함</h2></div><button className="admin-button secondary" onClick={() => setSelected(null)}>새 글</button></div>
+            <div className="panel-title"><div><p className="eyebrow">CONTENT LIBRARY</p><h2>콘텐츠 보관함</h2></div><button className="admin-button secondary" type="button" onClick={startNewPost}>새 글</button></div>
             {message && <p className="admin-message" role="status">{message}</p>}
-            <div className="admin-list">{posts.map((post) => <button className={`admin-item ${selected?.id === post.id ? "selected" : ""}`} onClick={() => setSelected(post)} key={post.id}><span className={`status status-${post.status}`}>{post.status === "published" ? "발행" : post.status === "scheduled" ? "예약" : "초안"}</span><p>{post.title}</p><span>{post.category} · {post.publishedAt || (post.scheduledAt ? new Date(post.scheduledAt).toLocaleString("ko-KR") : "날짜 미정")}</span></button>)}</div>
+            <div className="admin-list">{posts.map((post) => <button type="button" className={`admin-item ${selected?.id === post.id ? "selected" : ""}`} onClick={() => openEditor(post)} aria-label={`${post.title} 글 편집하기`} aria-pressed={selected?.id === post.id} key={post.id}><span className={`status status-${post.status}`}>{post.status === "published" ? "발행" : post.status === "scheduled" ? "예약" : "초안"}</span><p>{post.title}</p><span>{post.category} · {post.publishedAt || (post.scheduledAt ? new Date(post.scheduledAt).toLocaleString("ko-KR") : "날짜 미정")}</span></button>)}</div>
           </div>
         </section>
 
-        <section className="panel editor-panel">
-          <div className="panel-title"><div><p className="eyebrow">{selected ? "EDIT ARTICLE" : "NEW ARTICLE"}</p><h2>{selected ? "글 수정" : "새 글 작성"}</h2></div>{selected && <button className="admin-button secondary" onClick={() => setSelected(null)}>취소</button>}</div>
+        <section className="panel editor-panel" id="article-editor" ref={editorPanelRef}>
+          <div className="panel-title"><div><p className="eyebrow">{selected ? "EDIT ARTICLE" : "NEW ARTICLE"}</p><h2>{selected ? `글 수정 · ${selected.title}` : "새 글 작성"}</h2></div>{selected && <button className="admin-button secondary" type="button" onClick={() => setSelected(null)}>취소</button>}</div>
           <form key={selected?.id ?? "new"} onSubmit={savePost}>
             <div className="field"><label htmlFor="title">제목</label><input id="title" name="title" required defaultValue={selected?.title} placeholder="독자가 찾을 구체적인 제목" /></div>
             <div className="field"><label htmlFor="excerpt">한 줄 요약</label><input id="excerpt" name="excerpt" defaultValue={selected?.excerpt} placeholder="검색 결과에 보일 120자 안팎의 설명" /></div>
@@ -119,7 +144,7 @@ export default function AdminClient({ username }: { username: string }) {
             <div className="form-row"><div className="field"><label htmlFor="queueCategory">카테고리</label><select id="queueCategory" name="category">{categories.map((category) => <option key={category}>{category}</option>)}</select></div><div className="field"><label htmlFor="queueTime">희망 발행 시각</label><input id="queueTime" name="scheduledAt" type="datetime-local" /></div></div>
             <button className="admin-button" disabled={saving}>검토용 초안 만들기</button>
           </form>
-          <div className="queue-list">{queue.map((item) => <button key={item.id} onClick={() => setSelected(posts.find((post) => post.id === item.postId) ?? null)}><span>{item.status === "review" ? "검토 필요" : item.status}</span><strong>{item.title}</strong><small>{item.sourceUrl}</small></button>)}</div>
+          <div className="queue-list">{queue.map((item) => <button type="button" key={item.id} onClick={() => { const post = posts.find((candidate) => candidate.id === item.postId); if (post) openEditor(post); }}><span>{item.status === "review" ? "검토 필요" : item.status}</span><strong>{item.title}</strong><small>{item.sourceUrl}</small></button>)}</div>
         </section>
       </div>
     </main>

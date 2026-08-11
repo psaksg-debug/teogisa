@@ -88,6 +88,10 @@ test("keeps the independent editor and write APIs session-protected", async () =
   assert.match(postUpdateApi, /appendSourceUrl/);
   assert.match(adminClient, /공식자료 주소/);
   assert.match(adminClient, /전용 썸네일/);
+  assert.match(adminClient, /function openEditor\(post: Post\)/);
+  assert.match(adminClient, /scrollIntoView\(\{ behavior: "smooth", block: "start" \}\)/);
+  assert.match(adminClient, /aria-label={`\$\{post\.title\} 글 편집하기`}/);
+  assert.match(adminClient, /new URLSearchParams\(window\.location\.search\)\.get\("post"\)/);
   assert.match(exportApi, /requireOwnerApi/);
   assert.match(automationApi, /requireOwnerApi/);
 });
