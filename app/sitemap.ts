@@ -1,0 +1,2 @@
+import type {MetadataRoute} from "next";import {getPublishedPosts} from "../lib/repository";
+export default async function sitemap():Promise<MetadataRoute.Sitemap>{const base="https://retire-rich.example";const posts=await getPublishedPosts();return [{url:base,lastModified:new Date(),changeFrequency:"weekly",priority:1},{url:`${base}/about`,lastModified:new Date(),changeFrequency:"monthly",priority:.5},...posts.map(p=>({url:`${base}/posts/${p.slug}`,lastModified:new Date(p.publishedAt),changeFrequency:"monthly" as const,priority:.8}))];}
