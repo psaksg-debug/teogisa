@@ -12,7 +12,12 @@ test("renders the finished Korean content site", async () => {
   assert.match(page, /퇴직은 끝이 아니라/);
   assert.match(page, /공식 자료 검토/);
   assert.match(page, /월 목표 현금흐름/);
+  assert.match(page, /본문으로 바로가기/);
+  assert.match(page, /hero-facts/);
+  assert.match(page, /mobile-home-nav/);
   assert.match(css, /trust-band/);
+  assert.match(css, /grid-template-columns:1\.18fr \.82fr/);
+  assert.match(layout, /og-v2\.png/);
   assert.doesNotMatch(`${page}\n${layout}`, /codex-preview|react-loading-skeleton/i);
 });
 

@@ -24,13 +24,14 @@ const categories = [
 export default async function Home() {
   const posts = await getPublishedPosts();
   const jsonLd = {"@context":"https://schema.org","@graph":[
-    {"@type":"Organization","@id":`${SITE_URL}/#organization`,name:SITE_NAME,url:SITE_URL,logo:{"@type":"ImageObject",url:`${SITE_URL}/og.png`}},
+    {"@type":"Organization","@id":`${SITE_URL}/#organization`,name:SITE_NAME,url:SITE_URL,logo:{"@type":"ImageObject",url:`${SITE_URL}/favicon.svg`}},
     {"@type":"WebSite","@id":`${SITE_URL}/#website`,url:SITE_URL,name:SITE_NAME,description:SITE_DESCRIPTION,publisher:{"@id":`${SITE_URL}/#organization`},inLanguage:"ko-KR"}
   ]};
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(jsonLd)}}/>
+      <a className="skip-link" href="#main-content">본문으로 바로가기</a>
       <header className="site-header">
         <Brand/>
         <nav className="main-nav" aria-label="주요 메뉴">
@@ -42,14 +43,21 @@ export default async function Home() {
         <div className="header-tools"><span className="verified-label">공식 자료 검토</span><Link className="tool-link" href="/tools/retirement-runway">생활비 계산기</Link><Link className="search-link" href="/search" aria-label="글 검색">검색 <span>⌕</span></Link></div>
       </header>
 
-      <main>
+      <nav className="mobile-home-nav" aria-label="모바일 빠른 메뉴">
+        <Link href="/tools/retirement-runway">생활비 계산</Link><a href="#latest">새 글</a><a href="#topics">주제</a><Link href="/search">검색</Link>
+      </nav>
+
+      <main id="main-content">
         <section className="hero">
           <div className="hero-copy">
             <p className="eyebrow">RETIREMENT INCOME LAB · 2026</p>
             <h1>퇴직은 끝이 아니라<br/><em>새 수입의 시작</em>입니다.</h1>
             <p className="hero-lead">퇴직 이후의 돈·일·부업·재테크를 직접 공부하고 실험합니다. 막연한 부자가 아니라, 매달 들어오는 300만 원부터 함께 만듭니다.</p>
+            <dl className="hero-facts" aria-label="사이트 콘텐츠 현황">
+              <div><dt>발행한 연구노트</dt><dd>{posts.length}편</dd></div><div><dt>연구 주제</dt><dd>{categories.length}개</dd></div><div><dt>무료 계산 도구</dt><dd>1개</dd></div>
+            </dl>
             <div className="hero-actions">
-              <Link className="primary-button" href="/tools/retirement-runway">내 버틸 기간 계산하기 <span>→</span></Link>
+              <Link className="primary-button" href="/tools/retirement-runway">내 버틸 기간 계산하기 <span aria-hidden="true">→</span></Link>
               <a className="text-button" href="#roadmap">로드맵 보기</a>
             </div>
           </div>
@@ -80,6 +88,29 @@ export default async function Home() {
           ))}
         </section>
 
+        <section className="latest section-wrap" id="latest">
+          <div className="section-heading">
+            <div><p className="eyebrow">LATEST FIELD NOTES · {posts.length} ARTICLES</p><h2>이번 주에 먼저 볼 글</h2><p className="section-intro">생활비를 계산하고, 빠른 수입과 오래 쌓이는 수입을 차례로 검토합니다.</p></div>
+            <Link href="/search">모든 글 보기 <span aria-hidden="true">→</span></Link>
+          </div>
+          <div className="post-grid">
+            {posts.slice(0, 3).map((post, index) => (
+              <article className={`post-card post-${index + 1}`} key={post.slug}>
+                <div className="post-visual" aria-hidden="true">
+                  <span>{post.category}</span>
+                  <b>{post.visual}</b>
+                </div>
+                <div className="post-body">
+                  <p className="post-meta">{index === 0 ? "이번 주 대표 글" : post.category} · {post.readingMinutes}분</p>
+                  <h3><Link href={`/posts/${post.slug}`}>{post.title}</Link></h3>
+                  <p>{post.excerpt}</p>
+                  <Link className="read-more" href={`/posts/${post.slug}`}>읽어보기 <span aria-hidden="true">↗</span></Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <section className="trust-band" aria-label="콘텐츠 운영 원칙">
           <p className="eyebrow">HOW WE VERIFY</p>
           <h2>돈에 관한 글일수록<br/>근거와 날짜를 남깁니다.</h2>
@@ -91,31 +122,8 @@ export default async function Home() {
         </section>
 
         <section className="tool-promo section-wrap" aria-labelledby="tool-title">
-          <div className="tool-promo-copy"><p className="eyebrow">FREE RETIREMENT TOOL</p><h2 id="tool-title">지금 가진 돈으로<br/>몇 개월을 버틸 수 있을까요?</h2><p>보유 자금, 월 필수생활비, 고정 수입 세 가지만 입력하면 재취업과 새 수입원을 준비할 수 있는 시간을 바로 계산합니다. 입력값은 저장하지 않습니다.</p><Link className="primary-button" href="/tools/retirement-runway">퇴직생활비 계산기 <span>→</span></Link></div>
+          <div className="tool-promo-copy"><p className="eyebrow">FREE RETIREMENT TOOL</p><h2 id="tool-title">지금 가진 돈으로<br/>몇 개월을 버틸 수 있을까요?</h2><p>보유 자금, 월 필수생활비, 고정 수입 세 가지만 입력하면 재취업과 새 수입원을 준비할 수 있는 시간을 바로 계산합니다. 입력값은 저장하지 않습니다.</p><Link className="primary-button" href="/tools/retirement-runway">퇴직생활비 계산기 <span aria-hidden="true">→</span></Link></div>
           <div className="tool-promo-result" aria-hidden="true"><span>예시 계산</span><strong>24개월</strong><p>자금 6,000만 원<br/>월 부족액 250만 원</p></div>
-        </section>
-
-        <section className="latest section-wrap" id="latest">
-          <div className="section-heading">
-            <div><p className="eyebrow">LATEST FIELD NOTES · {posts.length} ARTICLES</p><h2>이번 주에 먼저 볼 글</h2></div>
-            <Link href="/search">모든 글 보기 →</Link>
-          </div>
-          <div className="post-grid">
-            {posts.slice(0, 3).map((post, index) => (
-              <article className={`post-card post-${index + 1}`} key={post.slug}>
-                <div className="post-visual" aria-hidden="true">
-                  <span>{post.category}</span>
-                  <b>{post.visual}</b>
-                </div>
-                <div className="post-body">
-                  <p className="post-meta">{post.category} · {post.readingMinutes}분</p>
-                  <h3><Link href={`/posts/${post.slug}`}>{post.title}</Link></h3>
-                  <p>{post.excerpt}</p>
-                  <Link className="read-more" href={`/posts/${post.slug}`}>읽어보기 <span>↗</span></Link>
-                </div>
-              </article>
-            ))}
-          </div>
         </section>
 
         <section className="topics section-wrap" id="topics">
@@ -123,7 +131,7 @@ export default async function Home() {
           <div className="topic-list">
             {categories.map(([title, description, number]) => (
               <Link href={`/search?category=${encodeURIComponent(title)}`} className="topic-row" key={title}>
-                <span>{number}</span><strong>{title}</strong><p>{description}</p><b>→</b>
+                <span>{number}</span><strong>{title}</strong><p>{description}</p><b aria-hidden="true">→</b>
               </Link>
             ))}
           </div>
@@ -132,7 +140,7 @@ export default async function Home() {
         <section className="closing-note">
           <p className="eyebrow">START WITH THE NUMBERS</p>
           <h2>오늘 할 일은 하나면 됩니다.<br/><em>내 최소 생활비부터 적어보기.</em></h2>
-          <Link className="primary-button" href="/posts/first-30-days-after-retirement">첫 30일 체크리스트 <span>→</span></Link>
+          <Link className="primary-button" href="/posts/first-30-days-after-retirement">첫 30일 체크리스트 <span aria-hidden="true">→</span></Link>
         </section>
       </main>
 
