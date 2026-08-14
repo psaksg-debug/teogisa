@@ -28,6 +28,14 @@ const categoryOfficialLinks:Record<string,Array<{label:string;url:string}>>={
 };
 
 const slugResources:Record<string,{links?:Array<{label:string;url:string}>;images?:ArticleEnrichment["images"];video?:ArticleEnrichment["video"]}>={
+  "retirement-pay-irp-five-checks-before-withdrawal":{
+    links:[{label:"고용노동부 IRP 의무이전·예외 안내",url:"https://1350.moel.go.kr/rtmview.do?id=1000255731&page=1&type=ALL"},{label:"고용노동부 퇴직연금제도 안내",url:"https://www.moel.go.kr/retirementpay.do"},{label:"국세청 연금계좌 원천징수세율",url:"https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7888&mi=6609"},{label:"국세청 퇴직소득세·과세이연 안내",url:"https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7880&mi=6444"}],
+    images:[{src:"/article-thumbnails/application-process-timeline.webp",alt:"퇴직금이 IRP에 입금된 뒤 일시금과 연금 수령 절차를 확인하는 서류·일정표 일러스트",caption:"IRP는 해지 버튼부터 누르기보다 퇴직금의 출처, 필요한 시점과 수령 방식을 순서대로 확인해야 합니다. · 퇴.기.사 제작 일러스트",width:355,height:444}],
+  },
+  "proshot-mobile-id-studio-photo-guide":{
+    links:[{label:"ProShot AI 사진 스튜디오 바로가기",url:"https://proshot.adbles.com/"},{label:"외교부 여권사진 규격 안내",url:"https://www.passport.go.kr/home/kor/contents.do?menuPos=32"},{label:"외교부 온라인 여권사진 검증",url:"https://passport.go.kr/home/kor/onlinePhotoVerify/index.do?menuPos=33"}],
+    images:[{src:"https://proshot.adbles.com/images/selfie_before.png",alt:"ProShot에 업로드하기 전 휴대폰 정면 셀카 예시",caption:"정면을 또렷하게 바라본 휴대폰 셀카를 준비합니다. · ProShot 제공 예시 이미지",width:640,height:640},{src:"https://proshot.adbles.com/images/profile_after.png",alt:"ProShot으로 생성한 정장 차림의 스튜디오 비즈니스 프로필 사진 예시",caption:"스타일을 선택하면 비즈니스 헤드샷이나 스튜디오 프로필 형태로 생성할 수 있습니다. · ProShot 제공 예시 이미지",width:640,height:640}],
+  },
   "deposit-protection-100-million-retirement-money-checks":{
     links:[{label:"금융위원회 예금보호한도 1억원 안내",url:"https://www.fsc.go.kr/edu/news/85225"},{label:"금융위원회 적용 대상·별도 한도 안내",url:"https://www.fsc.go.kr/edu/news/85077"},{label:"예금보험공사 예금자보호 안내",url:"https://www.kdic.or.kr/"}],
     images:[{src:"/article-thumbnails/income-tax-calculation.webp",alt:"예금보호한도와 퇴직금 분산 예치를 계산하는 표·계산기 일러스트",caption:"보호한도만 보지 말고 금융회사별 원금·예상 이자 합계와 만기일을 함께 적어야 합니다. · 퇴.기.사 제작 일러스트",width:355,height:444}],

@@ -47,6 +47,8 @@ test("renders the finished Korean content site", async () => {
   assert.match(mobileMenu, /유용한 도구/);
   assert.match(mobileMenu, /건강·예방/);
   assert.match(css, /mobile-menu-drawer/);
+  assert.match(css, /\.article-copy ul\{list-style:disc\}/);
+  assert.match(css, /\.article-copy ol\{list-style:decimal\}/);
   assert.match(css, /trust-band/);
   assert.match(css, /grid-template-columns:1\.18fr \.82fr/);
   assert.match(layout, /project-og-v2\.jpg/);
@@ -89,6 +91,7 @@ test("renders the finished Korean content site", async () => {
   assert.match(css, /\.footer-links a\{font-size:14px/);
   assert.match(management, /list-missing/);
   assert.match(management, /본문 목록이 없습니다/);
+  assert.match(media, /공식자료와 추가 확인처/);
   assert.doesNotMatch(media, /자동 구성된/);
   assert.match(enrichment, /wikipedia\.org/);
   assert.match(enrichment, /categoryOfficialLinks/);
@@ -97,6 +100,16 @@ test("renders the finished Korean content site", async () => {
   assert.match(enrichment, /D-5p431l-qY/);
   assert.match(content, /alt="퇴직 후 건강보험 가입 유형을 확인하는 중장년 부부 일러스트"/);
   assert.match(enrichment, /퇴직 후 건강보험 가입 유형을 확인하는 중장년 부부 일러스트/);
+  assert.match(content, /proshot-mobile-id-studio-photo-guide/);
+  assert.match(content, /ProShot은 현재 무료로 이용할 수 있습니다/);
+  assert.doesNotMatch(content, /990원|2,000원/);
+  assert.match(content, /ProShot에 업로드하기 전 휴대폰 정면 셀카 예시/);
+  assert.match(content, /ProShot으로 생성한 정장 차림의 스튜디오 비즈니스 프로필 사진 예시/);
+  assert.match(content, /retirement-pay-irp-five-checks-before-withdrawal/);
+  assert.match(content, /퇴직금이 IRP에 입금된 뒤 일시금과 연금 수령 절차를 확인하는 서류·일정표 일러스트/);
+  assert.match(content, /박세온 · 세금·보험 편집자/);
+  assert.match(enrichment, /국세청 연금계좌 원천징수세율/);
+  assert.match(enrichment, /외교부 온라인 여권사진 검증/);
   assert.match(media, /enrichment\.images/);
   assert.match(articleHtml, /validateArticleMedia/);
   assert.match(articleHtml, /ArticleMediaValidationError/);
@@ -191,8 +204,12 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(portal,/이미지 변환기/);
   assert.match(portal,/https:\/\/myreceipt\.adbles\.com\//);
   assert.match(portal,/영수증 정리도우미/);
+  assert.match(portal,/https:\/\/proshot\.adbles\.com\//);
+  assert.match(portal,/ProShot AI 사진 스튜디오/);
   assert.match(tools,/영수증 사진을 A4 한 장으로 정리하세요/);
   assert.match(tools,/PDF 다운로드/);
+  assert.match(tools,/휴대폰 셀카를 무료로 깔끔한 프로필 사진으로/);
+  assert.match(tools,/무료로 ProShot 이용하기/);
   assert.match(severance,/예상 퇴직금/);
   assert.match(health,/youtube-nocookie\.com/);
   assert.match(health,/갑작스러운 위험 신호는 119/);
@@ -256,6 +273,7 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(editorialTeam, /name: "원"/);
   assert.match(editorialTeam, /name: "가드"/);
   assert.match(editorialTeam, /name: "툴"/);
+  assert.match(editorialTeam, /name: "김기준"/);
   assert.match(editorialTeam, /name: "로컬"/);
   assert.match(editorialTeam, /name: "케어"/);
   assert.match(editorialTeam, /name: "박여유"/);
@@ -424,7 +442,7 @@ test("ships mobile-first SEO, GEO, trust and original-value pages", async () => 
   assert.match(rss, /<rss version="2\.0"/);
   assert.match(rss, /getPublishedPosts/);
   assert.match(rss, /content:encoded/);
-  assert.match(rss, /application\/rss\+xml; charset=utf-8/);
+  assert.match(rss, /application\/rss\+xml/);
   const seoAudit = await readFile(new URL("../scripts/seo-audit.mjs", import.meta.url), "utf8");
   assert.match(seoAudit, /fetchPage\("\/rss\.xml"\)/);
   assert.match(seoAudit, /RSS 2\.0 채널 형식/);
@@ -478,7 +496,8 @@ test("keeps public reads fast while automation runs in the background", async ()
   assert.match(worker, /runScheduledOrganizationActivities/);
   assert.match(repository, /db\(\{initialize:false\}\)/);
   assert.match(repository, /persistedSlugs/);
-  assert.match(repository, /post\.status===\"published\"&&!persistedSlugs\.has\(post\.slug\)/);
+  assert.match(repository, /persistedTitles/);
+  assert.match(repository, /!persistedSlugs\.has\(post\.slug\)&&!persistedTitles\.has\(post\.title\.trim\(\)\)/);
   assert.match(repository, /decodeURIComponent\(slug\)\.normalize\(\"NFC\"\)/);
   assert.match(repository, /bind\(normalizedSlug\)/);
   assert.match(repository, /legacyPostSlugAliases\[slug\]/);

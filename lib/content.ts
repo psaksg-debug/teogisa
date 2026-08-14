@@ -94,6 +94,45 @@ export const seedPosts: Post[] = [
 <blockquote>보호한도는 상품을 추천하는 기준이 아니라, 퇴직금을 한 곳에 집중하지 않았는지 확인하는 안전 점검선입니다.</blockquote>
 <p>기준일: 2026년 8월 14일. 공식 확인: <a href="https://www.fsc.go.kr/edu/news/85225" target="_blank" rel="noreferrer">금융위원회 예금보호한도 1억원 안내</a> · <a href="https://www.fsc.go.kr/edu/news/85077" target="_blank" rel="noreferrer">금융위원회 적용 대상·별도 한도 안내</a> · <a href="https://www.kdic.or.kr/" target="_blank" rel="noreferrer">예금보험공사</a></p>
 <p><strong>박여유 · 투자·재테크 편집자</strong></p>`, category:"투자·재테크", tags:["예금자보호","퇴직금","1억원","예금보험공사","분산 예치"], status:"published", publishedAt:"2026-08-14", scheduledAt:null, readingMinutes:10, visual:"1억", authorName:"박여유" },
+  { id:1002, title:"무료로 휴대폰 셀카를 증명사진·스튜디오 프로필로: ProShot 사용법", slug:"proshot-mobile-id-studio-photo-guide", excerpt:"휴대폰 셀카 한 장으로 증명사진·비즈니스 헤드샷·스튜디오 프로필을 무료로 만드는 순서와 공식 신분증 사용 시 주의점을 정리했습니다.", body:`<p><strong>ProShot은 현재 무료로 이용할 수 있습니다.</strong> 이력서나 업무 프로필 사진이 급할 때 휴대폰 셀카 한 장으로 정장 헤드샷과 스튜디오 프로필을 만들 수 있습니다. 사진을 올리고 원하는 스타일을 고른 뒤 결과를 내려받는 방식입니다. 사진관을 완전히 대신한다기보다, 온라인 이력서·포트폴리오·강사 소개처럼 디지털 프로필이 먼저 필요한 상황에서 부담 없이 시안을 만드는 용도로 활용하세요.</p>
+<p><a class="primary-button" href="https://proshot.adbles.com/" target="_blank" rel="noreferrer">ProShot에서 사진 만들기 <span aria-hidden="true">↗</span></a></p>
+<figure class="article-image"><img src="https://proshot.adbles.com/images/selfie_before.png" alt="ProShot에 업로드하기 전 휴대폰 정면 셀카 예시" width="640" height="640" loading="lazy" decoding="async"><figcaption>정면을 또렷하게 바라본 휴대폰 셀카를 준비합니다. · ProShot 제공 예시 이미지</figcaption></figure>
+<h2>어떤 사진을 만들 수 있나요?</h2>
+<p>서비스 화면에서는 비즈니스 정장, 스튜디오, 야외 프로필, 증명사진, 여권·비자, 학생증·사원증 등 12가지 스타일과 직접 입력하는 맞춤 스타일을 제공합니다. 다만 스타일 이름이 실제 제출기관의 규격 충족을 보장하는 것은 아닙니다. 가장 부담 없이 활용하기 좋은 곳은 이력서, 링크드인·SNS, 포트폴리오, 발표자·강사 소개와 사내 프로필입니다.</p>
+<h2>네 단계로 만들어보세요</h2>
+<ol><li><strong>얼굴이 선명한 정면 셀카를 고릅니다.</strong> 머리카락이나 마스크로 얼굴이 가리지 않고, 강한 그림자나 역광이 없는 사진이 좋습니다.</li><li><strong>사진을 올리고 용도에 맞는 스타일을 선택합니다.</strong> 취업용이면 단정한 정장과 단색 배경, 개인 브랜드용이면 스튜디오나 야외 스타일처럼 목적을 먼저 정하세요.</li><li><strong>무료로 결과를 생성합니다.</strong> 먼저 한 가지 스타일로 만들어보고, 얼굴과 옷의 표현이 자연스러운지 확인합니다.</li><li><strong>결과를 원본 얼굴과 나란히 비교합니다.</strong> 눈 모양, 안경, 머리선, 피부 질감과 옷의 경계가 어색하지 않은지 확대해서 확인한 뒤 내려받습니다.</li></ol>
+<figure class="article-image"><img src="https://proshot.adbles.com/images/profile_after.png" alt="ProShot으로 생성한 정장 차림의 스튜디오 비즈니스 프로필 사진 예시" width="640" height="640" loading="lazy" decoding="async"><figcaption>스타일을 선택하면 비즈니스 헤드샷이나 스튜디오 프로필 형태로 생성할 수 있습니다. · ProShot 제공 예시 이미지</figcaption></figure>
+<h2>지금은 무료로 이용할 수 있습니다</h2>
+<p>현재 ProShot은 별도 이용료 없이 사진을 생성할 수 있습니다. 처음 이용한다면 정면 셀카 한 장과 필요한 스타일 하나만 정해 결과를 확인해보세요. 무료 제공 범위나 기능은 운영 정책에 따라 달라질 수 있으므로 이용 시점의 서비스 안내를 함께 확인하면 됩니다.</p>
+<h2>여권·비자·공식 신분증에는 그대로 쓰지 마세요</h2>
+<p>외교부 여권사진 규격은 실제 소지인을 그대로 나타내야 하며, 배경을 지우거나 합성한 사진 등 편집된 사진은 접수되지 않을 수 있다고 안내합니다. 따라서 AI로 생성하거나 얼굴·배경을 크게 보정한 사진을 여권, 비자 또는 공공 신분증에 바로 제출하면 안 됩니다. 제출 전 <a href="https://www.passport.go.kr/home/kor/contents.do?menuPos=32" target="_blank" rel="noreferrer">외교부 여권사진 규격</a>과 해당 기관의 최신 기준을 확인하고, 여권사진은 <a href="https://passport.go.kr/home/kor/onlinePhotoVerify/index.do?menuPos=33" target="_blank" rel="noreferrer">온라인 여권사진 검증</a>도 이용하세요.</p>
+<h2>얼굴 사진을 올리기 전 개인정보를 확인하세요</h2>
+<ul><li>서비스의 개인정보 처리방침에서 업로드 사진의 저장·삭제 기준을 확인합니다.</li><li>공용 PC나 다른 사람의 휴대전화에서는 얼굴 사진을 올리지 않습니다.</li><li>결과를 저장한 뒤 브라우저 다운로드 폴더와 클라우드 자동 백업 위치를 확인합니다.</li><li>더 이상 필요하지 않은 원본과 실패 결과는 안전하게 삭제합니다.</li></ul>
+<h2>이럴 때는 생성을 멈추세요</h2>
+<p>결과가 본인 얼굴과 다르거나, 사진 보관·삭제 기준이 명확하지 않거나, 공식 문서 제출 가능 여부를 확인하지 못했다면 사용을 멈추세요. 여러 번 생성해도 얼굴이 자연스럽지 않다면 오프라인 사진관 촬영을 고려하는 편이 좋습니다.</p>
+<blockquote>AI 사진의 장점은 빠른 시안 제작입니다. 본인 확인이 필요한 사진은 편리함보다 제출기관의 최신 규격을 먼저 따르세요.</blockquote>
+<p><a class="primary-button" href="https://proshot.adbles.com/" target="_blank" rel="noreferrer">ProShot 바로가기 <span aria-hidden="true">↗</span></a></p>
+<p>기준일: 2026년 8월 14일. 무료 이용 여부와 기능 확인: <a href="https://proshot.adbles.com/" target="_blank" rel="noreferrer">ProShot 공식 화면</a></p>
+<p><strong>김기준 · 유용한 도구 편집자</strong></p>`, category:"유용한 도구", tags:["ProShot","AI 증명사진","프로필 사진","비즈니스 헤드샷","휴대폰 사진"], status:"published", publishedAt:"2026-08-14", scheduledAt:null, readingMinutes:8, visual:"PHOTO", authorName:"김기준" },
+  { id:1003, title:"퇴직금이 IRP에 들어오면 바로 해지해도 될까? 수령 전 확인할 5가지", slug:"retirement-pay-irp-five-checks-before-withdrawal", excerpt:"퇴직금이 IRP로 들어온 뒤 일시금과 연금 중 무엇을 선택할지, 과세이연·세율·수수료·생활비를 기준으로 확인합니다.", body:`<p><strong>퇴직금이 개인형퇴직연금(IRP)에 들어왔다고 바로 해지할 필요는 없습니다.</strong> IRP 입금은 세금이 없어진 것이 아니라 퇴직소득세 납부 시점을 뒤로 미룬 상태입니다. 생활비 때문에 일시금이 필요한지, 연금으로 나눠 받을 수 있는지, 계좌 안에 퇴직금 외 개인 납입금이 섞여 있는지를 먼저 확인해야 합니다.</p>
+<figure class="article-image"><img src="/article-thumbnails/application-process-timeline.webp" alt="퇴직금이 IRP에 입금된 뒤 일시금과 연금 수령 절차를 확인하는 서류·일정표 일러스트" width="355" height="444" loading="lazy" decoding="async"><figcaption>IRP는 해지 버튼부터 누르기보다 퇴직금의 출처, 필요한 시점과 수령 방식을 순서대로 확인해야 합니다. · 퇴.기.사 제작 일러스트</figcaption></figure>
+<h2>먼저 내 퇴직금이 왜 IRP로 들어왔는지 확인하세요</h2>
+<p>고용노동부 안내에 따르면 2022년 4월 14일부터 사용자는 원칙적으로 근로자가 지정한 IRP 계정에 퇴직급여를 지급해야 합니다. 다만 퇴직 당시 55세 이상이거나 퇴직급여액이 300만원 이하인 경우 등에는 의무이전 예외가 적용될 수 있습니다. 예외에 해당한다고 무조건 일반 통장으로 받아야 하는 것은 아니며, 실제 지급 방식은 회사와 퇴직연금사업자에 확인하세요.</p>
+<h2>IRP 입금은 비과세가 아니라 과세이연입니다</h2>
+<p>퇴직급여가 연금계좌로 지급되면 퇴직소득세를 바로 원천징수하지 않고, 나중에 연금 또는 일시금으로 꺼낼 때 과세합니다. 따라서 계좌에 표시된 금액을 모두 쓸 수 있는 순수 현금으로 생각하면 안 됩니다. 금융회사에 <strong>세전 퇴직급여, 이연된 퇴직소득세, 실제 인출 예상액</strong>을 각각 요청하세요.</p>
+<h2>일시금과 연금은 적용되는 세율이 다릅니다</h2>
+<p>국세청 안내상 IRP의 이연퇴직소득을 연금으로 수령하면 연금외수령 세율의 70%가 적용되고, 실제 연금수령연차가 10년을 초과하면 60%가 적용됩니다. 반대로 연금수령 요건이나 한도를 벗어나 일시금으로 꺼내면 연금외수령으로 과세될 수 있습니다. 세액공제를 받은 개인 납입금과 운용수익은 퇴직금 원금과 과세 방식이 다르므로 한 덩어리로 계산하지 마세요.</p>
+<h2>세금 차이는 이렇게 질문하면 이해하기 쉽습니다</h2>
+<p>예를 들어 일시금으로 받을 때 해당 퇴직금에 적용될 이연퇴직소득세가 500만원이라고 가정하면, 연금수령분에는 그 세율의 70% 수준인 350만원이 대응되는 단순 비교를 할 수 있습니다. 실제 세금은 수령액, 수령연차, 계좌에 섞인 자금과 인출순서에 따라 달라집니다. 이 예시는 절세액을 보장하는 계산이 아니라 금융회사에 일시금·연금 예상세액을 각각 요청하기 위한 질문 틀입니다.</p>
+<h2>해지 전에 다섯 가지를 순서대로 확인하세요</h2>
+<ol><li><strong>계좌 안 돈의 출처를 나눕니다.</strong> 퇴직금, 세액공제 받은 개인 납입금, 공제받지 않은 납입금, 운용수익을 구분합니다.</li><li><strong>앞으로 12개월에 필요한 현금을 계산합니다.</strong> 주거비·의료비·부채상환처럼 확정된 지출만 먼저 적습니다.</li><li><strong>일시금과 연금의 세후 금액을 모두 받습니다.</strong> 금융회사에 같은 기준일로 비교표를 요청합니다.</li><li><strong>수수료와 운용상품을 확인합니다.</strong> 계좌를 유지할 경우의 연간 총비용과 원금손실 가능성을 확인합니다.</li><li><strong>해지 대신 일부 수령이 가능한지 묻습니다.</strong> 연금수령 요건과 한도, 인출 순서가 내 계좌에 어떻게 적용되는지 확인합니다.</li></ol>
+<h2>금융회사에 그대로 물어볼 질문</h2>
+<ul><li>오늘 전액 해지하면 실제 입금액과 원천징수 세액은 얼마인가요?</li><li>연금으로 받기 시작할 수 있는 날짜와 연간 수령한도는 얼마인가요?</li><li>내 계좌에서 가장 먼저 인출되는 돈은 어떤 재원인가요?</li><li>현재 상품의 원금손실 가능성, 중도매도 비용과 연간 총수수료는 얼마인가요?</li><li>다른 금융회사 IRP로 이전할 때 세금과 수수료가 발생하나요?</li></ul>
+<h2>이럴 때는 당일 해지 결정을 멈추세요</h2>
+<p>일시금과 연금의 세후 비교표를 받지 못했거나, 계좌 안 자금의 출처를 구분하지 못했거나, 고위험 상품을 이해하지 못한 상태라면 당일 해지를 멈추세요. 반대로 당장 필요한 생활비가 있는데 세금 혜택만 보고 무리하게 연금수령을 고집해서도 안 됩니다. 퇴직금은 세금뿐 아니라 앞으로 버틸 시간을 함께 계산해야 합니다.</p>
+<blockquote>IRP를 유지할지 해지할지는 수익률 전망보다 ‘언제 얼마가 필요한가’와 ‘세후로 얼마를 받는가’를 먼저 비교해 결정하세요.</blockquote>
+<p>기준일: 2026년 8월 14일. 공식 확인: <a href="https://1350.moel.go.kr/rtmview.do?id=1000255731&page=1&type=ALL" target="_blank" rel="noreferrer">고용노동부 IRP 의무이전·예외 안내</a> · <a href="https://www.moel.go.kr/retirementpay.do" target="_blank" rel="noreferrer">고용노동부 퇴직연금제도 안내</a> · <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7888&mi=6609" target="_blank" rel="noreferrer">국세청 연금계좌 원천징수세율</a> · <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7880&mi=6444" target="_blank" rel="noreferrer">국세청 퇴직소득세·과세이연 안내</a></p>
+<p><strong>박세온 · 세금·보험 편집자</strong></p>`, category:"연금·세금·보험", tags:["퇴직금 IRP","개인형퇴직연금","퇴직소득세","과세이연","연금수령"], status:"published", publishedAt:"2026-08-14", scheduledAt:null, readingMinutes:11, visual:"IRP", authorName:"박세온" },
 ];
 
 const contentQualityUpgrades:Record<string,Pick<Post,"excerpt"|"body"|"readingMinutes">>={
