@@ -94,26 +94,25 @@ export const seedPosts: Post[] = [
 <blockquote>보호한도는 상품을 추천하는 기준이 아니라, 퇴직금을 한 곳에 집중하지 않았는지 확인하는 안전 점검선입니다.</blockquote>
 <p>기준일: 2026년 8월 14일. 공식 확인: <a href="https://www.fsc.go.kr/edu/news/85225" target="_blank" rel="noreferrer">금융위원회 예금보호한도 1억원 안내</a> · <a href="https://www.fsc.go.kr/edu/news/85077" target="_blank" rel="noreferrer">금융위원회 적용 대상·별도 한도 안내</a> · <a href="https://www.kdic.or.kr/" target="_blank" rel="noreferrer">예금보험공사</a></p>
 <p><strong>박여유 · 투자·재테크 편집자</strong></p>`, category:"투자·재테크", tags:["예금자보호","퇴직금","1억원","예금보험공사","분산 예치"], status:"published", publishedAt:"2026-08-14", scheduledAt:null, readingMinutes:10, visual:"1억", authorName:"박여유" },
-  { id:1002, title:"휴대폰 셀카로 증명사진·스튜디오 프로필 만들기: ProShot 사용법", slug:"proshot-mobile-id-studio-photo-guide", excerpt:"사진관 예약 없이 휴대폰 셀카 한 장으로 증명사진·비즈니스 헤드샷·스튜디오 프로필을 만드는 순서와 공식 신분증 사용 시 주의점을 정리했습니다.", body:`<p><strong>이력서나 업무 프로필 사진이 급할 때 휴대폰 셀카 한 장으로 정장 헤드샷과 스튜디오 프로필을 만들 수 있습니다.</strong> ProShot은 사진을 올리고 원하는 스타일을 고른 뒤 결과를 내려받는 AI 사진 도구입니다. 사진관을 완전히 대신한다기보다, 온라인 이력서·포트폴리오·강사 소개처럼 디지털 프로필이 먼저 필요한 상황에서 빠르게 시안을 만드는 용도로 활용하세요.</p>
+  { id:1002, title:"무료로 휴대폰 셀카를 증명사진·스튜디오 프로필로: ProShot 사용법", slug:"proshot-mobile-id-studio-photo-guide", excerpt:"휴대폰 셀카 한 장으로 증명사진·비즈니스 헤드샷·스튜디오 프로필을 무료로 만드는 순서와 공식 신분증 사용 시 주의점을 정리했습니다.", body:`<p><strong>ProShot은 현재 무료로 이용할 수 있습니다.</strong> 이력서나 업무 프로필 사진이 급할 때 휴대폰 셀카 한 장으로 정장 헤드샷과 스튜디오 프로필을 만들 수 있습니다. 사진을 올리고 원하는 스타일을 고른 뒤 결과를 내려받는 방식입니다. 사진관을 완전히 대신한다기보다, 온라인 이력서·포트폴리오·강사 소개처럼 디지털 프로필이 먼저 필요한 상황에서 부담 없이 시안을 만드는 용도로 활용하세요.</p>
 <p><a class="primary-button" href="https://proshot.adbles.com/" target="_blank" rel="noreferrer">ProShot에서 사진 만들기 <span aria-hidden="true">↗</span></a></p>
 <figure class="article-image"><img src="https://proshot.adbles.com/images/selfie_before.png" alt="ProShot에 업로드하기 전 휴대폰 정면 셀카 예시" width="640" height="640" loading="lazy" decoding="async"><figcaption>정면을 또렷하게 바라본 휴대폰 셀카를 준비합니다. · ProShot 제공 예시 이미지</figcaption></figure>
 <h2>어떤 사진을 만들 수 있나요?</h2>
 <p>서비스 화면에서는 비즈니스 정장, 스튜디오, 야외 프로필, 증명사진, 여권·비자, 학생증·사원증 등 12가지 스타일과 직접 입력하는 맞춤 스타일을 제공합니다. 다만 스타일 이름이 실제 제출기관의 규격 충족을 보장하는 것은 아닙니다. 가장 부담 없이 활용하기 좋은 곳은 이력서, 링크드인·SNS, 포트폴리오, 발표자·강사 소개와 사내 프로필입니다.</p>
 <h2>네 단계로 만들어보세요</h2>
-<ol><li><strong>얼굴이 선명한 정면 셀카를 고릅니다.</strong> 머리카락이나 마스크로 얼굴이 가리지 않고, 강한 그림자나 역광이 없는 사진이 좋습니다.</li><li><strong>사진을 올리고 용도에 맞는 스타일을 선택합니다.</strong> 취업용이면 단정한 정장과 단색 배경, 개인 브랜드용이면 스튜디오나 야외 스타일처럼 목적을 먼저 정하세요.</li><li><strong>결제 전에 가격·해상도·제공 파일을 확인합니다.</strong> 여러 스타일을 무작정 반복 생성하기보다 먼저 한 가지 용도로 시험합니다.</li><li><strong>결과를 원본 얼굴과 나란히 비교합니다.</strong> 눈 모양, 안경, 머리선, 피부 질감과 옷의 경계가 어색하지 않은지 확대해서 확인한 뒤 내려받습니다.</li></ol>
+<ol><li><strong>얼굴이 선명한 정면 셀카를 고릅니다.</strong> 머리카락이나 마스크로 얼굴이 가리지 않고, 강한 그림자나 역광이 없는 사진이 좋습니다.</li><li><strong>사진을 올리고 용도에 맞는 스타일을 선택합니다.</strong> 취업용이면 단정한 정장과 단색 배경, 개인 브랜드용이면 스튜디오나 야외 스타일처럼 목적을 먼저 정하세요.</li><li><strong>무료로 결과를 생성합니다.</strong> 먼저 한 가지 스타일로 만들어보고, 얼굴과 옷의 표현이 자연스러운지 확인합니다.</li><li><strong>결과를 원본 얼굴과 나란히 비교합니다.</strong> 눈 모양, 안경, 머리선, 피부 질감과 옷의 경계가 어색하지 않은지 확대해서 확인한 뒤 내려받습니다.</li></ol>
 <figure class="article-image"><img src="https://proshot.adbles.com/images/profile_after.png" alt="ProShot으로 생성한 정장 차림의 스튜디오 비즈니스 프로필 사진 예시" width="640" height="640" loading="lazy" decoding="async"><figcaption>스타일을 선택하면 비즈니스 헤드샷이나 스튜디오 프로필 형태로 생성할 수 있습니다. · ProShot 제공 예시 이미지</figcaption></figure>
-<h2>현재 표시된 가격과 결과물을 비교하세요</h2>
-<table><thead><tr><th>상품</th><th>2026년 8월 14일 표시 가격</th><th>주요 결과</th><th>추천 용도</th></tr></thead><tbody><tr><td>Flash Lite</td><td>990원</td><td>워터마크 없는 프로필 1장</td><td>온라인 이력서·SNS 시안</td></tr><tr><td>Studio Pro</td><td>2,000원</td><td>2K 결과와 4×6 인화용 시트, 배경색 선택</td><td>고해상도 프로필·인화 준비</td></tr></tbody></table>
-<p>가격과 제공 기능은 바뀔 수 있으므로 결제 화면을 최종 기준으로 확인하세요. 생성 시간도 사진 상태와 서비스 상황에 따라 달라질 수 있습니다.</p>
+<h2>지금은 무료로 이용할 수 있습니다</h2>
+<p>현재 ProShot은 별도 이용료 없이 사진을 생성할 수 있습니다. 처음 이용한다면 정면 셀카 한 장과 필요한 스타일 하나만 정해 결과를 확인해보세요. 무료 제공 범위나 기능은 운영 정책에 따라 달라질 수 있으므로 이용 시점의 서비스 안내를 함께 확인하면 됩니다.</p>
 <h2>여권·비자·공식 신분증에는 그대로 쓰지 마세요</h2>
 <p>외교부 여권사진 규격은 실제 소지인을 그대로 나타내야 하며, 배경을 지우거나 합성한 사진 등 편집된 사진은 접수되지 않을 수 있다고 안내합니다. 따라서 AI로 생성하거나 얼굴·배경을 크게 보정한 사진을 여권, 비자 또는 공공 신분증에 바로 제출하면 안 됩니다. 제출 전 <a href="https://www.passport.go.kr/home/kor/contents.do?menuPos=32" target="_blank" rel="noreferrer">외교부 여권사진 규격</a>과 해당 기관의 최신 기준을 확인하고, 여권사진은 <a href="https://passport.go.kr/home/kor/onlinePhotoVerify/index.do?menuPos=33" target="_blank" rel="noreferrer">온라인 여권사진 검증</a>도 이용하세요.</p>
 <h2>얼굴 사진을 올리기 전 개인정보를 확인하세요</h2>
 <ul><li>서비스의 개인정보 처리방침에서 업로드 사진의 저장·삭제 기준을 확인합니다.</li><li>공용 PC나 다른 사람의 휴대전화에서는 얼굴 사진을 올리지 않습니다.</li><li>결과를 저장한 뒤 브라우저 다운로드 폴더와 클라우드 자동 백업 위치를 확인합니다.</li><li>더 이상 필요하지 않은 원본과 실패 결과는 안전하게 삭제합니다.</li></ul>
 <h2>이럴 때는 생성을 멈추세요</h2>
-<p>결과가 본인 얼굴과 다르거나, 가격·환불 조건·사진 보관 기준이 명확하지 않거나, 공식 문서 제출 가능 여부를 확인하지 못했다면 사용을 멈추세요. 원하는 결과가 나오지 않아 반복 결제 금액이 사진관 촬영비에 가까워지는 경우에도 오프라인 촬영과 비용을 다시 비교하는 편이 좋습니다.</p>
+<p>결과가 본인 얼굴과 다르거나, 사진 보관·삭제 기준이 명확하지 않거나, 공식 문서 제출 가능 여부를 확인하지 못했다면 사용을 멈추세요. 여러 번 생성해도 얼굴이 자연스럽지 않다면 오프라인 사진관 촬영을 고려하는 편이 좋습니다.</p>
 <blockquote>AI 사진의 장점은 빠른 시안 제작입니다. 본인 확인이 필요한 사진은 편리함보다 제출기관의 최신 규격을 먼저 따르세요.</blockquote>
 <p><a class="primary-button" href="https://proshot.adbles.com/" target="_blank" rel="noreferrer">ProShot 바로가기 <span aria-hidden="true">↗</span></a></p>
-<p>기준일: 2026년 8월 14일. 기능·가격 확인: <a href="https://proshot.adbles.com/" target="_blank" rel="noreferrer">ProShot 공식 화면</a></p>
+<p>기준일: 2026년 8월 14일. 무료 이용 여부와 기능 확인: <a href="https://proshot.adbles.com/" target="_blank" rel="noreferrer">ProShot 공식 화면</a></p>
 <p><strong>김기준 · 유용한 도구 편집자</strong></p>`, category:"유용한 도구", tags:["ProShot","AI 증명사진","프로필 사진","비즈니스 헤드샷","휴대폰 사진"], status:"published", publishedAt:"2026-08-14", scheduledAt:null, readingMinutes:8, visual:"PHOTO", authorName:"김기준" },
 ];
 
