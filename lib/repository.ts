@@ -168,9 +168,16 @@ export async function getPublishedPosts() {
   try {
     const d1 = await db({initialize:false});
     const result = await d1
-      .prepare("SELECT * FROM posts WHERE status='published' ORDER BY published_at DESC, id DESC")
+      // Read every persisted status so an editor's explicit draft/unpublish
+      // decision always wins over a bundled fallback post.
+      .prepare("SELECT * FROM posts ORDER BY published_at DESC, id DESC")
       .all();
-    return result.results.map((row) => mapPost(row as Record<string, unknown>));
+    const persisted=result.results.map((row) => mapPost(row as Record<string, unknown>));
+    const persistedSlugs=new Set(persisted.map(post=>post.slug));
+    return [
+      ...persisted.filter(post=>post.status==="published"),
+      ...seedPosts.filter(post=>post.status==="published"&&!persistedSlugs.has(post.slug)),
+    ].sort((a,b)=>b.publishedAt.localeCompare(a.publishedAt)||b.id-a.id);
   } catch {
     return seedPosts.filter((post) => post.status === "published");
   }
