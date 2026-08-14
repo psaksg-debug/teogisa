@@ -26,6 +26,7 @@ const flows: Record<string, string[]> = {
   "온라인 부업": ["후보 하나 선택", "작은 비용으로 시험", "시간당 수익 기록", "반복 가능성 판단"],
   "투자·재테크": ["목표와 기간 확인", "손실 가능성 점검", "보수적 시나리오 계산", "공식 설명서 재확인"],
   "실제 수익실험": ["가설과 기간 설정", "투입 비용 기록", "매출과 시간 측정", "다음 실험 기준 정리"],
+  "유용한 도구": ["용도와 입력자료 확인", "사진 업로드·스타일 선택", "비용·결과 비교", "다운로드·개인정보 정리"],
 };
 
 const checklists: Record<string, Array<[string, string]>> = {
@@ -38,6 +39,7 @@ const checklists: Record<string, Array<[string, string]>> = {
   "온라인 부업": [["시간", "주당 투입 가능한 시간"], ["비용", "도구·교육·광고비"], ["수익", "매출이 아닌 순수익과 반복성"]],
   "투자·재테크": [["기간", "돈이 필요한 시점"], ["위험", "감당 가능한 손실 범위"], ["확인", "수수료·세금·공식 설명서"]],
   "실제 수익실험": [["가설", "누구의 어떤 문제를 해결하는지"], ["측정", "시간·비용·문의·매출"], ["판단", "계속·수정·중단 기준"]],
+  "유용한 도구": [["입력", "정면 얼굴이 선명한 원본 사진"], ["비용", "결제 전 가격·해상도·제공 파일"], ["주의", "공식 신분증 규격과 업로드 사진 삭제정책"]],
 };
 
 const glossaryTerms = ["실업급여", "국민연금", "종합소득세", "인공지능", "블로그", "연금", "퇴직금", "재취업", "애드센스", "N잡"];
@@ -53,6 +55,10 @@ const categoryOfficialLinks:Record<string,Array<{label:string;url:string}>>={
 };
 
 const slugResources:Record<string,{links?:Array<{label:string;url:string}>;images?:ArticleEnrichment["images"];video?:ArticleEnrichment["video"]}>={
+  "proshot-mobile-id-studio-photo-guide":{
+    links:[{label:"ProShot AI 사진 스튜디오 바로가기",url:"https://proshot.adbles.com/"},{label:"외교부 여권사진 규격 안내",url:"https://www.passport.go.kr/home/kor/contents.do?menuPos=32"},{label:"외교부 온라인 여권사진 검증",url:"https://passport.go.kr/home/kor/onlinePhotoVerify/index.do?menuPos=33"}],
+    images:[{src:"https://proshot.adbles.com/images/selfie_before.png",alt:"ProShot에 업로드하기 전 휴대폰 정면 셀카 예시",caption:"정면을 또렷하게 바라본 휴대폰 셀카를 준비합니다. · ProShot 제공 예시 이미지",width:640,height:640},{src:"https://proshot.adbles.com/images/profile_after.png",alt:"ProShot으로 생성한 정장 차림의 스튜디오 비즈니스 프로필 사진 예시",caption:"스타일을 선택하면 비즈니스 헤드샷이나 스튜디오 프로필 형태로 생성할 수 있습니다. · ProShot 제공 예시 이미지",width:640,height:640}],
+  },
   "deposit-protection-100-million-retirement-money-checks":{
     links:[{label:"금융위원회 예금보호한도 1억원 안내",url:"https://www.fsc.go.kr/edu/news/85225"},{label:"금융위원회 적용 대상·별도 한도 안내",url:"https://www.fsc.go.kr/edu/news/85077"},{label:"예금보험공사 예금자보호 안내",url:"https://www.kdic.or.kr/"}],
     images:[{src:"/article-thumbnails/income-tax-calculation.webp",alt:"예금보호한도와 퇴직금 분산 예치를 계산하는 표·계산기 일러스트",caption:"보호한도만 보지 말고 금융회사별 원금·예상 이자 합계와 만기일을 함께 적어야 합니다. · 퇴.기.사 제작 일러스트",width:355,height:444}],

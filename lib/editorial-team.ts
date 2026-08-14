@@ -17,6 +17,7 @@ export const editorialAuthors: EditorialAuthor[] = [
   { id: "income-editor", agentId: "income-challenge", name: "원", role: "수익실험 편집자", specialty: "수입 실험, 실행 기록과 워크북" },
   { id: "benefit-editor", agentId: "benefit-tax", name: "가드", role: "지원금·세무·노무 편집자", specialty: "공식 제도, 세금과 근로관계 확인" },
   { id: "tools-editor", agentId: "tool-lab", name: "툴", role: "생활도구 편집자", specialty: "계산기, 기록표와 반복 업무 개선" },
+  { id: "tool-guide-editor", name: "김기준", role: "유용한 도구 편집자", specialty: "사진·문서·업무 도구의 실제 사용법과 개인정보·비용 점검" },
   { id: "local-editor", agentId: "local-keyword", name: "로컬", role: "지역정보 편집자", specialty: "지역별 일자리와 공공 지원 창구" },
   { id: "health-editor", agentId: "health-column", name: "케어", role: "건강·예방 편집자", specialty: "공공기관 기반 건강·예방 정보" },
   { id: "pension-insurance-editor", name: "김연수", role: "연금·보험 편집자", specialty: "국민연금, 퇴직연금, 건강보험 자격과 보험료 검증" },

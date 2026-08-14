@@ -76,6 +76,10 @@ test("renders the finished Korean content site", async () => {
   assert.match(enrichment, /D-5p431l-qY/);
   assert.match(content, /alt="퇴직 후 건강보험 가입 유형을 확인하는 중장년 부부 일러스트"/);
   assert.match(enrichment, /퇴직 후 건강보험 가입 유형을 확인하는 중장년 부부 일러스트/);
+  assert.match(content, /proshot-mobile-id-studio-photo-guide/);
+  assert.match(content, /ProShot에 업로드하기 전 휴대폰 정면 셀카 예시/);
+  assert.match(content, /ProShot으로 생성한 정장 차림의 스튜디오 비즈니스 프로필 사진 예시/);
+  assert.match(enrichment, /외교부 온라인 여권사진 검증/);
   assert.match(media, /enrichment\.images/);
   assert.match(articleHtml, /validateArticleMedia/);
   assert.match(articleHtml, /ArticleMediaValidationError/);
@@ -166,8 +170,12 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(portal,/이미지 변환기/);
   assert.match(portal,/https:\/\/myreceipt\.adbles\.com\//);
   assert.match(portal,/영수증 정리도우미/);
+  assert.match(portal,/https:\/\/proshot\.adbles\.com\//);
+  assert.match(portal,/ProShot AI 사진 스튜디오/);
   assert.match(tools,/영수증 사진을 A4 한 장으로 정리하세요/);
   assert.match(tools,/PDF 다운로드/);
+  assert.match(tools,/휴대폰 셀카를 깔끔한 프로필 사진으로/);
+  assert.match(tools,/ProShot에서 사진 만들기/);
   assert.match(severance,/예상 퇴직금/);
   assert.match(health,/youtube-nocookie\.com/);
   assert.match(health,/갑작스러운 위험 신호는 119/);
@@ -231,6 +239,7 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(editorialTeam, /name: "원"/);
   assert.match(editorialTeam, /name: "가드"/);
   assert.match(editorialTeam, /name: "툴"/);
+  assert.match(editorialTeam, /name: "김기준"/);
   assert.match(editorialTeam, /name: "로컬"/);
   assert.match(editorialTeam, /name: "케어"/);
   assert.match(editorialTeam, /name: "박여유"/);
