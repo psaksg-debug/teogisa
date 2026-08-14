@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import type { Post } from "../../lib/content";
-import type { AgentRun, ContentAgentState, ManagementIssue, ManagementRun, OriginalityCheck, PromotionCampaign, QueueItem } from "../../lib/repository";
+import type { AgentRun, AuditFinding, AuditRun, ContentAgentState, ManagementIssue, ManagementRun, OriginalityCheck, PromotionCampaign, QueueItem } from "../../lib/repository";
+import type { AuditDomain, AuditOfficer } from "../../lib/internal-audit";
 import type { ManagementMember } from "../../lib/management-department";
 import type { OrganizationPolicyRecipient } from "../../lib/organization-policy";
 import { getPromotionMember, promotionTeam, searchPrograms } from "../../lib/promotion-team";
@@ -11,6 +12,8 @@ import { allEditorialAuthors, EDITOR_IN_CHIEF } from "../../lib/editorial-team";
 import { qualityDesignGates, qualityDesignTeam } from "../../lib/quality-design-team";
 import type { CompanyResource } from "../../lib/company-rules";
 import { contentPlanningFirstMonth, contentPlanningTeam, contentPlanningWorkflow } from "../../lib/content-planning-team";
+import { teamPermissions } from "../../lib/team-permissions";
+import { safeReleasePolicy } from "../../lib/release-policy";
 import RichTextEditor from "./RichTextEditor";
 
 const categories = ["퇴직 준비", "정부지원·실업급여", "정부지원·세무", "재취업·N잡", "블로그·애드센스", "AI 활용", "온라인 부업", "투자·재테크", "실제 수익실험", "유용한 도구", "지역 생활정보", "건강·예방", "영상 큐레이션"];
@@ -38,19 +41,25 @@ export default function AdminClient({ username }: { username: string }) {
   const [originalityChecks,setOriginalityChecks]=useState<OriginalityCheck[]>([]);
   const [companyRules,setCompanyRules]=useState<{title:string;version:string;effectiveAt:string;authority:string;vision:string;mission:string;purpose:string;strategicObjectives:readonly {id:string;title:string;description:string;kpis:readonly string[]}[];coreRules:readonly string[];chapters:readonly {number:number;title:string;articles:readonly string[]}[]}|null>(null);
   const [companyResources,setCompanyResources]=useState<CompanyResource[]>([]);
+  const [auditScope,setAuditScope]=useState("");
+  const [auditOfficers,setAuditOfficers]=useState<AuditOfficer[]>([]);
+  const [auditDomains,setAuditDomains]=useState<AuditDomain[]>([]);
+  const [auditRuns,setAuditRuns]=useState<AuditRun[]>([]);
+  const [auditFindings,setAuditFindings]=useState<AuditFinding[]>([]);
   const [selected, setSelected] = useState<Post | null>(null);
   const [message, setMessage] = useState("편집실을 준비하고 있습니다…");
   const [saving, setSaving] = useState(false);
   const editorPanelRef = useRef<HTMLElement>(null);
 
   async function load() {
-    const [postsResponse, queueResponse, agentsResponse, promotionsResponse, managementResponse] = await Promise.all([fetch("/api/posts"), fetch("/api/automation"),fetch("/api/agents"),fetch("/api/promotions"),fetch("/api/management")]);
+    const [postsResponse, queueResponse, agentsResponse, promotionsResponse, managementResponse,auditResponse] = await Promise.all([fetch("/api/posts"), fetch("/api/automation"),fetch("/api/agents"),fetch("/api/promotions"),fetch("/api/management"),fetch("/api/audits")]);
     const postsData = await postsResponse.json();
     const queueData = await queueResponse.json();
     const agentsData=await agentsResponse.json();
     const promotionsData=await promotionsResponse.json();
     const managementData=await managementResponse.json();
-    if (postsResponse.ok && queueResponse.ok && agentsResponse.ok && promotionsResponse.ok && managementResponse.ok) {
+    const auditData=await auditResponse.json();
+    if (postsResponse.ok && queueResponse.ok && agentsResponse.ok && promotionsResponse.ok && managementResponse.ok&&auditResponse.ok) {
       setPosts(postsData.posts);
       setQueue(queueData.queue);
       setAgents(agentsData.agents);
@@ -65,6 +74,7 @@ export default function AdminClient({ username }: { username: string }) {
       setOriginalityChecks(managementData.originalityChecks);
       setCompanyRules(managementData.companyRules);
       setCompanyResources(managementData.companyResources);
+      setAuditScope(auditData.scope);setAuditOfficers(auditData.officers);setAuditDomains(auditData.domains);setAuditRuns(auditData.runs);setAuditFindings(auditData.findings);
       const requestedPostId = Number(new URLSearchParams(window.location.search).get("post"));
       const requestedPost = postsData.posts.find((post: Post) => post.id === requestedPostId);
       if (requestedPost) {
@@ -74,7 +84,7 @@ export default function AdminClient({ username }: { username: string }) {
         setMessage("");
       }
     } else {
-      setMessage(postsData.error || queueData.error || agentsData.error || promotionsData.error || managementData.error || "편집실 자료를 불러오지 못했습니다.");
+      setMessage(postsData.error || queueData.error || agentsData.error || promotionsData.error || managementData.error||auditData.error || "편집실 자료를 불러오지 못했습니다.");
     }
   }
 
@@ -140,6 +150,8 @@ export default function AdminClient({ username }: { username: string }) {
 
   async function manageSite(action:"audit"|"resolve",id?:number){setSaving(true);const response=await fetch("/api/management",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action,id})});const data=await response.json();setSaving(false);if(response.ok){setMessage(action==="audit"?`전사 점검을 마쳤습니다. 문제 ${data.run.issueCount}건, 즉시 조치 ${data.run.actionCount}건입니다.`:"문제를 조치 완료로 표시했습니다.");await load();}else setMessage(data.error);}
 
+  async function auditOrganization(action:"run"|"resolve",id?:number){const resolution=action==="resolve"?window.prompt("완료한 시정조치와 확인 증거를 입력하세요.","")??"":"";if(action==="resolve"&&!resolution.trim())return;setSaving(true);const response=await fetch("/api/audits",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action,id,resolution})});const data=await response.json();setSaving(false);if(response.ok){setMessage(action==="run"?`전 프로젝트 감사를 마쳤습니다. 감사의견 ‘${data.run.overallOpinion}’, 지적 ${data.run.findingCount}건입니다.`:"시정조치와 완료 증거를 감사 이력에 기록했습니다.");await load();}else setMessage(data.error);}
+
   async function preparePromotion(event:FormEvent<HTMLFormElement>){
     event.preventDefault();const postId=Number(new FormData(event.currentTarget).get("promotionPostId"));setSaving(true);const response=await fetch("/api/promotions",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action:"prepare",postId})});const data=await response.json();setSaving(false);if(response.ok){setMessage(`‘${data.campaign.title}’ 홍보안을 준비했습니다.`);await load();}else setMessage(data.error);
   }
@@ -199,6 +211,14 @@ export default function AdminClient({ username }: { username: string }) {
           <div className="queue-list">{queue.map((item) => <button type="button" key={item.id} onClick={() => { const post = posts.find((candidate) => candidate.id === item.postId); if (post) openEditor(post); }}><span>{item.status === "review" ? "검토 필요" : item.status}</span><strong>{item.title}</strong><small>{item.sourceUrl}</small></button>)}</div>
         </section>
 
+        <section className="panel release-governance-panel">
+          <div className="panel-title"><div><p className="eyebrow">SAFE RELEASE & ACCESS</p><h2>팀별 권한·무중단 배포</h2></div><span className="queue-count">운영 배포 {safeReleasePolicy.productionAuthority} 전용</span></div>
+          <p className="panel-help">콘텐츠 업데이트는 운영 중인 사이트를 멈추지 않고 데이터에 반영합니다. 디자인·기능 변경은 새 버전에서 빌드와 자동 테스트를 마친 뒤 관리부 승인과 대표의 최종 배포를 거쳐 한 번에 교체합니다.</p>
+          <div className="release-safety-summary"><article><span>배포 방식</span><strong>버전 분리·일괄 교체</strong><p>검증 중에는 현재 정상 사이트를 그대로 제공합니다.</p></article><article><span>승인</span><strong>{safeReleasePolicy.approvalAuthority}</strong><p>정책·품질·보안 게이트를 확인합니다.</p></article><article><span>복구</span><strong>직전 정상 버전 유지</strong><p>{safeReleasePolicy.rollback}</p></article></div>
+          <div className="team-permission-grid">{teamPermissions.map(team=><article key={team.id}><header><span>{team.name}</span><strong>{team.capabilities.length}개 권한</strong></header><p>{team.responsibility}</p><div>{team.capabilities.map(capability=><code key={capability}>{capability}</code>)}</div><ul>{team.restrictions.map(rule=><li key={rule}>{rule}</li>)}</ul></article>)}</div>
+          <div className="release-gate-list"><h3>운영 교체 필수 게이트</h3><ol>{safeReleasePolicy.gates.map((gate,index)=><li key={gate}><span>{String(index+1).padStart(2,"0")}</span>{gate}</li>)}</ol></div>
+        </section>
+
         <section className="panel management-department-panel">
           <div className="panel-title"><div><p className="eyebrow">SITE MANAGEMENT</p><h2>사이트 관리부서 상황실</h2></div><button className="admin-button" type="button" disabled={saving} onClick={()=>manageSite("audit")}>지금 전체 점검</button></div>
           <p className="panel-help">3명의 관리 담당자가 발행정책, 자동화 흐름, 사이트 품질을 점검합니다. 심각한 예약 발행 위반은 즉시 중지하고, 공식 출처가 없는 에이전트는 자동으로 일시정지합니다. 모든 발견과 조치는 기록으로 남습니다.</p>
@@ -208,6 +228,15 @@ export default function AdminClient({ username }: { username: string }) {
           <div className="management-summary"><div><span>열린 문제</span><strong>{managementIssues.filter(issue=>issue.status==="open").length}</strong></div><div><span>긴급</span><strong>{managementIssues.filter(issue=>issue.status==="open"&&issue.severity==="critical").length}</strong></div><div><span>최근 점검</span><strong>{managementRuns[0]?new Date(managementRuns[0].createdAt).toLocaleString("ko-KR"):"대기 중"}</strong></div></div>
           <div className="management-team-grid">{managementMembers.map(member=><article key={member.id}><span>{member.role}</span><h3>{member.name}</h3><p>{member.mission}</p></article>)}</div>
           <div className="management-issue-list"><h3>문제 보고 및 조치 내역</h3>{managementIssues.length===0?<p className="management-empty">아직 발견된 문제가 없습니다. ‘지금 전체 점검’을 실행하세요.</p>:managementIssues.map(issue=><article className={`${issue.status} ${issue.severity}`} key={issue.id}><header><div><span>{issue.status==="resolved"?"조치 완료":issue.severity==="critical"?"긴급 보고":"확인 필요"}</span><strong>{issue.title}</strong></div><small>{issue.auditorName} · {issue.scope}</small></header><p>{issue.details}</p>{issue.actionTaken&&<p className="management-action">즉시 조치: {issue.actionTaken}</p>}<footer>{issue.postId?<button type="button" onClick={()=>{const post=posts.find(item=>item.id===issue.postId);if(post)openEditor(post);}}>해당 글 열기</button>:<span/>}{issue.status==="open"&&<button type="button" disabled={saving} onClick={()=>manageSite("resolve",issue.id)}>조치 완료 표시</button>}</footer></article>)}</div>
+        </section>
+
+        <section className="panel internal-audit-panel">
+          <div className="panel-title"><div><p className="eyebrow">INTERNAL AUDIT</p><h2>전사 감사실</h2></div><button className="admin-button" type="button" disabled={saving} onClick={()=>auditOrganization("run")}>전 프로젝트 감사 실행</button></div>
+          <p className="panel-help">{auditScope||"퇴.기.사 전 프로젝트 업무"}를 대상으로 사규·인사·리소스·콘텐츠·품질·홍보·보안·데이터·자동화·배포 증거를 점검합니다. 지적사항에는 담당자와 완료기한을 지정하고 재점검 결과까지 보존합니다.</p>
+          <div className="audit-summary"><div><span>최근 감사의견</span><strong>{auditRuns[0]?.overallOpinion??"감사 대기"}</strong></div><div><span>통과 항목</span><strong>{auditRuns[0]?`${auditRuns[0].passedItems}/${auditRuns[0].totalItems}`:"-"}</strong></div><div><span>열린 지적사항</span><strong>{auditFindings.filter(item=>item.status==="open").length}</strong></div></div>
+          <div className="audit-officers">{auditOfficers.map(officer=><article key={officer.id}><span>{officer.title}</span><h3>{officer.name}</h3><p>{officer.responsibility}</p></article>)}</div>
+          <details className="audit-domains"><summary>감사영역 {auditDomains.length}개와 증거기준 보기</summary><div>{auditDomains.map(domain=><article key={domain.id}><span>{domain.owner} 담당</span><h4>{domain.name}</h4><p>{domain.standard}</p><small>{domain.evidence.join(" · ")}</small></article>)}</div></details>
+          <div className="audit-findings"><h3>감사조서 · 시정조치</h3>{auditFindings.length===0?<p className="management-empty">아직 감사 이력이 없습니다. ‘전 프로젝트 감사 실행’을 눌러 최초 감사를 시작하세요.</p>:auditFindings.slice(0,24).map(finding=><article className={`${finding.status} ${finding.severity}`} key={finding.id}><header><div><span>{finding.status==="compliant"?"적정":finding.status==="resolved"?"조치 완료":finding.severity==="critical"?"긴급":"시정 필요"}</span><strong>{finding.title}</strong></div><small>{auditDomains.find(domain=>domain.id===finding.domain)?.name??finding.domain}</small></header><p>{finding.details}</p><footer><span>담당 {finding.actionOwner}{finding.dueAt?` · ${new Date(finding.dueAt).toLocaleDateString("ko-KR")}까지`:""}</span>{finding.status==="open"&&<button type="button" disabled={saving} onClick={()=>auditOrganization("resolve",finding.id)}>시정조치 기록</button>}</footer>{finding.resolution&&<p className="management-action">완료 증거: {finding.resolution}</p>}</article>)}</div>
         </section>
 
         <section className="panel automation-panel agent-control-panel">
@@ -241,9 +270,8 @@ export default function AdminClient({ username }: { username: string }) {
           <div className="promotion-campaigns">{promotions.length===0?<p className="promotion-empty">아직 준비된 홍보안이 없습니다. 발행 글을 선택해 첫 홍보안을 만드세요.</p>:promotions.map(campaign=><article className={`promotion-card ${campaign.status}`} key={campaign.id}>
             <header><div><span>{campaign.status==="prepared"?"확인·실행 대기":"실행 기록 완료"}</span><h3>{campaign.title}</h3></div><time>{new Date(campaign.executedAt||campaign.createdAt).toLocaleString("ko-KR")}</time></header>
             <div className="promotion-channel-list" aria-label="추천 홍보 채널">{campaign.channels.map(channel=><span key={channel}>{channel}</span>)}</div>
-            <section><strong>SNS용 짧은 문구</strong><p>{campaign.socialCopy}</p><button type="button" disabled={saving} onClick={()=>copyPromotion(campaign.socialCopy,"SNS 홍보 문구")}>문구 복사</button></section>
-            <section><strong>커뮤니티용 소개문</strong><p>{campaign.communityCopy}</p><button type="button" disabled={saving} onClick={()=>copyPromotion(campaign.communityCopy,"커뮤니티 홍보 문구")}>소개문 복사</button></section>
-            <div className="promotion-actions"><a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(campaign.socialCopy)}`} target="_blank" rel="noreferrer">X 공유 화면 열기</a><a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://adbles.com/posts/${campaign.slug}`)}`} target="_blank" rel="noreferrer">Facebook 공유 화면 열기</a>{campaign.status==="prepared"&&<button type="button" disabled={saving} onClick={()=>finishPromotion(campaign.id)}>게시 완료로 표시</button>}</div>
+            <div className="marketing-channel-plans">{campaign.channelPlans.map(plan=><section key={plan.id} className="marketing-channel-plan"><header><div><strong>{plan.name}</strong><span>담당 {plan.owner}</span></div><small>UTM 추적 적용</small></header><p>{plan.copy}</p><code>{plan.trackedUrl}</code><div><button type="button" disabled={saving} onClick={()=>copyPromotion(plan.copy,`${plan.name} 문구`)}>문구 복사</button>{plan.actionUrl&&<a href={plan.actionUrl} target="_blank" rel="noreferrer">공유 화면 열기</a>}</div></section>)}</div>
+            <div className="promotion-actions">{campaign.status==="prepared"&&<button type="button" disabled={saving} onClick={()=>finishPromotion(campaign.id)}>외부 게시 완료로 표시</button>}</div>
           </article>)}</div>
         </section>
 

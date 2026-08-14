@@ -5,6 +5,7 @@ import { appendSourceUrl } from "../../../../lib/article-enrichment";
 import { articlePlainText, sanitizeArticleHtml } from "../../../../lib/article-html";
 import { extractSourceUrls, OriginalityCheckError } from "../../../../lib/originality-check";
 import { EDITOR_IN_CHIEF, getEditorialAuthor } from "../../../../lib/editorial-team";
+import { assertTeamPermission } from "../../../../lib/team-permissions";
 
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const auth = await requireOwnerApi(request);
@@ -13,6 +14,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     const { id } = await params;
     const payload = (await request.json()) as Record<string, string>;
     const status = (payload.status || "draft") as PostStatus;
+    assertTeamPermission("owner",status==="published"||status==="scheduled"?"content.publish":"content.draft.update");
     if (!payload.title?.trim() || !payload.body?.trim()) {
       return Response.json({ error: "제목과 본문을 입력하세요." }, { status: 400 });
     }

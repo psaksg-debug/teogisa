@@ -210,6 +210,11 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 @media(max-width:800px){.company-rules-card>header,.organization-notice>header{flex-direction:column}.company-objectives,.company-rule-chapters,.company-resource-list{grid-template-columns:1fr}.policy-recipient-list{grid-template-columns:1fr 1fr}.management-summary{grid-template-columns:1fr 1fr}.management-summary>div:last-child{grid-column:1/-1;border-top:1px solid var(--line)}.management-team-grid{grid-template-columns:1fr}.management-issue-list header{flex-direction:column;gap:6px}.management-issue-list header small{white-space:normal}}
 @media(max-width:480px){.company-rules-card{padding:22px 16px}.company-rules-metrics{grid-template-columns:1fr}.company-rules-metrics span{border-right:0;border-bottom:1px solid #41606d}.company-rules-metrics span:last-child{border-bottom:0}.organization-notice{padding:20px 16px}.policy-recipient-list{grid-template-columns:1fr}.management-summary{grid-template-columns:1fr}.management-summary>div,.management-summary>div:last-child{grid-column:auto;border-right:0;border-top:1px solid var(--line)}.management-summary>div:first-child{border-top:0}.management-issue-list footer{align-items:stretch;flex-direction:column}.management-issue-list button{width:100%}}
 
+/* Management department internal audit office */
+.internal-audit-panel{border-top:5px solid #713f36}.audit-summary{display:grid;grid-template-columns:repeat(3,1fr);margin:22px 0;border:1px solid var(--line);background:#fff}.audit-summary>div{padding:18px;border-right:1px solid var(--line)}.audit-summary>div:last-child{border-right:0}.audit-summary span{display:block;color:#71858c;font-size:10px;font-weight:800}.audit-summary strong{display:block;margin-top:9px;color:var(--navy);font-size:20px}.audit-officers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.audit-officers article{padding:20px;border:1px solid var(--line);background:#fff}.audit-officers span{color:#8d4d42;font-size:10px;font-weight:850}.audit-officers h3{margin:13px 0 7px;color:var(--navy);font:700 18px "Noto Serif KR",serif}.audit-officers p,.audit-domains p{margin:0;color:#637880;font-size:11px;line-height:1.65}.audit-domains{margin-top:18px}.audit-domains summary{cursor:pointer;color:var(--navy);font-size:12px;font-weight:800}.audit-domains>div{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}.audit-domains article{padding:15px;background:#f5f7f6}.audit-domains h4{margin:5px 0;color:var(--navy);font-size:13px}.audit-domains span,.audit-domains small{color:#71858c;font-size:9px}.audit-findings{margin-top:30px}.audit-findings>article{margin-top:9px;padding:17px;border:1px solid var(--line);border-left:4px solid #d99b45;background:#fff}.audit-findings>article.critical{border-left-color:#b4493c}.audit-findings>article.compliant{border-left-color:#6d9a84;background:#f5f8f6}.audit-findings>article.resolved{opacity:.72;border-left-color:#6d9a84}.audit-findings header,.audit-findings footer{display:flex;justify-content:space-between;gap:14px}.audit-findings header span{display:block;color:#9b3d32;font-size:9px;font-weight:850}.audit-findings header strong{color:var(--navy);font-size:13px}.audit-findings header small,.audit-findings footer span{color:#71858c;font-size:10px}.audit-findings article>p{color:#5f747b;font-size:11px;line-height:1.6}.audit-findings button{min-height:34px;padding:0 11px;border:1px solid var(--teal);color:var(--teal);background:#fff;font-size:10px;font-weight:800;cursor:pointer}
+@media(max-width:800px){.audit-officers,.audit-domains>div{grid-template-columns:1fr}.audit-findings header,.audit-findings footer{flex-direction:column}}
+@media(max-width:480px){.audit-summary{grid-template-columns:1fr}.audit-summary>div{border-right:0;border-bottom:1px solid var(--line)}.audit-summary>div:last-child{border-bottom:0}}
+
 /* Reader-first information sections */
 .inner-breadcrumb{margin:0 0 28px}.inner-breadcrumb [aria-current="page"]{color:#71858c}
 .decision-checklist,.health-plan{margin-bottom:34px;padding:34px;background:var(--mist);border-top:3px solid var(--navy)}
@@ -378,6 +383,16 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .promotion-actions a,.promotion-actions button{min-height:42px;padding:0 14px;display:inline-flex;align-items:center;border:1px solid var(--navy);color:var(--navy);background:#fff;font-size:10px;font-weight:800;cursor:pointer}
 .promotion-actions button{color:#fff;background:var(--navy)}
 .promotion-actions a:hover,.promotion-actions a:focus-visible,.promotion-actions button:hover,.promotion-actions button:focus-visible{border-color:var(--orange);outline:0;box-shadow:0 0 0 3px rgba(230,123,50,.18)}
+.marketing-channel-plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.marketing-channel-plan{margin:0!important;padding:18px!important;background:var(--mist);border:1px solid var(--line)}
+.marketing-channel-plan header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.marketing-channel-plan header div{display:grid;gap:4px}
+.marketing-channel-plan header strong{color:var(--navy);font-size:13px}
+.marketing-channel-plan header span,.marketing-channel-plan header small{color:var(--teal);font-size:9px;font-weight:800}
+.marketing-channel-plan p{min-height:112px;margin:14px 0;color:#536b73;font-size:11px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere}
+.marketing-channel-plan code{display:block;padding:9px;color:#60777e;background:#fff;font:9px/1.5 monospace;overflow-wrap:anywhere}
+.marketing-channel-plan>div{display:flex;gap:7px;margin-top:12px}
+.marketing-channel-plan button,.marketing-channel-plan a{min-height:36px;padding:0 10px;display:inline-flex;align-items:center;border:1px solid var(--teal);color:var(--teal);background:#fff;font-size:9px;font-weight:800;cursor:pointer}
 .promotion-department-panel{border-top:4px solid var(--teal)}
 .promotion-team-grid{margin-top:22px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .promotion-member-card{padding:20px;border:1px solid var(--line);background:#fff}
@@ -406,6 +421,8 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   .promotion-card time{display:block;margin-top:9px}
   .promotion-card>section{padding:16px}
   .promotion-card>section>button{position:static;margin-top:14px}
+  .marketing-channel-plans{grid-template-columns:1fr}
+  .marketing-channel-plan p{min-height:0}
   .promotion-actions{display:grid}
   .promotion-actions a,.promotion-actions button{justify-content:center}
   .promotion-team-grid{grid-template-columns:1fr}
@@ -670,3 +687,63 @@ button:not(:disabled),[role="button"],summary{cursor:pointer}
   .article-copy.reader-large{font-size:18.5px;line-height:1.95}
 }
 @media(prefers-reduced-motion:reduce){.reader-progress-value{transition:none}}
+
+/* Search page: keep controls and result copy in distinct layout regions. */
+.search-form{width:min(100%,780px);margin:0 0 34px}
+.search-form>label{display:block;margin-bottom:10px;color:var(--navy);font-size:13px;font-weight:800}
+.search-field{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px}
+.search-field input{min-width:0;min-height:56px;padding:0 18px;border:1px solid var(--line);border-radius:0;color:var(--ink);background:#fff;outline:none}
+.search-field input::placeholder{color:#77898f;opacity:1}
+.search-field input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(46,102,114,.14)}
+.search-field button{min-width:104px;min-height:56px;padding:0 22px;border:1px solid var(--navy);color:#fff;background:var(--navy);font-weight:800;transition:background-color .18s ease,border-color .18s ease}
+.search-field button:hover,.search-field button:focus-visible{border-color:var(--teal);background:var(--teal)}
+.search-count{margin:0 0 18px;color:var(--muted-ink);font-size:14px;font-weight:750}
+.search-results{display:grid;gap:16px}
+.search-results>a{min-width:0;min-height:164px;padding:16px;border:1px solid var(--line);background:#fff;transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease}
+.search-results>a:hover,.search-results>a:focus-visible{border-color:#9fbab1;box-shadow:var(--shadow-soft);transform:translateY(-2px)}
+.search-results .thumbnail-search{width:100%;height:auto;min-height:0;aspect-ratio:5/3}
+.search-result-copy{min-width:0;display:grid;align-content:center;gap:8px}
+.search-result-copy>span{display:block;color:var(--teal);font-size:12px;font-weight:800;line-height:1.45}
+.search-result-copy>strong{display:block;min-width:0;color:var(--navy);font:700 21px/1.5 "Noto Serif KR","AppleMyungjo","Batang",serif;overflow-wrap:anywhere;word-break:normal}
+.search-result-copy>p{min-width:0;margin:0;color:var(--muted-ink);font-size:14px;line-height:1.7;overflow-wrap:anywhere;word-break:normal}
+
+@media(max-width:600px){
+  .search-form{margin-bottom:28px}
+  .search-field{grid-template-columns:minmax(0,1fr) 88px;gap:8px}
+  .search-field input{min-height:52px;padding:0 14px}
+  .search-field button{min-width:0;min-height:52px;padding:0 12px}
+  .search-results{gap:12px}
+  .search-results>a{grid-template-columns:112px minmax(0,1fr);gap:14px;min-height:0;padding:12px;align-items:start}
+  .search-results .thumbnail-search{height:auto;aspect-ratio:4/3}
+  .search-result-copy{gap:5px}
+  .search-result-copy>span{font-size:11px}
+  .search-result-copy>strong{font-size:16px;line-height:1.48}
+  .search-result-copy>p{display:none}
+}
+@media(max-width:420px){
+  .search-results>a{grid-template-columns:1fr;padding:12px}
+  .search-results .thumbnail-search{aspect-ratio:16/9}
+}
+
+.release-governance-panel{grid-column:1/-1;border-top:4px solid var(--navy)}
+.release-safety-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}
+.release-safety-summary article{padding:20px;background:var(--mint);border:1px solid var(--line)}
+.release-safety-summary span{display:block;color:var(--teal);font-size:10px;font-weight:850}
+.release-safety-summary strong{display:block;margin:8px 0;color:var(--navy);font-size:17px}
+.release-safety-summary p{margin:0;color:#657a81;font-size:11px;line-height:1.65}
+.team-permission-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.team-permission-grid article{padding:18px;border:1px solid var(--line);background:#fff}
+.team-permission-grid header{display:flex;justify-content:space-between;gap:10px}
+.team-permission-grid header span{color:var(--navy);font-weight:850}
+.team-permission-grid header strong{color:var(--orange);font-size:10px}
+.team-permission-grid p{min-height:42px;color:#657a81;font-size:11px;line-height:1.65}
+.team-permission-grid article>div{display:flex;flex-wrap:wrap;gap:5px}
+.team-permission-grid code{padding:5px 7px;color:#315f4e;background:#e4f1eb;font:700 9px ui-monospace,monospace}
+.team-permission-grid ul{margin:14px 0 0;padding:12px 12px 12px 28px;background:#fff5ec;color:#8b512a;font-size:10px;line-height:1.7}
+.release-gate-list{margin-top:22px;padding:22px;background:var(--navy);color:#fff}
+.release-gate-list h3{margin:0 0 16px;font:700 20px "Noto Serif KR",serif}
+.release-gate-list ol{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin:0;padding:0;list-style:none;border-top:1px solid rgba(255,255,255,.2)}
+.release-gate-list li{min-height:52px;padding:13px 10px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.13);font-size:11px}
+.release-gate-list li span{color:#9fcfc4;font:800 10px ui-monospace,monospace}
+@media(max-width:900px){.team-permission-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.release-safety-summary,.team-permission-grid,.release-gate-list ol{grid-template-columns:1fr}.team-permission-grid p{min-height:0}.release-governance-panel .panel-title{align-items:flex-start;flex-direction:column}}

@@ -1,0 +1,25 @@
+export const safeReleasePolicy = {
+  mode: "versioned-atomic",
+  title: "무중단 안전 배포",
+  summary: "각 팀의 변경은 운영 사이트와 분리된 새 버전에서 검증하고, 성공한 버전만 한 번에 운영으로 교체합니다.",
+  productionAuthority: "대표 · 최고관리자",
+  approvalAuthority: "관리부",
+  rollback: "직전 정상 버전을 유지하며 실패 시 운영 버전을 교체하지 않습니다.",
+  updatePaths: [
+    { team:"콘텐츠기획팀", change:"브리프·편성 변경", delivery:"운영 사이트 변경 없음" },
+    { team:"편집부 · 콘텐츠 부장", change:"글 초안·본문 변경", delivery:"D1에 초안 저장 후 검토" },
+    { team:"품질디자인팀", change:"디자인·코드 변경", delivery:"새 배포 후보에서 빌드·테스트" },
+    { team:"홍보부", change:"홍보 문안·실행 기록", delivery:"발행된 글만 대상으로 저장" },
+    { team:"관리부", change:"감사·자동화·배포 승인", delivery:"게이트 통과 여부와 조치 기록" },
+  ],
+  gates: [
+    "변경 범위와 담당 팀 확인",
+    "기존 운영 버전과 분리된 소스 확정",
+    "프로덕션 빌드와 자동 테스트 통과",
+    "DB 변경 시 마이그레이션 포함 여부 확인",
+    "관리부의 정책·품질·보안 승인",
+    "대표 계정으로 새 버전 저장",
+    "준비가 끝난 버전을 운영으로 한 번에 교체",
+    "운영 URL·대표 도메인·핵심 기능 확인",
+  ],
+} as const;

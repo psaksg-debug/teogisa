@@ -77,6 +77,10 @@ test("renders the finished Korean content site", async () => {
   assert.match(css, /object-fit:contain/);
   assert.match(css, /article-flow/);
   assert.match(search, /<a href={`\/posts\/\$\{p\.slug\}`}/);
+  assert.match(search, /htmlFor="site-search"/);
+  assert.match(search, /className="search-field"/);
+  assert.match(css, /\.search-result-copy\{min-width:0;display:grid/);
+  assert.match(css, /\.search-results\{display:grid;gap:16px\}/);
   assert.match(article, /<a href={`\/posts\/\$\{item\.slug\}`}/);
   assert.match(article, /className="glossary-link"/);
   assert.match(article, /linkGlossaryTerms/);
@@ -153,6 +157,10 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(repository,/runSiteManagementAudit/);
   assert.match(repository,/management_issues/);
   assert.match(admin,/사이트 관리부서 상황실/);
+  assert.match(admin,/전사 감사실/);
+  assert.match(admin,/전 프로젝트 감사 실행/);
+  assert.match(repository,/runOrganizationAudit/);
+  assert.match(repository,/audit_runs/);
   assert.match(admin,/지금 전체 점검/);
   assert.match(admin,/전사 적용/);
   assert.match(admin,/적용 구성원 전체 보기/);
@@ -206,8 +214,13 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(admin,/사람이 확인해 예약 또는 발행 상태로 바꾼 글만 공개됩니다/);
   assert.match(admin,/품질 기준에 미달하면 실패 기록으로 남깁니다/);
   assert.match(admin,/홍보 에이전트 작업실/);
-  assert.match(admin,/SNS용 짧은 문구/);
-  assert.match(admin,/게시 완료로 표시/);
+  assert.match(admin,/UTM 추적 적용/);
+  assert.match(admin,/외부 게시 완료로 표시/);
+  const marketingCampaigns = await readFile(new URL("../lib/marketing-campaigns.ts", import.meta.url), "utf8");
+  assert.match(marketingCampaigns,/utm_source/);
+  assert.match(marketingCampaigns,/always_on_/);
+  assert.match(marketingCampaigns,/name: "네이버 블로그"/);
+  assert.match(marketingCampaigns,/name: "Facebook"/);
   assert.match(admin,/홍보부 조직·SEO 운영실/);
   assert.match(admin,/역할이 바로 연상되는 짧은 닉네임을 사용하는 AI 조직/);
   const qualityDesignTeam = await readFile(new URL("../lib/quality-design-team.ts", import.meta.url), "utf8");
@@ -232,6 +245,18 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(robots,/bingbot/);
   assert.match(robots,/Yeti/);
   assert.doesNotMatch(robots,/\/search\?/);
+});
+
+test("전사 감사 조직과 감사영역이 문서화되어 있다", async () => {
+  const audit = await readFile(new URL("../lib/internal-audit.ts", import.meta.url), "utf8");
+  const charter = await readFile(new URL("../INTERNAL_AUDIT_CHARTER.md", import.meta.url), "utf8");
+  const report = await readFile(new URL("../AUDIT_REPORT_2026-08-14.md", import.meta.url), "utf8");
+  assert.match(audit,/강한결/);
+  assert.match(audit,/박지안/);
+  assert.match(audit,/윤서진/);
+  assert.match(audit,/퇴\.기\.사 전 프로젝트/);
+  assert.match(charter,/매월 1회 전 영역/);
+  assert.match(report,/조건부 적정/);
 });
 
 test("keeps the independent editor and write APIs session-protected", async () => {
@@ -268,6 +293,31 @@ test("keeps the independent editor and write APIs session-protected", async () =
   assert.match(automationApi, /requireOwnerApi/);
   assert.match(promotionsApi, /requireOwnerApi/);
   assert.match(promotionsApi, /executePromotionCampaign/);
+});
+
+test("enforces team permissions and versioned safe releases", async () => {
+  const [permissions, releasePolicy, repository, postsApi, admin, packageJson] = await Promise.all([
+    readFile(new URL("../lib/team-permissions.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/release-policy.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/repository.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/api/posts/route.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/admin/AdminClient.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../package.json", import.meta.url), "utf8"),
+  ]);
+  assert.match(permissions, /productionDeployAuthority = "owner"/);
+  assert.match(permissions, /id: "content-planning"/);
+  assert.match(permissions, /id: "editorial"/);
+  assert.match(permissions, /id: "quality-design"/);
+  assert.match(permissions, /id: "promotion"/);
+  assert.match(permissions, /id: "management"/);
+  assert.match(permissions, /"release\.deploy"/);
+  assert.match(releasePolicy, /mode: "versioned-atomic"/);
+  assert.match(releasePolicy, /직전 정상 버전/);
+  assert.match(repository, /assertTeamPermission\("editorial","content\.draft\.create"\)/);
+  assert.match(repository, /assertTeamPermission\("management","audit\.run"\)/);
+  assert.match(postsApi, /assertTeamPermission\("owner"/);
+  assert.match(admin, /팀별 권한·무중단 배포/);
+  assert.match(packageJson, /release:check/);
 });
 
 test("ships mobile-first SEO, GEO, trust and original-value pages", async () => {

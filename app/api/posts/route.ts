@@ -5,6 +5,7 @@ import { appendSourceUrl } from "../../../lib/article-enrichment";
 import { articlePlainText, sanitizeArticleHtml } from "../../../lib/article-html";
 import { extractSourceUrls, OriginalityCheckError } from "../../../lib/originality-check";
 import { EDITOR_IN_CHIEF, getEditorialAuthor } from "../../../lib/editorial-team";
+import { assertTeamPermission } from "../../../lib/team-permissions";
 
 export async function GET(request:Request){const auth=await requireOwnerApi(request);if(auth.response)return auth.response;try{return Response.json({posts:await getAllPosts()});}catch(error){return Response.json({error:error instanceof Error?error.message:"글을 불러오지 못했습니다."},{status:500});}}
 export async function POST(request:Request){
@@ -13,6 +14,7 @@ export async function POST(request:Request){
     const p=await request.json() as Record<string,string>;
     if(!p.title?.trim()||!p.body?.trim()) return Response.json({error:"제목과 본문을 입력하세요."},{status:400});
     const status=(p.status||"draft") as PostStatus;
+    assertTeamPermission("owner",status==="published"||status==="scheduled"?"content.publish":"content.draft.create");
     const body=sanitizeArticleHtml(appendSourceUrl(p.body,p.sourceUrl));
     const plainBody=articlePlainText(body);
     if(status==="published"||status==="scheduled")await verifyPublicationOriginality({body,sourceUrls:extractSourceUrls(body,p.sourceUrl),editorName:p.authorName||"데스크",title:p.title.trim()});

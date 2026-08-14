@@ -1,5 +1,6 @@
 import { createAutomationDraft, getPostingQueue } from "../../../lib/repository";
 import { requireOwnerApi } from "../../../lib/site-admin";
+import { assertTeamPermission } from "../../../lib/team-permissions";
 
 export async function GET(request:Request) {
   const auth = await requireOwnerApi(request);
@@ -12,6 +13,7 @@ export async function POST(request: Request) {
   const auth = await requireOwnerApi(request);
   if (auth.response) return auth.response;
   try {
+    assertTeamPermission("owner","content.draft.create");
     const payload = (await request.json()) as Record<string, string>;
     if (!payload.topic?.trim() || !payload.sourceUrl?.trim()) {
       return Response.json({ error: "글 주제와 공식 자료 주소를 입력하세요." }, { status: 400 });
