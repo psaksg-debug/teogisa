@@ -690,6 +690,30 @@ button:not(:disabled),[role="button"],summary{cursor:pointer}
 .article-copy .official-organization-link{color:var(--teal);font-weight:800;text-decoration:underline;text-decoration-color:rgba(46,102,114,.55);text-underline-offset:4px}
 .article-copy .official-organization-link:hover,.article-copy .official-organization-link:focus-visible{color:var(--navy);background:var(--mint);text-decoration-color:var(--orange)}
 
+/* Home: compact, title-only list of the five newest posts. */
+.recent-posts{padding-top:56px;padding-bottom:34px}
+.recent-posts-header{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:22px}
+.recent-posts-header .eyebrow{margin-bottom:8px}
+.recent-posts-header h2{margin:0;color:var(--navy);font:700 clamp(28px,3vw,38px)/1.25 "Noto Serif KR","AppleMyungjo","Batang",serif;letter-spacing:-.05em}
+.recent-posts-header>a{min-height:44px;display:inline-flex;align-items:center;gap:10px;border-bottom:1px solid var(--line);color:var(--teal);font-size:13px;font-weight:800}
+.recent-title-list{counter-reset:recent-post;margin:0;padding:0;border-top:2px solid var(--navy);list-style:none}
+.recent-title-list li{counter-increment:recent-post}
+.recent-title-list a{min-height:64px;display:grid;grid-template-columns:44px minmax(0,1fr) 28px;align-items:center;gap:16px;padding:8px 12px;border-bottom:1px solid var(--line);color:var(--navy);transition:background-color .18s ease,color .18s ease}
+.recent-title-list a::before{content:counter(recent-post,decimal-leading-zero);color:var(--orange);font:800 11px/1 ui-monospace,monospace}
+.recent-title-list strong{min-width:0;font:700 18px/1.5 "Noto Serif KR","AppleMyungjo","Batang",serif;letter-spacing:-.035em;white-space:normal;overflow-wrap:anywhere}
+.recent-title-list a>span{color:var(--teal);font-size:18px;text-align:right}
+.recent-title-list a:hover,.recent-title-list a:focus-visible{color:var(--teal);background:var(--mint)}
+.recent-title-list a:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+
+@media(max-width:600px){
+  .recent-posts{padding:38px 18px 24px}
+  .recent-posts-header{align-items:flex-start;margin-bottom:18px}
+  .recent-posts-header h2{font-size:28px}
+  .recent-posts-header>a{flex:0 0 auto;font-size:12px}
+  .recent-title-list a{min-height:56px;grid-template-columns:30px minmax(0,1fr) 22px;gap:10px;padding:9px 4px}
+  .recent-title-list strong{font-size:16.5px;line-height:1.55;letter-spacing:-.02em}
+}
+
 @media(max-width:700px){
   .reader-tools{top:6px;margin-bottom:32px}
   .reader-tools-main{min-height:0;display:grid;grid-template-columns:1fr;padding:11px 12px;gap:8px}

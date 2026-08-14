@@ -28,6 +28,10 @@ test("renders the finished Korean content site", async () => {
   assert.match(page, /hero-project-visual/);
   assert.match(page, /본문으로 바로가기/);
   assert.match(page, /hero-facts/);
+  assert.match(page, /최근 발행 글/);
+  assert.match(page, /recentPosts=sortedPosts\.slice\(0,5\)/);
+  assert.match(page, /recent-title-list/);
+  assert.match(css, /\.recent-title-list a\{min-height:64px/);
   assert.match(page, /ContactPoint/);
   assert.match(page, /master@adbles\.com/);
   assert.match(page, /MobileMenu/);
