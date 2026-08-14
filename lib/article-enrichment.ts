@@ -52,7 +52,10 @@ const categoryOfficialLinks:Record<string,Array<{label:string;url:string}>>={
 };
 
 const slugResources:Record<string,{links?:Array<{label:string;url:string}>;video?:ArticleEnrichment["video"]}>={
-  "health-insurance-after-retirement-three-checks":{links:[{label:"국민건강보험공단 임의계속가입 안내",url:"https://www.nhis.or.kr/static/alim/paper/oldpaper/202212/sub/18.html"},{label:"국민건강보험공단 2026년도 보험료율",url:"https://edi.nhis.or.kr/portal/images/popup/20251204_pop01longdesc.html"}]},
+  "health-insurance-after-retirement-three-checks":{
+    links:[{label:"국민건강보험공단 임의계속가입 안내",url:"https://www.nhis.or.kr/static/alim/paper/oldpaper/202212/sub/18.html"},{label:"국민건강보험공단 2026년도 보험료율",url:"https://edi.nhis.or.kr/portal/images/popup/20251204_pop01longdesc.html"}],
+    video:{title:"건보료 조정신청과 임의계속가입 제도",embedUrl:"https://www.youtube-nocookie.com/embed/D-5p431l-qY",sourceUrl:"https://www.youtube.com/watch?v=D-5p431l-qY",description:"퇴직 후 임의계속가입의 기본 개념을 설명하는 KBS 참고영상입니다. 2021년 공개 영상이므로 최신 보험료율·자격·기한은 본문에 연결한 국민건강보험공단의 2026년 자료로 다시 확인하세요.",channel:"윤창희의 생존경제_KBS"},
+  },
   "ai-first-income-five-methods-seven-day-plan":{
     links:[{label:"원본 영상: 클로드 수익화 방법 5가지",url:"https://www.youtube.com/watch?v=qEVZ7AgB7zI"}],
     video:{title:"클로드로 당장 수익 만드는 확실한 방법 5가지",embedUrl:"https://www.youtube-nocookie.com/embed/qEVZ7AgB7zI",sourceUrl:"https://www.youtube.com/watch?v=qEVZ7AgB7zI",description:"리서치 대행, 디지털 상품, 인스타툰, 미니사이트와 웹게임까지 다섯 가지 AI 수익화 아이디어를 소개한 영상입니다. 본문은 이 아이디어들을 7일 검증 절차와 위험 관리 기준으로 재구성했습니다.",channel:"혼잡스"},

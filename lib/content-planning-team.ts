@@ -21,7 +21,7 @@ export const contentPlanningTeam: ContentPlanningMember[] = [
 export const contentPlanningWorkflow = [
   "독자 질문과 공식 이슈를 수집해 문제 문장으로 등록",
   "주제 지도에서 중복·공백·위험도를 확인하고 우선순위 결정",
-  "목표·독자·출처 후보·차별점·완료기준이 있는 제작 브리프 승인",
+  "목표·독자·출처 후보·차별점·본문 이미지와 alt·영상 활용·완료기준이 있는 제작 브리프 승인",
   "주간 편성표로 편집부에 인계하고 지연·실패는 백로그에 보존",
   "발행 7일·28일 성과를 회고해 확장·갱신·통합·중단 결정",
 ] as const;
