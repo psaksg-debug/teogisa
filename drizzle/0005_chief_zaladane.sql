@@ -29,4 +29,5 @@ CREATE TABLE `audit_runs` (
 	`completed_at` text
 );
 --> statement-breakpoint
-CREATE INDEX `idx_audit_runs_completed` ON `audit_runs` (`completed_at`);
+CREATE INDEX `idx_audit_runs_completed` ON `audit_runs` (`completed_at`);--> statement-breakpoint
+PRAGMA optimize;
