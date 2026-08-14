@@ -3,13 +3,14 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("renders the finished Korean content site", async () => {
-  const [page, layout, search, article, media, enrichment, footer, mobileMenu, site, css, richEditor, articleHtml, readerTools] = await Promise.all([
+  const [page, layout, search, article, media, enrichment, content, footer, mobileMenu, site, css, richEditor, articleHtml, readerTools] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/search/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/posts/[slug]/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components/ArticleMedia.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/article-enrichment.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/content.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/components/SiteChrome.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components/MobileMenu.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/site.ts", import.meta.url), "utf8"),
@@ -66,7 +67,11 @@ test("renders the finished Korean content site", async () => {
   assert.match(enrichment, /wikipedia\.org/);
   assert.match(enrichment, /categoryOfficialLinks/);
   assert.match(enrichment, /z08sPVTv39M/);
-  assert.match(media, /관련 공식 영상/);
+  assert.match(media, /관련 설명 영상/);
+  assert.match(enrichment, /D-5p431l-qY/);
+  assert.match(content, /alt="퇴직 후 건강보험 가입 유형을 확인하는 중장년 부부 일러스트"/);
+  assert.match(articleHtml, /validateArticleMedia/);
+  assert.match(articleHtml, /ArticleMediaValidationError/);
   assert.match(enrichment, /youtube-nocookie/);
   assert.match(enrichment, /article-thumbnails/);
   assert.match(media, /alt=\{image\.alt\}/);

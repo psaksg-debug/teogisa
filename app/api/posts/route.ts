@@ -2,7 +2,7 @@ import { createPost, getAllPosts, verifyPublicationOriginality } from "../../../
 import { slugify, type PostStatus } from "../../../lib/content";
 import { requireOwnerApi } from "../../../lib/site-admin";
 import { appendSourceUrl } from "../../../lib/article-enrichment";
-import { articlePlainText, sanitizeArticleHtml } from "../../../lib/article-html";
+import { ArticleMediaValidationError, articlePlainText, sanitizeArticleHtml, validateArticleMedia } from "../../../lib/article-html";
 import { extractSourceUrls, OriginalityCheckError } from "../../../lib/originality-check";
 import { EDITOR_IN_CHIEF, getEditorialAuthor } from "../../../lib/editorial-team";
 import { assertTeamPermission } from "../../../lib/team-permissions";
@@ -15,10 +15,11 @@ export async function POST(request:Request){
     if(!p.title?.trim()||!p.body?.trim()) return Response.json({error:"제목과 본문을 입력하세요."},{status:400});
     const status=(p.status||"draft") as PostStatus;
     assertTeamPermission("owner",status==="published"||status==="scheduled"?"content.publish":"content.draft.create");
+    if(status==="published"||status==="scheduled")validateArticleMedia(p.body);
     const body=sanitizeArticleHtml(appendSourceUrl(p.body,p.sourceUrl));
     const plainBody=articlePlainText(body);
     if(status==="published"||status==="scheduled")await verifyPublicationOriginality({body,sourceUrls:extractSourceUrls(body,p.sourceUrl),editorName:p.authorName||"데스크",title:p.title.trim()});
     const post=await createPost({title:p.title.trim(),slug:slugify(p.slug||p.title),excerpt:p.excerpt?.trim()||plainBody.slice(0,120),body,category:p.category||"퇴직 준비",tags:(p.tags||"").split(",").map(x=>x.trim()).filter(Boolean),status,publishedAt:status==="published"?new Date().toISOString().slice(0,10):"",scheduledAt:status==="scheduled"?p.scheduledAt||null:null,readingMinutes:Math.max(1,Math.ceil(plainBody.length/700)),visual:p.visual?.trim()||"NEW",authorName:getEditorialAuthor(p.authorName||EDITOR_IN_CHIEF.name).name});
     return Response.json({post},{status:201});
-  }catch(error){return Response.json({error:error instanceof Error?error.message:"저장하지 못했습니다."},{status:error instanceof OriginalityCheckError?409:500});}
+  }catch(error){return Response.json({error:error instanceof Error?error.message:"저장하지 못했습니다."},{status:error instanceof OriginalityCheckError?409:error instanceof ArticleMediaValidationError?422:500});}
 }

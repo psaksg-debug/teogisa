@@ -40,6 +40,23 @@ export function sanitizeArticleHtml(value:string){
 
 export function articlePlainText(value:string){return value.replace(/<[^>]*>/g," ").replace(/&nbsp;/g," ").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/\s+/g," ").trim();}
 
+export class ArticleMediaValidationError extends Error {
+  constructor(message:string){super(message);this.name="ArticleMediaValidationError";}
+}
+
+export function validateArticleMedia(value:string){
+  const images=Array.from(value.matchAll(/<img\b([^>]*)>/gi));
+  if(images.length===0)throw new ArticleMediaValidationError("발행 글에는 본문 관련 이미지가 1개 이상 필요합니다. figure.article-image 안에 이미지를 넣고 구체적인 대체텍스트를 작성하세요.");
+  for(const [,raw] of images){
+    const alt=raw.match(/\balt\s*=\s*(?:"([^"]*)"|'([^']*)')/i)?.slice(1).find(Boolean)?.trim()??"";
+    if(alt.length<8||["이미지","본문 관련 이미지","사진"].includes(alt))throw new ArticleMediaValidationError("모든 본문 이미지에는 장식 여부가 아니라 이미지의 내용과 글의 맥락을 설명하는 alt 문구가 필요합니다.");
+  }
+  for(const [,raw] of value.matchAll(/<iframe\b([^>]*)>/gi)){
+    const title=raw.match(/\btitle\s*=\s*(?:"([^"]*)"|'([^']*)')/i)?.slice(1).find(Boolean)?.trim()??"";
+    if(title.length<4)throw new ArticleMediaValidationError("YouTube 임베드에는 영상 내용을 알 수 있는 title 속성이 필요합니다.");
+  }
+}
+
 export function addGlossaryLinksToHtml(html:string,glossary:Array<{term:string;url:string}>){
   const linked=new Set<string>();let anchorDepth=0;
   return html.split(/(<[^>]+>)/g).map((token)=>{
