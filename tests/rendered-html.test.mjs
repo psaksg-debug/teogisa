@@ -160,6 +160,7 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(admin,/전사 감사실/);
   assert.match(admin,/전 프로젝트 감사 실행/);
   assert.match(repository,/runOrganizationAudit/);
+  assert.match(repository,/runDueOrganizationAudit/);
   assert.match(repository,/audit_runs/);
   assert.match(admin,/지금 전체 점검/);
   assert.match(admin,/전사 적용/);
