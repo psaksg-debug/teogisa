@@ -2,7 +2,7 @@ import { getPublishedPosts } from "../lib/repository";
 import { Brand, PortalNav, SiteFooter } from "./components/SiteChrome";
 import { MobileMenu } from "./components/MobileMenu";
 import { ArticleThumbnail } from "./components/ArticleMedia";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "../lib/site";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "../lib/site";
 
 const journeys = [
   { label: "생활비 방어", value: "실업급여·지원금", tone: "blue" },
@@ -43,7 +43,7 @@ export default async function Home() {
       <main id="main-content">
         <section className="hero">
           <div className="hero-copy">
-            <p className="eyebrow">내 두 번째 생활을 시작하는 곳</p>
+            <p className="eyebrow">{SITE_TAGLINE}</p>
             <h1>퇴직 후 막막함을,<br/><em>실행 가능한 계획으로.</em></h1>
             <p className="hero-lead">내 돈이 몇 달을 버틸지 계산하고, 놓치기 쉬운 지원을 챙기고, 지금까지의 경험으로 새로운 수입을 만드는 순서까지. 오늘 필요한 한 단계부터 시작하세요.</p>
             <dl className="hero-facts" aria-label="사이트 콘텐츠 현황">

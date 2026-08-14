@@ -1,6 +1,7 @@
 import { env } from "cloudflare:workers";
 import { seedPosts, type Post } from "./content";
 import { contentAgentProfiles, type ContentAgentProfile } from "./content-agents";
+import { SITE_NAME } from "./site";
 
 export type QueueItem = {
   id: number;
@@ -266,10 +267,10 @@ export async function preparePromotionCampaign(postId?:number){
   if(existing)return mapPromotion(existing as Record<string,unknown>);
   const title=String(post.title);const excerpt=String(post.excerpt??"").trim();const slug=String(post.slug);const category=String(post.category);
   const postTags=JSON.parse(String(post.tags_json??"[]")) as string[];
-  const hashtags=Array.from(new Set(["퇴직생활수익화프로젝트",category.replace(/[^0-9A-Za-z가-힣]/g,""),...postTags.map(tag=>String(tag).replace(/[^0-9A-Za-z가-힣]/g,""))].filter(Boolean))).slice(0,6);
+  const hashtags=Array.from(new Set(["퇴기사",category.replace(/[^0-9A-Za-z가-힣]/g,""),...postTags.map(tag=>String(tag).replace(/[^0-9A-Za-z가-힣]/g,""))].filter(Boolean))).slice(0,6);
   const url=`https://adbles.com/posts/${slug}`;
   const summary=excerpt||`${title}에 관한 핵심 내용과 실행 순서를 정리했습니다.`;
-  const headline=`${title} | 퇴직생활 수익화 프로젝트`;
+  const headline=`${title} | ${SITE_NAME}`;
   const socialCopy=`${summary}\n\n지금 확인하기: ${url}\n${hashtags.map(tag=>`#${tag}`).join(" ")}`;
   const communityCopy=`퇴직 이후의 돈·일·건강을 준비하는 분께 도움이 될 글을 공유합니다.\n\n${title}\n${summary}\n\n본문에서는 확인해야 할 기준과 바로 실행할 순서를 함께 정리했습니다.\n${url}\n\n※ 중요한 결정 전에는 글에 연결된 공식 기관의 최신 원문도 확인하세요.`;
   const channels=["네이버 블로그·카페","카카오톡","페이스북","X"];

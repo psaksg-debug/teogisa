@@ -129,7 +129,7 @@ export default function AdminClient({ username }: { username: string }) {
   return (
     <main className="admin-shell">
       <header className="admin-top">
-        <div><strong>퇴직생활 수익화 프로젝트 · 편집실</strong><span>{username} · 독립 관리자</span></div>
+        <div><strong>퇴.기.사 · 편집실</strong><span>{username} · 독립 관리자</span></div>
         <div className="admin-actions"><a className="admin-button secondary" href="/api/export">전체 백업</a><a className="admin-button secondary" href="/">사이트 보기</a><button className="admin-button secondary" type="button" onClick={logout}>로그아웃</button></div>
       </header>
 

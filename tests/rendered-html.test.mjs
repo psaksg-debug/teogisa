@@ -17,7 +17,8 @@ test("renders the finished Korean content site", async () => {
     readFile(new URL("../app/admin/RichTextEditor.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/article-html.ts", import.meta.url), "utf8"),
   ]);
-  assert.match(layout, /퇴직생활 수익화 프로젝트/);
+  assert.match(layout, /퇴\.기\.사/);
+  assert.match(site, /100세시대! 퇴직이 기회가 되는 사람들/);
   assert.match(page, /퇴직 후 막막함을/);
   assert.match(page, /내 돈이 몇 달을 버틸지 계산하고/);
   assert.doesNotMatch(page, /공식 자료 검토/);

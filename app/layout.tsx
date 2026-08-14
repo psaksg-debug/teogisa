@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   alternates: { canonical: "/" },
   applicationName: SITE_NAME,
-  creator: "퇴직생활 수익화 프로젝트 편집실",
+  creator: "퇴.기.사 편집실",
   publisher: SITE_NAME,
   category: "retirement planning",
   robots: { index:true, follow:true, googleBot:{ index:true, follow:true, "max-image-preview":"large", "max-snippet":-1, "max-video-preview":-1 } },
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     type: "website",
     locale: "ko_KR",
-    images: [{ url: "/project-og-v2.jpg", width: 1200, height: 630, alt: "퇴직생활 수익화 프로젝트 — 경험을 새로운 수입으로 연결하는 실전 가이드" }],
+    images: [{ url: "/project-og-v2.jpg", width: 1200, height: 630, alt: "퇴.기.사 — 100세시대! 퇴직이 기회가 되는 사람들" }],
   },
   twitter: { card: "summary_large_image", title: SITE_NAME, description: SITE_DESCRIPTION, images:["/project-og-v2.jpg"] },
 };

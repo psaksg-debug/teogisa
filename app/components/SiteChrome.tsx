@@ -1,9 +1,9 @@
-import { COMPANY_NAME, COMPANY_URL, SITE_NAME, SITE_URL } from "../../lib/site";
+import { COMPANY_NAME, COMPANY_URL, SITE_NAME, SITE_TAGLINE, SITE_URL } from "../../lib/site";
 import { portalMenu } from "../../lib/portal";
 import { MobileMenu } from "./MobileMenu";
 
 export function Brand() {
-  return <a className="brand" href="/" aria-label={`${SITE_NAME} 홈`}><img className="brand-logo" src="/brand-mark-v2.png" width="40" height="40" alt=""/><span>{SITE_NAME}</span></a>;
+  return <a className="brand" href="/" aria-label={`${SITE_NAME} 홈`}><img className="brand-logo" src="/brand-mark-v2.png" width="40" height="40" alt=""/><span className="brand-copy"><strong>{SITE_NAME}</strong><small>{SITE_TAGLINE}</small></span></a>;
 }
 
 export function PortalNav({ className="portal-nav" }:{className?:string}){
@@ -21,7 +21,7 @@ export function SiteFooter() {
     <div className="footer-grid">
       <section className="footer-intro" aria-labelledby="footer-site-name">
         <Brand/>
-        <h2 id="footer-site-name">퇴직 이후의 경험을<br/>지속 가능한 수입으로.</h2>
+        <h2 id="footer-site-name">100세시대!<br/>퇴직이 기회가 되는 사람들</h2>
         <p>생활비와 제도를 점검하고, 내가 가진 경험으로 새로운 일을 시작할 수 있도록 검증 가능한 정보와 실행 도구를 제공합니다.</p>
         <div className="footer-contact" aria-label="사이트 운영 및 문의 정보">
           <p><span>관리자</span><strong>어썸라이프</strong></p>
