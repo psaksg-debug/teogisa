@@ -37,7 +37,8 @@ test("renders the finished Korean content site", async () => {
   assert.match(css, /\.recent-title-list a\{min-height:64px/);
   assert.match(css, /\.recent-title-list \.recent-post-category/);
   assert.match(repository, /sortPostsNewestFirst/);
-  assert.match(repository, /publishedAt\.localeCompare\(a\.publishedAt\) \|\| b\.id - a\.id/);
+  assert.match(repository, /publishedAt\.slice\(0, 10\)\.localeCompare\(a\.publishedAt\.slice\(0, 10\)\)/);
+  assert.match(repository, /publishedDateOrder \|\| b\.id - a\.id/);
   assert.match(page, /ContactPoint/);
   assert.match(page, /master@adbles\.com/);
   assert.match(page, /MobileMenu/);

@@ -156,9 +156,10 @@ function mapPost(row: Record<string, unknown>): Post {
 }
 
 export function sortPostsNewestFirst(posts: readonly Post[]) {
-  return posts.toSorted(
-    (a, b) => b.publishedAt.localeCompare(a.publishedAt) || b.id - a.id,
-  );
+  return posts.toSorted((a, b) => {
+    const publishedDateOrder = b.publishedAt.slice(0, 10).localeCompare(a.publishedAt.slice(0, 10));
+    return publishedDateOrder || b.id - a.id || b.publishedAt.localeCompare(a.publishedAt);
+  });
 }
 
 export async function publishDuePosts() {
