@@ -17,7 +17,7 @@ export type SearchProgram = {
 
 // 역할이 바로 연상되는 짧은 닉네임을 사용하는 AI 실무자 조직입니다.
 export const promotionTeam: PromotionTeamMember[] = [
-  { id: "seo-lead", name: "픽", title: "홍보부장 · 검색 성장 총괄", scope: "검색엔진별 우선순위를 정하고 주간 개선안과 월간 성과 보고를 승인합니다.", cadence: "주간 지휘 · 월간 회고", kpis: ["자연검색 유입", "핵심 질의 노출", "검토 대기 개선안"] },
+  { id: "seo-lead", name: "픽", title: "홍보마케팅팀장 · 검색 성장 총괄", scope: "검색엔진별 우선순위를 정하고 주간 개선안과 월간 성과 보고를 승인합니다.", cadence: "주간 지휘 · 월간 회고", kpis: ["자연검색 유입", "핵심 질의 노출", "검토 대기 개선안"] },
   { id: "google-seo", name: "랭크", title: "Google SEO 리드", scope: "색인, 사이트맵, Core Web Vitals, 검색 의도와 주제 클러스터를 관리합니다.", cadence: "매주 월요일", kpis: ["유효 색인율", "검색 클릭률", "상위 10위 질의"] },
   { id: "naver-seo", name: "네오", title: "Naver 검색 리드", scope: "Search Advisor 기준, 문서 품질, 출처 신뢰도와 한국어 질의 적합성을 점검합니다.", cadence: "매주 화요일", kpis: ["네이버 유입", "수집·색인 상태", "브랜드 질의"] },
   { id: "bing-seo", name: "빙고", title: "Bing · Copilot 검색 리드", scope: "Bing 색인, IndexNow 적용 가능성, Copilot이 인용하기 쉬운 페이지 구조를 관리합니다.", cadence: "매주 수요일", kpis: ["Bing 노출", "색인 발견 속도", "Copilot 출처 노출"] },

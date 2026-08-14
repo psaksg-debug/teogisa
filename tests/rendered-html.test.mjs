@@ -62,7 +62,8 @@ test("renders the finished Korean content site", async () => {
   assert.equal((layout.match(/google-adsense-account/g) ?? []).length, 1);
   assert.match(layout, /<meta name="google-adsense-account" content="ca-pub-4030620718116834"\/>/);
   assert.match(media, /ArticleThumbnail/);
-  assert.match(media, /읽은 뒤 다시 확인/);
+  assert.doesNotMatch(media, /읽은 뒤 다시 확인/);
+  assert.match(media, /핵심 내용과 확인표/);
   assert.doesNotMatch(media, /자동 구성된/);
   assert.match(enrichment, /wikipedia\.org/);
   assert.match(enrichment, /categoryOfficialLinks/);
@@ -104,6 +105,10 @@ test("renders the finished Korean content site", async () => {
   assert.match(readerTools, /role="progressbar"/);
   assert.match(css, /\.reader-tools\{/);
   assert.match(css, /\.article-copy\.reader-large/);
+  assert.match(css, /reader-large :where\(p,h2,h3,h4,li,a,strong,em,blockquote,figcaption,th,td,code,span\)/);
+  assert.match(css, /table-layout:fixed/);
+  assert.match(css, /white-space:pre-wrap;overflow-wrap:anywhere/);
+  assert.match(css, /reader-large \.article-flow\{grid-template-columns:repeat\(2,minmax\(0,1fr\)\)\}/);
   assert.match(articleHtml, /sanitizeArticleHtml/);
   assert.match(articleHtml, /blockedElements/);
   assert.match(articleHtml, /youtube-nocookie/);
@@ -415,9 +420,35 @@ test("keeps public reads fast while automation runs in the background", async ()
   assert.match(worker, /edgeCache\.put/);
   assert.match(worker, /caches\?\.default/);
   assert.match(worker, /if\(key&&edgeCache\)/);
-  assert.match(worker, /scheduled_content_failed/);
+  assert.match(worker, /scheduled_organization_activity_failed/);
+  assert.match(worker, /runScheduledOrganizationActivities/);
   assert.match(repository, /db\(\{initialize:false\}\)/);
   assert.match(repository, /runDueSiteManagementAudit/);
   assert.match(repository, /await publishDuePosts\(\)/);
   assert.match(releasePolicy, /availability:/);
+});
+
+test("schedules every member with auditable hourly or daily work", async () => {
+  const [plans, repository, route, admin, migration, document] = await Promise.all([
+    readFile(new URL("../lib/member-activity-plans.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/repository.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/api/activity-plans/route.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/admin/AdminClient.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../drizzle/0006_dear_george_stacy.sql", import.meta.url), "utf8"),
+    readFile(new URL("../MEMBER_ACTIVITY_PLAN.md", import.meta.url), "utf8"),
+  ]);
+  assert.match(plans, /organizationChartDepartments\.flatMap/);
+  assert.match(plans, /frequency:isHourly\?"hourly":"daily"/);
+  assert.match(plans, /원문 복사는 금지합니다/);
+  assert.match(repository, /runDueMemberActivities/);
+  assert.match(repository, /runScheduledOrganizationActivities/);
+  assert.match(repository, /member_activity_runs/);
+  assert.match(route, /requireOwnerApi/);
+  assert.match(admin, /전 구성원 자동 실행계획/);
+  assert.match(admin, /시간 단위/);
+  assert.match(admin, /일 단위/);
+  assert.match(migration, /member_activity_plans/);
+  assert.match(migration, /member_activity_runs/);
+  assert.match(document, /직원 33명 전원/);
+  assert.match(document, /발행, 외부 채널 게시, 운영 배포/);
 });

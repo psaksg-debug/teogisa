@@ -10,13 +10,13 @@
 - 공식 자료 기반 검토용 초안 대기열
 - JSON 전체 백업
 - sitemap, robots, 구조화 데이터, llms.txt
-- 닉네임형 AI 홍보부와 Google·Naver·Bing·AI 검색별 상시 관리 체계
+- 닉네임형 AI 홍보마케팅팀과 Google·Naver·Bing·AI 검색별 상시 관리 체계
 
-홍보부의 역할, 승인 경계와 KPI는 `PROMOTION_DEPARTMENT.md`에 정리되어 있습니다.
+홍보마케팅팀의 역할, 승인 경계와 KPI는 `PROMOTION_DEPARTMENT.md`에 정리되어 있습니다.
 
-## 편집부
+## 콘텐츠편집팀
 
-- 편집부장: `데스크`
+- 콘텐츠편집팀장: `데스크`
 - 분야별 편집자: `원`, `가드`, `툴`, `로컬`, `케어`, `큐`
 
 관리자에서 글을 작성할 때 작성자를 선택하며, 선택한 닉네임은 글 상단과 `BlogPosting` 작성자 정보에 함께 표시됩니다.

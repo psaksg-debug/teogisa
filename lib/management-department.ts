@@ -15,9 +15,9 @@ export type PolicyFinding = {
 };
 
 export const managementDepartment: ManagementMember[] = [
-  { id: "policy-lead", name: "강한결", role: "관리부장 · 감사책임자", mission: "발행정책과 전사 감사계획을 승인하고 중대 지적사항을 대표에게 보고합니다." },
-  { id: "operations-guard", name: "윤서진", role: "관리과장 · 시정조치 관리자", mission: "검토 지연·자동화 실패를 관리하고 감사 지적사항의 담당자·기한·재점검을 추적합니다." },
-  { id: "site-safety", name: "박지안", role: "관리대리 · 상시감사 담당", mission: "전 프로젝트 업무와 리소스를 감사하고 증거·발견사항·조치 결과를 문서화합니다." },
+  { id: "policy-lead", name: "강한결", role: "경영관리팀장 · 감사책임자", mission: "발행정책과 전사 감사계획을 승인하고 중대 지적사항을 대표에게 보고합니다." },
+  { id: "operations-guard", name: "윤서진", role: "운영관리 매니저 · 시정조치 관리자", mission: "검토 지연·자동화 실패를 관리하고 감사 지적사항의 담당자·기한·재점검을 추적합니다." },
+  { id: "site-safety", name: "박지안", role: "품질감사 매니저 · 상시감사 담당", mission: "전 프로젝트 업무와 리소스를 감사하고 증거·발견사항·조치 결과를 문서화합니다." },
 ];
 
 const HIGH_RISK_CATEGORIES = new Set(["정부지원·실업급여", "정부지원·세무", "투자·재테크", "건강·예방"]);

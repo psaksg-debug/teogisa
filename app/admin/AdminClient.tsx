@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import type { Post } from "../../lib/content";
-import type { AgentRun, AuditFinding, AuditRun, ContentAgentState, ManagementIssue, ManagementRun, OriginalityCheck, PromotionCampaign, QueueItem } from "../../lib/repository";
+import type { AgentRun, AuditFinding, AuditRun, ContentAgentState, ManagementIssue, ManagementRun, MemberActivityPlanState, MemberActivityRun, OriginalityCheck, PromotionCampaign, QueueItem } from "../../lib/repository";
 import type { AuditDomain, AuditOfficer } from "../../lib/internal-audit";
 import type { ManagementMember } from "../../lib/management-department";
 import type { OrganizationPolicyRecipient } from "../../lib/organization-policy";
@@ -46,20 +46,23 @@ export default function AdminClient({ username }: { username: string }) {
   const [auditDomains,setAuditDomains]=useState<AuditDomain[]>([]);
   const [auditRuns,setAuditRuns]=useState<AuditRun[]>([]);
   const [auditFindings,setAuditFindings]=useState<AuditFinding[]>([]);
+  const [activityPlans,setActivityPlans]=useState<MemberActivityPlanState[]>([]);
+  const [activityRuns,setActivityRuns]=useState<MemberActivityRun[]>([]);
   const [selected, setSelected] = useState<Post | null>(null);
   const [message, setMessage] = useState("편집실을 준비하고 있습니다…");
   const [saving, setSaving] = useState(false);
   const editorPanelRef = useRef<HTMLElement>(null);
 
   async function load() {
-    const [postsResponse, queueResponse, agentsResponse, promotionsResponse, managementResponse,auditResponse] = await Promise.all([fetch("/api/posts"), fetch("/api/automation"),fetch("/api/agents"),fetch("/api/promotions"),fetch("/api/management"),fetch("/api/audits")]);
+    const [postsResponse, queueResponse, agentsResponse, promotionsResponse, managementResponse,auditResponse,activityResponse] = await Promise.all([fetch("/api/posts"), fetch("/api/automation"),fetch("/api/agents"),fetch("/api/promotions"),fetch("/api/management"),fetch("/api/audits"),fetch("/api/activity-plans")]);
     const postsData = await postsResponse.json();
     const queueData = await queueResponse.json();
     const agentsData=await agentsResponse.json();
     const promotionsData=await promotionsResponse.json();
     const managementData=await managementResponse.json();
     const auditData=await auditResponse.json();
-    if (postsResponse.ok && queueResponse.ok && agentsResponse.ok && promotionsResponse.ok && managementResponse.ok&&auditResponse.ok) {
+    const activityData=await activityResponse.json();
+    if (postsResponse.ok && queueResponse.ok && agentsResponse.ok && promotionsResponse.ok && managementResponse.ok&&auditResponse.ok&&activityResponse.ok) {
       setPosts(postsData.posts);
       setQueue(queueData.queue);
       setAgents(agentsData.agents);
@@ -75,6 +78,7 @@ export default function AdminClient({ username }: { username: string }) {
       setCompanyRules(managementData.companyRules);
       setCompanyResources(managementData.companyResources);
       setAuditScope(auditData.scope);setAuditOfficers(auditData.officers);setAuditDomains(auditData.domains);setAuditRuns(auditData.runs);setAuditFindings(auditData.findings);
+      setActivityPlans(activityData.plans);setActivityRuns(activityData.runs);
       const requestedPostId = Number(new URLSearchParams(window.location.search).get("post"));
       const requestedPost = postsData.posts.find((post: Post) => post.id === requestedPostId);
       if (requestedPost) {
@@ -84,7 +88,7 @@ export default function AdminClient({ username }: { username: string }) {
         setMessage("");
       }
     } else {
-      setMessage(postsData.error || queueData.error || agentsData.error || promotionsData.error || managementData.error||auditData.error || "편집실 자료를 불러오지 못했습니다.");
+      setMessage(postsData.error || queueData.error || agentsData.error || promotionsData.error || managementData.error||auditData.error||activityData.error || "편집실 자료를 불러오지 못했습니다.");
     }
   }
 
@@ -146,6 +150,10 @@ export default function AdminClient({ username }: { username: string }) {
 
   async function controlAgent(id:string,action:"run"|"status",status?:"active"|"paused"){
     setSaving(true);const response=await fetch("/api/agents",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({id,action,status})});const data=await response.json();setSaving(false);if(response.ok){setMessage(action==="run"?`‘${data.post.title}’ 초안을 만들고 정책 검토 대기에 등록했습니다.`:`에이전트를 ${status==="active"?"가동":"일시정지"}했습니다.`);await load();}else setMessage(data.error);
+  }
+
+  async function controlActivity(id:string,action:"run"|"status",status?:"active"|"paused"){
+    setSaving(true);const response=await fetch("/api/activity-plans",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({id,action,status})});const data=await response.json();setSaving(false);if(response.ok){setMessage(action==="run"?"구성원 업무를 실행하고 결과를 기록했습니다.":`구성원 계획을 ${status==="active"?"가동":"일시정지"}했습니다.`);await load();}else setMessage(data.error);
   }
 
   async function manageSite(action:"audit"|"resolve",id?:number){setSaving(true);const response=await fetch("/api/management",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action,id})});const data=await response.json();setSaving(false);if(response.ok){setMessage(action==="audit"?`전사 점검을 마쳤습니다. 문제 ${data.run.issueCount}건, 즉시 조치 ${data.run.actionCount}건입니다.`:"문제를 조치 완료로 표시했습니다.");await load();}else setMessage(data.error);}
@@ -211,19 +219,27 @@ export default function AdminClient({ username }: { username: string }) {
           <div className="queue-list">{queue.map((item) => <button type="button" key={item.id} onClick={() => { const post = posts.find((candidate) => candidate.id === item.postId); if (post) openEditor(post); }}><span>{item.status === "review" ? "검토 필요" : item.status}</span><strong>{item.title}</strong><small>{item.sourceUrl}</small></button>)}</div>
         </section>
 
+        <section className="panel member-activity-panel">
+          <div className="panel-title"><div><p className="eyebrow">ORGANIZATION SCHEDULER</p><h2>전 구성원 자동 실행계획</h2></div><span className="queue-count">가동 {activityPlans.filter(plan=>plan.status==="active").length}/{activityPlans.length}</span></div>
+          <p className="panel-help">기존 30분 주기 스케줄러가 각 구성원의 시간 단위·일 단위 계획 중 실행 시각이 된 업무를 처리합니다. 내부 점검·초안·준비 기록만 자동화하며 발행, 외부 게시와 운영 배포는 승인 후 실행합니다.</p>
+          <div className="activity-summary"><article><span>시간 단위</span><strong>{activityPlans.filter(plan=>plan.frequency==="hourly").length}명</strong></article><article><span>일 단위</span><strong>{activityPlans.filter(plan=>plan.frequency==="daily").length}명</strong></article><article><span>검토 필요</span><strong>{activityRuns.filter(run=>run.status==="review").length}건</strong></article><article><span>최근 실패</span><strong>{activityRuns.filter(run=>run.status==="failed").length}건</strong></article></div>
+          <div className="activity-team-list">{Array.from(new Set(activityPlans.map(plan=>plan.teamName))).map(teamName=><details key={teamName} open={teamName==="경영관리팀"}><summary><strong>{teamName}</strong><span>{activityPlans.filter(plan=>plan.teamName===teamName).length}명</span></summary><div>{activityPlans.filter(plan=>plan.teamName===teamName).map(plan=><article className={plan.status} key={plan.id}><header><div><span>{plan.memberName}</span><strong>{plan.role}</strong></div><small>{plan.frequency==="hourly"?`${plan.intervalHours}시간마다`:`매일 ${String(plan.dailyHourKst).padStart(2,"0")}:${String(plan.minuteOffset).padStart(2,"0")} KST`}</small></header><h3>{plan.taskTitle}</h3><p>{plan.instruction}</p><dl><div><dt>다음 실행</dt><dd>{plan.nextRunAt?new Date(plan.nextRunAt).toLocaleString("ko-KR"):"미정"}</dd></div><div><dt>자동 산출물</dt><dd>{plan.safeOutput}</dd></div></dl>{plan.requiresApproval&&<p className="activity-approval">승인 필요 · 공개 및 외부 실행은 자동 처리하지 않음</p>}<footer><button type="button" disabled={saving||plan.status!=="active"} onClick={()=>controlActivity(plan.id,"run")}>지금 실행</button><button type="button" disabled={saving} onClick={()=>controlActivity(plan.id,"status",plan.status==="active"?"paused":"active")}>{plan.status==="active"?"일시정지":"다시 가동"}</button></footer></article>)}</div></details>)}</div>
+          <div className="activity-run-log"><h3>최근 자동 실행 기록</h3>{activityRuns.length===0?<p className="management-empty">첫 실행 시각이 되면 결과와 실패 이력이 여기에 기록됩니다.</p>:activityRuns.slice(0,20).map(run=><article className={run.status} key={run.id}><span>{run.status==="completed"?"완료":run.status==="review"?"검토 필요":run.status==="noop"?"중복 생략":"실패"}</span><strong>{run.memberName} · {run.teamName}</strong><p>{run.summary}</p><time>{new Date(run.startedAt).toLocaleString("ko-KR")}</time></article>)}</div>
+        </section>
+
         <section className="panel release-governance-panel">
           <div className="panel-title"><div><p className="eyebrow">SAFE RELEASE & ACCESS</p><h2>팀별 권한·무중단 배포</h2></div><span className="queue-count">운영 배포 {safeReleasePolicy.productionAuthority} 전용</span></div>
-          <p className="panel-help">콘텐츠 업데이트는 운영 중인 사이트를 멈추지 않고 데이터에 반영합니다. 디자인·기능 변경은 새 버전에서 빌드와 자동 테스트를 마친 뒤 관리부 승인과 대표의 최종 배포를 거쳐 한 번에 교체합니다.</p>
+          <p className="panel-help">콘텐츠 업데이트는 운영 중인 사이트를 멈추지 않고 데이터에 반영합니다. 디자인·기능 변경은 새 버전에서 빌드와 자동 테스트를 마친 뒤 경영관리팀 승인과 대표의 최종 배포를 거쳐 한 번에 교체합니다.</p>
           <div className="release-safety-summary"><article><span>배포 방식</span><strong>버전 분리·일괄 교체</strong><p>검증 중에는 현재 정상 사이트를 그대로 제공합니다.</p></article><article><span>승인</span><strong>{safeReleasePolicy.approvalAuthority}</strong><p>정책·품질·보안 게이트를 확인합니다.</p></article><article><span>복구</span><strong>직전 정상 버전 유지</strong><p>{safeReleasePolicy.rollback}</p></article></div>
           <div className="team-permission-grid">{teamPermissions.map(team=><article key={team.id}><header><span>{team.name}</span><strong>{team.capabilities.length}개 권한</strong></header><p>{team.responsibility}</p><div>{team.capabilities.map(capability=><code key={capability}>{capability}</code>)}</div><ul>{team.restrictions.map(rule=><li key={rule}>{rule}</li>)}</ul></article>)}</div>
           <div className="release-gate-list"><h3>운영 교체 필수 게이트</h3><ol>{safeReleasePolicy.gates.map((gate,index)=><li key={gate}><span>{String(index+1).padStart(2,"0")}</span>{gate}</li>)}</ol></div>
         </section>
 
         <section className="panel management-department-panel">
-          <div className="panel-title"><div><p className="eyebrow">SITE MANAGEMENT</p><h2>사이트 관리부서 상황실</h2></div><button className="admin-button" type="button" disabled={saving} onClick={()=>manageSite("audit")}>지금 전체 점검</button></div>
+          <div className="panel-title"><div><p className="eyebrow">SITE MANAGEMENT</p><h2>사이트 경영관리팀 상황실</h2></div><button className="admin-button" type="button" disabled={saving} onClick={()=>manageSite("audit")}>지금 전체 점검</button></div>
           <p className="panel-help">3명의 관리 담당자가 발행정책, 자동화 흐름, 사이트 품질을 점검합니다. 심각한 예약 발행 위반은 즉시 중지하고, 공식 출처가 없는 에이전트는 자동으로 일시정지합니다. 모든 발견과 조치는 기록으로 남습니다.</p>
-          {companyRules&&<section className="company-rules-card"><header><div><span>전사 사규 · 시행 중</span><h3>{companyRules.title} v{companyRules.version}</h3><p>{companyRules.purpose}</p></div><strong>{companyRules.effectiveAt}<small>시행</small></strong></header><section className="company-direction"><span>VISION</span><h4>{companyRules.vision}</h4><p>{companyRules.mission}</p></section><div className="company-rules-metrics"><span>적용 직원 <b>{policyCoverage.applied}명</b></span><span>관리 리소스 <b>{companyResources.length}종</b></span><span>경영목표 <b>{companyRules.strategicObjectives.length}개</b></span></div><details><summary>MVP 6대 경영목표 보기</summary><div className="company-objectives">{companyRules.strategicObjectives.map(objective=><article key={objective.id}><h4>{objective.title}</h4><p>{objective.description}</p><ul>{objective.kpis.map(kpi=><li key={kpi}>{kpi}</li>)}</ul></article>)}</div></details><details><summary>사규 전체 조항 보기</summary><div className="company-rule-chapters">{companyRules.chapters.map(chapter=><article key={chapter.number}><h4>제{chapter.number}장 {chapter.title}</h4><ol>{chapter.articles.map(article=><li key={article}>{article}</li>)}</ol></article>)}</div></details><details><summary>리소스 책임자 보기</summary><div className="company-resource-list">{companyResources.map(resource=><article key={resource.id}><div><span>{resource.category}</span><strong>{resource.name}</strong></div><dl><div><dt>소유부서</dt><dd>{resource.owner}</dd></div><div><dt>실무관리</dt><dd>{resource.custodian}</dd></div></dl><p>{resource.control}</p></article>)}</div></details><footer>{companyRules.authority} · 사규 버전은 운영설정에 기록되어 전 부서가 동일 기준을 사용합니다.</footer></section>}
-          {organizationNotice&&<section className="organization-notice" aria-labelledby="organization-notice-title"><header><div><span>전사 공지 · {organizationNotice.effectiveDate}</span><h3 id="organization-notice-title">{organizationNotice.title}</h3><p>{organizationNotice.message}</p></div><strong>전사 적용 {policyCoverage.applied}/{policyCoverage.total}명</strong></header><ol>{organizationNotice.rules.map(rule=><li key={rule}>{rule}</li>)}</ol><div className="policy-departments">{policyCoverage.departments.map(item=><span key={item.department}>{item.department} {item.count}명</span>)}</div><details><summary>적용 구성원 전체 보기</summary><div className="policy-recipient-list">{policyRecipients.map(member=><span key={member.id}><b>{member.name}</b>{member.title}</span>)}</div></details><footer>{organizationNotice.issuedBy} 공지 · 중앙 발행검사와 관리부서 점검으로 의무 적용 · <a href="/organization" target="_blank">현재 전체 조직도 보기</a></footer></section>}
+          {companyRules&&<section className="company-rules-card"><header><div><span>전사 사규 · 시행 중</span><h3>{companyRules.title} v{companyRules.version}</h3><p>{companyRules.purpose}</p></div><strong>{companyRules.effectiveAt}<small>시행</small></strong></header><section className="company-direction"><span>VISION</span><h4>{companyRules.vision}</h4><p>{companyRules.mission}</p></section><div className="company-rules-metrics"><span>적용 직원 <b>{policyCoverage.applied}명</b></span><span>관리 리소스 <b>{companyResources.length}종</b></span><span>경영목표 <b>{companyRules.strategicObjectives.length}개</b></span></div><details><summary>MVP 6대 경영목표 보기</summary><div className="company-objectives">{companyRules.strategicObjectives.map(objective=><article key={objective.id}><h4>{objective.title}</h4><p>{objective.description}</p><ul>{objective.kpis.map(kpi=><li key={kpi}>{kpi}</li>)}</ul></article>)}</div></details><details><summary>사규 전체 조항 보기</summary><div className="company-rule-chapters">{companyRules.chapters.map(chapter=><article key={chapter.number}><h4>제{chapter.number}장 {chapter.title}</h4><ol>{chapter.articles.map(article=><li key={article}>{article}</li>)}</ol></article>)}</div></details><details><summary>리소스 책임자 보기</summary><div className="company-resource-list">{companyResources.map(resource=><article key={resource.id}><div><span>{resource.category}</span><strong>{resource.name}</strong></div><dl><div><dt>소유팀</dt><dd>{resource.owner}</dd></div><div><dt>실무관리</dt><dd>{resource.custodian}</dd></div></dl><p>{resource.control}</p></article>)}</div></details><footer>{companyRules.authority} · 사규 버전은 운영설정에 기록되어 전 팀이 동일 기준을 사용합니다.</footer></section>}
+          {organizationNotice&&<section className="organization-notice" aria-labelledby="organization-notice-title"><header><div><span>전사 공지 · {organizationNotice.effectiveDate}</span><h3 id="organization-notice-title">{organizationNotice.title}</h3><p>{organizationNotice.message}</p></div><strong>전사 적용 {policyCoverage.applied}/{policyCoverage.total}명</strong></header><ol>{organizationNotice.rules.map(rule=><li key={rule}>{rule}</li>)}</ol><div className="policy-departments">{policyCoverage.departments.map(item=><span key={item.department}>{item.department} {item.count}명</span>)}</div><details><summary>적용 구성원 전체 보기</summary><div className="policy-recipient-list">{policyRecipients.map(member=><span key={member.id}><b>{member.name}</b>{member.title}</span>)}</div></details><footer>{organizationNotice.issuedBy} 공지 · 중앙 발행검사와 경영관리팀 점검으로 의무 적용 · <a href="/organization" target="_blank">현재 전체 조직도 보기</a></footer></section>}
           <section className="originality-monitor"><header><div><p className="eyebrow">ORIGINALITY MONITOR</p><h3>원문 복사 자동감시</h3></div><strong>최근 차단 {originalityChecks.filter(check=>check.status==="blocked").length}건</strong></header><p>편집자가 글을 발행하거나 예약할 때 연결된 원문과 기존 게시물을 자동 대조합니다. 동일 문장이 과도하면 발행을 중지하고 자신의 설명·사례·표로 재작성하도록 즉시 요청합니다.</p><div>{originalityChecks.length===0?<span className="originality-empty">아직 검사 기록이 없습니다. 다음 발행·예약 시 자동으로 검사합니다.</span>:originalityChecks.slice(0,8).map(check=><article className={check.status} key={check.id}><span>{check.status==="passed"?"통과":check.status==="blocked"?"발행 차단":"직접 확인 필요"}</span><strong>{check.editorName} · {check.title}</strong><small>문장 중복 {Math.round(check.overlapRatio*100)}% · 최장 일치 {check.longestMatchChars}자</small><p>{check.message}</p></article>)}</div></section>
           <div className="management-summary"><div><span>열린 문제</span><strong>{managementIssues.filter(issue=>issue.status==="open").length}</strong></div><div><span>긴급</span><strong>{managementIssues.filter(issue=>issue.status==="open"&&issue.severity==="critical").length}</strong></div><div><span>최근 점검</span><strong>{managementRuns[0]?new Date(managementRuns[0].createdAt).toLocaleString("ko-KR"):"대기 중"}</strong></div></div>
           <div className="management-team-grid">{managementMembers.map(member=><article key={member.id}><span>{member.role}</span><h3>{member.name}</h3><p>{member.mission}</p></article>)}</div>
@@ -241,21 +257,21 @@ export default function AdminClient({ username }: { username: string }) {
 
         <section className="panel automation-panel agent-control-panel">
           <div className="panel-title"><div><p className="eyebrow">CONTENT AGENTS</p><h2>분야별 에이전트 운영실</h2></div><span className="queue-count">가동 {agents.filter(agent=>agent.status==="active").length}/{agents.length}</span></div>
-          <p className="panel-help">각 에이전트는 정해진 공식 출처와 주제를 사용해 16시간마다 초안을 준비합니다. 모든 초안은 관리부서의 정책 검토 대기에 들어가며, 사람이 확인해 예약 또는 발행 상태로 바꾼 글만 공개됩니다. 품질 기준에 미달하면 실패 기록으로 남깁니다.</p>
+          <p className="panel-help">각 에이전트는 정해진 공식 출처와 주제를 사용해 16시간마다 초안을 준비합니다. 모든 초안은 경영관리팀의 정책 검토 대기에 들어가며, 사람이 확인해 예약 또는 발행 상태로 바꾼 글만 공개됩니다. 품질 기준에 미달하면 실패 기록으로 남깁니다.</p>
           <div className="agent-grid">{agents.map(agent=><article className={`agent-card ${agent.status}`} key={agent.id}><div><span>{agent.status==="active"?"가동 중":"일시정지"}</span><small>{agent.category}</small></div><h3>{agent.name}</h3><p>{agent.mission}</p><dl><div><dt>초안 생성 주기</dt><dd>{agent.cadenceHours<24?`${agent.cadenceHours}시간`:`${Math.round(agent.cadenceHours/24)}일`}</dd></div><div><dt>다음 실행</dt><dd>{agent.nextRunAt?new Date(agent.nextRunAt).toLocaleString("ko-KR"):"미정"}</dd></div><div><dt>공식 출처</dt><dd>{agent.sources.length}곳</dd></div></dl><div className="agent-actions"><button type="button" disabled={saving||agent.status!=="active"} onClick={()=>controlAgent(agent.id,"run")}>지금 초안 만들기</button><button type="button" disabled={saving} onClick={()=>controlAgent(agent.id,"status",agent.status==="active"?"paused":"active")}>{agent.status==="active"?"일시정지":"다시 가동"}</button></div></article>)}</div>
           <div className="agent-run-log"><h3>최근 작업 기록</h3>{agentRuns.length===0?<p>아직 실행 기록이 없습니다.</p>:agentRuns.map(run=><div key={run.id}><span>{run.status==="review"?"검토 대기":run.status==="published"?"자동 발행":"실패"}</span><strong>{run.agentName}</strong><p>{run.topic}</p><time>{new Date(run.createdAt).toLocaleString("ko-KR")}</time></div>)}</div>
         </section>
 
         <section className="panel promotion-department-panel">
           <div className="panel-title"><div><p className="eyebrow">CONTENT PLANNING TEAM</p><h2>콘텐츠기획팀 운영실</h2></div><span className="queue-count">AI 실무자 {contentPlanningTeam.length}명</span></div>
-          <p className="panel-help">독자 질문을 주제 포트폴리오와 제작 브리프로 바꿔 편집부에 인계합니다. 기획팀은 무엇을 왜 만들지 책임지고, 집필·사실검증·발행 권한은 각각 편집부와 관리부에 둡니다.</p>
+          <p className="panel-help">독자 질문을 주제 포트폴리오와 제작 브리프로 바꿔 콘텐츠편집팀에 인계합니다. 기획팀은 무엇을 왜 만들지 책임지고, 집필·사실검증·발행 권한은 각각 콘텐츠편집팀과 경영관리팀에 둡니다.</p>
           <div className="promotion-team-grid">{contentPlanningTeam.map(member=><article className="promotion-member-card" key={member.id}><div><span>{member.name}</span><small>AI 실무자</small></div><h3>{member.title}</h3><p>{member.mission}</p><strong>전담: {member.owns.join(" · ")}</strong><ul>{member.kpis.map(kpi=><li key={kpi}>{kpi}</li>)}</ul></article>)}</div>
           <div className="search-programs"><h3>기획 → 학습 운영 흐름</h3><article><ol>{contentPlanningWorkflow.map(item=><li key={item}>{item}</li>)}</ol></article><h3>출범 후 첫 30일</h3><article><ol>{contentPlanningFirstMonth.map(item=><li key={item}>{item}</li>)}</ol></article></div>
         </section>
 
         <section className="panel promotion-department-panel">
           <div className="panel-title"><div><p className="eyebrow">QUALITY DESIGN TEAM</p><h2>품질디자인팀 운영실</h2></div><span className="queue-count">AI 실무자 {qualityDesignTeam.length}명</span></div>
-          <p className="panel-help">편집부가 만든 글을 디자인, 가독성, 시각자료, 모바일·접근성, 발행 정보까지 하나의 완성품으로 검수합니다. 기준 미달 작업은 보완 대기로 돌리고, 최종 공개는 관리부 승인 뒤에만 진행합니다.</p>
+          <p className="panel-help">콘텐츠편집팀이 만든 글을 디자인, 가독성, 시각자료, 모바일·접근성, 발행 정보까지 하나의 완성품으로 검수합니다. 기준 미달 작업은 보완 대기로 돌리고, 최종 공개는 경영관리팀 승인 뒤에만 진행합니다.</p>
           <div className="promotion-team-grid">{qualityDesignTeam.map(member=><article className="promotion-member-card" key={member.id}><div><span>{member.name}</span><small>AI 실무자</small></div><h3>{member.title}</h3><p>{member.mission}</p><strong>전담: {member.owns.join(" · ")}</strong><ul>{member.kpis.map(kpi=><li key={kpi}>{kpi}</li>)}</ul></article>)}</div>
           <div className="search-programs"><h3>발행 전 필수 품질 게이트</h3><article><ol>{qualityDesignGates.map(gate=><li key={gate}>{gate}</li>)}</ol></article></div>
         </section>
@@ -276,7 +292,7 @@ export default function AdminClient({ username }: { username: string }) {
         </section>
 
         <section className="panel promotion-department-panel">
-          <div className="panel-title"><div><p className="eyebrow">SEARCH GROWTH TEAM</p><h2>홍보부 조직·SEO 운영실</h2></div><span className="queue-count">AI 실무자 {promotionTeam.length}명</span></div>
+          <div className="panel-title"><div><p className="eyebrow">SEARCH GROWTH TEAM</p><h2>홍보마케팅팀 조직·SEO 운영실</h2></div><span className="queue-count">AI 실무자 {promotionTeam.length}명</span></div>
           <p className="panel-help">역할이 바로 연상되는 짧은 닉네임을 사용하는 AI 조직입니다. 검색 결과 점검과 개선안 작성은 반복 수행하되, 외부 게시·검색도구 설정 변경·배포는 사람의 확인과 승인 뒤에만 실행합니다.</p>
           <div className="promotion-team-grid">{promotionTeam.map(member=><article className="promotion-member-card" key={member.id}><div><span>{member.name}</span><small>AI 실무자</small></div><h3>{member.title}</h3><p>{member.scope}</p><strong>{member.cadence}</strong><ul>{member.kpis.map(kpi=><li key={kpi}>{kpi}</li>)}</ul></article>)}</div>
           <div className="search-programs"><h3>검색엔진별 상시 관리</h3>{searchPrograms.map(program=>{const owner=getPromotionMember(program.ownerId);return <article key={program.id}><header><div><span>{program.engine}</span><strong>{owner?.name} · {owner?.title}</strong></div><small>{program.successMetric}</small></header><ol>{program.routine.map(item=><li key={item}>{item}</li>)}</ol></article>;})}</div>

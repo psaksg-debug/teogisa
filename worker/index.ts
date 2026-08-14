@@ -1,7 +1,7 @@
 /** Cloudflare Worker entry point for the vinext-starter template. */
 import { handleImageOptimization, DEFAULT_DEVICE_SIZES, DEFAULT_IMAGE_SIZES } from "vinext/server/image-optimization";
 import handler from "vinext/server/app-router-entry";
-import { runDueContentAgents } from "../lib/repository";
+import { runScheduledOrganizationActivities } from "../lib/repository";
 
 interface Env {
   ASSETS: Fetcher;
@@ -90,7 +90,7 @@ const worker = {
     }
     return response;
   },
-  async scheduled(_controller:ScheduledController,_env:Env,ctx:ExecutionContext){ctx.waitUntil(runDueContentAgents().catch(error=>console.error(JSON.stringify({event:"scheduled_content_failed",message:error instanceof Error?error.message:String(error)}))));},
+  async scheduled(_controller:ScheduledController,_env:Env,ctx:ExecutionContext){ctx.waitUntil(runScheduledOrganizationActivities().catch(error=>console.error(JSON.stringify({event:"scheduled_organization_activity_failed",message:error instanceof Error?error.message:String(error)}))));},
 };
 
 export default worker;

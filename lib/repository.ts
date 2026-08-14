@@ -12,6 +12,7 @@ import { AUDIT_SCOPE, auditDomains, auditOfficers } from "./internal-audit";
 import { qualityDesignGates, qualityDesignTeam } from "./quality-design-team";
 import { assertTeamPermission } from "./team-permissions";
 import { safeReleasePolicy } from "./release-policy";
+import { memberActivityPlans, nextMemberActivityRunAt, type ActivityAction } from "./member-activity-plans";
 
 export type QueueItem = {
   id: number;
@@ -31,6 +32,8 @@ export type ManagementRun = { id:number; status:string; checkedCount:number; iss
 export type OriginalityCheck = { id:number; postId:number|null; editorName:string; title:string; sourceUrl:string|null; status:"passed"|"blocked"|"unavailable"; overlapRatio:number; longestMatchChars:number; message:string; checkedAt:string };
 export type AuditRun = { id:number; scope:string; leadAuditor:string; status:string; overallOpinion:string; totalItems:number; passedItems:number; findingCount:number; startedAt:string; completedAt:string|null };
 export type AuditFinding = { id:number; auditRunId:number; domain:string; severity:"critical"|"major"|"minor"|"info"; status:"compliant"|"open"|"resolved"; title:string; details:string; actionOwner:string; dueAt:string|null; resolution:string|null; createdAt:string; resolvedAt:string|null };
+export type MemberActivityPlanState={id:string;memberId:string;memberName:string;teamId:string;teamName:string;role:string;frequency:"hourly"|"daily";intervalHours:number|null;dailyHourKst:number|null;minuteOffset:number;action:ActivityAction;taskTitle:string;instruction:string;safeOutput:string;requiresApproval:boolean;status:"active"|"paused";nextRunAt:string|null;lastRunAt:string|null};
+export type MemberActivityRun={id:number;planId:string;memberName:string;teamName:string;action:ActivityAction;status:"completed"|"noop"|"failed"|"review";summary:string;startedAt:string;completedAt:string|null};
 
 let initialized = false;
 const CONTENT_QUALITY_REVISION="2026-08-14-adsense-readiness-v2";
@@ -57,6 +60,8 @@ async function db(options:{initialize?:boolean}={}) {
       d1.prepare(`CREATE TABLE IF NOT EXISTS originality_checks (id INTEGER PRIMARY KEY AUTOINCREMENT, post_id INTEGER, editor_name TEXT NOT NULL, title TEXT NOT NULL, source_url TEXT, status TEXT NOT NULL, overlap_ratio INTEGER NOT NULL DEFAULT 0, longest_match_chars INTEGER NOT NULL DEFAULT 0, message TEXT NOT NULL, checked_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(post_id) REFERENCES posts(id))`),
       d1.prepare(`CREATE TABLE IF NOT EXISTS audit_runs (id INTEGER PRIMARY KEY AUTOINCREMENT, scope TEXT NOT NULL, lead_auditor TEXT NOT NULL, status TEXT NOT NULL, overall_opinion TEXT NOT NULL, total_items INTEGER NOT NULL DEFAULT 0, passed_items INTEGER NOT NULL DEFAULT 0, finding_count INTEGER NOT NULL DEFAULT 0, started_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, completed_at TEXT)`),
       d1.prepare(`CREATE TABLE IF NOT EXISTS audit_findings (id INTEGER PRIMARY KEY AUTOINCREMENT, audit_run_id INTEGER NOT NULL, domain TEXT NOT NULL, severity TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'open', title TEXT NOT NULL, details TEXT NOT NULL, action_owner TEXT NOT NULL, due_at TEXT, resolution TEXT, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, resolved_at TEXT, FOREIGN KEY(audit_run_id) REFERENCES audit_runs(id))`),
+      d1.prepare(`CREATE TABLE IF NOT EXISTS member_activity_plans (id TEXT PRIMARY KEY, member_id TEXT NOT NULL UNIQUE, member_name TEXT NOT NULL, team_id TEXT NOT NULL, team_name TEXT NOT NULL, role TEXT NOT NULL, frequency TEXT NOT NULL, interval_hours INTEGER, daily_hour_kst INTEGER, minute_offset INTEGER NOT NULL DEFAULT 0, action TEXT NOT NULL, task_title TEXT NOT NULL, instruction TEXT NOT NULL, safe_output TEXT NOT NULL, requires_approval INTEGER NOT NULL DEFAULT 0, status TEXT NOT NULL DEFAULT 'active', next_run_at TEXT, last_run_at TEXT, updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)`),
+      d1.prepare(`CREATE TABLE IF NOT EXISTS member_activity_runs (id INTEGER PRIMARY KEY AUTOINCREMENT, plan_id TEXT NOT NULL, member_name TEXT NOT NULL, team_name TEXT NOT NULL, action TEXT NOT NULL, status TEXT NOT NULL, summary TEXT NOT NULL DEFAULT '', started_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, completed_at TEXT, FOREIGN KEY(plan_id) REFERENCES member_activity_plans(id))`),
       d1.prepare(`CREATE INDEX IF NOT EXISTS idx_posts_status_published ON posts(status, published_at)`),
       d1.prepare(`CREATE INDEX IF NOT EXISTS idx_posts_category ON posts(category)`),
       d1.prepare(`CREATE INDEX IF NOT EXISTS idx_queue_status_scheduled ON posting_queue(status, scheduled_at)`),
@@ -69,6 +74,8 @@ async function db(options:{initialize?:boolean}={}) {
       d1.prepare(`CREATE INDEX IF NOT EXISTS idx_audit_runs_completed ON audit_runs(completed_at)`),
       d1.prepare(`CREATE INDEX IF NOT EXISTS idx_audit_findings_run_status ON audit_findings(audit_run_id, status)`),
       d1.prepare(`CREATE INDEX IF NOT EXISTS idx_audit_findings_status_due ON audit_findings(status, due_at)`),
+      d1.prepare(`CREATE INDEX IF NOT EXISTS idx_member_activity_plans_status_next ON member_activity_plans(status, next_run_at)`),
+      d1.prepare(`CREATE INDEX IF NOT EXISTS idx_member_activity_runs_plan_started ON member_activity_runs(plan_id, started_at)`),
     ]);
 
     for (const post of seedPosts) {
@@ -117,6 +124,12 @@ async function db(options:{initialize?:boolean}={}) {
           END,
           updated_at=CURRENT_TIMESTAMP`)
         .bind(agent.id,agent.name,agent.category,agent.mission,"active",agent.cadenceHours,JSON.stringify(agent.sources),JSON.stringify(agent.topics),agent.video?JSON.stringify(agent.video):null,nextRunAt).run();
+    }
+    for(const plan of memberActivityPlans){
+      await d1.prepare(`INSERT INTO member_activity_plans (id,member_id,member_name,team_id,team_name,role,frequency,interval_hours,daily_hour_kst,minute_offset,action,task_title,instruction,safe_output,requires_approval,status,next_run_at)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,'active',?)
+        ON CONFLICT(id) DO UPDATE SET member_name=excluded.member_name,team_id=excluded.team_id,team_name=excluded.team_name,role=excluded.role,frequency=excluded.frequency,interval_hours=excluded.interval_hours,daily_hour_kst=excluded.daily_hour_kst,minute_offset=excluded.minute_offset,action=excluded.action,task_title=excluded.task_title,instruction=excluded.instruction,safe_output=excluded.safe_output,requires_approval=excluded.requires_approval,next_run_at=COALESCE(member_activity_plans.next_run_at,excluded.next_run_at),updated_at=CURRENT_TIMESTAMP`)
+        .bind(plan.id,plan.memberId,plan.memberName,plan.teamId,plan.teamName,plan.role,plan.frequency,plan.intervalHours,plan.dailyHourKst,plan.minuteOffset,plan.action,plan.taskTitle,plan.instruction,plan.safeOutput,plan.requiresApproval?1:0,nextMemberActivityRunAt(plan)).run();
     }
     initialized = true;
   }
@@ -366,12 +379,12 @@ export async function runContentAgent(id:string){
   await d1.batch([
     d1.prepare("INSERT INTO posting_queue (post_id,status,source_url,scheduled_at) VALUES (?,?,?,NULL)").bind(post.id,"review",agent.sources[0]?.url??null),
     d1.prepare("UPDATE content_agents SET last_run_at=?,next_run_at=?,topic_cursor=topic_cursor+1,updated_at=CURRENT_TIMESTAMP WHERE id=?").bind(now.toISOString(),next,id),
-    d1.prepare("INSERT INTO agent_runs (agent_id,status,topic,post_id,message) VALUES (?,?,?,?,?)").bind(id,"review",topic,post.id,"초안을 생성했고 관리부서의 발행정책 검토 대기열에 등록했습니다."),
+    d1.prepare("INSERT INTO agent_runs (agent_id,status,topic,post_id,message) VALUES (?,?,?,?,?)").bind(id,"review",topic,post.id,"초안을 생성했고 경영관리팀의 발행정책 검토 대기열에 등록했습니다."),
   ]);
   return post;
 }
 
-export async function runDueContentAgents(){assertTeamPermission("management","automation.run");await publishDuePosts();const d1=await db();const now=new Date().toISOString();const due=await d1.prepare("SELECT id FROM content_agents WHERE status='active' AND next_run_at IS NOT NULL AND next_run_at<=? ORDER BY next_run_at LIMIT 2").bind(now).all();for(const row of due.results){try{await runContentAgent(String(row.id));}catch(error){await d1.prepare("INSERT INTO agent_runs (agent_id,status,topic,message) VALUES (?,?,?,?)").bind(String(row.id),"failed","자동 업데이트",error instanceof Error?error.message:"알 수 없는 오류").run();}}await runDueSiteManagementAudit();await runDueOrganizationAudit();}
+export async function runDueContentAgents(){assertTeamPermission("management","automation.run");await publishDuePosts();const d1=await db();const now=new Date().toISOString();const due=await d1.prepare("SELECT id FROM content_agents WHERE status='active' AND next_run_at IS NOT NULL AND next_run_at<=? ORDER BY next_run_at LIMIT 2").bind(now).all();for(const row of due.results){try{await runContentAgent(String(row.id));}catch(error){await d1.prepare("INSERT INTO agent_runs (agent_id,status,topic,message) VALUES (?,?,?,?)").bind(String(row.id),"failed","자동 업데이트",error instanceof Error?error.message:"알 수 없는 오류").run();}}return{checked:due.results.length};}
 
 function mapManagementIssue(row:Record<string,unknown>):ManagementIssue{return{id:Number(row.id),issueKey:String(row.issue_key),auditorId:String(row.auditor_id),auditorName:managementDepartment.find(member=>member.id===row.auditor_id)?.name??String(row.auditor_id),severity:row.severity==="critical"?"critical":row.severity==="warning"?"warning":"info",scope:String(row.scope),status:row.status==="resolved"?"resolved":"open",title:String(row.title),details:String(row.details),actionTaken:row.action_taken?String(row.action_taken):null,postId:row.post_id?Number(row.post_id):null,postTitle:row.post_title?String(row.post_title):null,createdAt:String(row.created_at),resolvedAt:row.resolved_at?String(row.resolved_at):null};}
 function mapManagementRun(row:Record<string,unknown>):ManagementRun{return{id:Number(row.id),status:String(row.status),checkedCount:Number(row.checked_count),issueCount:Number(row.issue_count),actionCount:Number(row.action_count),summary:String(row.summary),createdAt:String(row.created_at)};}
@@ -435,8 +448,8 @@ export async function runOrganizationAudit(){
     const security=env as unknown as {ADMIN_USERNAME?:string;ADMIN_PASSWORD_HASH?:string;ADMIN_SESSION_SECRET?:string};
     const checks:AuditCheck[]=[
       {domain:"governance",severity:settingsMap.get("company_rules_version")===JSON.stringify(COMPANY_RULES_VERSION)&&companyRules.strategicObjectives.every(item=>item.owner&&item.kpis.length)?"info":"major",title:"사규·경영목표 책임체계",details:`사규 ${COMPANY_RULES_VERSION}, 경영목표 ${companyRules.strategicObjectives.length}개와 담당자를 대조했습니다.`,actionOwner:"강한결"},
-      {domain:"people",severity:organizationPolicyCoverage.applied===organizationPolicyCoverage.total?"info":"major",title:"전 직원 사규 적용",details:`전사 적용 ${organizationPolicyCoverage.applied}/${organizationPolicyCoverage.total}명, ${organizationPolicyCoverage.departments.length}개 부서를 확인했습니다.`,actionOwner:"강한결"},
-      {domain:"resources",severity:companyResourceRegistry.every(item=>item.owner&&item.custodian&&item.control)?"info":"major",title:"리소스 책임자 지정",details:`핵심 리소스 ${companyResourceRegistry.length}종의 소유부서·실무관리·통제기준을 점검했습니다.`,actionOwner:"윤서진"},
+      {domain:"people",severity:organizationPolicyCoverage.applied===organizationPolicyCoverage.total?"info":"major",title:"전 직원 사규 적용",details:`전사 적용 ${organizationPolicyCoverage.applied}/${organizationPolicyCoverage.total}명, ${organizationPolicyCoverage.departments.length}개 팀을 확인했습니다.`,actionOwner:"강한결"},
+      {domain:"resources",severity:companyResourceRegistry.every(item=>item.owner&&item.custodian&&item.control)?"info":"major",title:"리소스 책임자 지정",details:`핵심 리소스 ${companyResourceRegistry.length}종의 소유팀·실무관리·통제기준을 점검했습니다.`,actionOwner:"윤서진"},
       {domain:"content",severity:policyProblems?"critical":"info",title:"공개·예약 콘텐츠 발행정책",details:`대상 ${posts.results.length}건에서 정책 위반 신호 ${policyProblems}건을 확인했습니다.`,actionOwner:"데스크"},
       {domain:"content",severity:(originalityCounts.get("blocked")??0)>0?"major":(originalityCounts.get("unavailable")??0)>0?"minor":"info",title:"원문 복사·독창성 검사",details:`최근 30일 차단 ${originalityCounts.get("blocked")??0}건, 직접 확인 필요 ${originalityCounts.get("unavailable")??0}건입니다.`,actionOwner:"박지안"},
       {domain:"quality",severity:qualityDesignTeam.length===7&&qualityDesignGates.length===5?"info":"major",title:"품질디자인 게이트",details:`품질디자인 담당 ${qualityDesignTeam.length}명과 발행 게이트 ${qualityDesignGates.length}단계를 확인했습니다.`,actionOwner:"결"},
@@ -444,7 +457,7 @@ export async function runOrganizationAudit(){
       {domain:"security",severity:security.ADMIN_USERNAME&&security.ADMIN_PASSWORD_HASH&&security.ADMIN_SESSION_SECRET?"info":"critical",title:"관리자 인증 구성",details:"관리자 계정·비밀번호 해시·세션 비밀의 구성 여부만 확인했습니다. 비밀값은 감사기록에 저장하지 않습니다.",actionOwner:"강한결"},
       {domain:"data",severity:settingsMap.has("last_backup_at")?"info":"minor",title:"최근 백업 증거",details:settingsMap.has("last_backup_at")?"전체 내보내기 시각이 운영설정에 기록되어 있습니다.":"최근 전체 내보내기 시각이 아직 운영설정에 기록되지 않았습니다.",actionOwner:"박지안"},
       {domain:"automation",severity:Number(failed?.count??0)>0||Number(agents?.no_sources??0)>0?"major":Number(overdue?.count??0)>0?"minor":"info",title:"자동화·검토대기 건전성",details:`실패 ${Number(failed?.count??0)}건, 출처 없는 가동 에이전트 ${Number(agents?.no_sources??0)}건, 48시간 초과 검토 ${Number(overdue?.count??0)}건입니다.`,actionOwner:"윤서진"},
-      {domain:"governance",severity:Number(openCritical?.count??0)>0?"major":"info",title:"관리부 긴급 문제 후속조치",details:`미해결 긴급 관리문제 ${Number(openCritical?.count??0)}건을 확인했습니다.`,actionOwner:"윤서진"},
+      {domain:"governance",severity:Number(openCritical?.count??0)>0?"major":"info",title:"경영관리팀 긴급 문제 후속조치",details:`미해결 긴급 관리문제 ${Number(openCritical?.count??0)}건을 확인했습니다.`,actionOwner:"윤서진"},
       {domain:"deployment",severity:"minor",title:"배포 승인·운영 검증 증거",details:"로컬 감사에서는 운영 배포 승인, 원격 DB 반영, 배포 후 사용자 검증을 확정할 수 없습니다. 배포 작업별 증거를 별도 첨부해야 합니다.",actionOwner:"박지안"},
     ];
     await d1.batch(checks.map(check=>d1.prepare("INSERT INTO audit_findings (audit_run_id,domain,severity,status,title,details,action_owner,due_at) VALUES (?,?,?,?,?,?,?,?)").bind(auditRunId,check.domain,check.severity,check.severity==="info"?"compliant":"open",check.title,check.details,check.actionOwner,dueDate(check.severity))));
@@ -458,6 +471,40 @@ export async function runOrganizationAudit(){
 export async function getAuditDashboard(){const d1=await db();const [runs,findings]=await Promise.all([d1.prepare("SELECT * FROM audit_runs ORDER BY started_at DESC,id DESC LIMIT 20").all(),d1.prepare("SELECT * FROM audit_findings ORDER BY CASE status WHEN 'open' THEN 0 WHEN 'resolved' THEN 1 ELSE 2 END,CASE severity WHEN 'critical' THEN 0 WHEN 'major' THEN 1 WHEN 'minor' THEN 2 ELSE 3 END,created_at DESC,id DESC LIMIT 100").all()]);return{scope:AUDIT_SCOPE,officers:auditOfficers,domains:auditDomains,runs:runs.results.map(row=>mapAuditRun(row as Record<string,unknown>)),findings:findings.results.map(row=>mapAuditFinding(row as Record<string,unknown>))};}
 export async function runDueOrganizationAudit(){const d1=await db();const recent=await d1.prepare("SELECT id FROM audit_runs WHERE status='completed' AND completed_at>=datetime('now','-30 days') LIMIT 1").first();return recent?null:runOrganizationAudit();}
 export async function resolveAuditFinding(id:number,resolution:string){assertTeamPermission("management","audit.resolve");if(!resolution.trim())throw new Error("시정조치 내용을 입력하세요.");const d1=await db();const row=await d1.prepare("UPDATE audit_findings SET status='resolved',resolution=?,resolved_at=CURRENT_TIMESTAMP WHERE id=? AND status='open' RETURNING *").bind(resolution.trim(),id).first();if(!row)throw new Error("열린 감사 지적사항을 찾지 못했습니다.");return mapAuditFinding(row as Record<string,unknown>);}
+
+function mapMemberActivityPlan(row:Record<string,unknown>):MemberActivityPlanState{return{id:String(row.id),memberId:String(row.member_id),memberName:String(row.member_name),teamId:String(row.team_id),teamName:String(row.team_name),role:String(row.role),frequency:row.frequency==="hourly"?"hourly":"daily",intervalHours:row.interval_hours==null?null:Number(row.interval_hours),dailyHourKst:row.daily_hour_kst==null?null:Number(row.daily_hour_kst),minuteOffset:Number(row.minute_offset??0),action:row.action as ActivityAction,taskTitle:String(row.task_title),instruction:String(row.instruction),safeOutput:String(row.safe_output),requiresApproval:Number(row.requires_approval)===1,status:row.status==="paused"?"paused":"active",nextRunAt:row.next_run_at?String(row.next_run_at):null,lastRunAt:row.last_run_at?String(row.last_run_at):null};}
+function mapMemberActivityRun(row:Record<string,unknown>):MemberActivityRun{return{id:Number(row.id),planId:String(row.plan_id),memberName:String(row.member_name),teamName:String(row.team_name),action:row.action as ActivityAction,status:row.status==="failed"?"failed":row.status==="noop"?"noop":row.status==="review"?"review":"completed",summary:String(row.summary),startedAt:String(row.started_at),completedAt:row.completed_at?String(row.completed_at):null};}
+
+async function activitySnapshot(d1:D1Database,action:ActivityAction){
+  if(action==="management-monitor"){const run=await runDueSiteManagementAudit();return run?{status:"completed" as const,summary:`사이트 운영 ${run.checkedCount}건을 점검하고 문제 ${run.issueCount}건, 즉시조치 ${run.actionCount}건을 기록했습니다.`}:{status:"noop" as const,summary:"최근 6시간 내 사이트 점검이 완료되어 중복 감사를 생략했습니다."};}
+  if(action==="management-audit"){const run=await runDueOrganizationAudit();return run?{status:"completed" as const,summary:`전 프로젝트 감사 ${run.totalItems}개 항목을 수행하고 지적 ${run.findingCount}건을 문서화했습니다.`}:{status:"noop" as const,summary:"최근 30일 내 전사 감사가 완료되어 중복 감사를 생략했습니다."};}
+  const [posts,queue,issues,promotions]=await Promise.all([
+    d1.prepare("SELECT status,COUNT(*) AS count FROM posts GROUP BY status").all(),
+    d1.prepare("SELECT COUNT(*) AS count FROM posting_queue WHERE status='review'").first<{count:number}>(),
+    d1.prepare("SELECT COUNT(*) AS count FROM management_issues WHERE status='open'").first<{count:number}>(),
+    d1.prepare("SELECT status,COUNT(*) AS count FROM promotion_campaigns GROUP BY status").all(),
+  ]);
+  const postCounts=new Map(posts.results.map(row=>[String(row.status),Number(row.count)]));
+  const promotionCounts=new Map(promotions.results.map(row=>[String(row.status),Number(row.count)]));
+  if(action==="planning-scan")return{status:"completed" as const,summary:`초안 ${postCounts.get("draft")??0}건, 검토대기 ${Number(queue?.count??0)}건을 확인하고 다음 기획 후보 점검 기록을 남겼습니다.`};
+  if(action==="editorial-review")return{status:"review" as const,summary:`검토대기 ${Number(queue?.count??0)}건과 초안 ${postCounts.get("draft")??0}건을 확인했습니다. 원문 복사 없이 출처 대조·재작성 후 승인받아야 합니다.`};
+  if(action==="quality-review")return{status:"review" as const,summary:`공개 ${postCounts.get("published")??0}건, 예약 ${postCounts.get("scheduled")??0}건, 열린 관리문제 ${Number(issues?.count??0)}건의 품질 게이트 검토 대상을 기록했습니다.`};
+  return{status:"review" as const,summary:`준비된 홍보안 ${promotionCounts.get("prepared")??0}건을 확인했습니다. 외부 게시 없이 검토용 준비 상태만 기록했습니다.`};
+}
+
+async function executeMemberActivity(plan:MemberActivityPlanState){
+  const d1=await db();const started=await d1.prepare("INSERT INTO member_activity_runs (plan_id,member_name,team_name,action,status,summary) VALUES (?,?,?,?, 'running','실행 중') RETURNING id").bind(plan.id,plan.memberName,plan.teamName,plan.action).first<{id:number}>();
+  if(!started)throw new Error("구성원 실행 이력을 만들지 못했습니다.");
+  const definition=memberActivityPlans.find(item=>item.id===plan.id);const next=nextMemberActivityRunAt(definition??plan);
+  try{const result=await activitySnapshot(d1,plan.action);await d1.batch([d1.prepare("UPDATE member_activity_runs SET status=?,summary=?,completed_at=CURRENT_TIMESTAMP WHERE id=?").bind(result.status,result.summary,started.id),d1.prepare("UPDATE member_activity_plans SET last_run_at=CURRENT_TIMESTAMP,next_run_at=?,updated_at=CURRENT_TIMESTAMP WHERE id=?").bind(next,plan.id)]);return{...result,id:started.id};}
+  catch(error){const message=error instanceof Error?error.message:"알 수 없는 실행 오류";await d1.batch([d1.prepare("UPDATE member_activity_runs SET status='failed',summary=?,completed_at=CURRENT_TIMESTAMP WHERE id=?").bind(message,started.id),d1.prepare("UPDATE member_activity_plans SET last_run_at=CURRENT_TIMESTAMP,next_run_at=?,updated_at=CURRENT_TIMESTAMP WHERE id=?").bind(next,plan.id)]);throw error;}
+}
+
+export async function getMemberActivityDashboard(){const d1=await db();const [plans,runs]=await Promise.all([d1.prepare("SELECT * FROM member_activity_plans ORDER BY team_name,member_name").all(),d1.prepare("SELECT * FROM member_activity_runs ORDER BY started_at DESC,id DESC LIMIT 100").all()]);return{scheduler:{intervalMinutes:30,timeZone:"Asia/Seoul",automatic:true,safeBoundary:"내부 점검·초안·준비 기록만 자동 실행하며 발행·외부 게시·배포는 승인이 필요합니다."},plans:plans.results.map(row=>mapMemberActivityPlan(row as Record<string,unknown>)),runs:runs.results.map(row=>mapMemberActivityRun(row as Record<string,unknown>))};}
+export async function runMemberActivityPlan(id:string){assertTeamPermission("owner","automation.run");const d1=await db();const row=await d1.prepare("SELECT * FROM member_activity_plans WHERE id=?").bind(id).first();if(!row)throw new Error("실행계획을 찾지 못했습니다.");return executeMemberActivity(mapMemberActivityPlan(row as Record<string,unknown>));}
+export async function setMemberActivityPlanStatus(id:string,status:"active"|"paused"){assertTeamPermission("owner","automation.manage");const d1=await db();const row=await d1.prepare("UPDATE member_activity_plans SET status=?,updated_at=CURRENT_TIMESTAMP WHERE id=? RETURNING *").bind(status,id).first();if(!row)throw new Error("실행계획을 찾지 못했습니다.");return mapMemberActivityPlan(row as Record<string,unknown>);}
+export async function runDueMemberActivities(){assertTeamPermission("management","automation.run");const d1=await db();const due=await d1.prepare("SELECT * FROM member_activity_plans WHERE status='active' AND next_run_at IS NOT NULL AND next_run_at<=? ORDER BY next_run_at LIMIT 10").bind(new Date().toISOString()).all();let executed=0,failed=0;for(const row of due.results){const plan=mapMemberActivityPlan(row as Record<string,unknown>);const definition=memberActivityPlans.find(item=>item.id===plan.id);const claimed=await d1.prepare("UPDATE member_activity_plans SET next_run_at=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND status='active' AND next_run_at=?").bind(nextMemberActivityRunAt(definition??plan),plan.id,plan.nextRunAt).run();if(Number(claimed.meta?.changes??0)===0)continue;try{await executeMemberActivity(plan);executed++;}catch{failed++;}}return{checked:due.results.length,executed,failed};}
+export async function runScheduledOrganizationActivities(){const content=await runDueContentAgents();const members=await runDueMemberActivities();return{content,members};}
 
 export async function isAdminLoginAllowed(attemptKey:string){const d1=await db();const now=Math.floor(Date.now()/1000);const row=await d1.prepare("SELECT blocked_until FROM admin_login_attempts WHERE attempt_key=?").bind(attemptKey).first<{blocked_until:number}>();return !row||Number(row.blocked_until)<=now;}
 export async function recordAdminLoginFailure(attemptKey:string){const d1=await db();const now=Math.floor(Date.now()/1000);const windowStart=now-15*60;await d1.prepare(`INSERT INTO admin_login_attempts (attempt_key,failures,window_started_at,blocked_until) VALUES (?,1,?,0) ON CONFLICT(attempt_key) DO UPDATE SET failures=CASE WHEN window_started_at<? THEN 1 ELSE failures+1 END,window_started_at=CASE WHEN window_started_at<? THEN ? ELSE window_started_at END,blocked_until=CASE WHEN window_started_at>=? AND failures+1>=5 THEN ? ELSE 0 END`).bind(attemptKey,now,windowStart,windowStart,now,windowStart,now+15*60).run();}

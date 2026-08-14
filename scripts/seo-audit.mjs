@@ -81,8 +81,8 @@ if (article) {
 
 const author = await fetchPage("/author");
 if (author) {
-  if (!author.response.ok) report("warning", "/author", "편집부 소개 페이지가 정상 응답하지 않습니다.", String(author.response.status));
-  if (!/편집부장/.test(author.text) || !/AI 기반 실무자/.test(author.text)) report("warning", "/author", "편집 책임과 AI 편집자 공개 정보가 최신 작업본과 다릅니다.");
+  if (!author.response.ok) report("warning", "/author", "콘텐츠편집팀 소개 페이지가 정상 응답하지 않습니다.", String(author.response.status));
+  if (!/콘텐츠편집팀장/.test(author.text) || !/AI 기반 실무자/.test(author.text)) report("warning", "/author", "편집 책임과 AI 편집자 공개 정보가 최신 작업본과 다릅니다.");
 }
 
 const wwwUrl = new URL(baseUrl);

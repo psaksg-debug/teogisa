@@ -38,7 +38,7 @@ export const teamPermissions: readonly TeamPermission[] = [
   },
   {
     id: "editorial",
-    name: "편집부 · 콘텐츠 부장",
+    name: "콘텐츠편집팀 · 콘텐츠 부장",
     responsibility: "공식 출처를 바탕으로 초안을 만들고 편집·검토 요청합니다.",
     capabilities: ["content.read", "content.draft.create", "content.draft.update", "content.review.request"],
     restrictions: ["검토 없는 공개 금지", "운영 배포 금지"],
@@ -52,14 +52,14 @@ export const teamPermissions: readonly TeamPermission[] = [
   },
   {
     id: "promotion",
-    name: "홍보부",
+    name: "홍보마케팅팀",
     responsibility: "이미 발행된 글의 홍보안을 준비하고 실행 결과를 기록합니다.",
     capabilities: ["content.read", "analytics.read", "promotion.prepare", "promotion.execute.record"],
     restrictions: ["비공개 글 홍보 금지", "콘텐츠 수정·운영 배포 금지"],
   },
   {
     id: "management",
-    name: "관리부",
+    name: "경영관리팀",
     responsibility: "자동화, 정책, 품질, 장애와 배포 후보를 감사하고 승인합니다.",
     capabilities: ["content.read", "automation.run", "automation.manage", "audit.run", "audit.resolve", "release.approve"],
     restrictions: ["대표 승인 없는 운영 배포 금지", "검증 실패 버전 승인 금지"],

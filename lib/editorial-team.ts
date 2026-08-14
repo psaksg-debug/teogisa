@@ -9,7 +9,7 @@ export type EditorialAuthor = {
 export const EDITOR_IN_CHIEF: EditorialAuthor = {
   id: "editor-in-chief",
   name: "데스크",
-  role: "책임 편집부장",
+  role: "콘텐츠편집팀장 · 책임편집자",
   specialty: "주제 배정, 출처 검증, 발행 승인과 정정 책임",
 };
 

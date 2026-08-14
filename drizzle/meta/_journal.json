@@ -43,6 +43,13 @@
       "when": 1786683121004,
       "tag": "0005_chief_zaladane",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1786684818388,
+      "tag": "0006_dear_george_stacy",
+      "breakpoints": true
     }
   ]
 }
