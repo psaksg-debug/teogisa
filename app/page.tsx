@@ -114,16 +114,6 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="trust-band" aria-label="콘텐츠 운영 원칙">
-          <p className="eyebrow">HOW WE VERIFY</p>
-          <h2>돈과 건강에 관한 글일수록<br/>근거와 날짜를 남깁니다.</h2>
-          <div className="trust-rules">
-            <div><span>원문</span><strong>정부·공공기관 자료 우선</strong><p>정책과 신청 조건은 경험담보다 공식 안내를 먼저 확인합니다.</p></div>
-            <div><span>검토</span><strong>AI 초안도 사람이 확인</strong><p>숫자, 날짜, 대상 조건을 대조한 뒤 공개합니다.</p></div>
-            <div><span>실험</span><strong>수익은 과정까지 기록</strong><p>결과만 자랑하지 않고 걸린 시간과 비용을 함께 남깁니다.</p></div>
-          </div>
-        </section>
-
         <section className="tool-promo section-wrap" aria-labelledby="tool-title">
           <div className="tool-promo-copy"><p className="eyebrow">FREE RETIREMENT TOOL</p><h2 id="tool-title">지금 가진 돈으로<br/>몇 개월을 버틸 수 있을까요?</h2><p>보유 자금, 월 필수생활비, 고정 수입 세 가지만 입력하면 재취업과 새 수입원을 준비할 수 있는 시간을 바로 계산합니다. 입력값은 저장하지 않습니다.</p><a className="primary-button" href="/tools/retirement-runway">퇴직생활비 계산기 <span aria-hidden="true">→</span></a></div>
           <div className="tool-promo-result" aria-hidden="true"><span>예시 계산</span><strong>24개월</strong><p>자금 6,000만 원<br/>월 부족액 250만 원</p></div>
