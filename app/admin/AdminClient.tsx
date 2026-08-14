@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { Post } from "../../lib/content";
-import type { AgentRun, ContentAgentState, QueueItem } from "../../lib/repository";
+import type { AgentRun, ContentAgentState, PromotionCampaign, QueueItem } from "../../lib/repository";
 import RichTextEditor from "./RichTextEditor";
 
 const categories = ["퇴직 준비", "정부지원·실업급여", "정부지원·세무", "재취업·N잡", "블로그·애드센스", "AI 활용", "온라인 부업", "투자·재테크", "실제 수익실험", "유용한 도구", "지역 생활정보", "건강·예방", "영상 큐레이션"];
@@ -20,21 +20,24 @@ export default function AdminClient({ username }: { username: string }) {
   const [queue, setQueue] = useState<QueueItem[]>([]);
   const [agents,setAgents]=useState<ContentAgentState[]>([]);
   const [agentRuns,setAgentRuns]=useState<AgentRun[]>([]);
+  const [promotions,setPromotions]=useState<PromotionCampaign[]>([]);
   const [selected, setSelected] = useState<Post | null>(null);
   const [message, setMessage] = useState("편집실을 준비하고 있습니다…");
   const [saving, setSaving] = useState(false);
   const editorPanelRef = useRef<HTMLElement>(null);
 
   async function load() {
-    const [postsResponse, queueResponse, agentsResponse] = await Promise.all([fetch("/api/posts"), fetch("/api/automation"),fetch("/api/agents")]);
+    const [postsResponse, queueResponse, agentsResponse, promotionsResponse] = await Promise.all([fetch("/api/posts"), fetch("/api/automation"),fetch("/api/agents"),fetch("/api/promotions")]);
     const postsData = await postsResponse.json();
     const queueData = await queueResponse.json();
     const agentsData=await agentsResponse.json();
-    if (postsResponse.ok && queueResponse.ok && agentsResponse.ok) {
+    const promotionsData=await promotionsResponse.json();
+    if (postsResponse.ok && queueResponse.ok && agentsResponse.ok && promotionsResponse.ok) {
       setPosts(postsData.posts);
       setQueue(queueData.queue);
       setAgents(agentsData.agents);
       setAgentRuns(agentsData.runs);
+      setPromotions(promotionsData.campaigns);
       const requestedPostId = Number(new URLSearchParams(window.location.search).get("post"));
       const requestedPost = postsData.posts.find((post: Post) => post.id === requestedPostId);
       if (requestedPost) {
@@ -44,7 +47,7 @@ export default function AdminClient({ username }: { username: string }) {
         setMessage("");
       }
     } else {
-      setMessage(postsData.error || queueData.error || agentsData.error || "편집실 자료를 불러오지 못했습니다.");
+      setMessage(postsData.error || queueData.error || agentsData.error || promotionsData.error || "편집실 자료를 불러오지 못했습니다.");
     }
   }
 
@@ -105,8 +108,18 @@ export default function AdminClient({ username }: { username: string }) {
   }
 
   async function controlAgent(id:string,action:"run"|"status",status?:"active"|"paused"){
-    setSaving(true);const response=await fetch("/api/agents",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({id,action,status})});const data=await response.json();setSaving(false);if(response.ok){setMessage(action==="run"?`‘${data.post.title}’ 초안을 검토 대기열에 만들었습니다.`:`에이전트를 ${status==="active"?"가동":"일시정지"}했습니다.`);await load();}else setMessage(data.error);
+    setSaving(true);const response=await fetch("/api/agents",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({id,action,status})});const data=await response.json();setSaving(false);if(response.ok){setMessage(action==="run"?`‘${data.post.title}’ 글을 사이트에 바로 발행했습니다.`:`에이전트를 ${status==="active"?"가동":"일시정지"}했습니다.`);await load();}else setMessage(data.error);
   }
+
+  async function preparePromotion(event:FormEvent<HTMLFormElement>){
+    event.preventDefault();const postId=Number(new FormData(event.currentTarget).get("promotionPostId"));setSaving(true);const response=await fetch("/api/promotions",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action:"prepare",postId})});const data=await response.json();setSaving(false);if(response.ok){setMessage(`‘${data.campaign.title}’ 홍보안을 준비했습니다.`);await load();}else setMessage(data.error);
+  }
+
+  async function finishPromotion(id:number){
+    setSaving(true);const response=await fetch("/api/promotions",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action:"execute",id})});const data=await response.json();setSaving(false);if(response.ok){setMessage(`‘${data.campaign.title}’ 홍보 실행을 기록했습니다.`);await load();}else setMessage(data.error);
+  }
+
+  async function copyPromotion(text:string,label:string){try{await navigator.clipboard.writeText(text);setMessage(`${label}을 복사했습니다. 원하는 채널에 붙여넣어 확인한 뒤 게시하세요.`);}catch{setMessage("복사하지 못했습니다. 문구를 직접 선택해 복사하세요.");}}
 
   async function logout(){await fetch("/api/admin/session",{method:"DELETE"});window.location.href="/admin/login";}
 
@@ -115,7 +128,7 @@ export default function AdminClient({ username }: { username: string }) {
   return (
     <main className="admin-shell">
       <header className="admin-top">
-        <div><strong>퇴직생활 연구소 · 편집실</strong><span>{username} · 독립 관리자</span></div>
+        <div><strong>퇴직생활 수익화 프로젝트 · 편집실</strong><span>{username} · 독립 관리자</span></div>
         <div className="admin-actions"><a className="admin-button secondary" href="/api/export">전체 백업</a><a className="admin-button secondary" href="/">사이트 보기</a><button className="admin-button secondary" type="button" onClick={logout}>로그아웃</button></div>
       </header>
 
@@ -158,9 +171,25 @@ export default function AdminClient({ username }: { username: string }) {
 
         <section className="panel automation-panel agent-control-panel">
           <div className="panel-title"><div><p className="eyebrow">CONTENT AGENTS</p><h2>분야별 에이전트 운영실</h2></div><span className="queue-count">가동 {agents.filter(agent=>agent.status==="active").length}/{agents.length}</span></div>
-          <p className="panel-help">각 에이전트는 정해진 공식 출처와 주제만 사용합니다. 자동 실행 결과는 공개되지 않고 콘텐츠 보관함의 검토 초안으로 들어옵니다. 건강·세무 글은 반드시 원문과 기준일을 사람이 확인하세요.</p>
-          <div className="agent-grid">{agents.map(agent=><article className={`agent-card ${agent.status}`} key={agent.id}><div><span>{agent.status==="active"?"가동 중":"일시정지"}</span><small>{agent.category}</small></div><h3>{agent.name}</h3><p>{agent.mission}</p><dl><div><dt>초안 생성 주기</dt><dd>{agent.cadenceHours<24?`${agent.cadenceHours}시간`:`${Math.round(agent.cadenceHours/24)}일`}</dd></div><div><dt>다음 실행</dt><dd>{agent.nextRunAt?new Date(agent.nextRunAt).toLocaleString("ko-KR"):"미정"}</dd></div><div><dt>공식 출처</dt><dd>{agent.sources.length}곳</dd></div></dl><div className="agent-actions"><button type="button" disabled={saving||agent.status!=="active"} onClick={()=>controlAgent(agent.id,"run")}>지금 초안 만들기</button><button type="button" disabled={saving} onClick={()=>controlAgent(agent.id,"status",agent.status==="active"?"paused":"active")}>{agent.status==="active"?"일시정지":"다시 가동"}</button></div></article>)}</div>
-          <div className="agent-run-log"><h3>최근 작업 기록</h3>{agentRuns.length===0?<p>아직 실행 기록이 없습니다.</p>:agentRuns.map(run=><div key={run.id}><span>{run.status==="review"?"검토 대기":run.status}</span><strong>{run.agentName}</strong><p>{run.topic}</p><time>{new Date(run.createdAt).toLocaleString("ko-KR")}</time></div>)}</div>
+          <p className="panel-help">각 에이전트는 정해진 공식 출처와 주제를 사용해 16시간마다 글을 바로 공개합니다. 발행 결과는 콘텐츠 보관함과 아래 작업 기록에서 확인할 수 있으며, 필요 없는 글은 콘텐츠 보관함에서 수정하거나 관리할 수 있습니다.</p>
+          <div className="agent-grid">{agents.map(agent=><article className={`agent-card ${agent.status}`} key={agent.id}><div><span>{agent.status==="active"?"가동 중":"일시정지"}</span><small>{agent.category}</small></div><h3>{agent.name}</h3><p>{agent.mission}</p><dl><div><dt>자동 발행 주기</dt><dd>{agent.cadenceHours<24?`${agent.cadenceHours}시간`:`${Math.round(agent.cadenceHours/24)}일`}</dd></div><div><dt>다음 실행</dt><dd>{agent.nextRunAt?new Date(agent.nextRunAt).toLocaleString("ko-KR"):"미정"}</dd></div><div><dt>공식 출처</dt><dd>{agent.sources.length}곳</dd></div></dl><div className="agent-actions"><button type="button" disabled={saving||agent.status!=="active"} onClick={()=>controlAgent(agent.id,"run")}>지금 발행하기</button><button type="button" disabled={saving} onClick={()=>controlAgent(agent.id,"status",agent.status==="active"?"paused":"active")}>{agent.status==="active"?"일시정지":"다시 가동"}</button></div></article>)}</div>
+          <div className="agent-run-log"><h3>최근 작업 기록</h3>{agentRuns.length===0?<p>아직 실행 기록이 없습니다.</p>:agentRuns.map(run=><div key={run.id}><span>{run.status==="review"?"검토 대기":run.status==="published"?"자동 발행":"실패"}</span><strong>{run.agentName}</strong><p>{run.topic}</p><time>{new Date(run.createdAt).toLocaleString("ko-KR")}</time></div>)}</div>
+        </section>
+
+        <section className="panel promotion-agent-panel">
+          <div className="panel-title"><div><p className="eyebrow">PROMOTION AGENT</p><h2>홍보 에이전트 작업실</h2></div><span className="queue-count">준비 {promotions.filter(item=>item.status==="prepared").length}</span></div>
+          <p className="panel-help">발행된 글을 선택하면 SNS용 짧은 문구, 커뮤니티 소개문, 해시태그와 원문 링크를 준비합니다. 외부 채널에는 자동으로 무단 게시하지 않으며, 문구를 확인하고 직접 공유한 뒤 실행 완료를 기록합니다. 콘텐츠 에이전트가 새 글을 발행하면 홍보안도 자동으로 준비됩니다.</p>
+          <form className="promotion-agent-form" onSubmit={preparePromotion}>
+            <div className="field"><label htmlFor="promotionPostId">홍보할 발행 글</label><select id="promotionPostId" name="promotionPostId" required defaultValue=""><option value="" disabled>글을 선택하세요</option>{posts.filter(post=>post.status==="published").map(post=><option value={post.id} key={post.id}>{post.title}</option>)}</select></div>
+            <button className="admin-button" disabled={saving}>홍보안 준비하기</button>
+          </form>
+          <div className="promotion-campaigns">{promotions.length===0?<p className="promotion-empty">아직 준비된 홍보안이 없습니다. 발행 글을 선택해 첫 홍보안을 만드세요.</p>:promotions.map(campaign=><article className={`promotion-card ${campaign.status}`} key={campaign.id}>
+            <header><div><span>{campaign.status==="prepared"?"확인·실행 대기":"실행 기록 완료"}</span><h3>{campaign.title}</h3></div><time>{new Date(campaign.executedAt||campaign.createdAt).toLocaleString("ko-KR")}</time></header>
+            <div className="promotion-channel-list" aria-label="추천 홍보 채널">{campaign.channels.map(channel=><span key={channel}>{channel}</span>)}</div>
+            <section><strong>SNS용 짧은 문구</strong><p>{campaign.socialCopy}</p><button type="button" disabled={saving} onClick={()=>copyPromotion(campaign.socialCopy,"SNS 홍보 문구")}>문구 복사</button></section>
+            <section><strong>커뮤니티용 소개문</strong><p>{campaign.communityCopy}</p><button type="button" disabled={saving} onClick={()=>copyPromotion(campaign.communityCopy,"커뮤니티 홍보 문구")}>소개문 복사</button></section>
+            <div className="promotion-actions"><a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(campaign.socialCopy)}`} target="_blank" rel="noreferrer">X 공유 화면 열기</a><a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://adbles.com/posts/${campaign.slug}`)}`} target="_blank" rel="noreferrer">Facebook 공유 화면 열기</a>{campaign.status==="prepared"&&<button type="button" disabled={saving} onClick={()=>finishPromotion(campaign.id)}>게시 완료로 표시</button>}</div>
+          </article>)}</div>
         </section>
       </div>
     </main>

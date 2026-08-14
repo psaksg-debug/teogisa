@@ -25,7 +25,7 @@ const categories = [
 export default async function Home() {
   const posts = await getPublishedPosts();
   const jsonLd = {"@context":"https://schema.org","@graph":[
-    {"@type":"Organization","@id":`${SITE_URL}/#organization`,name:SITE_NAME,legalName:"애드블스",url:SITE_URL,logo:{"@type":"ImageObject",url:`${SITE_URL}/favicon.svg`}},
+    {"@type":"Organization","@id":`${SITE_URL}/#organization`,name:SITE_NAME,legalName:"애드블스",url:SITE_URL,logo:{"@type":"ImageObject",url:`${SITE_URL}/brand-mark-v2.png`}},
     {"@type":"WebSite","@id":`${SITE_URL}/#website`,url:SITE_URL,name:SITE_NAME,description:SITE_DESCRIPTION,publisher:{"@id":`${SITE_URL}/#organization`},inLanguage:"ko-KR",potentialAction:{"@type":"SearchAction",target:{"@type":"EntryPoint",urlTemplate:`${SITE_URL}/search?q={search_term_string}`},"query-input":"required name=search_term_string"}},
     {"@type":"WebPage","@id":`${SITE_URL}/#webpage`,url:SITE_URL,name:SITE_NAME,description:SITE_DESCRIPTION,isPartOf:{"@id":`${SITE_URL}/#website`},about:["퇴직 준비","생활비","재취업","중장년 부업","건강 관리"]}
   ]};
@@ -54,20 +54,11 @@ export default async function Home() {
               <a className="text-button" href="/challenge">30일 수입 챌린지</a>
             </div>
           </div>
-          <div className="income-ledger" aria-label="온라인 월 100만 원 수입 챌린지">
-            <div className="ledger-top">
-              <span>30일 수입 실험</span>
-              <strong>₩ 1,000,000</strong>
-            </div>
-            <div className="ledger-scale" aria-hidden="true"><span>300</span><span>200</span><span>100</span><span>0</span></div>
-            <div className="steps">
-              <div className="step step-1"><b>01</b><span>지원금</span></div>
-              <div className="step step-2"><b>02</b><span>N잡</span></div>
-              <div className="step step-3"><b>03</b><span>콘텐츠</span></div>
-              <div className="step step-4"><b>04</b><span>자산소득</span></div>
-            </div>
-            <p className="ledger-note">매출을 약속하지 않습니다.<br/>하루 한 칸씩 가능성을 검증합니다.</p>
-          </div>
+          <figure className="hero-project-visual">
+            <div className="hero-image-window"><img src="/project-hero-v2.jpg" width="1600" height="840" alt="퇴직 후 경험을 새로운 수입으로 연결하는 중년의 작업 장면" fetchPriority="high"/></div>
+            <figcaption><span>SECOND INCOME PROJECT</span><strong>경험을 수입으로 바꾸는<br/>두 번째 시작</strong></figcaption>
+            <div className="hero-visual-badge" aria-hidden="true"><b>30</b><span>DAY<br/>ACTION</span></div>
+          </figure>
         </section>
 
         <section className="home-hubs section-wrap" aria-labelledby="hub-title">

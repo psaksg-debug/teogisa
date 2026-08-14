@@ -8,11 +8,11 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   alternates: { canonical: "/" },
   applicationName: SITE_NAME,
-  creator: "퇴직생활 연구소 편집실",
+  creator: "퇴직생활 수익화 프로젝트 편집실",
   publisher: SITE_NAME,
   category: "retirement planning",
   robots: { index:true, follow:true, googleBot:{ index:true, follow:true, "max-image-preview":"large", "max-snippet":-1, "max-video-preview":-1 } },
-  icons: { icon: "/favicon.svg" },
+  icons: { icon: "/brand-mark-v2.png", apple: "/brand-mark-v2.png" },
   openGraph: {
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     type: "website",
     locale: "ko_KR",
-    images: [{ url: "/og-lab.png", width: 1200, height: 630, alt: "퇴직생활 연구소 — 생활비, 새로운 일, 건강한 일상을 준비하는 실전 가이드" }],
+    images: [{ url: "/project-og-v2.jpg", width: 1200, height: 630, alt: "퇴직생활 수익화 프로젝트 — 경험을 새로운 수입으로 연결하는 실전 가이드" }],
   },
-  twitter: { card: "summary_large_image", title: SITE_NAME, description: SITE_DESCRIPTION, images:["/og-lab.png"] },
+  twitter: { card: "summary_large_image", title: SITE_NAME, description: SITE_DESCRIPTION, images:["/project-og-v2.jpg"] },
 };
 
 export const viewport: Viewport = {

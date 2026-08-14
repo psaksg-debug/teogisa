@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { SITE_NAME } from "../../lib/site";
 
 const contentMenu = [
   { href: "/", label: "홈", description: "이번 주 주요 글과 퇴직생활 연구 주제" },
@@ -45,7 +46,7 @@ export function MobileMenu() {
       <button className="mobile-menu-backdrop" type="button" aria-label="메뉴 닫기" onClick={close}/>
       <section id="mobile-site-menu" className="mobile-menu-drawer" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
         <header>
-          <div><span>퇴직생활 연구소</span><strong id="mobile-menu-title">전체 메뉴</strong></div>
+          <div><span>{SITE_NAME}</span><strong id="mobile-menu-title">전체 메뉴</strong></div>
           <button ref={closeRef} type="button" className="mobile-menu-close" aria-label="전체 메뉴 닫기" onClick={close}><span aria-hidden="true">×</span></button>
         </header>
         <nav aria-label="모바일 전체 메뉴">

@@ -17,11 +17,12 @@ test("renders the finished Korean content site", async () => {
     readFile(new URL("../app/admin/RichTextEditor.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/article-html.ts", import.meta.url), "utf8"),
   ]);
-  assert.match(layout, /퇴직생활 연구소/);
+  assert.match(layout, /퇴직생활 수익화 프로젝트/);
   assert.match(page, /퇴직 후 막막함을/);
   assert.match(page, /내 돈이 몇 달을 버틸지 계산하고/);
   assert.doesNotMatch(page, /공식 자료 검토/);
-  assert.match(page, /30일 수입 실험/);
+  assert.match(page, /project-hero-v2\.jpg/);
+  assert.match(page, /hero-project-visual/);
   assert.match(page, /본문으로 바로가기/);
   assert.match(page, /hero-facts/);
   assert.match(page, /MobileMenu/);
@@ -33,11 +34,17 @@ test("renders the finished Korean content site", async () => {
   assert.match(css, /mobile-menu-drawer/);
   assert.match(css, /trust-band/);
   assert.match(css, /grid-template-columns:1\.18fr \.82fr/);
-  assert.match(layout, /og-lab\.png/);
+  assert.match(layout, /project-og-v2\.jpg/);
+  assert.match(footer, /brand-mark-v2\.png/);
+  assert.match(css, /heroImageDrift/);
   assert.match(footer, /운영사/);
+  assert.match(footer, /관리자<\/span><strong>어썸라이프/);
+  assert.match(footer, /mailto:master@adbles\.com/);
+  assert.match(footer, /개인정보처리방침/);
+  assert.match(footer, /광고·이용 안내/);
   assert.match(footer, /애드블스가 운영합니다/);
   assert.match(site, /Adbles\.com/);
-  assert.match(css, /footer-company/);
+  assert.match(css, /footer-contact/);
   assert.match(layout, /fonts\.googleapis\.com\/css2/);
   assert.match(layout, /Noto\+Sans\+KR/);
   assert.equal((layout.match(/google-adsense-account/g) ?? []).length, 1);
@@ -111,14 +118,23 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(agentsApi,/requireOwnerApi/);
   assert.match(agentsData,/health-column/);
   assert.match(repository,/runDueContentAgents/);
-  assert.match(repository,/검토용 초안/);
+  assert.match(repository,/status:"published"/);
+  assert.match(repository,/글을 만들고 사이트에 자동 발행했습니다/);
+  assert.match(repository,/preparePromotionCampaign/);
+  assert.match(repository,/promotion_campaigns/);
+  assert.doesNotMatch(repository,/tags:\[agent\.name,"공식 자료","검토 초안"\]/);
   assert.match(admin,/분야별 에이전트 운영실/);
+  assert.match(admin,/자동 발행 주기/);
+  assert.match(admin,/지금 발행하기/);
+  assert.match(admin,/홍보 에이전트 작업실/);
+  assert.match(admin,/SNS용 짧은 문구/);
+  assert.match(admin,/게시 완료로 표시/);
   assert.match(sitemap,/challenge/);
   assert.doesNotMatch(sitemap,/keyword-lab/);
 });
 
 test("keeps the independent editor and write APIs session-protected", async () => {
-  const [adminPage, adminClient, loginPage, sessionRoute, siteAdmin, postsApi, postUpdateApi, exportApi, automationApi] = await Promise.all([
+  const [adminPage, adminClient, loginPage, sessionRoute, siteAdmin, postsApi, postUpdateApi, exportApi, automationApi, promotionsApi] = await Promise.all([
     readFile(new URL("../app/admin/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/admin/AdminClient.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/admin/login/page.tsx", import.meta.url), "utf8"),
@@ -128,6 +144,7 @@ test("keeps the independent editor and write APIs session-protected", async () =
     readFile(new URL("../app/api/posts/[id]/route.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/api/export/route.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/api/automation/route.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/api/promotions/route.ts", import.meta.url), "utf8"),
   ]);
   assert.match(adminPage, /getAdminSession/);
   assert.match(loginPage, /독립 편집실 로그인/);
@@ -148,6 +165,8 @@ test("keeps the independent editor and write APIs session-protected", async () =
   assert.match(adminClient, /new URLSearchParams\(window\.location\.search\)\.get\("post"\)/);
   assert.match(exportApi, /requireOwnerApi/);
   assert.match(automationApi, /requireOwnerApi/);
+  assert.match(promotionsApi, /requireOwnerApi/);
+  assert.match(promotionsApi, /executePromotionCampaign/);
 });
 
 test("ships mobile-first SEO, GEO, trust and original-value pages", async () => {
