@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { InnerHeader, SiteFooter } from "../components/SiteChrome";
 
-export const metadata:Metadata={title:"사이트 소개",description:"퇴직생활 연구소가 어떤 질문을 다루고 어떻게 자료를 검증하는지 소개합니다.",alternates:{canonical:"/about"}};
+export const metadata:Metadata={title:"퇴직생활 연구소 소개",description:"퇴직 후 생활비, 지원제도, 새로운 일과 건강을 내 상황에 맞는 실행 순서로 바꾸는 퇴직생활 연구소를 소개합니다.",alternates:{canonical:"/about"}};
 
-export default function About(){return <><InnerHeader eyebrow="ABOUT THE PROJECT" title="막연한 부자가 아니라, 버틸 시간과 다음 수입을 계산합니다." description="퇴직 이후의 선택을 생활비 방어 → 일 소득 → 축적형 수입 → 자산 관리 순서로 풀어내는 독립 콘텐츠 사이트입니다."/><main className="content-shell article-copy policy-copy">
-  <h2>왜 이 사이트를 만들었나요?</h2><p>퇴직을 앞두면 정보는 넘치지만 내 상황에 맞는 순서는 잘 보이지 않습니다. 이곳은 ‘무엇을 사라’는 권유보다 한 달에 꼭 필요한 돈이 얼마인지, 지금 가진 자금으로 얼마나 준비할 수 있는지, 어떤 수입원을 먼저 시험할지 판단할 수 있는 기준을 제공합니다.</p>
-  <h2>무엇이 다른가요?</h2><p>제도와 정책은 정부·공공기관 원문을 우선 확인하고 출처와 확인 날짜를 남깁니다. 부업과 콘텐츠 수익은 결과만 보여주지 않고 투입 시간, 초기 비용, 실패 조건을 함께 기록합니다. 직접 계산할 수 있는 도구와 표를 만들어 독자가 자기 숫자로 다시 확인할 수 있게 합니다.</p>
-  <h2>AI는 어디까지 사용하나요?</h2><p>AI는 자료 정리와 초안 구조를 돕지만, 자동 생성한 글을 검토 없이 공개하지 않습니다. 숫자·날짜·대상 조건·원문 링크를 사람이 대조하고, 다른 글을 바꿔 쓴 내용보다 직접 만든 계산과 판단 기준을 더합니다.</p>
+export default function About(){return <><InnerHeader path="/about" eyebrow="ABOUT THE PROJECT" title="퇴직 후의 선택이 조금 덜 막막해지도록." description="생활비부터 새 수입과 건강까지, 흩어진 정보를 오늘 할 수 있는 순서로 바꾸는 퇴직생활 실전 가이드입니다."/><main className="content-shell article-copy policy-copy">
+  <h2>퇴직하면 가장 먼저 무엇을 해야 할까요?</h2><p>정답은 사람마다 다르지만 시작점은 비슷합니다. 한 달에 꼭 필요한 돈을 알고, 지금 가진 자금으로 버틸 시간을 계산하고, 놓치면 안 되는 제도와 날짜를 챙기는 일입니다. 퇴직생활 연구소는 이 세 가지를 정리한 뒤 새로운 일과 수입을 준비하도록 안내합니다.</p>
+  <h2>정보보다 ‘내가 할 다음 행동’을 남깁니다</h2><p>글을 읽고도 다시 검색해야 한다면 충분한 도움이 되지 못합니다. 그래서 가능한 한 계산식, 비교표, 체크리스트와 공식 확인 경로를 함께 제공합니다. 독자는 자기 숫자를 넣고, 자기 지역과 조건을 확인하고, 오늘 할 일 한 가지를 고를 수 있습니다.</p>
+  <h2>과장된 성공담보다 현실적인 기준을 다룹니다</h2><p>새로운 수입에는 시간과 시행착오가 필요합니다. 예상 매출만 보여주지 않고 시작 비용, 투입 시간, 첫 고객을 찾는 방법과 중단 기준을 함께 살핍니다. 투자·세무·건강처럼 개인차가 큰 주제는 단정하지 않고 확인해야 할 조건을 구분합니다.</p>
+  <h2>콘텐츠는 어떻게 만들어지나요?</h2><p>편집실이 독자의 질문을 정하고 공개된 1차 자료와 실제 계산을 바탕으로 초안을 만듭니다. AI는 자료 정리와 문장 구조를 도울 수 있지만, 숫자·날짜·대상 조건·링크는 발행 전에 다시 확인합니다. 다른 글을 요약하는 데서 끝내지 않고 직접 사용할 표와 판단 기준을 더합니다.</p>
   <div className="policy-links"><a href="/editorial-policy">편집·검증 원칙 보기 →</a><a href="/author">운영자 소개 보기 →</a></div>
 </main><SiteFooter/></>}

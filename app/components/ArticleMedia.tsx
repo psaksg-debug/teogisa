@@ -20,7 +20,7 @@ export function ArticleThumbnail({ post, variant = "card" }: { post: Post; varia
 export function ArticleSupport({ post }: { post: Post }) {
   const enrichment = enrichArticle(post);
   return <section className="article-support" aria-labelledby="article-support-title">
-    <p className="eyebrow">AUTOMATIC READING GUIDE</p>
+    <p className="eyebrow">읽기 전에 한눈에</p>
     <h2 id="article-support-title">한눈에 보는 핵심 흐름</h2>
     <ol className="article-flow">{enrichment.flow.map((step, index) => <li key={step}><span>{String(index + 1).padStart(2, "0")}</span><strong>{step}</strong></li>)}</ol>
     <h3>읽으면서 확인할 표</h3>
@@ -28,6 +28,6 @@ export function ArticleSupport({ post }: { post: Post }) {
     {enrichment.officialLinks.length > 0 && <div className="article-reference-grid">
       {enrichment.officialLinks.length > 0 && <div><h3>공식자료</h3>{enrichment.officialLinks.map((link) => <a href={link.url} target="_blank" rel="noreferrer" key={link.url}>{link.label} <span aria-hidden="true">↗</span></a>)}</div>}
     </div>}
-    <p className="support-note">표와 흐름은 글의 카테고리를 기준으로 자동 구성된 읽기 보조자료입니다. 제도 신청과 금융 판단은 연결된 공식자료의 최신 내용을 우선하세요.</p>
+    <p className="support-note">이 표는 핵심 내용을 빠르게 확인하기 위한 요약입니다. 중요한 신청과 금융 결정은 본문에 연결된 최신 안내를 함께 확인하세요.</p>
   </section>;
 }

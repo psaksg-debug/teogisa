@@ -1,9 +1,9 @@
 export const portalMenu = [
   { href: "/challenge", label: "월 100만원 챌린지" },
-  { href: "/official-info", label: "공신력 정보" },
+  { href: "/official-info", label: "지원금·세무·연금" },
   { href: "/tools", label: "도구모음" },
-  { href: "/keyword-lab", label: "키워드랩" },
-  { href: "/health", label: "건강정보" },
+  { href: "/keyword-lab", label: "지역별 생활정보" },
+  { href: "/health", label: "건강·예방" },
 ];
 
 export const workbookDays = [

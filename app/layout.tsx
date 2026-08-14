@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   applicationName: SITE_NAME,
   creator: "퇴직생활 연구소 편집실",
   publisher: SITE_NAME,
-  category: "lifestyle",
+  category: "retirement planning",
   robots: { index:true, follow:true, googleBot:{ index:true, follow:true, "max-image-preview":"large", "max-snippet":-1, "max-video-preview":-1 } },
   icons: { icon: "/favicon.svg" },
   openGraph: {
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     type: "website",
     locale: "ko_KR",
-    images: [{ url: "/og-lab.png", width: 1200, height: 630, alt: "퇴직생활 연구소 — 퇴직 이후의 돈·일·건강을 연구합니다" }],
+    images: [{ url: "/og-lab.png", width: 1200, height: 630, alt: "퇴직생활 연구소 — 생활비, 새로운 일, 건강한 일상을 준비하는 실전 가이드" }],
   },
   twitter: { card: "summary_large_image", title: SITE_NAME, description: SITE_DESCRIPTION, images:["/og-lab.png"] },
 };

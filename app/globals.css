@@ -181,3 +181,17 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   .inner-header .brand{margin:0}
 }
 @media(prefers-reduced-motion:reduce){.mobile-menu-drawer{scroll-behavior:auto}}
+
+/* Reader-first information sections */
+.inner-breadcrumb{margin:0 0 28px}.inner-breadcrumb [aria-current="page"]{color:#71858c}
+.decision-checklist,.health-plan{margin-bottom:34px;padding:34px;background:var(--mist);border-top:3px solid var(--navy)}
+.decision-checklist h2,.health-plan h2{margin:0 0 26px;color:var(--navy);font:700 28px/1.4 "Noto Serif KR",serif}
+.decision-checklist ol,.health-plan ol{margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));list-style:none}
+.decision-checklist li,.health-plan li{min-width:0;padding:18px;border-left:1px solid var(--line)}
+.decision-checklist li:first-child,.health-plan li:first-child{border-left:0}
+.decision-checklist strong,.decision-checklist span,.health-plan strong,.health-plan span{display:block}
+.decision-checklist strong,.health-plan strong{color:var(--navy);font-size:15px;line-height:1.5}
+.decision-checklist span,.health-plan p{margin:9px 0 0;color:#61767e;font-size:12px;line-height:1.65}
+.health-plan li>span{margin:0 0 14px;color:var(--orange);font:800 10px ui-monospace,monospace}
+@media(max-width:900px){.decision-checklist ol,.health-plan ol{grid-template-columns:1fr 1fr}.decision-checklist li:nth-child(3),.health-plan li:nth-child(3){border-left:0}.decision-checklist li,.health-plan li{border-bottom:1px solid var(--line)}}
+@media(max-width:600px){.decision-checklist,.health-plan{padding:26px 18px}.decision-checklist ol,.health-plan ol{grid-template-columns:1fr}.decision-checklist li,.health-plan li{border-left:0}.inner-breadcrumb{margin-bottom:22px}}

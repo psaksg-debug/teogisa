@@ -25,8 +25,9 @@ const categories = [
 export default async function Home() {
   const posts = await getPublishedPosts();
   const jsonLd = {"@context":"https://schema.org","@graph":[
-    {"@type":"Organization","@id":`${SITE_URL}/#organization`,name:SITE_NAME,url:SITE_URL,logo:{"@type":"ImageObject",url:`${SITE_URL}/favicon.svg`}},
-    {"@type":"WebSite","@id":`${SITE_URL}/#website`,url:SITE_URL,name:SITE_NAME,description:SITE_DESCRIPTION,publisher:{"@id":`${SITE_URL}/#organization`},inLanguage:"ko-KR"}
+    {"@type":"Organization","@id":`${SITE_URL}/#organization`,name:SITE_NAME,legalName:"애드블스",url:SITE_URL,logo:{"@type":"ImageObject",url:`${SITE_URL}/favicon.svg`}},
+    {"@type":"WebSite","@id":`${SITE_URL}/#website`,url:SITE_URL,name:SITE_NAME,description:SITE_DESCRIPTION,publisher:{"@id":`${SITE_URL}/#organization`},inLanguage:"ko-KR",potentialAction:{"@type":"SearchAction",target:{"@type":"EntryPoint",urlTemplate:`${SITE_URL}/search?q={search_term_string}`},"query-input":"required name=search_term_string"}},
+    {"@type":"WebPage","@id":`${SITE_URL}/#webpage`,url:SITE_URL,name:SITE_NAME,description:SITE_DESCRIPTION,isPartOf:{"@id":`${SITE_URL}/#website`},about:["퇴직 준비","생활비","재취업","중장년 부업","건강 관리"]}
   ]};
 
   return (
@@ -36,21 +37,21 @@ export default async function Home() {
       <header className="site-header">
         <Brand/>
         <PortalNav className="main-nav"/>
-        <div className="header-tools"><span className="verified-label">공식 자료 검토</span><a className="tool-link" href="/tools/retirement-runway">생활비 계산기</a><a className="search-link" href="/search" aria-label="글 검색">검색 <span>⌕</span></a><MobileMenu/></div>
+        <div className="header-tools"><a className="tool-link" href="/tools/retirement-runway">내 준비기간 계산</a><a className="search-link" href="/search" aria-label="글 검색">검색 <span>⌕</span></a><MobileMenu/></div>
       </header>
 
       <main id="main-content">
         <section className="hero">
           <div className="hero-copy">
-            <p className="eyebrow">RETIREMENT LIFE LAB · 2026</p>
-            <h1>퇴직 이후,<br/><em>돈·일·건강을 다시 설계합니다.</em></h1>
-            <p className="hero-lead">지원금과 세무는 공식 원문으로, 새로운 수입은 30일 챌린지로, 건강은 공공기관 자료로 확인합니다. 계산과 반복 작업은 무료 도구로 줄입니다.</p>
+            <p className="eyebrow">내 두 번째 생활을 시작하는 곳</p>
+            <h1>퇴직 후 막막함을,<br/><em>실행 가능한 계획으로.</em></h1>
+            <p className="hero-lead">내 돈이 몇 달을 버틸지 계산하고, 놓치기 쉬운 지원을 챙기고, 지금까지의 경험으로 새로운 수입을 만드는 순서까지. 오늘 필요한 한 단계부터 시작하세요.</p>
             <dl className="hero-facts" aria-label="사이트 콘텐츠 현황">
               <div><dt>발행한 연구노트</dt><dd>{posts.length}편</dd></div><div><dt>30일 워크북</dt><dd>30칸</dd></div><div><dt>사용 가능 도구</dt><dd>2개</dd></div>
             </dl>
             <div className="hero-actions">
-              <a className="primary-button" href="/challenge">월 100만원 챌린지 시작 <span aria-hidden="true">→</span></a>
-              <a className="text-button" href="/tools">무료 도구 보기</a>
+              <a className="primary-button" href="/tools/retirement-runway">내 준비기간 계산하기 <span aria-hidden="true">→</span></a>
+              <a className="text-button" href="/challenge">30일 수입 챌린지</a>
             </div>
           </div>
           <div className="income-ledger" aria-label="온라인 월 100만 원 수입 챌린지">
@@ -70,13 +71,13 @@ export default async function Home() {
         </section>
 
         <section className="home-hubs section-wrap" aria-labelledby="hub-title">
-          <div className="section-heading"><div><p className="eyebrow">ONE LAB, FIVE DESKS</p><h2 id="hub-title">퇴직생활에 필요한 다섯 개 연구실</h2><p className="section-intro">읽고 끝나지 않도록 실행·원문·도구·지역정보·건강을 한곳에 연결했습니다.</p></div></div>
+          <div className="section-heading"><div><p className="eyebrow">지금 가장 불안한 것부터</p><h2 id="hub-title">내 상황에 맞는 답을 골라보세요.</h2><p className="section-intro">한꺼번에 준비하려 애쓰지 않아도 됩니다. 생활비, 받을 수 있는 제도, 새로운 일, 지역 정보, 건강 중 지금 필요한 곳에서 시작하세요.</p></div></div>
           <div className="hub-grid">
-            <a href="/challenge"><span>30일</span><h3>월 100만원 챌린지</h3><p>일차별 워크북을 따라 첫 수입 실험을 진행합니다.</p><b>시작하기 →</b></a>
-            <a href="/official-info"><span>원문</span><h3>공신력 정보센터</h3><p>지원금·세무·연금 정보를 공식기관에서 확인합니다.</p><b>확인하기 →</b></a>
-            <a href="/tools"><span>무료</span><h3>유용한 도구모음</h3><p>계산기와 이미지·영수증·콘텐츠 도구를 모읍니다.</p><b>도구 보기 →</b></a>
-            <a href="/keyword-lab"><span>운영</span><h3>지역·키워드랩</h3><p>지역과 세부 질문별 페이지 운영 현황을 공개합니다.</p><b>페이지 보기 →</b></a>
-            <a href="/health"><span>예방</span><h3>건강·이벤트</h3><p>질병 증상·예방법과 공공 건강행사를 확인합니다.</p><b>건강정보 →</b></a>
+            <a href="/challenge"><span>새 수입</span><h3>내 경험으로 첫 수입 만들기</h3><p>막연한 부업 찾기를 멈추고, 하루 한 가지 행동으로 가능성을 시험합니다.</p><b>30일 워크북 시작 →</b></a>
+            <a href="/official-info"><span>놓친 혜택</span><h3>내가 받을 수 있는 제도 찾기</h3><p>지원금·실업급여·연금·세금 정보를 상황별로 찾아갈 수 있습니다.</p><b>확인 순서 보기 →</b></a>
+            <a href="/tools"><span>무료 계산</span><h3>숫자로 불안 줄이기</h3><p>퇴직생활비와 예상 퇴직금을 직접 계산해 다음 선택의 기준을 만듭니다.</p><b>도구 사용하기 →</b></a>
+            <a href="/keyword-lab"><span>우리 지역</span><h3>가까운 기회부터 찾기</h3><p>사는 곳에 따라 달라지는 일자리와 지원 정보를 지역별로 찾아봅니다.</p><b>지역 정보 보기 →</b></a>
+            <a href="/health"><span>건강</span><h3>오래 일하기 위한 몸 챙기기</h3><p>놓치기 쉬운 위험 신호와 생활 속 예방 행동을 쉽게 확인합니다.</p><b>건강 체크 시작 →</b></a>
           </div>
         </section>
 
@@ -93,7 +94,7 @@ export default async function Home() {
 
         <section className="latest section-wrap" id="latest">
           <div className="section-heading">
-            <div><p className="eyebrow">LATEST FIELD NOTES · {posts.length} ARTICLES</p><h2>이번 주에 먼저 볼 글</h2><p className="section-intro">생활비를 계산하고, 빠른 수입과 오래 쌓이는 수입을 차례로 검토합니다.</p></div>
+            <div><p className="eyebrow">지금 많이 필요한 질문 · {posts.length}편</p><h2>오늘 바로 써먹을 수 있는 글</h2><p className="section-intro">읽고 나면 계산할 숫자, 확인할 서류, 오늘 해볼 행동 하나가 남는 글부터 골랐습니다.</p></div>
             <a href="/search">모든 글 보기 <span aria-hidden="true">→</span></a>
           </div>
           <div className="post-grid">

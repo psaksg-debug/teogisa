@@ -18,8 +18,9 @@ test("renders the finished Korean content site", async () => {
     readFile(new URL("../lib/article-html.ts", import.meta.url), "utf8"),
   ]);
   assert.match(layout, /퇴직생활 연구소/);
-  assert.match(page, /돈·일·건강을 다시 설계합니다/);
-  assert.match(page, /공식 자료 검토/);
+  assert.match(page, /퇴직 후 막막함을/);
+  assert.match(page, /내 돈이 몇 달을 버틸지 계산하고/);
+  assert.doesNotMatch(page, /공식 자료 검토/);
   assert.match(page, /30일 수입 실험/);
   assert.match(page, /본문으로 바로가기/);
   assert.match(page, /hero-facts/);
@@ -42,7 +43,8 @@ test("renders the finished Korean content site", async () => {
   assert.equal((layout.match(/google-adsense-account/g) ?? []).length, 1);
   assert.match(layout, /<meta name="google-adsense-account" content="ca-pub-4030620718116834"\/>/);
   assert.match(media, /ArticleThumbnail/);
-  assert.match(media, /AUTOMATIC READING GUIDE/);
+  assert.match(media, /읽기 전에 한눈에/);
+  assert.doesNotMatch(media, /자동 구성된/);
   assert.match(enrichment, /wikipedia\.org/);
   assert.match(enrichment, /article-thumbnails/);
   assert.match(media, /alt=\{image\.alt\}/);
@@ -89,9 +91,9 @@ test("ships the challenge, official information, tools, health and agent desks",
     readFile(new URL("../app/admin/AdminClient.tsx",import.meta.url),"utf8"),
     readFile(new URL("../app/sitemap.ts",import.meta.url),"utf8"),
   ]);
-  assert.match(home,/월 100만원 챌린지/);
+  assert.match(home,/30일 수입 챌린지/);
   assert.match(chrome,/portalMenu/);
-  assert.match(challenge,/온라인에서 월 100만원 수입 만들기/);
+  assert.match(challenge,/내 경험으로 월 100만원 수입에 도전하기/);
   assert.match(workbook,/30일 실행 워크북/);
   assert.match(workbook,/localStorage/);
   assert.match(official,/officialSections/);
@@ -100,15 +102,19 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(portal,/이미지 변환기/);
   assert.match(severance,/예상 퇴직금/);
   assert.match(health,/youtube-nocookie\.com/);
-  assert.match(health,/응급 증상은 콘텐츠보다 119/);
-  assert.match(keyword,/대량 생성 제한/);
-  assert.match(localPage,/지역명만 바꾸지 않고/);
+  assert.match(health,/갑작스러운 위험 신호는 119/);
+  assert.match(health,/이번 달 건강 점검/);
+  assert.match(keyword,/우리 동네에서 시작할 수 있는 일과 지원/);
+  assert.match(keyword,/index:false/);
+  assert.match(localPage,/전화하기 전에 준비하면 좋은 질문/);
+  assert.match(localPage,/index:false/);
   assert.match(agentsApi,/requireOwnerApi/);
   assert.match(agentsData,/health-column/);
   assert.match(repository,/runDueContentAgents/);
   assert.match(repository,/검토용 초안/);
   assert.match(admin,/분야별 에이전트 운영실/);
   assert.match(sitemap,/challenge/);
+  assert.doesNotMatch(sitemap,/keyword-lab/);
 });
 
 test("keeps the independent editor and write APIs session-protected", async () => {
@@ -145,15 +151,17 @@ test("keeps the independent editor and write APIs session-protected", async () =
 });
 
 test("ships mobile-first SEO, GEO, trust and original-value pages", async () => {
-  const [layout, post, sitemap, robots, llms, calculator, privacy, policy, css] = await Promise.all([
+  const [layout, post, sitemap, robots, llms, ads, calculator, privacy, policy, chrome, css] = await Promise.all([
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/posts/[slug]/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/robots.ts", import.meta.url), "utf8"),
     readFile(new URL("../public/llms.txt", import.meta.url), "utf8"),
+    readFile(new URL("../public/ads.txt", import.meta.url), "utf8"),
     readFile(new URL("../app/tools/retirement-runway/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/privacy/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/editorial-policy/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/SiteChrome.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
   ]);
   assert.match(layout, /max-image-preview/);
@@ -161,14 +169,21 @@ test("ships mobile-first SEO, GEO, trust and original-value pages", async () => 
   assert.match(post, /ImageObject/);
   assert.match(post, /thumbnailUrl/);
   assert.match(post, /BreadcrumbList/);
+  assert.match(post, /wordCount/);
+  assert.match(post, /citation/);
   assert.match(post, /related-posts/);
   assert.match(sitemap, /retirement-runway/);
   assert.match(sitemap, /images:/);
   assert.match(robots, /GPTBot/);
   assert.match(llms, /대표 가이드/);
+  assert.match(llms, /https:\/\/adbles\.com\/challenge/);
+  assert.match(ads, /google\.com, pub-4030620718116834, DIRECT, f08c47fec0942fa0/);
   assert.match(calculator, /입력값은 저장하지 않습니다/);
   assert.match(privacy, /개인정보처리방침/);
-  assert.match(policy, /AI 초안은 검토 후 발행/);
+  assert.match(privacy, /Google 광고와 쿠키/);
+  assert.match(policy, /창작 과정에서 AI를 보조적으로 사용합니다/);
+  assert.match(chrome, /WebPage/);
+  assert.match(chrome, /BreadcrumbList/);
   assert.match(css, /scroll-snap-type:x mandatory/);
   assert.match(css, /overflow-x:hidden/);
   assert.match(layout, /viewportFit: "cover"/);

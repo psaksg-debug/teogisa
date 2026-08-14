@@ -1,19 +1,23 @@
 # 퇴직생활 연구소
 
-> 퇴직 이후의 돈, 일, 부업, 재테크를 공식 자료와 직접 계산으로 검증하는 한국어 콘텐츠 사이트입니다.
+> 퇴직 후 생활비를 계산하고, 받을 수 있는 제도를 챙기고, 경험을 새로운 수입으로 바꾸는 실행 순서를 제공하는 한국어 생활 가이드입니다.
 
 ## 핵심 페이지
-- [사이트 소개](https://retire-rich-lab.sgk1.chatgpt.site/about): 목적과 콘텐츠 제작 방식
-- [편집 검증 원칙](https://retire-rich-lab.sgk1.chatgpt.site/editorial-policy): 출처, AI 사용, 수정 원칙
-- [운영자 소개](https://retire-rich-lab.sgk1.chatgpt.site/author): 콘텐츠 책임 주체
-- [퇴직생활비 계산기](https://retire-rich-lab.sgk1.chatgpt.site/tools/retirement-runway): 자금과 월 부족액으로 준비 기간 계산
+- [사이트 소개](https://adbles.com/about): 독자가 얻을 수 있는 도움과 콘텐츠 제작 방식
+- [30일 수입 챌린지](https://adbles.com/challenge): 경험을 첫 제안과 수입으로 연결하는 일차별 워크북
+- [지원금·세무·연금](https://adbles.com/official-info): 퇴직 후 기한이 있는 제도와 공식 확인 창구
+- [건강·예방](https://adbles.com/health): 위험 신호와 생활 속 건강 점검
+- [퇴직생활비 계산기](https://adbles.com/tools/retirement-runway): 자금과 월 부족액으로 준비 기간 계산
+- [편집 원칙](https://adbles.com/editorial-policy): 출처, 창작 과정, 광고와 수정 원칙
+- [운영자 소개](https://adbles.com/author): 운영사와 콘텐츠 책임 범위
 
 ## 대표 가이드
-- [퇴직 후 최소생활비 3칸 예산표](https://retire-rich-lab.sgk1.chatgpt.site/posts/retirement-minimum-budget-three-buckets)
-- [퇴직금 1억 원 생활비 시뮬레이션](https://retire-rich-lab.sgk1.chatgpt.site/posts/one-hundred-million-retirement-runway)
-- [중장년 N잡 선택표](https://retire-rich-lab.sgk1.chatgpt.site/posts/midlife-side-job-scorecard)
+- [퇴직 후 최소생활비 3칸 예산표](https://adbles.com/posts/retirement-minimum-budget-three-buckets)
+- [퇴직금 1억 원 생활비 시뮬레이션](https://adbles.com/posts/one-hundred-million-retirement-runway)
+- [중장년 N잡 선택표](https://adbles.com/posts/midlife-side-job-scorecard)
 
 ## 이용 원칙
-- 정책과 제도는 연결된 정부 또는 공공기관 원문을 최종 기준으로 확인하세요.
-- 계산과 사례는 교육용이며 개인 맞춤 투자, 세무, 법률 자문이 아닙니다.
-- 인용 시 글 제목, 페이지 URL, 발행일을 함께 표시해 주세요.
+- 각 가이드는 대상, 계산 또는 실행 순서와 다음 행동을 중심으로 구성됩니다.
+- 정책과 제도는 글에 연결된 담당기관의 최신 안내를 최종 기준으로 확인해야 합니다.
+- 계산과 사례는 교육용이며 개인 맞춤 투자·세무·법률·의료 자문이 아닙니다.
+- 인용 시 글 제목, 페이지 URL과 발행일을 함께 표시해 주세요.
