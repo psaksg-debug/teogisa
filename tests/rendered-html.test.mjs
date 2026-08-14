@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("renders the finished Korean content site", async () => {
-  const [page, layout, search, article, media, enrichment, footer, site, css, richEditor, articleHtml] = await Promise.all([
+  const [page, layout, search, article, media, enrichment, footer, mobileMenu, site, css, richEditor, articleHtml] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/search/page.tsx", import.meta.url), "utf8"),
@@ -11,6 +11,7 @@ test("renders the finished Korean content site", async () => {
     readFile(new URL("../app/components/ArticleMedia.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/article-enrichment.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/components/SiteChrome.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/MobileMenu.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/site.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../app/admin/RichTextEditor.tsx", import.meta.url), "utf8"),
@@ -22,7 +23,13 @@ test("renders the finished Korean content site", async () => {
   assert.match(page, /30일 수입 실험/);
   assert.match(page, /본문으로 바로가기/);
   assert.match(page, /hero-facts/);
-  assert.match(page, /mobile-home-nav/);
+  assert.match(page, /MobileMenu/);
+  assert.match(mobileMenu, /전체 메뉴 열기/);
+  assert.match(mobileMenu, /월 100만원 챌린지/);
+  assert.match(mobileMenu, /지원금·세무·연금/);
+  assert.match(mobileMenu, /유용한 도구/);
+  assert.match(mobileMenu, /건강·예방/);
+  assert.match(css, /mobile-menu-drawer/);
   assert.match(css, /trust-band/);
   assert.match(css, /grid-template-columns:1\.18fr \.82fr/);
   assert.match(layout, /og-lab\.png/);

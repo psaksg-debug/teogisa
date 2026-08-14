@@ -1,5 +1,6 @@
 import { getPublishedPosts } from "../lib/repository";
 import { Brand, PortalNav, SiteFooter } from "./components/SiteChrome";
+import { MobileMenu } from "./components/MobileMenu";
 import { ArticleThumbnail } from "./components/ArticleMedia";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "../lib/site";
 
@@ -35,12 +36,8 @@ export default async function Home() {
       <header className="site-header">
         <Brand/>
         <PortalNav className="main-nav"/>
-        <div className="header-tools"><span className="verified-label">공식 자료 검토</span><a className="tool-link" href="/tools/retirement-runway">생활비 계산기</a><a className="search-link" href="/search" aria-label="글 검색">검색 <span>⌕</span></a></div>
+        <div className="header-tools"><span className="verified-label">공식 자료 검토</span><a className="tool-link" href="/tools/retirement-runway">생활비 계산기</a><a className="search-link" href="/search" aria-label="글 검색">검색 <span>⌕</span></a><MobileMenu/></div>
       </header>
-
-      <nav className="mobile-home-nav" aria-label="모바일 빠른 메뉴">
-        <a href="/challenge">월 100만원 챌린지</a><a href="/official-info">공신력 정보</a><a href="/tools">도구</a><a href="/keyword-lab">키워드랩</a><a href="/health">건강</a><a href="/search">검색</a>
-      </nav>
 
       <main id="main-content">
         <section className="hero">

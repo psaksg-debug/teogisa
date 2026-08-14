@@ -1,5 +1,6 @@
 import { COMPANY_NAME, COMPANY_URL, SITE_NAME } from "../../lib/site";
 import { portalMenu } from "../../lib/portal";
+import { MobileMenu } from "./MobileMenu";
 
 export function Brand() {
   return <a className="brand" href="/" aria-label={`${SITE_NAME} 홈`}><span className="brand-mark">퇴</span><span>{SITE_NAME}</span></a>;
@@ -10,7 +11,7 @@ export function PortalNav({ className="portal-nav" }:{className?:string}){
 }
 
 export function InnerHeader({ eyebrow, title, description }:{ eyebrow:string; title:string; description?:string }) {
-  return <header className="inner-header"><div className="inner-brand-row"><Brand/><PortalNav className="inner-portal-nav"/></div><p className="eyebrow inner-eyebrow">{eyebrow}</p><h1>{title}</h1>{description&&<p className="inner-description">{description}</p>}</header>;
+  return <header className="inner-header"><div className="inner-brand-row"><Brand/><PortalNav className="inner-portal-nav"/><MobileMenu/></div><p className="eyebrow inner-eyebrow">{eyebrow}</p><h1>{title}</h1>{description&&<p className="inner-description">{description}</p>}</header>;
 }
 
 export function SiteFooter() {
