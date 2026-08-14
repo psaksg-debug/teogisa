@@ -71,6 +71,8 @@ test("renders the finished Korean content site", async () => {
   assert.match(media, /관련 설명 영상/);
   assert.match(enrichment, /D-5p431l-qY/);
   assert.match(content, /alt="퇴직 후 건강보험 가입 유형을 확인하는 중장년 부부 일러스트"/);
+  assert.match(enrichment, /퇴직 후 건강보험 가입 유형을 확인하는 중장년 부부 일러스트/);
+  assert.match(media, /enrichment\.images/);
   assert.match(articleHtml, /validateArticleMedia/);
   assert.match(articleHtml, /ArticleMediaValidationError/);
   assert.match(enrichment, /youtube-nocookie/);
