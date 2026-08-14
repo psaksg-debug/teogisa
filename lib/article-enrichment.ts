@@ -5,6 +5,7 @@ export type ArticleEnrichment = {
   checklist: Array<[string, string]>;
   officialLinks: Array<{ label: string; url: string }>;
   glossary: Array<{ term: string; url: string }>;
+  images?: Array<{ src:string; alt:string; caption:string; width:number; height:number }>;
   video?: { title:string; embedUrl:string; sourceUrl:string; description:string; channel:string; viewsNote?:string };
 };
 
@@ -51,9 +52,10 @@ const categoryOfficialLinks:Record<string,Array<{label:string;url:string}>>={
   "투자·재테크":[{label:"금융감독원 금융소비자정보포털 파인",url:"https://fine.fss.or.kr/"},{label:"예금보험공사 예금자보호 안내",url:"https://www.kdic.or.kr/"}],
 };
 
-const slugResources:Record<string,{links?:Array<{label:string;url:string}>;video?:ArticleEnrichment["video"]}>={
+const slugResources:Record<string,{links?:Array<{label:string;url:string}>;images?:ArticleEnrichment["images"];video?:ArticleEnrichment["video"]}>={
   "health-insurance-after-retirement-three-checks":{
     links:[{label:"국민건강보험공단 임의계속가입 안내",url:"https://www.nhis.or.kr/static/alim/paper/oldpaper/202212/sub/18.html"},{label:"국민건강보험공단 2026년도 보험료율",url:"https://edi.nhis.or.kr/portal/images/popup/20251204_pop01longdesc.html"}],
+    images:[{src:"/article-thumbnails/retirement-pension-life.webp",alt:"퇴직 후 건강보험 가입 유형을 확인하는 중장년 부부 일러스트",caption:"퇴직 후에는 피부양자·지역가입자·임의계속가입 가운데 가능한 경로와 예상 보험료를 함께 확인해야 합니다. · 퇴.기.사 제작 일러스트",width:355,height:444}],
     video:{title:"건보료 조정신청과 임의계속가입 제도",embedUrl:"https://www.youtube-nocookie.com/embed/D-5p431l-qY",sourceUrl:"https://www.youtube.com/watch?v=D-5p431l-qY",description:"퇴직 후 임의계속가입의 기본 개념을 설명하는 KBS 참고영상입니다. 2021년 공개 영상이므로 최신 보험료율·자격·기한은 본문에 연결한 국민건강보험공단의 2026년 자료로 다시 확인하세요.",channel:"윤창희의 생존경제_KBS"},
   },
   "ai-first-income-five-methods-seven-day-plan":{
@@ -132,6 +134,7 @@ export function enrichArticle(post: Post): ArticleEnrichment {
     checklist: checklists[post.category] ?? checklists["퇴직 준비"],
     officialLinks,
     glossary,
+    images:resource?.images,
     video:resource?.video,
   };
 }
