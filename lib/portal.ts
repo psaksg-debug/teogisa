@@ -58,7 +58,7 @@ export const toolCatalog = [
   { href:"/tools/retirement-runway", title:"퇴직생활비 계산기", description:"보유자금과 월 지출·고정수입으로 버틸 수 있는 기간을 계산합니다.", status:"사용 가능" },
   { href:"/tools/severance-pay", title:"퇴직금 간편 계산기", description:"평균임금과 재직일수를 이용해 예상 퇴직금을 계산합니다.", status:"사용 가능" },
   { href:"/tools/image-converter", title:"이미지 변환기", description:"사진을 WebP·JPG·PNG로 바꾸고 용량을 줄이는 도구입니다.", status:"준비 중" },
-  { href:"/tools/receipt-organizer", title:"영수증 정리기", description:"부업 비용 영수증을 월·지출 항목별로 정리합니다.", status:"준비 중" },
+  { href:"https://myreceipt.adbles.com/", title:"영수증 정리도우미", description:"영수증 사진을 여러 장 올리면 금액을 합산하고 A4 크기의 정리 PDF로 저장합니다.", status:"사용 가능" },
   { href:"/tools/thumbnail-maker", title:"블로그 썸네일 만들기", description:"제목과 색상을 선택해 검색용 썸네일을 만듭니다.", status:"준비 중" },
 ] as const;
 

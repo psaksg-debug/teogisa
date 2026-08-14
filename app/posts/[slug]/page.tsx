@@ -6,7 +6,7 @@ import { SITE_NAME, SITE_URL } from "../../../lib/site";
 import { Brand, SiteFooter } from "../../components/SiteChrome";
 import { ArticleSupport, ArticleThumbnail } from "../../components/ArticleMedia";
 import { enrichArticle, getThumbnailSeo } from "../../../lib/article-enrichment";
-import { addGlossaryLinksToHtml, sanitizeArticleHtml } from "../../../lib/article-html";
+import { addGlossaryLinksToHtml, addOfficialOrganizationLinksToHtml, sanitizeArticleHtml } from "../../../lib/article-html";
 import { getEditorialAuthor } from "../../../lib/editorial-team";
 import ArticleReaderTools from "./ArticleReaderTools";
 
@@ -29,7 +29,7 @@ function linkGlossaryTerms(text:string, glossary:GlossaryLink[], linked:Set<stri
 
 function paragraphWithSource(text:string,glossary:GlossaryLink[],linked:Set<string>){const match=text.match(/\n\n출처: (https?:\/\/\S+)$/);if(!match)return <p>{linkGlossaryTerms(text,glossary,linked)}</p>;return <><p>{linkGlossaryTerms(text.slice(0,match.index).trim(),glossary,linked)}</p><a className="source-link" href={match[1]} target="_blank" rel="noreferrer">공식 자료 원문 확인 ↗</a></>}
 function renderBody(body:string,glossary:GlossaryLink[]){const linked=new Set<string>();return body.split(/\n(?=## )/).map((part,i)=>{const [first,...rest]=part.split("\n");return first.startsWith("## ")?<section key={i}><h2>{first.slice(3)}</h2>{paragraphWithSource(rest.join("\n").trim(),glossary,linked)}</section>:<div key={i}>{paragraphWithSource(part.trim(),glossary,linked)}</div>});}
-function renderRichBody(body:string,glossary:GlossaryLink[]){if(!/<(?:p|h[1-6]|div|figure|ul|ol|blockquote|table)\b/i.test(body))return renderBody(body,glossary);const html=addGlossaryLinksToHtml(sanitizeArticleHtml(body),glossary);return <div className="rich-article-body" dangerouslySetInnerHTML={{__html:html}}/>;}
+function renderRichBody(body:string,glossary:GlossaryLink[]){if(!/<(?:p|h[1-6]|div|figure|ul|ol|blockquote|table)\b/i.test(body))return renderBody(body,glossary);const html=addGlossaryLinksToHtml(addOfficialOrganizationLinksToHtml(sanitizeArticleHtml(body)),glossary);return <div className="rich-article-body" dangerouslySetInnerHTML={{__html:html}}/>;}
 
 export default async function PostPage({params}:{params:Promise<{slug:string}>}){
   const {slug}=await params;const [post,all]=await Promise.all([getPost(slug),getPublishedPosts()]);if(!post)notFound();

@@ -4,6 +4,7 @@ import { Brand, PortalNav, SiteFooter } from "./components/SiteChrome";
 import { MobileMenu } from "./components/MobileMenu";
 import { ArticleThumbnail } from "./components/ArticleMedia";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "../lib/site";
+import { toolCatalog } from "../lib/portal";
 
 export const metadata: Metadata = {
   title: "퇴직 후 생활비·지원제도·새 수입 가이드",
@@ -54,7 +55,7 @@ export default async function Home() {
             <h1>퇴직 후 막막함을,<br/><em>실행 가능한 계획으로.</em></h1>
             <p className="hero-lead">내 돈이 몇 달을 버틸지 계산하고, 놓치기 쉬운 지원을 챙기고, 지금까지의 경험으로 새로운 수입을 만드는 순서까지. 오늘 필요한 한 단계부터 시작하세요.</p>
             <dl className="hero-facts" aria-label="사이트 콘텐츠 현황">
-              <div><dt>발행한 연구노트</dt><dd>{posts.length}편</dd></div><div><dt>30일 워크북</dt><dd>30칸</dd></div><div><dt>사용 가능 도구</dt><dd>2개</dd></div>
+              <div><dt>발행한 연구노트</dt><dd>{posts.length}편</dd></div><div><dt>30일 워크북</dt><dd>30칸</dd></div><div><dt>사용 가능 도구</dt><dd>{toolCatalog.filter(tool=>tool.status==="사용 가능").length}개</dd></div>
             </dl>
             <div className="hero-actions">
               <a className="primary-button" href="/tools/retirement-runway">내 준비기간 계산하기 <span aria-hidden="true">→</span></a>

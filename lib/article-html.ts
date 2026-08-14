@@ -76,3 +76,30 @@ export function addGlossaryLinksToHtml(html:string,glossary:Array<{term:string;u
     return text;
   }).join("");
 }
+
+const officialOrganizationLinks=[
+  {term:"국민건강보험공단",url:"https://www.nhis.or.kr/nhis/index.do"},
+  {term:"국민건강공단",url:"https://www.nhis.or.kr/nhis/index.do"},
+  {term:"국민연금공단",url:"https://www.nps.or.kr/"},
+  {term:"고용복지센터",url:"https://www.work24.go.kr/"},
+  {term:"고용센터",url:"https://www.work24.go.kr/"},
+  {term:"고용24",url:"https://www.work24.go.kr/"},
+  {term:"국세청",url:"https://www.nts.go.kr/"},
+  {term:"홈택스",url:"https://hometax.go.kr/"},
+] as const;
+
+export function addOfficialOrganizationLinksToHtml(html:string){
+  let anchorDepth=0;
+  return html.split(/(<[^>]+>)/g).map((token)=>{
+    if(token.startsWith("<")){
+      if(/^<a\b/i.test(token))anchorDepth+=1;else if(/^<\/a\b/i.test(token))anchorDepth=Math.max(0,anchorDepth-1);
+      return token;
+    }
+    if(anchorDepth>0)return token;
+    let text=token;
+    for(const item of officialOrganizationLinks){
+      text=text.split(item.term).join(`<a class="official-organization-link" href="${escapeAttribute(item.url)}" target="_blank" rel="noopener noreferrer" title="${escapeAttribute(item.term)} 공식 홈페이지 열기">${item.term}</a>`);
+    }
+    return text;
+  }).join("");
+}

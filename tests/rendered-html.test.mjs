@@ -75,6 +75,13 @@ test("renders the finished Korean content site", async () => {
   assert.match(media, /enrichment\.images/);
   assert.match(articleHtml, /validateArticleMedia/);
   assert.match(articleHtml, /ArticleMediaValidationError/);
+  assert.match(articleHtml, /addOfficialOrganizationLinksToHtml/);
+  assert.match(articleHtml, /https:\/\/www\.nhis\.or\.kr\/nhis\/index\.do/);
+  assert.match(articleHtml, /https:\/\/www\.nps\.or\.kr\//);
+  assert.match(articleHtml, /https:\/\/www\.work24\.go\.kr\//);
+  assert.match(articleHtml, /https:\/\/www\.nts\.go\.kr\//);
+  assert.match(articleHtml, /https:\/\/hometax\.go\.kr\//);
+  assert.match(article, /addOfficialOrganizationLinksToHtml/);
   assert.match(enrichment, /youtube-nocookie/);
   assert.match(enrichment, /article-thumbnails/);
   assert.match(media, /alt=\{image\.alt\}/);
@@ -153,6 +160,10 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(portal,/국세법령정보시스템/);
   assert.match(tools,/toolCatalog/);
   assert.match(portal,/이미지 변환기/);
+  assert.match(portal,/https:\/\/myreceipt\.adbles\.com\//);
+  assert.match(portal,/영수증 정리도우미/);
+  assert.match(tools,/영수증 사진을 A4 한 장으로 정리하세요/);
+  assert.match(tools,/PDF 다운로드/);
   assert.match(severance,/예상 퇴직금/);
   assert.match(health,/youtube-nocookie\.com/);
   assert.match(health,/갑작스러운 위험 신호는 119/);
@@ -272,16 +283,17 @@ test("전사 감사 조직과 감사영역이 문서화되어 있다", async () 
   assert.match(report,/조건부 적정/);
 });
 
-test("현재 전체 조직도를 단일 명부에서 집계한다", async () => {
+test("조직 명부는 내부에서만 집계하고 공개 사이트에서는 노출하지 않는다", async () => {
   const chart = await readFile(new URL("../lib/organization-chart.ts", import.meta.url), "utf8");
-  const page = await readFile(new URL("../app/organization/page.tsx", import.meta.url), "utf8");
+  const footer = await readFile(new URL("../app/components/SiteChrome.tsx", import.meta.url), "utf8");
+  const sitemap = await readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8");
   const notice = await readFile(new URL("../ORGANIZATION_NOTICE.md", import.meta.url), "utf8");
   assert.match(chart,/organizationChartDepartments/);
   assert.match(chart,/contentPlanningTeam\.map/);
   assert.match(chart,/allEditorialAuthors\.map/);
   assert.match(chart,/managementDepartment\.map/);
-  assert.match(page,/퇴\.기\.사 전체 조직도/);
-  assert.match(page,/직원 수는 현재 각 팀 명부에서 자동 집계/);
+  assert.doesNotMatch(footer,/href="\/organization"/);
+  assert.doesNotMatch(sitemap,/"\/organization"/);
   assert.match(notice,/총 33명/);
 });
 

@@ -42,7 +42,6 @@ export function SiteFooter() {
           <strong>사이트 정보</strong>
           <a href="/about">사이트 소개</a>
           <a href="/author">운영자 및 편집실</a>
-          <a href="/organization">현재 조직도</a>
           <a href="/editorial-policy">콘텐츠 원칙</a>
           <a href="/privacy">개인정보처리방침</a>
           <a href="/disclosure">광고·이용 안내</a>
