@@ -114,6 +114,25 @@ export const seedPosts: Post[] = [
 <p><a class="primary-button" href="https://proshot.adbles.com/" target="_blank" rel="noreferrer">ProShot 바로가기 <span aria-hidden="true">↗</span></a></p>
 <p>기준일: 2026년 8월 14일. 무료 이용 여부와 기능 확인: <a href="https://proshot.adbles.com/" target="_blank" rel="noreferrer">ProShot 공식 화면</a></p>
 <p><strong>김기준 · 유용한 도구 편집자</strong></p>`, category:"유용한 도구", tags:["ProShot","AI 증명사진","프로필 사진","비즈니스 헤드샷","휴대폰 사진"], status:"published", publishedAt:"2026-08-14", scheduledAt:null, readingMinutes:8, visual:"PHOTO", authorName:"김기준" },
+  { id:1003, title:"퇴직금이 IRP에 들어오면 바로 해지해도 될까? 수령 전 확인할 5가지", slug:"retirement-pay-irp-five-checks-before-withdrawal", excerpt:"퇴직금이 IRP로 들어온 뒤 일시금과 연금 중 무엇을 선택할지, 과세이연·세율·수수료·생활비를 기준으로 확인합니다.", body:`<p><strong>퇴직금이 개인형퇴직연금(IRP)에 들어왔다고 바로 해지할 필요는 없습니다.</strong> IRP 입금은 세금이 없어진 것이 아니라 퇴직소득세 납부 시점을 뒤로 미룬 상태입니다. 생활비 때문에 일시금이 필요한지, 연금으로 나눠 받을 수 있는지, 계좌 안에 퇴직금 외 개인 납입금이 섞여 있는지를 먼저 확인해야 합니다.</p>
+<figure class="article-image"><img src="/article-thumbnails/application-process-timeline.webp" alt="퇴직금이 IRP에 입금된 뒤 일시금과 연금 수령 절차를 확인하는 서류·일정표 일러스트" width="355" height="444" loading="lazy" decoding="async"><figcaption>IRP는 해지 버튼부터 누르기보다 퇴직금의 출처, 필요한 시점과 수령 방식을 순서대로 확인해야 합니다. · 퇴.기.사 제작 일러스트</figcaption></figure>
+<h2>먼저 내 퇴직금이 왜 IRP로 들어왔는지 확인하세요</h2>
+<p>고용노동부 안내에 따르면 2022년 4월 14일부터 사용자는 원칙적으로 근로자가 지정한 IRP 계정에 퇴직급여를 지급해야 합니다. 다만 퇴직 당시 55세 이상이거나 퇴직급여액이 300만원 이하인 경우 등에는 의무이전 예외가 적용될 수 있습니다. 예외에 해당한다고 무조건 일반 통장으로 받아야 하는 것은 아니며, 실제 지급 방식은 회사와 퇴직연금사업자에 확인하세요.</p>
+<h2>IRP 입금은 비과세가 아니라 과세이연입니다</h2>
+<p>퇴직급여가 연금계좌로 지급되면 퇴직소득세를 바로 원천징수하지 않고, 나중에 연금 또는 일시금으로 꺼낼 때 과세합니다. 따라서 계좌에 표시된 금액을 모두 쓸 수 있는 순수 현금으로 생각하면 안 됩니다. 금융회사에 <strong>세전 퇴직급여, 이연된 퇴직소득세, 실제 인출 예상액</strong>을 각각 요청하세요.</p>
+<h2>일시금과 연금은 적용되는 세율이 다릅니다</h2>
+<p>국세청 안내상 IRP의 이연퇴직소득을 연금으로 수령하면 연금외수령 세율의 70%가 적용되고, 실제 연금수령연차가 10년을 초과하면 60%가 적용됩니다. 반대로 연금수령 요건이나 한도를 벗어나 일시금으로 꺼내면 연금외수령으로 과세될 수 있습니다. 세액공제를 받은 개인 납입금과 운용수익은 퇴직금 원금과 과세 방식이 다르므로 한 덩어리로 계산하지 마세요.</p>
+<h2>세금 차이는 이렇게 질문하면 이해하기 쉽습니다</h2>
+<p>예를 들어 일시금으로 받을 때 해당 퇴직금에 적용될 이연퇴직소득세가 500만원이라고 가정하면, 연금수령분에는 그 세율의 70% 수준인 350만원이 대응되는 단순 비교를 할 수 있습니다. 실제 세금은 수령액, 수령연차, 계좌에 섞인 자금과 인출순서에 따라 달라집니다. 이 예시는 절세액을 보장하는 계산이 아니라 금융회사에 일시금·연금 예상세액을 각각 요청하기 위한 질문 틀입니다.</p>
+<h2>해지 전에 다섯 가지를 순서대로 확인하세요</h2>
+<ol><li><strong>계좌 안 돈의 출처를 나눕니다.</strong> 퇴직금, 세액공제 받은 개인 납입금, 공제받지 않은 납입금, 운용수익을 구분합니다.</li><li><strong>앞으로 12개월에 필요한 현금을 계산합니다.</strong> 주거비·의료비·부채상환처럼 확정된 지출만 먼저 적습니다.</li><li><strong>일시금과 연금의 세후 금액을 모두 받습니다.</strong> 금융회사에 같은 기준일로 비교표를 요청합니다.</li><li><strong>수수료와 운용상품을 확인합니다.</strong> 계좌를 유지할 경우의 연간 총비용과 원금손실 가능성을 확인합니다.</li><li><strong>해지 대신 일부 수령이 가능한지 묻습니다.</strong> 연금수령 요건과 한도, 인출 순서가 내 계좌에 어떻게 적용되는지 확인합니다.</li></ol>
+<h2>금융회사에 그대로 물어볼 질문</h2>
+<ul><li>오늘 전액 해지하면 실제 입금액과 원천징수 세액은 얼마인가요?</li><li>연금으로 받기 시작할 수 있는 날짜와 연간 수령한도는 얼마인가요?</li><li>내 계좌에서 가장 먼저 인출되는 돈은 어떤 재원인가요?</li><li>현재 상품의 원금손실 가능성, 중도매도 비용과 연간 총수수료는 얼마인가요?</li><li>다른 금융회사 IRP로 이전할 때 세금과 수수료가 발생하나요?</li></ul>
+<h2>이럴 때는 당일 해지 결정을 멈추세요</h2>
+<p>일시금과 연금의 세후 비교표를 받지 못했거나, 계좌 안 자금의 출처를 구분하지 못했거나, 고위험 상품을 이해하지 못한 상태라면 당일 해지를 멈추세요. 반대로 당장 필요한 생활비가 있는데 세금 혜택만 보고 무리하게 연금수령을 고집해서도 안 됩니다. 퇴직금은 세금뿐 아니라 앞으로 버틸 시간을 함께 계산해야 합니다.</p>
+<blockquote>IRP를 유지할지 해지할지는 수익률 전망보다 ‘언제 얼마가 필요한가’와 ‘세후로 얼마를 받는가’를 먼저 비교해 결정하세요.</blockquote>
+<p>기준일: 2026년 8월 14일. 공식 확인: <a href="https://1350.moel.go.kr/rtmview.do?id=1000255731&page=1&type=ALL" target="_blank" rel="noreferrer">고용노동부 IRP 의무이전·예외 안내</a> · <a href="https://www.moel.go.kr/retirementpay.do" target="_blank" rel="noreferrer">고용노동부 퇴직연금제도 안내</a> · <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7888&mi=6609" target="_blank" rel="noreferrer">국세청 연금계좌 원천징수세율</a> · <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7880&mi=6444" target="_blank" rel="noreferrer">국세청 퇴직소득세·과세이연 안내</a></p>
+<p><strong>박세온 · 세금·보험 편집자</strong></p>`, category:"연금·세금·보험", tags:["퇴직금 IRP","개인형퇴직연금","퇴직소득세","과세이연","연금수령"], status:"published", publishedAt:"2026-08-14", scheduledAt:null, readingMinutes:11, visual:"IRP", authorName:"박세온" },
 ];
 
 const contentQualityUpgrades:Record<string,Pick<Post,"excerpt"|"body"|"readingMinutes">>={
