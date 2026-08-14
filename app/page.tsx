@@ -25,7 +25,7 @@ const categories = [
 export default async function Home() {
   const posts = await getPublishedPosts();
   const jsonLd = {"@context":"https://schema.org","@graph":[
-    {"@type":"Organization","@id":`${SITE_URL}/#organization`,name:SITE_NAME,legalName:"애드블스",url:SITE_URL,logo:{"@type":"ImageObject",url:`${SITE_URL}/brand-mark-v2.png`}},
+    {"@type":"Organization","@id":`${SITE_URL}/#organization`,name:SITE_NAME,legalName:"애드블스",url:SITE_URL,logo:{"@type":"ImageObject",url:`${SITE_URL}/brand-mark-v2.png`},contactPoint:{"@type":"ContactPoint",contactType:"customer support",email:"master@adbles.com",url:`${SITE_URL}/contact`,availableLanguage:"Korean"}},
     {"@type":"WebSite","@id":`${SITE_URL}/#website`,url:SITE_URL,name:SITE_NAME,description:SITE_DESCRIPTION,publisher:{"@id":`${SITE_URL}/#organization`},inLanguage:"ko-KR",potentialAction:{"@type":"SearchAction",target:{"@type":"EntryPoint",urlTemplate:`${SITE_URL}/search?q={search_term_string}`},"query-input":"required name=search_term_string"}},
     {"@type":"WebPage","@id":`${SITE_URL}/#webpage`,url:SITE_URL,name:SITE_NAME,description:SITE_DESCRIPTION,isPartOf:{"@id":`${SITE_URL}/#website`},about:["퇴직 준비","생활비","재취업","중장년 부업","건강 관리"]}
   ]};

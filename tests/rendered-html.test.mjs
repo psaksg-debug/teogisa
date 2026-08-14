@@ -25,6 +25,8 @@ test("renders the finished Korean content site", async () => {
   assert.match(page, /hero-project-visual/);
   assert.match(page, /본문으로 바로가기/);
   assert.match(page, /hero-facts/);
+  assert.match(page, /ContactPoint/);
+  assert.match(page, /master@adbles\.com/);
   assert.match(page, /MobileMenu/);
   assert.match(mobileMenu, /전체 메뉴 열기/);
   assert.match(mobileMenu, /월 100만원 챌린지/);
@@ -42,6 +44,8 @@ test("renders the finished Korean content site", async () => {
   assert.match(footer, /mailto:master@adbles\.com/);
   assert.match(footer, /개인정보처리방침/);
   assert.match(footer, /광고·이용 안내/);
+  assert.match(footer, /이용약관/);
+  assert.match(footer, /문의·오류 제보/);
   assert.match(footer, /애드블스가 운영합니다/);
   assert.match(site, /Adbles\.com/);
   assert.match(css, /footer-contact/);
@@ -177,7 +181,7 @@ test("keeps the independent editor and write APIs session-protected", async () =
 });
 
 test("ships mobile-first SEO, GEO, trust and original-value pages", async () => {
-  const [layout, post, sitemap, robots, llms, ads, calculator, privacy, policy, chrome, css] = await Promise.all([
+  const [layout, post, sitemap, robots, llms, ads, calculator, privacy, policy, chrome, css, contact, terms, author, content, repository] = await Promise.all([
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/posts/[slug]/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8"),
@@ -189,6 +193,11 @@ test("ships mobile-first SEO, GEO, trust and original-value pages", async () => 
     readFile(new URL("../app/editorial-policy/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components/SiteChrome.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(new URL("../app/contact/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/terms/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/author/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../lib/content.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/repository.ts", import.meta.url), "utf8"),
   ]);
   assert.match(layout, /max-image-preview/);
   assert.match(post, /BlogPosting/);
@@ -207,6 +216,17 @@ test("ships mobile-first SEO, GEO, trust and original-value pages", async () => 
   assert.match(calculator, /입력값은 저장하지 않습니다/);
   assert.match(privacy, /개인정보처리방침/);
   assert.match(privacy, /Google 광고와 쿠키/);
+  assert.match(privacy, /동의 안내와 맞춤 광고 선택/);
+  assert.match(contact, /콘텐츠 오류와 끊어진 링크/);
+  assert.match(contact, /master@adbles\.com/);
+  assert.match(terms, /정보와 계산 결과의 한계/);
+  assert.match(author, /책임 편집자는 어썸라이프/);
+  assert.match(sitemap, /contact/);
+  assert.match(sitemap, /terms/);
+  assert.match(content, /unemployment-benefit-eight-steps/);
+  assert.match(content, /월별 장부에는 일곱 칸/);
+  assert.match(content, /90일 동안 매주 같은 숫자를 기록합니다/);
+  assert.match(repository, /adsense-readiness-v2/);
   assert.match(policy, /창작 과정에서 AI를 보조적으로 사용합니다/);
   assert.match(chrome, /WebPage/);
   assert.match(chrome, /BreadcrumbList/);

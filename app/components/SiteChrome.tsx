@@ -45,6 +45,8 @@ export function SiteFooter() {
           <a href="/editorial-policy">콘텐츠 원칙</a>
           <a href="/privacy">개인정보처리방침</a>
           <a href="/disclosure">광고·이용 안내</a>
+          <a href="/terms">이용약관</a>
+          <a href="/contact">문의·오류 제보</a>
         </nav>
       </div>
     </div>

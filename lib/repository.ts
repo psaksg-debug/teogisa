@@ -17,7 +17,7 @@ export type AgentRun = { id:number; agentId:string; agentName:string; status:str
 export type PromotionCampaign = { id:number; postId:number; title:string; slug:string; status:"prepared"|"executed"; headline:string; socialCopy:string; communityCopy:string; hashtags:string[]; channels:string[]; createdAt:string; executedAt:string|null };
 
 let initialized = false;
-const CONTENT_QUALITY_REVISION="2026-08-14-adsense-content-v1";
+const CONTENT_QUALITY_REVISION="2026-08-14-adsense-readiness-v2";
 
 async function db() {
   const d1 = (env as unknown as { DB?: D1Database }).DB;

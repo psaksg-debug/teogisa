@@ -10,6 +10,8 @@
 - [퇴직생활비 계산기](https://adbles.com/tools/retirement-runway): 자금과 월 부족액으로 준비 기간 계산
 - [편집 원칙](https://adbles.com/editorial-policy): 출처, 창작 과정, 광고와 수정 원칙
 - [운영자 소개](https://adbles.com/author): 운영사와 콘텐츠 책임 범위
+- [문의와 오류 제보](https://adbles.com/contact): 콘텐츠 정정과 사이트 이용 문의
+- [이용약관](https://adbles.com/terms): 콘텐츠와 도구의 이용 조건
 
 ## 대표 가이드
 - [퇴직 후 최소생활비 3칸 예산표](https://adbles.com/posts/retirement-minimum-budget-three-buckets)
