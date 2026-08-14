@@ -123,4 +123,10 @@ test("ships mobile-first SEO, GEO, trust and original-value pages", async () => 
   assert.match(policy, /AI 초안은 검토 후 발행/);
   assert.match(css, /scroll-snap-type:x mandatory/);
   assert.match(css, /overflow-x:hidden/);
+  assert.match(layout, /viewportFit: "cover"/);
+  assert.match(css, /iPhone article rendering guard/);
+  assert.match(css, /-webkit-text-size-adjust:100%/);
+  assert.match(css, /padding-left:max\(18px,env\(safe-area-inset-left\)\)/);
+  assert.match(css, /\.related-posts \.thumbnail-search\{width:100%;height:126px;margin:0 0 20px\}/);
+  assert.match(css, /font-family:"Noto Sans KR","Apple SD Gothic Neo",-apple-system/);
 });
