@@ -41,6 +41,8 @@ test("renders the finished Korean content site", async () => {
   assert.match(mobileMenu, /유용한 도구/);
   assert.match(mobileMenu, /건강·예방/);
   assert.match(css, /mobile-menu-drawer/);
+  assert.match(css, /\.article-copy ul\{list-style:disc outside\}/);
+  assert.match(css, /\.article-copy ol\{list-style:decimal outside\}/);
   assert.match(css, /trust-band/);
   assert.match(css, /grid-template-columns:1\.18fr \.82fr/);
   assert.match(layout, /project-og-v2\.jpg/);
@@ -67,7 +69,9 @@ test("renders the finished Korean content site", async () => {
   assert.match(layout, /<meta name="google-adsense-account" content="ca-pub-4030620718116834"\/>/);
   assert.match(media, /ArticleThumbnail/);
   assert.doesNotMatch(media, /읽은 뒤 다시 확인/);
-  assert.match(media, /핵심 내용과 확인표/);
+  assert.doesNotMatch(media, /핵심 내용과 확인표/);
+  assert.doesNotMatch(media, /읽으면서 확인할 표/);
+  assert.match(media, /공식자료와 추가 확인처/);
   assert.doesNotMatch(media, /자동 구성된/);
   assert.match(enrichment, /wikipedia\.org/);
   assert.match(enrichment, /categoryOfficialLinks/);

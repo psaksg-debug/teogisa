@@ -672,7 +672,10 @@ button:not(:disabled),[role="button"],summary{cursor:pointer}
 .reader-progress-value{display:block;width:var(--reading-progress);height:100%;background:var(--orange);transition:width .12s linear}
 .article-copy h2,.article-copy h3{scroll-margin-top:108px}
 .article-copy p{margin:0 0 1.55em}
-.article-copy ul,.article-copy ol{margin:1.25em 0 1.7em;padding-left:1.45em}
+.article-copy ul,.article-copy ol{margin:1.25em 0 1.7em;padding-left:1.65em}
+.article-copy ul{list-style:disc outside}
+.article-copy ol{list-style:decimal outside}
+.article-copy li::marker{color:var(--orange);font-weight:800}
 .article-copy li+li{margin-top:.55em}
 .article-copy strong{color:var(--navy);font-weight:800}
 .article-copy blockquote{margin:2em 0;padding:20px 24px;border-left:4px solid var(--orange);background:var(--mist);color:var(--navy)}
