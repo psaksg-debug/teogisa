@@ -21,6 +21,7 @@ const flows: Record<string, string[]> = {
   "재취업·N잡": ["경험을 작은 서비스로 정의", "비용과 시간 제한", "2주간 실제 제안", "계속·수정·중단 결정"],
   "블로그·애드센스": ["독자 질문 선정", "원문 자료 수집", "직접 경험과 계산 추가", "검토 후 발행"],
   "AI 활용": ["자료는 사람이 선택", "AI로 구조와 초안 작성", "숫자·날짜 대조", "사람이 최종 발행"],
+  "연금·세금·보험": ["자격과 기준일 확인", "예상 금액 비교", "신청기한 기록", "공식기관에 최종 확인"],
   "온라인 부업": ["후보 하나 선택", "작은 비용으로 시험", "시간당 수익 기록", "반복 가능성 판단"],
   "투자·재테크": ["목표와 기간 확인", "손실 가능성 점검", "보수적 시나리오 계산", "공식 설명서 재확인"],
   "실제 수익실험": ["가설과 기간 설정", "투입 비용 기록", "매출과 시간 측정", "다음 실험 기준 정리"],
@@ -32,6 +33,7 @@ const checklists: Record<string, Array<[string, string]>> = {
   "재취업·N잡": [["수요", "돈을 낼 고객의 구체적인 문제"], ["비용", "잃어도 되는 초기 실험비"], ["결과", "첫 수익까지 걸린 시간"]],
   "블로그·애드센스": [["독자", "검색 의도와 해결할 질문"], ["근거", "공식 출처와 직접 경험"], ["품질", "중복·오류·과장 표현 검토"]],
   "AI 활용": [["입력", "검증된 원문과 목적"], ["검토", "날짜·수치·대상 조건"], ["책임", "사람이 수정하고 최종 승인"]],
+  "연금·세금·보험": [["자격", "가입 유형과 적용 시작일"], ["금액", "보험료·세금의 산정 자료"], ["기한", "신청·납부 마감일과 접수증"]],
   "온라인 부업": [["시간", "주당 투입 가능한 시간"], ["비용", "도구·교육·광고비"], ["수익", "매출이 아닌 순수익과 반복성"]],
   "투자·재테크": [["기간", "돈이 필요한 시점"], ["위험", "감당 가능한 손실 범위"], ["확인", "수수료·세금·공식 설명서"]],
   "실제 수익실험": [["가설", "누구의 어떤 문제를 해결하는지"], ["측정", "시간·비용·문의·매출"], ["판단", "계속·수정·중단 기준"]],
@@ -44,11 +46,13 @@ const categoryOfficialLinks:Record<string,Array<{label:string;url:string}>>={
   "정부지원·실업급여":[{label:"고용24 실업급여·취업지원 안내",url:"https://www.work24.go.kr/"},{label:"국민연금공단 제도 안내",url:"https://www.nps.or.kr/"}],
   "재취업·N잡":[{label:"고용24 중장년 일자리·훈련 검색",url:"https://www.work24.go.kr/"},{label:"국세청 소득 신고 안내",url:"https://www.nts.go.kr/"}],
   "AI 활용":[{label:"Google 사람 중심 콘텐츠 작성 지침",url:"https://developers.google.com/search/docs/fundamentals/creating-helpful-content?hl=ko"},{label:"Google 생성형 AI 콘텐츠 지침",url:"https://developers.google.com/search/docs/fundamentals/using-gen-ai-content?hl=ko"}],
+  "연금·세금·보험":[{label:"국민건강보험공단 자격·보험료 확인",url:"https://www.nhis.or.kr/"},{label:"국세청 세금 신고 안내",url:"https://www.nts.go.kr/"},{label:"국민연금공단 연금 안내",url:"https://www.nps.or.kr/"}],
   "실제 수익실험":[{label:"고용24 일자리·직업훈련 검색",url:"https://www.work24.go.kr/"},{label:"소상공인24 지원사업 확인",url:"https://www.sbiz24.kr/"}],
   "투자·재테크":[{label:"금융감독원 금융소비자정보포털 파인",url:"https://fine.fss.or.kr/"},{label:"예금보험공사 예금자보호 안내",url:"https://www.kdic.or.kr/"}],
 };
 
 const slugResources:Record<string,{links?:Array<{label:string;url:string}>;video?:ArticleEnrichment["video"]}>={
+  "health-insurance-after-retirement-three-checks":{links:[{label:"국민건강보험공단 임의계속가입 안내",url:"https://www.nhis.or.kr/static/alim/paper/oldpaper/202212/sub/18.html"},{label:"국민건강보험공단 2026년도 보험료율",url:"https://edi.nhis.or.kr/portal/images/popup/20251204_pop01longdesc.html"}]},
   "ai-first-income-five-methods-seven-day-plan":{
     links:[{label:"원본 영상: 클로드 수익화 방법 5가지",url:"https://www.youtube.com/watch?v=qEVZ7AgB7zI"}],
     video:{title:"클로드로 당장 수익 만드는 확실한 방법 5가지",embedUrl:"https://www.youtube-nocookie.com/embed/qEVZ7AgB7zI",sourceUrl:"https://www.youtube.com/watch?v=qEVZ7AgB7zI",description:"리서치 대행, 디지털 상품, 인스타툰, 미니사이트와 웹게임까지 다섯 가지 AI 수익화 아이디어를 소개한 영상입니다. 본문은 이 아이디어들을 7일 검증 절차와 위험 관리 기준으로 재구성했습니다.",channel:"혼잡스"},
