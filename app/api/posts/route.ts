@@ -1,8 +1,10 @@
-import { createPost, getAllPosts } from "../../../lib/repository";
+import { createPost, getAllPosts, verifyPublicationOriginality } from "../../../lib/repository";
 import { slugify, type PostStatus } from "../../../lib/content";
 import { requireOwnerApi } from "../../../lib/site-admin";
 import { appendSourceUrl } from "../../../lib/article-enrichment";
 import { articlePlainText, sanitizeArticleHtml } from "../../../lib/article-html";
+import { extractSourceUrls, OriginalityCheckError } from "../../../lib/originality-check";
+import { EDITOR_IN_CHIEF, getEditorialAuthor } from "../../../lib/editorial-team";
 
 export async function GET(request:Request){const auth=await requireOwnerApi(request);if(auth.response)return auth.response;try{return Response.json({posts:await getAllPosts()});}catch(error){return Response.json({error:error instanceof Error?error.message:"글을 불러오지 못했습니다."},{status:500});}}
 export async function POST(request:Request){
@@ -13,7 +15,8 @@ export async function POST(request:Request){
     const status=(p.status||"draft") as PostStatus;
     const body=sanitizeArticleHtml(appendSourceUrl(p.body,p.sourceUrl));
     const plainBody=articlePlainText(body);
-    const post=await createPost({title:p.title.trim(),slug:slugify(p.slug||p.title),excerpt:p.excerpt?.trim()||plainBody.slice(0,120),body,category:p.category||"퇴직 준비",tags:(p.tags||"").split(",").map(x=>x.trim()).filter(Boolean),status,publishedAt:status==="published"?new Date().toISOString().slice(0,10):"",scheduledAt:status==="scheduled"?p.scheduledAt||null:null,readingMinutes:Math.max(1,Math.ceil(plainBody.length/700)),visual:p.visual?.trim()||"NEW"});
+    if(status==="published"||status==="scheduled")await verifyPublicationOriginality({body,sourceUrls:extractSourceUrls(body,p.sourceUrl),editorName:p.authorName||"데스크",title:p.title.trim()});
+    const post=await createPost({title:p.title.trim(),slug:slugify(p.slug||p.title),excerpt:p.excerpt?.trim()||plainBody.slice(0,120),body,category:p.category||"퇴직 준비",tags:(p.tags||"").split(",").map(x=>x.trim()).filter(Boolean),status,publishedAt:status==="published"?new Date().toISOString().slice(0,10):"",scheduledAt:status==="scheduled"?p.scheduledAt||null:null,readingMinutes:Math.max(1,Math.ceil(plainBody.length/700)),visual:p.visual?.trim()||"NEW",authorName:getEditorialAuthor(p.authorName||EDITOR_IN_CHIEF.name).name});
     return Response.json({post},{status:201});
-  }catch(error){return Response.json({error:error instanceof Error?error.message:"저장하지 못했습니다."},{status:500});}
+  }catch(error){return Response.json({error:error instanceof Error?error.message:"저장하지 못했습니다."},{status:error instanceof OriginalityCheckError?409:500});}
 }

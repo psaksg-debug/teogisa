@@ -20,8 +20,8 @@ export function ArticleThumbnail({ post, variant = "card" }: { post: Post; varia
 export function ArticleSupport({ post }: { post: Post }) {
   const enrichment = enrichArticle(post);
   return <section className="article-support" aria-labelledby="article-support-title">
-    <p className="eyebrow">읽기 전에 한눈에</p>
-    <h2 id="article-support-title">한눈에 보는 핵심 흐름</h2>
+    <p className="eyebrow">읽은 뒤 다시 확인</p>
+    <h2 id="article-support-title">핵심 내용과 확인표</h2>
     <ol className="article-flow">{enrichment.flow.map((step, index) => <li key={step}><span>{String(index + 1).padStart(2, "0")}</span><strong>{step}</strong></li>)}</ol>
     <h3>읽으면서 확인할 표</h3>
     <div className="article-table-wrap"><table><thead><tr><th>구분</th><th>확인할 내용</th></tr></thead><tbody>{enrichment.checklist.map(([label, detail]) => <tr key={label}><th>{label}</th><td>{detail}</td></tr>)}</tbody></table></div>

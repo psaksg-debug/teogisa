@@ -1,5 +1,5 @@
 export type PostStatus = "draft" | "scheduled" | "published";
-export type Post = { id:number; title:string; slug:string; excerpt:string; body:string; category:string; tags:string[]; status:PostStatus; publishedAt:string; scheduledAt:string | null; readingMinutes:number; visual:string; };
+export type Post = { id:number; title:string; slug:string; excerpt:string; body:string; category:string; tags:string[]; status:PostStatus; publishedAt:string; scheduledAt:string | null; readingMinutes:number; visual:string; authorName?:string; };
 
 export const seedPosts: Post[] = [
   { id:1, title:"퇴직 후 첫 30일, 돈보다 먼저 정리할 7가지", slug:"first-30-days-after-retirement", excerpt:"통장, 보험, 실업급여부터 생활 리듬까지. 불안을 줄이는 첫 달 체크리스트입니다.", body:"퇴직 직후에는 새로운 일을 급하게 찾기보다, 지금 가진 시간과 돈을 정확히 파악하는 일이 먼저입니다.\n\n첫째, 고정지출을 생존·유지·선택의 세 단계로 나눕니다. 둘째, 퇴직금과 비상금을 생활비 계좌와 분리합니다. 셋째, 실업급여 신청 가능 여부와 일정을 확인합니다.\n\n## 1. 한 달 생활비를 다시 계산하세요\n\n회사에 다닐 때의 지출과 퇴직 후 지출은 다릅니다. 교통비와 점심값은 줄지만 건강보험료처럼 새로 체감되는 비용이 생깁니다. 최근 3개월 카드와 이체 내역을 기준으로 최소 생활비를 계산하세요.\n\n## 2. 중요한 날짜를 달력에 표시하세요\n\n실업급여, 건강보험, 연금 관련 일정은 놓치면 다시 처리하기 번거롭습니다. 공식 기관 안내를 확인하고 신청일과 준비물을 한 장에 정리하세요.", category:"퇴직 준비", tags:["퇴직 체크리스트","생활비","실업급여"], status:"published", publishedAt:"2026-08-08", scheduledAt:null, readingMinutes:6, visual:"30D" },

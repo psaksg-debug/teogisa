@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import { getPublishedPosts } from "../lib/repository";
 import { Brand, PortalNav, SiteFooter } from "./components/SiteChrome";
 import { MobileMenu } from "./components/MobileMenu";
 import { ArticleThumbnail } from "./components/ArticleMedia";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "../lib/site";
+
+export const metadata: Metadata = {
+  title: "퇴직 후 생활비·지원제도·새 수입 가이드",
+  description: SITE_DESCRIPTION,
+  alternates: { canonical: "/" },
+};
 
 const journeys = [
   { label: "생활비 방어", value: "실업급여·지원금", tone: "blue" },

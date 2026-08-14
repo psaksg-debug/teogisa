@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("renders the finished Korean content site", async () => {
-  const [page, layout, search, article, media, enrichment, footer, mobileMenu, site, css, richEditor, articleHtml] = await Promise.all([
+  const [page, layout, search, article, media, enrichment, footer, mobileMenu, site, css, richEditor, articleHtml, readerTools] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/search/page.tsx", import.meta.url), "utf8"),
@@ -16,6 +16,7 @@ test("renders the finished Korean content site", async () => {
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../app/admin/RichTextEditor.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/article-html.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/posts/[slug]/ArticleReaderTools.tsx", import.meta.url), "utf8"),
   ]);
   assert.match(layout, /퇴\.기\.사/);
   assert.match(site, /100세시대! 퇴직이 기회가 되는 사람들/);
@@ -40,6 +41,11 @@ test("renders the finished Korean content site", async () => {
   assert.match(layout, /project-og-v2\.jpg/);
   assert.match(footer, /brand-mark-v2\.png/);
   assert.match(css, /heroImageDrift/);
+  assert.match(css, /Quality Design System v2/);
+  assert.match(css, /grid-template-columns:repeat\(12,minmax\(0,1fr\)\)/);
+  assert.match(css, /grid-template-columns:minmax\(0,760px\) minmax\(220px,280px\)/);
+  assert.match(css, /--orange:#b45309/);
+  assert.match(css, /@media\(max-width:420px\)/);
   assert.match(footer, /운영사/);
   assert.match(footer, /관리자<\/span><strong>어썸라이프/);
   assert.match(footer, /mailto:master@adbles\.com/);
@@ -55,7 +61,7 @@ test("renders the finished Korean content site", async () => {
   assert.equal((layout.match(/google-adsense-account/g) ?? []).length, 1);
   assert.match(layout, /<meta name="google-adsense-account" content="ca-pub-4030620718116834"\/>/);
   assert.match(media, /ArticleThumbnail/);
-  assert.match(media, /읽기 전에 한눈에/);
+  assert.match(media, /읽은 뒤 다시 확인/);
   assert.doesNotMatch(media, /자동 구성된/);
   assert.match(enrichment, /wikipedia\.org/);
   assert.match(enrichment, /categoryOfficialLinks/);
@@ -81,11 +87,26 @@ test("renders the finished Korean content site", async () => {
   assert.match(richEditor, /addImage/);
   assert.match(richEditor, /addTable/);
   assert.match(article, /renderRichBody/);
+  assert.match(article, /ArticleReaderTools articleId="article-body"/);
+  assert.match(article, /id="article-body"/);
+  assert.match(readerTools, /글 읽기 도구/);
+  assert.match(readerTools, /querySelectorAll<HTMLHeadingElement>\("h2, h3"\)/);
+  assert.match(readerTools, /aria-pressed=\{largeText\}/);
+  assert.match(readerTools, /role="progressbar"/);
+  assert.match(css, /\.reader-tools\{/);
+  assert.match(css, /\.article-copy\.reader-large/);
   assert.match(articleHtml, /sanitizeArticleHtml/);
   assert.match(articleHtml, /blockedElements/);
   assert.match(articleHtml, /youtube-nocookie/);
   assert.doesNotMatch(`${page}\n${search}\n${article}\n${footer}`, /next\/link|<Link/);
   assert.doesNotMatch(`${page}\n${layout}`, /codex-preview|react-loading-skeleton/i);
+});
+
+test("redirects www to the canonical apex domain", async () => {
+  const worker = await readFile(new URL("../worker/index.ts", import.meta.url), "utf8");
+  assert.match(worker, /url\.hostname === "www\.adbles\.com"/);
+  assert.match(worker, /url\.hostname = "adbles\.com"/);
+  assert.match(worker, /Response\.redirect\(url\.toString\(\), 301\)/);
 });
 
 test("ships the challenge, official information, tools, health and agent desks", async()=>{
@@ -127,8 +148,33 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(agentsApi,/requireOwnerApi/);
   assert.match(agentsData,/health-column/);
   assert.match(repository,/runDueContentAgents/);
-  assert.match(repository,/status:"published"/);
-  assert.match(repository,/공식 링크·사례·표·체크리스트 품질 기준을 통과해 자동 발행했습니다/);
+  assert.match(repository,/status:"draft"/);
+  assert.match(repository,/관리부서의 발행정책 검토 대기열에 등록했습니다/);
+  assert.match(repository,/runSiteManagementAudit/);
+  assert.match(repository,/management_issues/);
+  assert.match(admin,/사이트 관리부서 상황실/);
+  assert.match(admin,/지금 전체 점검/);
+  assert.match(admin,/전사 적용/);
+  assert.match(admin,/적용 구성원 전체 보기/);
+  assert.match(repository,/organizationPolicyRecipients/);
+  const originality = await readFile(new URL("../lib/originality-check.ts", import.meta.url), "utf8");
+  assert.match(originality,/compareOriginality/);
+  assert.match(originality,/COPY_RATIO_LIMIT/);
+  assert.match(originality,/LONG_COPY_LIMIT/);
+  assert.match(repository,/verifyPublicationOriginality/);
+  assert.match(admin,/원문 복사 자동감시/);
+  assert.match(admin,/자신의 설명·사례·표로 재작성/);
+  const companyRules = await readFile(new URL("../lib/company-rules.ts", import.meta.url), "utf8");
+  assert.match(companyRules,/COMPANY_RULES_VERSION/);
+  assert.match(companyRules,/조직과 인사관리/);
+  assert.match(companyRules,/리소스 관리/);
+  assert.match(companyRules,/companyResourceRegistry/);
+  assert.match(companyRules,/100세 시대, 퇴직이 끝이 아니라 새로운 기회/);
+  assert.match(companyRules,/월 100만원 수입 실험/);
+  assert.match(companyRules,/정보보다 다음 행동/);
+  assert.match(admin,/전사 사규 · 시행 중/);
+  assert.match(admin,/MVP 6대 경영목표 보기/);
+  assert.match(admin,/리소스 책임자 보기/);
   assert.match(repository,/콘텐츠 품질 기준을 충족하지 못해 발행하지 않았습니다/);
   assert.match(repository,/CONTENT_QUALITY_REVISION/);
   assert.match(repository,/preparePromotionCampaign/);
@@ -144,22 +190,48 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(promotionTeam, /Google · Gemini · AI Overviews/);
   assert.match(promotionTeam, /Naver 통합검색/);
   assert.match(promotionTeam, /ChatGPT · Perplexity · Claude/);
+  const editorialTeam = await readFile(new URL("../lib/editorial-team.ts", import.meta.url), "utf8");
+  assert.match(editorialTeam, /name: "데스크"/);
+  assert.match(editorialTeam, /name: "원"/);
+  assert.match(editorialTeam, /name: "가드"/);
+  assert.match(editorialTeam, /name: "툴"/);
+  assert.match(editorialTeam, /name: "로컬"/);
+  assert.match(editorialTeam, /name: "케어"/);
+  assert.match(editorialTeam, /name: "큐"/);
+  assert.match(repository,/authorName:agent\.name/);
   assert.doesNotMatch(repository,/tags:\[agent\.name,"공식 자료","검토 초안"\]/);
   assert.match(admin,/분야별 에이전트 운영실/);
-  assert.match(admin,/자동 발행 주기/);
-  assert.match(admin,/지금 발행하기/);
-  assert.match(admin,/품질 기준에 미달하면 발행하지 않고 실패 기록으로 남깁니다/);
+  assert.match(admin,/초안 생성 주기/);
+  assert.match(admin,/지금 초안 만들기/);
+  assert.match(admin,/사람이 확인해 예약 또는 발행 상태로 바꾼 글만 공개됩니다/);
+  assert.match(admin,/품질 기준에 미달하면 실패 기록으로 남깁니다/);
   assert.match(admin,/홍보 에이전트 작업실/);
   assert.match(admin,/SNS용 짧은 문구/);
   assert.match(admin,/게시 완료로 표시/);
   assert.match(admin,/홍보부 조직·SEO 운영실/);
   assert.match(admin,/역할이 바로 연상되는 짧은 닉네임을 사용하는 AI 조직/);
+  const qualityDesignTeam = await readFile(new URL("../lib/quality-design-team.ts", import.meta.url), "utf8");
+  const organizationPolicy = await readFile(new URL("../lib/organization-policy.ts", import.meta.url), "utf8");
+  assert.match(qualityDesignTeam, /name: "결"/);
+  assert.match(qualityDesignTeam, /name: "틀"/);
+  assert.match(qualityDesignTeam, /name: "글결"/);
+  assert.match(qualityDesignTeam, /name: "픽셀"/);
+  assert.match(qualityDesignTeam, /name: "흐름"/);
+  assert.match(qualityDesignTeam, /name: "체크"/);
+  assert.match(qualityDesignTeam, /name: "눈금"/);
+  assert.match(qualityDesignTeam, /발행 전 필수 품질 게이트|qualityDesignGates/);
+  assert.match(admin,/품질디자인팀 운영실/);
+  assert.match(admin,/최종 공개는 관리부 승인 뒤에만 진행합니다/);
+  assert.match(organizationPolicy, /department:"품질디자인팀"/);
+  assert.match(admin,/글 작성자/);
+  assert.match(admin,/선택한 이름이 글 상단과 검색엔진용 작성자 정보에 함께 표시됩니다/);
   assert.match(sitemap,/challenge/);
   assert.doesNotMatch(sitemap,/keyword-lab/);
   const robots = await readFile(new URL("../app/robots.ts", import.meta.url), "utf8");
   assert.match(robots,/OAI-SearchBot/);
   assert.match(robots,/bingbot/);
   assert.match(robots,/Yeti/);
+  assert.doesNotMatch(robots,/\/search\?/);
 });
 
 test("keeps the independent editor and write APIs session-protected", async () => {
@@ -238,7 +310,11 @@ test("ships mobile-first SEO, GEO, trust and original-value pages", async () => 
   assert.match(contact, /콘텐츠 오류와 끊어진 링크/);
   assert.match(contact, /master@adbles\.com/);
   assert.match(terms, /정보와 계산 결과의 한계/);
-  assert.match(author, /책임 편집자는 어썸라이프/);
+  assert.match(author, /편집부장은 ‘/);
+  assert.match(author, /분야별 편집자 6명/);
+  assert.match(author, /AI 기반 실무자/);
+  assert.match(post, /author\.role/);
+  assert.match(post, /퇴\.기\.사 AI 편집자/);
   assert.match(sitemap, /contact/);
   assert.match(sitemap, /terms/);
   assert.match(content, /unemployment-benefit-eight-steps/);

@@ -1,0 +1,1 @@
+ALTER TABLE `posts` ADD `author_name` text DEFAULT '데스크' NOT NULL;

@@ -1,8 +1,10 @@
-import { updatePost } from "../../../../lib/repository";
+import { updatePost, verifyPublicationOriginality } from "../../../../lib/repository";
 import { slugify, type PostStatus } from "../../../../lib/content";
 import { requireOwnerApi } from "../../../../lib/site-admin";
 import { appendSourceUrl } from "../../../../lib/article-enrichment";
 import { articlePlainText, sanitizeArticleHtml } from "../../../../lib/article-html";
+import { extractSourceUrls, OriginalityCheckError } from "../../../../lib/originality-check";
+import { EDITOR_IN_CHIEF, getEditorialAuthor } from "../../../../lib/editorial-team";
 
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const auth = await requireOwnerApi(request);
@@ -16,6 +18,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     }
     const body = sanitizeArticleHtml(appendSourceUrl(payload.body, payload.sourceUrl));
     const plainBody = articlePlainText(body);
+    if(status==="published"||status==="scheduled")await verifyPublicationOriginality({body,sourceUrls:extractSourceUrls(body,payload.sourceUrl),editorName:payload.authorName||"데스크",title:payload.title.trim(),postId:Number(id)});
     const post = await updatePost(Number(id), {
       title: payload.title.trim(),
       slug: slugify(payload.slug || payload.title),
@@ -28,9 +31,10 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       scheduledAt: status === "scheduled" ? payload.scheduledAt || null : null,
       readingMinutes: Math.max(1, Math.ceil(plainBody.length / 700)),
       visual: payload.visual?.trim() || "NEW",
+      authorName: getEditorialAuthor(payload.authorName || EDITOR_IN_CHIEF.name).name,
     });
     return Response.json({ post });
   } catch (error) {
-    return Response.json({ error: error instanceof Error ? error.message : "글을 수정하지 못했습니다." }, { status: 500 });
+    return Response.json({ error: error instanceof Error ? error.message : "글을 수정하지 못했습니다." }, { status: error instanceof OriginalityCheckError ? 409 : 500 });
   }
 }

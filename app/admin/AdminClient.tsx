@@ -1,9 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import Link from "next/link";
 import type { Post } from "../../lib/content";
-import type { AgentRun, ContentAgentState, PromotionCampaign, QueueItem } from "../../lib/repository";
+import type { AgentRun, ContentAgentState, ManagementIssue, ManagementRun, OriginalityCheck, PromotionCampaign, QueueItem } from "../../lib/repository";
+import type { ManagementMember } from "../../lib/management-department";
+import type { OrganizationPolicyRecipient } from "../../lib/organization-policy";
 import { getPromotionMember, promotionTeam, searchPrograms } from "../../lib/promotion-team";
+import { allEditorialAuthors, EDITOR_IN_CHIEF } from "../../lib/editorial-team";
+import { qualityDesignGates, qualityDesignTeam } from "../../lib/quality-design-team";
+import type { CompanyResource } from "../../lib/company-rules";
+import { contentPlanningFirstMonth, contentPlanningTeam, contentPlanningWorkflow } from "../../lib/content-planning-team";
 import RichTextEditor from "./RichTextEditor";
 
 const categories = ["퇴직 준비", "정부지원·실업급여", "정부지원·세무", "재취업·N잡", "블로그·애드센스", "AI 활용", "온라인 부업", "투자·재테크", "실제 수익실험", "유용한 도구", "지역 생활정보", "건강·예방", "영상 큐레이션"];
@@ -22,23 +29,42 @@ export default function AdminClient({ username }: { username: string }) {
   const [agents,setAgents]=useState<ContentAgentState[]>([]);
   const [agentRuns,setAgentRuns]=useState<AgentRun[]>([]);
   const [promotions,setPromotions]=useState<PromotionCampaign[]>([]);
+  const [managementMembers,setManagementMembers]=useState<ManagementMember[]>([]);
+  const [managementIssues,setManagementIssues]=useState<ManagementIssue[]>([]);
+  const [managementRuns,setManagementRuns]=useState<ManagementRun[]>([]);
+  const [organizationNotice,setOrganizationNotice]=useState<{title:string;issuedBy:string;effectiveDate:string;message:string;rules:readonly string[]}|null>(null);
+  const [policyCoverage,setPolicyCoverage]=useState<{total:number;applied:number;departments:Array<{department:string;count:number}>}>({total:0,applied:0,departments:[]});
+  const [policyRecipients,setPolicyRecipients]=useState<OrganizationPolicyRecipient[]>([]);
+  const [originalityChecks,setOriginalityChecks]=useState<OriginalityCheck[]>([]);
+  const [companyRules,setCompanyRules]=useState<{title:string;version:string;effectiveAt:string;authority:string;vision:string;mission:string;purpose:string;strategicObjectives:readonly {id:string;title:string;description:string;kpis:readonly string[]}[];coreRules:readonly string[];chapters:readonly {number:number;title:string;articles:readonly string[]}[]}|null>(null);
+  const [companyResources,setCompanyResources]=useState<CompanyResource[]>([]);
   const [selected, setSelected] = useState<Post | null>(null);
   const [message, setMessage] = useState("편집실을 준비하고 있습니다…");
   const [saving, setSaving] = useState(false);
   const editorPanelRef = useRef<HTMLElement>(null);
 
   async function load() {
-    const [postsResponse, queueResponse, agentsResponse, promotionsResponse] = await Promise.all([fetch("/api/posts"), fetch("/api/automation"),fetch("/api/agents"),fetch("/api/promotions")]);
+    const [postsResponse, queueResponse, agentsResponse, promotionsResponse, managementResponse] = await Promise.all([fetch("/api/posts"), fetch("/api/automation"),fetch("/api/agents"),fetch("/api/promotions"),fetch("/api/management")]);
     const postsData = await postsResponse.json();
     const queueData = await queueResponse.json();
     const agentsData=await agentsResponse.json();
     const promotionsData=await promotionsResponse.json();
-    if (postsResponse.ok && queueResponse.ok && agentsResponse.ok && promotionsResponse.ok) {
+    const managementData=await managementResponse.json();
+    if (postsResponse.ok && queueResponse.ok && agentsResponse.ok && promotionsResponse.ok && managementResponse.ok) {
       setPosts(postsData.posts);
       setQueue(queueData.queue);
       setAgents(agentsData.agents);
       setAgentRuns(agentsData.runs);
       setPromotions(promotionsData.campaigns);
+      setManagementMembers(managementData.members);
+      setManagementIssues(managementData.issues);
+      setManagementRuns(managementData.runs);
+      setOrganizationNotice(managementData.notice);
+      setPolicyCoverage(managementData.policyCoverage);
+      setPolicyRecipients(managementData.policyRecipients);
+      setOriginalityChecks(managementData.originalityChecks);
+      setCompanyRules(managementData.companyRules);
+      setCompanyResources(managementData.companyResources);
       const requestedPostId = Number(new URLSearchParams(window.location.search).get("post"));
       const requestedPost = postsData.posts.find((post: Post) => post.id === requestedPostId);
       if (requestedPost) {
@@ -48,11 +74,11 @@ export default function AdminClient({ username }: { username: string }) {
         setMessage("");
       }
     } else {
-      setMessage(postsData.error || queueData.error || agentsData.error || promotionsData.error || "편집실 자료를 불러오지 못했습니다.");
+      setMessage(postsData.error || queueData.error || agentsData.error || promotionsData.error || managementData.error || "편집실 자료를 불러오지 못했습니다.");
     }
   }
 
-  useEffect(() => { void load(); }, []);
+  useEffect(() => { const frame=requestAnimationFrame(()=>void load());return()=>cancelAnimationFrame(frame); }, []);
 
   function openEditor(post: Post) {
     setSelected(post);
@@ -109,8 +135,10 @@ export default function AdminClient({ username }: { username: string }) {
   }
 
   async function controlAgent(id:string,action:"run"|"status",status?:"active"|"paused"){
-    setSaving(true);const response=await fetch("/api/agents",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({id,action,status})});const data=await response.json();setSaving(false);if(response.ok){setMessage(action==="run"?`‘${data.post.title}’ 글을 사이트에 바로 발행했습니다.`:`에이전트를 ${status==="active"?"가동":"일시정지"}했습니다.`);await load();}else setMessage(data.error);
+    setSaving(true);const response=await fetch("/api/agents",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({id,action,status})});const data=await response.json();setSaving(false);if(response.ok){setMessage(action==="run"?`‘${data.post.title}’ 초안을 만들고 정책 검토 대기에 등록했습니다.`:`에이전트를 ${status==="active"?"가동":"일시정지"}했습니다.`);await load();}else setMessage(data.error);
   }
+
+  async function manageSite(action:"audit"|"resolve",id?:number){setSaving(true);const response=await fetch("/api/management",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action,id})});const data=await response.json();setSaving(false);if(response.ok){setMessage(action==="audit"?`전사 점검을 마쳤습니다. 문제 ${data.run.issueCount}건, 즉시 조치 ${data.run.actionCount}건입니다.`:"문제를 조치 완료로 표시했습니다.");await load();}else setMessage(data.error);}
 
   async function preparePromotion(event:FormEvent<HTMLFormElement>){
     event.preventDefault();const postId=Number(new FormData(event.currentTarget).get("promotionPostId"));setSaving(true);const response=await fetch("/api/promotions",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action:"prepare",postId})});const data=await response.json();setSaving(false);if(response.ok){setMessage(`‘${data.campaign.title}’ 홍보안을 준비했습니다.`);await load();}else setMessage(data.error);
@@ -130,7 +158,7 @@ export default function AdminClient({ username }: { username: string }) {
     <main className="admin-shell">
       <header className="admin-top">
         <div><strong>퇴.기.사 · 편집실</strong><span>{username} · 독립 관리자</span></div>
-        <div className="admin-actions"><a className="admin-button secondary" href="/api/export">전체 백업</a><a className="admin-button secondary" href="/">사이트 보기</a><button className="admin-button secondary" type="button" onClick={logout}>로그아웃</button></div>
+        <div className="admin-actions"><a className="admin-button secondary" href="/api/export">전체 백업</a><Link className="admin-button secondary" href="/">사이트 보기</Link><button className="admin-button secondary" type="button" onClick={logout}>로그아웃</button></div>
       </header>
 
       <div className="admin-dashboard">
@@ -149,6 +177,7 @@ export default function AdminClient({ username }: { username: string }) {
             <div className="field"><label htmlFor="title">제목</label><input id="title" name="title" required defaultValue={selected?.title} placeholder="독자가 찾을 구체적인 제목" /></div>
             <div className="field"><label htmlFor="excerpt">한 줄 요약</label><input id="excerpt" name="excerpt" defaultValue={selected?.excerpt} placeholder="검색 결과에 보일 120자 안팎의 설명" /></div>
             <div className="form-row"><div className="field"><label htmlFor="category">카테고리</label><select id="category" name="category" defaultValue={selected?.category}>{categories.map((category) => <option key={category}>{category}</option>)}</select></div><div className="field"><label htmlFor="visual">표지 표시</label><input id="visual" name="visual" maxLength={6} defaultValue={selected?.visual} placeholder="예: 30D" /></div></div>
+            <div className="field"><label htmlFor="authorName">글 작성자</label><select id="authorName" name="authorName" defaultValue={selected?.authorName || EDITOR_IN_CHIEF.name}>{allEditorialAuthors.map(author=><option value={author.name} key={author.id}>{author.name} · {author.role}</option>)}</select><small>선택한 이름이 글 상단과 검색엔진용 작성자 정보에 함께 표시됩니다.</small></div>
             <div className="field"><label htmlFor="tags">태그</label><input id="tags" name="tags" defaultValue={selected?.tags.join(", ")} placeholder="쉼표로 구분: 퇴직, 생활비" /></div>
             <div className="field"><label htmlFor="sourceUrl">공식자료 주소 <span>(선택)</span></label><input id="sourceUrl" name="sourceUrl" type="url" placeholder="https://www.work24.go.kr/..." /><small>입력하면 본문 끝에 출처 링크가 추가되고 공개 글의 공식자료 영역에 자동 표시됩니다.</small></div>
             <div className="field"><div className="field-label" id="body-editor-label">본문 편집기</div><RichTextEditor initialValue={selected?.body}/></div>
@@ -170,11 +199,36 @@ export default function AdminClient({ username }: { username: string }) {
           <div className="queue-list">{queue.map((item) => <button type="button" key={item.id} onClick={() => { const post = posts.find((candidate) => candidate.id === item.postId); if (post) openEditor(post); }}><span>{item.status === "review" ? "검토 필요" : item.status}</span><strong>{item.title}</strong><small>{item.sourceUrl}</small></button>)}</div>
         </section>
 
+        <section className="panel management-department-panel">
+          <div className="panel-title"><div><p className="eyebrow">SITE MANAGEMENT</p><h2>사이트 관리부서 상황실</h2></div><button className="admin-button" type="button" disabled={saving} onClick={()=>manageSite("audit")}>지금 전체 점검</button></div>
+          <p className="panel-help">3명의 관리 담당자가 발행정책, 자동화 흐름, 사이트 품질을 점검합니다. 심각한 예약 발행 위반은 즉시 중지하고, 공식 출처가 없는 에이전트는 자동으로 일시정지합니다. 모든 발견과 조치는 기록으로 남습니다.</p>
+          {companyRules&&<section className="company-rules-card"><header><div><span>전사 사규 · 시행 중</span><h3>{companyRules.title} v{companyRules.version}</h3><p>{companyRules.purpose}</p></div><strong>{companyRules.effectiveAt}<small>시행</small></strong></header><section className="company-direction"><span>VISION</span><h4>{companyRules.vision}</h4><p>{companyRules.mission}</p></section><div className="company-rules-metrics"><span>적용 직원 <b>{policyCoverage.applied}명</b></span><span>관리 리소스 <b>{companyResources.length}종</b></span><span>경영목표 <b>{companyRules.strategicObjectives.length}개</b></span></div><details><summary>MVP 6대 경영목표 보기</summary><div className="company-objectives">{companyRules.strategicObjectives.map(objective=><article key={objective.id}><h4>{objective.title}</h4><p>{objective.description}</p><ul>{objective.kpis.map(kpi=><li key={kpi}>{kpi}</li>)}</ul></article>)}</div></details><details><summary>사규 전체 조항 보기</summary><div className="company-rule-chapters">{companyRules.chapters.map(chapter=><article key={chapter.number}><h4>제{chapter.number}장 {chapter.title}</h4><ol>{chapter.articles.map(article=><li key={article}>{article}</li>)}</ol></article>)}</div></details><details><summary>리소스 책임자 보기</summary><div className="company-resource-list">{companyResources.map(resource=><article key={resource.id}><div><span>{resource.category}</span><strong>{resource.name}</strong></div><dl><div><dt>소유부서</dt><dd>{resource.owner}</dd></div><div><dt>실무관리</dt><dd>{resource.custodian}</dd></div></dl><p>{resource.control}</p></article>)}</div></details><footer>{companyRules.authority} · 사규 버전은 운영설정에 기록되어 전 부서가 동일 기준을 사용합니다.</footer></section>}
+          {organizationNotice&&<section className="organization-notice" aria-labelledby="organization-notice-title"><header><div><span>전사 공지 · {organizationNotice.effectiveDate}</span><h3 id="organization-notice-title">{organizationNotice.title}</h3><p>{organizationNotice.message}</p></div><strong>전사 적용 {policyCoverage.applied}/{policyCoverage.total}명</strong></header><ol>{organizationNotice.rules.map(rule=><li key={rule}>{rule}</li>)}</ol><div className="policy-departments">{policyCoverage.departments.map(item=><span key={item.department}>{item.department} {item.count}명</span>)}</div><details><summary>적용 구성원 전체 보기</summary><div className="policy-recipient-list">{policyRecipients.map(member=><span key={member.id}><b>{member.name}</b>{member.title}</span>)}</div></details><footer>{organizationNotice.issuedBy} 공지 · 중앙 발행검사와 관리부서 점검으로 의무 적용</footer></section>}
+          <section className="originality-monitor"><header><div><p className="eyebrow">ORIGINALITY MONITOR</p><h3>원문 복사 자동감시</h3></div><strong>최근 차단 {originalityChecks.filter(check=>check.status==="blocked").length}건</strong></header><p>편집자가 글을 발행하거나 예약할 때 연결된 원문과 기존 게시물을 자동 대조합니다. 동일 문장이 과도하면 발행을 중지하고 자신의 설명·사례·표로 재작성하도록 즉시 요청합니다.</p><div>{originalityChecks.length===0?<span className="originality-empty">아직 검사 기록이 없습니다. 다음 발행·예약 시 자동으로 검사합니다.</span>:originalityChecks.slice(0,8).map(check=><article className={check.status} key={check.id}><span>{check.status==="passed"?"통과":check.status==="blocked"?"발행 차단":"직접 확인 필요"}</span><strong>{check.editorName} · {check.title}</strong><small>문장 중복 {Math.round(check.overlapRatio*100)}% · 최장 일치 {check.longestMatchChars}자</small><p>{check.message}</p></article>)}</div></section>
+          <div className="management-summary"><div><span>열린 문제</span><strong>{managementIssues.filter(issue=>issue.status==="open").length}</strong></div><div><span>긴급</span><strong>{managementIssues.filter(issue=>issue.status==="open"&&issue.severity==="critical").length}</strong></div><div><span>최근 점검</span><strong>{managementRuns[0]?new Date(managementRuns[0].createdAt).toLocaleString("ko-KR"):"대기 중"}</strong></div></div>
+          <div className="management-team-grid">{managementMembers.map(member=><article key={member.id}><span>{member.role}</span><h3>{member.name}</h3><p>{member.mission}</p></article>)}</div>
+          <div className="management-issue-list"><h3>문제 보고 및 조치 내역</h3>{managementIssues.length===0?<p className="management-empty">아직 발견된 문제가 없습니다. ‘지금 전체 점검’을 실행하세요.</p>:managementIssues.map(issue=><article className={`${issue.status} ${issue.severity}`} key={issue.id}><header><div><span>{issue.status==="resolved"?"조치 완료":issue.severity==="critical"?"긴급 보고":"확인 필요"}</span><strong>{issue.title}</strong></div><small>{issue.auditorName} · {issue.scope}</small></header><p>{issue.details}</p>{issue.actionTaken&&<p className="management-action">즉시 조치: {issue.actionTaken}</p>}<footer>{issue.postId?<button type="button" onClick={()=>{const post=posts.find(item=>item.id===issue.postId);if(post)openEditor(post);}}>해당 글 열기</button>:<span/>}{issue.status==="open"&&<button type="button" disabled={saving} onClick={()=>manageSite("resolve",issue.id)}>조치 완료 표시</button>}</footer></article>)}</div>
+        </section>
+
         <section className="panel automation-panel agent-control-panel">
           <div className="panel-title"><div><p className="eyebrow">CONTENT AGENTS</p><h2>분야별 에이전트 운영실</h2></div><span className="queue-count">가동 {agents.filter(agent=>agent.status==="active").length}/{agents.length}</span></div>
-          <p className="panel-help">각 에이전트는 정해진 공식 출처와 주제를 사용해 16시간마다 글을 준비합니다. 공식 링크, 적용 사례, 비교표, 실행 체크리스트와 충분한 본문 길이를 모두 갖춘 글만 바로 공개하며, 검증된 관련 영상이 있는 분야는 미리보기를 함께 넣습니다. 품질 기준에 미달하면 발행하지 않고 실패 기록으로 남깁니다.</p>
-          <div className="agent-grid">{agents.map(agent=><article className={`agent-card ${agent.status}`} key={agent.id}><div><span>{agent.status==="active"?"가동 중":"일시정지"}</span><small>{agent.category}</small></div><h3>{agent.name}</h3><p>{agent.mission}</p><dl><div><dt>자동 발행 주기</dt><dd>{agent.cadenceHours<24?`${agent.cadenceHours}시간`:`${Math.round(agent.cadenceHours/24)}일`}</dd></div><div><dt>다음 실행</dt><dd>{agent.nextRunAt?new Date(agent.nextRunAt).toLocaleString("ko-KR"):"미정"}</dd></div><div><dt>공식 출처</dt><dd>{agent.sources.length}곳</dd></div></dl><div className="agent-actions"><button type="button" disabled={saving||agent.status!=="active"} onClick={()=>controlAgent(agent.id,"run")}>지금 발행하기</button><button type="button" disabled={saving} onClick={()=>controlAgent(agent.id,"status",agent.status==="active"?"paused":"active")}>{agent.status==="active"?"일시정지":"다시 가동"}</button></div></article>)}</div>
+          <p className="panel-help">각 에이전트는 정해진 공식 출처와 주제를 사용해 16시간마다 초안을 준비합니다. 모든 초안은 관리부서의 정책 검토 대기에 들어가며, 사람이 확인해 예약 또는 발행 상태로 바꾼 글만 공개됩니다. 품질 기준에 미달하면 실패 기록으로 남깁니다.</p>
+          <div className="agent-grid">{agents.map(agent=><article className={`agent-card ${agent.status}`} key={agent.id}><div><span>{agent.status==="active"?"가동 중":"일시정지"}</span><small>{agent.category}</small></div><h3>{agent.name}</h3><p>{agent.mission}</p><dl><div><dt>초안 생성 주기</dt><dd>{agent.cadenceHours<24?`${agent.cadenceHours}시간`:`${Math.round(agent.cadenceHours/24)}일`}</dd></div><div><dt>다음 실행</dt><dd>{agent.nextRunAt?new Date(agent.nextRunAt).toLocaleString("ko-KR"):"미정"}</dd></div><div><dt>공식 출처</dt><dd>{agent.sources.length}곳</dd></div></dl><div className="agent-actions"><button type="button" disabled={saving||agent.status!=="active"} onClick={()=>controlAgent(agent.id,"run")}>지금 초안 만들기</button><button type="button" disabled={saving} onClick={()=>controlAgent(agent.id,"status",agent.status==="active"?"paused":"active")}>{agent.status==="active"?"일시정지":"다시 가동"}</button></div></article>)}</div>
           <div className="agent-run-log"><h3>최근 작업 기록</h3>{agentRuns.length===0?<p>아직 실행 기록이 없습니다.</p>:agentRuns.map(run=><div key={run.id}><span>{run.status==="review"?"검토 대기":run.status==="published"?"자동 발행":"실패"}</span><strong>{run.agentName}</strong><p>{run.topic}</p><time>{new Date(run.createdAt).toLocaleString("ko-KR")}</time></div>)}</div>
+        </section>
+
+        <section className="panel promotion-department-panel">
+          <div className="panel-title"><div><p className="eyebrow">CONTENT PLANNING TEAM</p><h2>콘텐츠기획팀 운영실</h2></div><span className="queue-count">AI 실무자 {contentPlanningTeam.length}명</span></div>
+          <p className="panel-help">독자 질문을 주제 포트폴리오와 제작 브리프로 바꿔 편집부에 인계합니다. 기획팀은 무엇을 왜 만들지 책임지고, 집필·사실검증·발행 권한은 각각 편집부와 관리부에 둡니다.</p>
+          <div className="promotion-team-grid">{contentPlanningTeam.map(member=><article className="promotion-member-card" key={member.id}><div><span>{member.name}</span><small>AI 실무자</small></div><h3>{member.title}</h3><p>{member.mission}</p><strong>전담: {member.owns.join(" · ")}</strong><ul>{member.kpis.map(kpi=><li key={kpi}>{kpi}</li>)}</ul></article>)}</div>
+          <div className="search-programs"><h3>기획 → 학습 운영 흐름</h3><article><ol>{contentPlanningWorkflow.map(item=><li key={item}>{item}</li>)}</ol></article><h3>출범 후 첫 30일</h3><article><ol>{contentPlanningFirstMonth.map(item=><li key={item}>{item}</li>)}</ol></article></div>
+        </section>
+
+        <section className="panel promotion-department-panel">
+          <div className="panel-title"><div><p className="eyebrow">QUALITY DESIGN TEAM</p><h2>품질디자인팀 운영실</h2></div><span className="queue-count">AI 실무자 {qualityDesignTeam.length}명</span></div>
+          <p className="panel-help">편집부가 만든 글을 디자인, 가독성, 시각자료, 모바일·접근성, 발행 정보까지 하나의 완성품으로 검수합니다. 기준 미달 작업은 보완 대기로 돌리고, 최종 공개는 관리부 승인 뒤에만 진행합니다.</p>
+          <div className="promotion-team-grid">{qualityDesignTeam.map(member=><article className="promotion-member-card" key={member.id}><div><span>{member.name}</span><small>AI 실무자</small></div><h3>{member.title}</h3><p>{member.mission}</p><strong>전담: {member.owns.join(" · ")}</strong><ul>{member.kpis.map(kpi=><li key={kpi}>{kpi}</li>)}</ul></article>)}</div>
+          <div className="search-programs"><h3>발행 전 필수 품질 게이트</h3><article><ol>{qualityDesignGates.map(gate=><li key={gate}>{gate}</li>)}</ol></article></div>
         </section>
 
         <section className="panel promotion-agent-panel">

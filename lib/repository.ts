@@ -1,7 +1,12 @@
 import { env } from "cloudflare:workers";
 import { seedPosts, type Post } from "./content";
 import { contentAgentProfiles, type ContentAgentProfile } from "./content-agents";
+import { EDITOR_IN_CHIEF } from "./editorial-team";
 import { SITE_NAME } from "./site";
+import { assertPublicationReady, inspectPublicationPolicy, managementDepartment } from "./management-department";
+import { organizationNotice, organizationPolicyCoverage, organizationPolicyRecipients } from "./organization-policy";
+import { checkAgainstSources, compareOriginality, OriginalityCheckError } from "./originality-check";
+import { companyResourceRegistry, companyRules, COMPANY_RULES_VERSION } from "./company-rules";
 
 export type QueueItem = {
   id: number;
@@ -16,6 +21,9 @@ export type QueueItem = {
 export type ContentAgentState = ContentAgentProfile & { status:"active"|"paused"; nextRunAt:string|null; lastRunAt:string|null; topicCursor:number };
 export type AgentRun = { id:number; agentId:string; agentName:string; status:string; topic:string; postId:number|null; message:string|null; createdAt:string };
 export type PromotionCampaign = { id:number; postId:number; title:string; slug:string; status:"prepared"|"executed"; headline:string; socialCopy:string; communityCopy:string; hashtags:string[]; channels:string[]; createdAt:string; executedAt:string|null };
+export type ManagementIssue = { id:number; issueKey:string; auditorId:string; auditorName:string; severity:"critical"|"warning"|"info"; scope:string; status:"open"|"resolved"; title:string; details:string; actionTaken:string|null; postId:number|null; postTitle:string|null; createdAt:string; resolvedAt:string|null };
+export type ManagementRun = { id:number; status:string; checkedCount:number; issueCount:number; actionCount:number; summary:string; createdAt:string };
+export type OriginalityCheck = { id:number; postId:number|null; editorName:string; title:string; sourceUrl:string|null; status:"passed"|"blocked"|"unavailable"; overlapRatio:number; longestMatchChars:number; message:string; checkedAt:string };
 
 let initialized = false;
 const CONTENT_QUALITY_REVISION="2026-08-14-adsense-readiness-v2";
@@ -27,19 +35,25 @@ async function db() {
   if (!initialized) {
     await d1.batch([
       d1.prepare(`CREATE TABLE IF NOT EXISTS categories (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL UNIQUE, slug TEXT NOT NULL UNIQUE, description TEXT NOT NULL DEFAULT '', sort_order INTEGER NOT NULL DEFAULT 0)`),
-      d1.prepare(`CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, slug TEXT NOT NULL UNIQUE, excerpt TEXT NOT NULL DEFAULT '', body TEXT NOT NULL DEFAULT '', category TEXT NOT NULL, tags_json TEXT NOT NULL DEFAULT '[]', status TEXT NOT NULL DEFAULT 'draft', published_at TEXT, scheduled_at TEXT, reading_minutes INTEGER NOT NULL DEFAULT 5, visual TEXT NOT NULL DEFAULT 'NEW', created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)`),
+      d1.prepare(`CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, slug TEXT NOT NULL UNIQUE, excerpt TEXT NOT NULL DEFAULT '', body TEXT NOT NULL DEFAULT '', category TEXT NOT NULL, tags_json TEXT NOT NULL DEFAULT '[]', status TEXT NOT NULL DEFAULT 'draft', published_at TEXT, scheduled_at TEXT, reading_minutes INTEGER NOT NULL DEFAULT 5, visual TEXT NOT NULL DEFAULT 'NEW', author_name TEXT NOT NULL DEFAULT '데스크', created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)`),
       d1.prepare(`CREATE TABLE IF NOT EXISTS posting_queue (id INTEGER PRIMARY KEY AUTOINCREMENT, post_id INTEGER NOT NULL, status TEXT NOT NULL DEFAULT 'waiting', source_url TEXT, scheduled_at TEXT, attempts INTEGER NOT NULL DEFAULT 0, last_error TEXT, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(post_id) REFERENCES posts(id))`),
       d1.prepare(`CREATE TABLE IF NOT EXISTS site_settings (key TEXT PRIMARY KEY, value_json TEXT NOT NULL, updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)`),
       d1.prepare(`CREATE TABLE IF NOT EXISTS admin_login_attempts (attempt_key TEXT PRIMARY KEY, failures INTEGER NOT NULL DEFAULT 0, window_started_at INTEGER NOT NULL, blocked_until INTEGER NOT NULL DEFAULT 0)`),
       d1.prepare(`CREATE TABLE IF NOT EXISTS content_agents (id TEXT PRIMARY KEY, name TEXT NOT NULL, category TEXT NOT NULL, mission TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'active', cadence_hours INTEGER NOT NULL DEFAULT 168, sources_json TEXT NOT NULL DEFAULT '[]', topics_json TEXT NOT NULL DEFAULT '[]', video_json TEXT, next_run_at TEXT, last_run_at TEXT, topic_cursor INTEGER NOT NULL DEFAULT 0, updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)`),
       d1.prepare(`CREATE TABLE IF NOT EXISTS agent_runs (id INTEGER PRIMARY KEY AUTOINCREMENT, agent_id TEXT NOT NULL, status TEXT NOT NULL, topic TEXT NOT NULL, post_id INTEGER, message TEXT, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(agent_id) REFERENCES content_agents(id), FOREIGN KEY(post_id) REFERENCES posts(id))`),
       d1.prepare(`CREATE TABLE IF NOT EXISTS promotion_campaigns (id INTEGER PRIMARY KEY AUTOINCREMENT, post_id INTEGER NOT NULL UNIQUE, status TEXT NOT NULL DEFAULT 'prepared', headline TEXT NOT NULL, social_copy TEXT NOT NULL, community_copy TEXT NOT NULL, hashtags_json TEXT NOT NULL DEFAULT '[]', channels_json TEXT NOT NULL DEFAULT '[]', created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, executed_at TEXT, FOREIGN KEY(post_id) REFERENCES posts(id))`),
+      d1.prepare(`CREATE TABLE IF NOT EXISTS management_issues (id INTEGER PRIMARY KEY AUTOINCREMENT, issue_key TEXT NOT NULL UNIQUE, auditor_id TEXT NOT NULL, severity TEXT NOT NULL, scope TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'open', title TEXT NOT NULL, details TEXT NOT NULL, action_taken TEXT, post_id INTEGER, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, resolved_at TEXT, FOREIGN KEY(post_id) REFERENCES posts(id))`),
+      d1.prepare(`CREATE TABLE IF NOT EXISTS management_runs (id INTEGER PRIMARY KEY AUTOINCREMENT, status TEXT NOT NULL, checked_count INTEGER NOT NULL DEFAULT 0, issue_count INTEGER NOT NULL DEFAULT 0, action_count INTEGER NOT NULL DEFAULT 0, summary TEXT NOT NULL, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)`),
+      d1.prepare(`CREATE TABLE IF NOT EXISTS originality_checks (id INTEGER PRIMARY KEY AUTOINCREMENT, post_id INTEGER, editor_name TEXT NOT NULL, title TEXT NOT NULL, source_url TEXT, status TEXT NOT NULL, overlap_ratio INTEGER NOT NULL DEFAULT 0, longest_match_chars INTEGER NOT NULL DEFAULT 0, message TEXT NOT NULL, checked_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(post_id) REFERENCES posts(id))`),
       d1.prepare(`CREATE INDEX IF NOT EXISTS idx_posts_status_published ON posts(status, published_at)`),
       d1.prepare(`CREATE INDEX IF NOT EXISTS idx_posts_category ON posts(category)`),
       d1.prepare(`CREATE INDEX IF NOT EXISTS idx_queue_status_scheduled ON posting_queue(status, scheduled_at)`),
       d1.prepare(`CREATE INDEX IF NOT EXISTS idx_content_agents_status_next ON content_agents(status, next_run_at)`),
       d1.prepare(`CREATE INDEX IF NOT EXISTS idx_agent_runs_agent_created ON agent_runs(agent_id, created_at)`),
       d1.prepare(`CREATE INDEX IF NOT EXISTS idx_promotion_status_created ON promotion_campaigns(status, created_at)`),
+      d1.prepare(`CREATE INDEX IF NOT EXISTS idx_management_issues_status_severity ON management_issues(status, severity, updated_at)`),
+      d1.prepare(`CREATE INDEX IF NOT EXISTS idx_management_runs_created ON management_runs(created_at)`),
+      d1.prepare(`CREATE INDEX IF NOT EXISTS idx_originality_checks_status_checked ON originality_checks(status, checked_at)`),
     ]);
 
     for (const post of seedPosts) {
@@ -69,6 +83,7 @@ async function db() {
       }
       await d1.prepare("INSERT INTO site_settings (key,value_json,updated_at) VALUES ('content_quality_revision',?,CURRENT_TIMESTAMP) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json,updated_at=CURRENT_TIMESTAMP").bind(JSON.stringify(CONTENT_QUALITY_REVISION)).run();
     }
+    await d1.prepare("INSERT INTO site_settings (key,value_json,updated_at) VALUES ('company_rules_version',?,CURRENT_TIMESTAMP) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json,updated_at=CURRENT_TIMESTAMP").bind(JSON.stringify(COMPANY_RULES_VERSION)).run();
     for (const agent of contentAgentProfiles) {
       const nextRunAt=new Date(Date.now()+agent.cadenceHours*60*60*1000).toISOString();
       await d1.prepare(`INSERT INTO content_agents (id,name,category,mission,status,cadence_hours,sources_json,topics_json,video_json,next_run_at)
@@ -107,6 +122,7 @@ function mapPost(row: Record<string, unknown>): Post {
     scheduledAt: row.scheduled_at ? String(row.scheduled_at) : null,
     readingMinutes: Number(row.reading_minutes ?? 5),
     visual: String(row.visual ?? "NEW"),
+    authorName: String(row.author_name ?? EDITOR_IN_CHIEF.name),
   };
 }
 
@@ -156,19 +172,21 @@ export async function getPost(slug: string) {
 }
 
 export async function createPost(input: Omit<Post, "id">) {
+  if (input.status === "published" || input.status === "scheduled") assertPublicationReady(input);
   const d1 = await db();
   const row = await d1
-    .prepare("INSERT INTO posts (title,slug,excerpt,body,category,tags_json,status,published_at,scheduled_at,reading_minutes,visual) VALUES (?,?,?,?,?,?,?,?,?,?,?) RETURNING *")
-    .bind(input.title, input.slug, input.excerpt, input.body, input.category, JSON.stringify(input.tags), input.status, input.publishedAt || null, input.scheduledAt, input.readingMinutes, input.visual)
+    .prepare("INSERT INTO posts (title,slug,excerpt,body,category,tags_json,status,published_at,scheduled_at,reading_minutes,visual,author_name) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) RETURNING *")
+    .bind(input.title, input.slug, input.excerpt, input.body, input.category, JSON.stringify(input.tags), input.status, input.publishedAt || null, input.scheduledAt, input.readingMinutes, input.visual, input.authorName || EDITOR_IN_CHIEF.name)
     .first();
   return mapPost(row as Record<string, unknown>);
 }
 
 export async function updatePost(id: number, input: Omit<Post, "id">) {
+  if (input.status === "published" || input.status === "scheduled") assertPublicationReady(input);
   const d1 = await db();
   const row = await d1
-    .prepare("UPDATE posts SET title=?,slug=?,excerpt=?,body=?,category=?,tags_json=?,status=?,published_at=?,scheduled_at=?,reading_minutes=?,visual=?,updated_at=CURRENT_TIMESTAMP WHERE id=? RETURNING *")
-    .bind(input.title, input.slug, input.excerpt, input.body, input.category, JSON.stringify(input.tags), input.status, input.publishedAt || null, input.scheduledAt, input.readingMinutes, input.visual, id)
+    .prepare("UPDATE posts SET title=?,slug=?,excerpt=?,body=?,category=?,tags_json=?,status=?,published_at=?,scheduled_at=?,reading_minutes=?,visual=?,author_name=?,updated_at=CURRENT_TIMESTAMP WHERE id=? RETURNING *")
+    .bind(input.title, input.slug, input.excerpt, input.body, input.category, JSON.stringify(input.tags), input.status, input.publishedAt || null, input.scheduledAt, input.readingMinutes, input.visual, input.authorName || EDITOR_IN_CHIEF.name, id)
     .first();
   if (!row) throw new Error("수정할 글을 찾지 못했습니다.");
   await d1
@@ -176,6 +194,14 @@ export async function updatePost(id: number, input: Omit<Post, "id">) {
     .bind(input.status === "published" ? "published" : input.status, input.scheduledAt, id)
     .run();
   return mapPost(row as Record<string, unknown>);
+}
+
+export async function verifyPublicationOriginality(input:{body:string;sourceUrls:string[];editorName:string;title:string;postId?:number}){
+  const d1=await db();let result=await checkAgainstSources(input.body,input.sourceUrls);
+  const existing=await d1.prepare("SELECT id,title,body FROM posts WHERE (? IS NULL OR id!=?) ORDER BY updated_at DESC LIMIT 80").bind(input.postId??null,input.postId??null).all();
+  for(const row of existing.results){const internal=compareOriginality(input.body,String(row.body??""));if(internal.status==="blocked"&&(internal.overlapRatio>result.overlapRatio||result.status!=="blocked")){result={...internal,sourceUrl:`internal:post:${Number(row.id)}`,message:`기존 글 ‘${String(row.title)}’과 동일한 문장이 과도합니다. 문장 구조와 설명 사례를 새로 작성하세요.`};}}
+  await d1.prepare("INSERT INTO originality_checks (post_id,editor_name,title,source_url,status,overlap_ratio,longest_match_chars,message) VALUES (?,?,?,?,?,?,?,?)").bind(input.postId??null,input.editorName,input.title,result.sourceUrl,result.status,Math.round(result.overlapRatio*1000),result.longestMatchChars,result.message).run();
+  if(result.status!=="passed")throw new OriginalityCheckError(result);return result;
 }
 
 export async function createAutomationDraft(input: {
@@ -196,6 +222,7 @@ export async function createAutomationDraft(input: {
     scheduledAt: input.scheduledAt,
     readingMinutes: 4,
     visual: "DRAFT",
+    authorName: EDITOR_IN_CHIEF.name,
   });
   const d1 = await db();
   await d1
@@ -223,7 +250,7 @@ export async function getPostingQueue() {
 
 export async function exportAll() {
   const d1 = await db();
-  const [posts, categories, queue, settings, agents, agentRuns, promotions] = await Promise.all([
+  const [posts, categories, queue, settings, agents, agentRuns, promotions, managementIssues, managementRuns, originalityChecks] = await Promise.all([
     d1.prepare("SELECT * FROM posts").all(),
     d1.prepare("SELECT * FROM categories").all(),
     d1.prepare("SELECT * FROM posting_queue").all(),
@@ -231,6 +258,9 @@ export async function exportAll() {
     d1.prepare("SELECT * FROM content_agents").all(),
     d1.prepare("SELECT * FROM agent_runs").all(),
     d1.prepare("SELECT * FROM promotion_campaigns").all(),
+    d1.prepare("SELECT * FROM management_issues").all(),
+    d1.prepare("SELECT * FROM management_runs").all(),
+    d1.prepare("SELECT * FROM originality_checks").all(),
   ]);
   return {
     format: "retire-rich-content-v1",
@@ -242,6 +272,9 @@ export async function exportAll() {
     contentAgents: agents.results,
     agentRuns: agentRuns.results,
     promotionCampaigns: promotions.results,
+    managementIssues: managementIssues.results,
+    managementRuns: managementRuns.results,
+    originalityChecks: originalityChecks.results,
   };
 }
 
@@ -249,8 +282,6 @@ function mapAgent(row:Record<string,unknown>):ContentAgentState{return{id:String
 function mapAgentRun(row:Record<string,unknown>):AgentRun{return{id:Number(row.id),agentId:String(row.agent_id),agentName:String(row.agent_name??""),status:String(row.status),topic:String(row.topic),postId:row.post_id?Number(row.post_id):null,message:row.message?String(row.message):null,createdAt:String(row.created_at)};}
 function mapPromotion(row:Record<string,unknown>):PromotionCampaign{return{id:Number(row.id),postId:Number(row.post_id),title:String(row.title),slug:String(row.slug),status:row.status==="executed"?"executed":"prepared",headline:String(row.headline),socialCopy:String(row.social_copy),communityCopy:String(row.community_copy),hashtags:JSON.parse(String(row.hashtags_json??"[]")),channels:JSON.parse(String(row.channels_json??"[]")),createdAt:String(row.created_at),executedAt:row.executed_at?String(row.executed_at):null};}
 function htmlEscape(value:string){return value.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
-function todayInSeoul(value:Date){return new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Seoul",year:"numeric",month:"2-digit",day:"2-digit"}).format(value);}
-
 export async function getContentAgentDashboard(){const d1=await db();const [agents,runs]=await Promise.all([d1.prepare("SELECT * FROM content_agents ORDER BY name").all(),d1.prepare("SELECT r.*,a.name AS agent_name FROM agent_runs r JOIN content_agents a ON a.id=r.agent_id ORDER BY r.created_at DESC,r.id DESC LIMIT 30").all()]);return{agents:agents.results.map(row=>mapAgent(row as Record<string,unknown>)),runs:runs.results.map(row=>mapAgentRun(row as Record<string,unknown>))};}
 
 export async function setContentAgentStatus(id:string,status:"active"|"paused"){const d1=await db();const row=await d1.prepare("UPDATE content_agents SET status=?,updated_at=CURRENT_TIMESTAMP WHERE id=? RETURNING *").bind(status,id).first();if(!row)throw new Error("에이전트를 찾지 못했습니다.");return mapAgent(row as Record<string,unknown>);}
@@ -309,18 +340,48 @@ export async function runContentAgent(id:string){
   const topic=agent.topics[agent.topicCursor%agent.topics.length]??`${agent.category} 업데이트`;
   const body=buildAgentArticleBody(agent,topic);
   const now=new Date();
-  const post=await createPost({title:topic,slug:`${topic.trim().toLowerCase().replace(/[^a-z0-9가-힣]+/g,"-").replace(/^-|-$/g,"")}-${Date.now().toString(36)}`,excerpt:`${agent.mission} 공식 원문, 적용 사례, 비교표와 실행 체크리스트를 함께 정리했습니다.`,body,category:agent.category,tags:[agent.name,"공식 자료","사례·체크리스트","자동 발행"],status:"published",publishedAt:todayInSeoul(now),scheduledAt:null,readingMinutes:8,visual:"AGENT"});
+  const post=await createPost({title:topic,slug:`${topic.trim().toLowerCase().replace(/[^a-z0-9가-힣]+/g,"-").replace(/^-|-$/g,"")}-${Date.now().toString(36)}`,excerpt:`${agent.mission} 공식 원문, 적용 사례, 비교표와 실행 체크리스트를 함께 정리했습니다.`,body,category:agent.category,tags:[agent.name,"공식 자료","사례·체크리스트","정책 검토 대기"],status:"draft",publishedAt:"",scheduledAt:null,readingMinutes:8,visual:"REVIEW",authorName:agent.name});
   const next=new Date(now.getTime()+agent.cadenceHours*60*60*1000).toISOString();
   await d1.batch([
-    d1.prepare("INSERT INTO posting_queue (post_id,status,source_url,scheduled_at) VALUES (?,?,?,NULL)").bind(post.id,"published",agent.sources[0]?.url??null),
+    d1.prepare("INSERT INTO posting_queue (post_id,status,source_url,scheduled_at) VALUES (?,?,?,NULL)").bind(post.id,"review",agent.sources[0]?.url??null),
     d1.prepare("UPDATE content_agents SET last_run_at=?,next_run_at=?,topic_cursor=topic_cursor+1,updated_at=CURRENT_TIMESTAMP WHERE id=?").bind(now.toISOString(),next,id),
-    d1.prepare("INSERT INTO agent_runs (agent_id,status,topic,post_id,message) VALUES (?,?,?,?,?)").bind(id,"published",topic,post.id,"공식 링크·사례·표·체크리스트 품질 기준을 통과해 자동 발행했습니다."),
+    d1.prepare("INSERT INTO agent_runs (agent_id,status,topic,post_id,message) VALUES (?,?,?,?,?)").bind(id,"review",topic,post.id,"초안을 생성했고 관리부서의 발행정책 검토 대기열에 등록했습니다."),
   ]);
-  await preparePromotionCampaign(post.id).catch(()=>undefined);
   return post;
 }
 
-export async function runDueContentAgents(){const d1=await db();const now=new Date().toISOString();const due=await d1.prepare("SELECT id FROM content_agents WHERE status='active' AND next_run_at IS NOT NULL AND next_run_at<=? ORDER BY next_run_at LIMIT 2").bind(now).all();for(const row of due.results){try{await runContentAgent(String(row.id));}catch(error){await d1.prepare("INSERT INTO agent_runs (agent_id,status,topic,message) VALUES (?,?,?,?)").bind(String(row.id),"failed","자동 업데이트",error instanceof Error?error.message:"알 수 없는 오류").run();}}}
+export async function runDueContentAgents(){const d1=await db();const now=new Date().toISOString();const due=await d1.prepare("SELECT id FROM content_agents WHERE status='active' AND next_run_at IS NOT NULL AND next_run_at<=? ORDER BY next_run_at LIMIT 2").bind(now).all();for(const row of due.results){try{await runContentAgent(String(row.id));}catch(error){await d1.prepare("INSERT INTO agent_runs (agent_id,status,topic,message) VALUES (?,?,?,?)").bind(String(row.id),"failed","자동 업데이트",error instanceof Error?error.message:"알 수 없는 오류").run();}}await runSiteManagementAudit();}
+
+function mapManagementIssue(row:Record<string,unknown>):ManagementIssue{return{id:Number(row.id),issueKey:String(row.issue_key),auditorId:String(row.auditor_id),auditorName:managementDepartment.find(member=>member.id===row.auditor_id)?.name??String(row.auditor_id),severity:row.severity==="critical"?"critical":row.severity==="warning"?"warning":"info",scope:String(row.scope),status:row.status==="resolved"?"resolved":"open",title:String(row.title),details:String(row.details),actionTaken:row.action_taken?String(row.action_taken):null,postId:row.post_id?Number(row.post_id):null,postTitle:row.post_title?String(row.post_title):null,createdAt:String(row.created_at),resolvedAt:row.resolved_at?String(row.resolved_at):null};}
+function mapManagementRun(row:Record<string,unknown>):ManagementRun{return{id:Number(row.id),status:String(row.status),checkedCount:Number(row.checked_count),issueCount:Number(row.issue_count),actionCount:Number(row.action_count),summary:String(row.summary),createdAt:String(row.created_at)};}
+function mapOriginalityCheck(row:Record<string,unknown>):OriginalityCheck{return{id:Number(row.id),postId:row.post_id?Number(row.post_id):null,editorName:String(row.editor_name),title:String(row.title),sourceUrl:row.source_url?String(row.source_url):null,status:row.status==="blocked"?"blocked":row.status==="unavailable"?"unavailable":"passed",overlapRatio:Number(row.overlap_ratio??0)/1000,longestMatchChars:Number(row.longest_match_chars??0),message:String(row.message),checkedAt:String(row.checked_at)};}
+
+export async function runSiteManagementAudit(){
+  const d1=await db();
+  const [postRows,queueRows,failedRows,agentRows,originalityRows]=await Promise.all([
+    d1.prepare("SELECT * FROM posts WHERE status IN ('published','scheduled') ORDER BY id").all(),
+    d1.prepare("SELECT q.*,p.title FROM posting_queue q JOIN posts p ON p.id=q.post_id WHERE q.status='review' AND julianday('now')-julianday(q.created_at)>=2").all(),
+    d1.prepare("SELECT r.*,a.name AS agent_name FROM agent_runs r JOIN content_agents a ON a.id=r.agent_id WHERE r.status='failed' AND julianday('now')-julianday(r.created_at)<=7").all(),
+    d1.prepare("SELECT * FROM content_agents WHERE status='active' AND (json_array_length(sources_json)=0 OR (next_run_at IS NOT NULL AND next_run_at<?))").bind(new Date(Date.now()-2*60*60*1000).toISOString()).all(),
+    d1.prepare("SELECT * FROM originality_checks WHERE status!='passed' AND julianday('now')-julianday(checked_at)<=7 ORDER BY checked_at DESC LIMIT 30").all(),
+  ]);
+  const activeKeys=new Set<string>();let actionCount=0;
+  const report=async(issue:{key:string;auditorId:string;severity:string;scope:string;title:string;details:string;action?:string;postId?:number})=>{activeKeys.add(issue.key);await d1.prepare(`INSERT INTO management_issues (issue_key,auditor_id,severity,scope,status,title,details,action_taken,post_id) VALUES (?,?,?,?,'open',?,?,?,?,?) ON CONFLICT(issue_key) DO UPDATE SET auditor_id=excluded.auditor_id,severity=excluded.severity,scope=excluded.scope,status='open',title=excluded.title,details=excluded.details,action_taken=excluded.action_taken,post_id=excluded.post_id,updated_at=CURRENT_TIMESTAMP,resolved_at=NULL`).bind(issue.key,issue.auditorId,issue.severity,issue.scope,issue.title,issue.details,issue.action??null,issue.postId??null).run();};
+
+  for(const row of postRows.results){const post=mapPost(row as Record<string,unknown>);for(const finding of inspectPublicationPolicy(post)){let action:string|undefined;if(post.status==="scheduled"&&finding.severity==="critical"){await d1.batch([d1.prepare("UPDATE posts SET status='draft',scheduled_at=NULL,updated_at=CURRENT_TIMESTAMP WHERE id=?").bind(post.id),d1.prepare("UPDATE posting_queue SET status='review',scheduled_at=NULL,last_error=? WHERE post_id=?").bind(finding.title,post.id)]);action="예약 발행을 중지하고 검토 대기로 전환했습니다.";actionCount++;}await report({key:`policy:${post.id}:${finding.code}`,auditorId:"policy-lead",severity:finding.severity,scope:"발행정책",title:finding.title,details:`‘${post.title}’ — ${finding.details}`,action,postId:post.id});}}
+  for(const row of queueRows.results)await report({key:`queue-overdue:${row.id}`,auditorId:"operations-guard",severity:"warning",scope:"검토 대기",title:"검토 대기가 48시간을 넘었습니다",details:`‘${String(row.title)}’ 초안의 담당자와 처리 기한을 확인하세요.`,postId:Number(row.post_id)});
+  for(const row of failedRows.results)await report({key:`agent-failed:${row.id}`,auditorId:"operations-guard",severity:"critical",scope:"자동화",title:"콘텐츠 자동화가 실패했습니다",details:`${String(row.agent_name)} — ${String(row.message??"원인을 확인하세요.")}`,postId:row.post_id?Number(row.post_id):undefined});
+  for(const row of agentRows.results){const noSources=JSON.parse(String(row.sources_json??"[]")).length===0;let action:string|undefined;if(noSources){await d1.prepare("UPDATE content_agents SET status='paused',updated_at=CURRENT_TIMESTAMP WHERE id=?").bind(String(row.id)).run();action="공식 출처가 없는 에이전트를 자동으로 일시정지했습니다.";actionCount++;}await report({key:`agent-health:${row.id}`,auditorId:"site-safety",severity:noSources?"critical":"warning",scope:"사이트 운영",title:noSources?"에이전트의 공식 출처가 없습니다":"자동화 실행이 예정 시각보다 늦었습니다",details:`${String(row.name)}의 설정과 실행 상태를 확인하세요.`,action});}
+  for(const row of originalityRows.results){if(row.status==="blocked")actionCount++;await report({key:`originality:${row.id}`,auditorId:"policy-lead",severity:row.status==="blocked"?"critical":"warning",scope:"원문 복사 감시",title:row.status==="blocked"?"원문 복사 의심으로 발행을 차단했습니다":"원문 대조를 완료하지 못했습니다",details:`${String(row.editor_name)} 편집자의 ‘${String(row.title)}’ — ${String(row.message)}`,action:"편집자에게 원문을 그대로 옮기지 말고 독자용 설명·사례·표로 재작성하도록 자동 요청했습니다.",postId:row.post_id?Number(row.post_id):undefined});}
+
+  const openRows=await d1.prepare("SELECT issue_key FROM management_issues WHERE status='open'").all();for(const row of openRows.results){const key=String(row.issue_key);if(!activeKeys.has(key))await d1.prepare("UPDATE management_issues SET status='resolved',resolved_at=CURRENT_TIMESTAMP,updated_at=CURRENT_TIMESTAMP WHERE issue_key=?").bind(key).run();}
+  const signalCount=queueRows.results.length+failedRows.results.length+agentRows.results.length+originalityRows.results.length;const summary=`글 ${postRows.results.length}건과 운영 신호 ${signalCount}건을 점검했습니다.`;
+  const run=await d1.prepare("INSERT INTO management_runs (status,checked_count,issue_count,action_count,summary) VALUES ('completed',?,?,?,?) RETURNING *").bind(postRows.results.length+signalCount,activeKeys.size,actionCount,summary).first();
+  return mapManagementRun(run as Record<string,unknown>);
+}
+
+export async function getSiteManagementDashboard(){const d1=await db();const [issues,runs,originalityChecks]=await Promise.all([d1.prepare("SELECT i.*,p.title AS post_title FROM management_issues i LEFT JOIN posts p ON p.id=i.post_id ORDER BY CASE i.status WHEN 'open' THEN 0 ELSE 1 END,CASE i.severity WHEN 'critical' THEN 0 WHEN 'warning' THEN 1 ELSE 2 END,i.updated_at DESC LIMIT 60").all(),d1.prepare("SELECT * FROM management_runs ORDER BY created_at DESC,id DESC LIMIT 20").all(),d1.prepare("SELECT * FROM originality_checks ORDER BY checked_at DESC,id DESC LIMIT 30").all()]);return{members:managementDepartment,companyRules,companyResources:companyResourceRegistry,notice:organizationNotice,policyCoverage:organizationPolicyCoverage,policyRecipients:organizationPolicyRecipients,originalityChecks:originalityChecks.results.map(row=>mapOriginalityCheck(row as Record<string,unknown>)),issues:issues.results.map(row=>mapManagementIssue(row as Record<string,unknown>)),runs:runs.results.map(row=>mapManagementRun(row as Record<string,unknown>))};}
+export async function resolveManagementIssue(id:number){const d1=await db();const row=await d1.prepare("UPDATE management_issues SET status='resolved',resolved_at=CURRENT_TIMESTAMP,updated_at=CURRENT_TIMESTAMP WHERE id=? RETURNING *").bind(id).first();if(!row)throw new Error("관리 문제를 찾지 못했습니다.");return mapManagementIssue(row as Record<string,unknown>);}
 
 export async function isAdminLoginAllowed(attemptKey:string){const d1=await db();const now=Math.floor(Date.now()/1000);const row=await d1.prepare("SELECT blocked_until FROM admin_login_attempts WHERE attempt_key=?").bind(attemptKey).first<{blocked_until:number}>();return !row||Number(row.blocked_until)<=now;}
 export async function recordAdminLoginFailure(attemptKey:string){const d1=await db();const now=Math.floor(Date.now()/1000);const windowStart=now-15*60;await d1.prepare(`INSERT INTO admin_login_attempts (attempt_key,failures,window_started_at,blocked_until) VALUES (?,1,?,0) ON CONFLICT(attempt_key) DO UPDATE SET failures=CASE WHEN window_started_at<? THEN 1 ELSE failures+1 END,window_started_at=CASE WHEN window_started_at<? THEN ? ELSE window_started_at END,blocked_until=CASE WHEN window_started_at>=? AND failures+1>=5 THEN ? ELSE 0 END`).bind(attemptKey,now,windowStart,windowStart,now,windowStart,now+15*60).run();}
