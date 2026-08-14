@@ -5,6 +5,7 @@ export const safeReleasePolicy = {
   productionAuthority: "대표 · 최고관리자",
   approvalAuthority: "관리부",
   rollback: "직전 정상 버전을 유지하며 실패 시 운영 버전을 교체하지 않습니다.",
+  availability: "공개 페이지는 읽기 전용이며 에이전트·감사·자동화로부터 분리하여 항상 빠르게 열리고, 엣지 캐시된 HTML을 우선 제공합니다.",
   updatePaths: [
     { team:"콘텐츠기획팀", change:"브리프·편성 변경", delivery:"운영 사이트 변경 없음" },
     { team:"편집부 · 콘텐츠 부장", change:"글 초안·본문 변경", delivery:"D1에 초안 저장 후 검토" },
@@ -18,6 +19,7 @@ export const safeReleasePolicy = {
     "프로덕션 빌드와 자동 테스트 통과",
     "DB 변경 시 마이그레이션 포함 여부 확인",
     "관리부의 정책·품질·보안 승인",
+    "공개 조회 경로와 자동화 경로 분리 확인",
     "대표 계정으로 새 버전 저장",
     "준비가 끝난 버전을 운영으로 한 번에 교체",
     "운영 URL·대표 도메인·핵심 기능 확인",

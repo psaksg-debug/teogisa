@@ -260,6 +260,19 @@ test("전사 감사 조직과 감사영역이 문서화되어 있다", async () 
   assert.match(report,/조건부 적정/);
 });
 
+test("현재 전체 조직도를 단일 명부에서 집계한다", async () => {
+  const chart = await readFile(new URL("../lib/organization-chart.ts", import.meta.url), "utf8");
+  const page = await readFile(new URL("../app/organization/page.tsx", import.meta.url), "utf8");
+  const notice = await readFile(new URL("../ORGANIZATION_NOTICE.md", import.meta.url), "utf8");
+  assert.match(chart,/organizationChartDepartments/);
+  assert.match(chart,/contentPlanningTeam\.map/);
+  assert.match(chart,/allEditorialAuthors\.map/);
+  assert.match(chart,/managementDepartment\.map/);
+  assert.match(page,/퇴\.기\.사 전체 조직도/);
+  assert.match(page,/직원 수는 현재 각 부서 명부에서 자동 집계/);
+  assert.match(notice,/총 33명/);
+});
+
 test("keeps the independent editor and write APIs session-protected", async () => {
   const [adminPage, adminClient, loginPage, sessionRoute, siteAdmin, postsApi, postUpdateApi, exportApi, automationApi, promotionsApi] = await Promise.all([
     readFile(new URL("../app/admin/page.tsx", import.meta.url), "utf8"),
@@ -362,7 +375,7 @@ test("ships mobile-first SEO, GEO, trust and original-value pages", async () => 
   assert.match(contact, /master@adbles\.com/);
   assert.match(terms, /정보와 계산 결과의 한계/);
   assert.match(author, /편집부장은 ‘/);
-  assert.match(author, /분야별 편집자 6명/);
+  assert.match(author, /editorialAuthors\.length}명/);
   assert.match(author, /AI 기반 실무자/);
   assert.match(post, /author\.role/);
   assert.match(post, /퇴\.기\.사 AI 편집자/);
@@ -383,4 +396,21 @@ test("ships mobile-first SEO, GEO, trust and original-value pages", async () => 
   assert.match(css, /padding-left:max\(18px,env\(safe-area-inset-left\)\)/);
   assert.match(css, /\.related-posts \.thumbnail-search\{width:100%;height:126px;margin:0 0 20px\}/);
   assert.match(css, /font-family:"Noto Sans KR","Apple SD Gothic Neo",-apple-system/);
+});
+
+test("keeps public reads fast while automation runs in the background", async () => {
+  const [worker, repository, releasePolicy] = await Promise.all([
+    readFile(new URL("../worker/index.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/repository.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/release-policy.ts", import.meta.url), "utf8"),
+  ]);
+  assert.match(worker, /PUBLIC_CACHE_CONTROL/);
+  assert.match(worker, /stale-while-revalidate=86400/);
+  assert.match(worker, /edgeCache\.match/);
+  assert.match(worker, /edgeCache\.put/);
+  assert.match(worker, /scheduled_content_failed/);
+  assert.match(repository, /db\(\{initialize:false\}\)/);
+  assert.match(repository, /runDueSiteManagementAudit/);
+  assert.match(repository, /await publishDuePosts\(\)/);
+  assert.match(releasePolicy, /availability:/);
 });

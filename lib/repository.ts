@@ -35,9 +35,12 @@ export type AuditFinding = { id:number; auditRunId:number; domain:string; severi
 let initialized = false;
 const CONTENT_QUALITY_REVISION="2026-08-14-adsense-readiness-v2";
 
-async function db() {
+async function db(options:{initialize?:boolean}={}) {
   const d1 = (env as unknown as { DB?: D1Database }).DB;
   if (!d1) throw new Error("DB binding unavailable");
+
+  // Public page reads must never wait for schema checks or seed writes.
+  if (options.initialize === false) return d1;
 
   if (!initialized) {
     await d1.batch([
@@ -149,8 +152,7 @@ export async function publishDuePosts() {
 
 export async function getPublishedPosts() {
   try {
-    await publishDuePosts();
-    const d1 = await db();
+    const d1 = await db({initialize:false});
     const result = await d1
       .prepare("SELECT * FROM posts WHERE status='published' ORDER BY published_at DESC, id DESC")
       .all();
@@ -169,8 +171,7 @@ export async function getAllPosts() {
 
 export async function getPost(slug: string) {
   try {
-    await publishDuePosts();
-    const d1 = await db();
+    const d1 = await db({initialize:false});
     const row = await d1
       .prepare("SELECT * FROM posts WHERE slug=? AND status='published'")
       .bind(slug)
@@ -370,7 +371,7 @@ export async function runContentAgent(id:string){
   return post;
 }
 
-export async function runDueContentAgents(){assertTeamPermission("management","automation.run");const d1=await db();const now=new Date().toISOString();const due=await d1.prepare("SELECT id FROM content_agents WHERE status='active' AND next_run_at IS NOT NULL AND next_run_at<=? ORDER BY next_run_at LIMIT 2").bind(now).all();for(const row of due.results){try{await runContentAgent(String(row.id));}catch(error){await d1.prepare("INSERT INTO agent_runs (agent_id,status,topic,message) VALUES (?,?,?,?)").bind(String(row.id),"failed","자동 업데이트",error instanceof Error?error.message:"알 수 없는 오류").run();}}await runSiteManagementAudit();await runDueOrganizationAudit();}
+export async function runDueContentAgents(){assertTeamPermission("management","automation.run");await publishDuePosts();const d1=await db();const now=new Date().toISOString();const due=await d1.prepare("SELECT id FROM content_agents WHERE status='active' AND next_run_at IS NOT NULL AND next_run_at<=? ORDER BY next_run_at LIMIT 2").bind(now).all();for(const row of due.results){try{await runContentAgent(String(row.id));}catch(error){await d1.prepare("INSERT INTO agent_runs (agent_id,status,topic,message) VALUES (?,?,?,?)").bind(String(row.id),"failed","자동 업데이트",error instanceof Error?error.message:"알 수 없는 오류").run();}}await runDueSiteManagementAudit();await runDueOrganizationAudit();}
 
 function mapManagementIssue(row:Record<string,unknown>):ManagementIssue{return{id:Number(row.id),issueKey:String(row.issue_key),auditorId:String(row.auditor_id),auditorName:managementDepartment.find(member=>member.id===row.auditor_id)?.name??String(row.auditor_id),severity:row.severity==="critical"?"critical":row.severity==="warning"?"warning":"info",scope:String(row.scope),status:row.status==="resolved"?"resolved":"open",title:String(row.title),details:String(row.details),actionTaken:row.action_taken?String(row.action_taken):null,postId:row.post_id?Number(row.post_id):null,postTitle:row.post_title?String(row.post_title):null,createdAt:String(row.created_at),resolvedAt:row.resolved_at?String(row.resolved_at):null};}
 function mapManagementRun(row:Record<string,unknown>):ManagementRun{return{id:Number(row.id),status:String(row.status),checkedCount:Number(row.checked_count),issueCount:Number(row.issue_count),actionCount:Number(row.action_count),summary:String(row.summary),createdAt:String(row.created_at)};}
@@ -402,6 +403,7 @@ export async function runSiteManagementAudit(){
 }
 
 export async function getSiteManagementDashboard(){const d1=await db();const [issues,runs,originalityChecks]=await Promise.all([d1.prepare("SELECT i.*,p.title AS post_title FROM management_issues i LEFT JOIN posts p ON p.id=i.post_id ORDER BY CASE i.status WHEN 'open' THEN 0 ELSE 1 END,CASE i.severity WHEN 'critical' THEN 0 WHEN 'warning' THEN 1 ELSE 2 END,i.updated_at DESC LIMIT 60").all(),d1.prepare("SELECT * FROM management_runs ORDER BY created_at DESC,id DESC LIMIT 20").all(),d1.prepare("SELECT * FROM originality_checks ORDER BY checked_at DESC,id DESC LIMIT 30").all()]);return{members:managementDepartment,companyRules,companyResources:companyResourceRegistry,safeReleasePolicy,notice:organizationNotice,policyCoverage:organizationPolicyCoverage,policyRecipients:organizationPolicyRecipients,originalityChecks:originalityChecks.results.map(row=>mapOriginalityCheck(row as Record<string,unknown>)),issues:issues.results.map(row=>mapManagementIssue(row as Record<string,unknown>)),runs:runs.results.map(row=>mapManagementRun(row as Record<string,unknown>))};}
+export async function runDueSiteManagementAudit(){const d1=await db();const recent=await d1.prepare("SELECT id FROM management_runs WHERE created_at>=datetime('now','-6 hours') LIMIT 1").first();return recent?null:runSiteManagementAudit();}
 export async function resolveManagementIssue(id:number){assertTeamPermission("management","audit.resolve");const d1=await db();const row=await d1.prepare("UPDATE management_issues SET status='resolved',resolved_at=CURRENT_TIMESTAMP,updated_at=CURRENT_TIMESTAMP WHERE id=? RETURNING *").bind(id).first();if(!row)throw new Error("관리 문제를 찾지 못했습니다.");return mapManagementIssue(row as Record<string,unknown>);}
 
 function mapAuditRun(row:Record<string,unknown>):AuditRun{return{id:Number(row.id),scope:String(row.scope),leadAuditor:String(row.lead_auditor),status:String(row.status),overallOpinion:String(row.overall_opinion),totalItems:Number(row.total_items),passedItems:Number(row.passed_items),findingCount:Number(row.finding_count),startedAt:String(row.started_at),completedAt:row.completed_at?String(row.completed_at):null};}

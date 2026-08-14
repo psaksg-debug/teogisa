@@ -20,6 +20,28 @@ interface ExecutionContext {
   passThroughOnException(): void;
 }
 
+interface EdgeCacheStorage extends CacheStorage {
+  readonly default: Cache;
+}
+
+const PUBLIC_CACHE_CONTROL="public, max-age=0, s-maxage=300, stale-while-revalidate=86400";
+
+function isPublicDocumentRequest(request:Request,url:URL){
+  if(request.method!=="GET"||url.search!=="")return false;
+  if(url.pathname.startsWith("/admin")||url.pathname.startsWith("/api/")||url.pathname.startsWith("/_vinext/"))return false;
+  if(request.headers.has("cookie")||request.headers.has("rsc")||request.headers.has("next-router-state-tree"))return false;
+  return request.headers.get("accept")?.includes("text/html")===true;
+}
+
+function cacheKey(url:URL){return new Request(`${url.origin}${url.pathname}`,{headers:{accept:"text/html"}});}
+
+function withCacheHeader(response:Response,status:"HIT"|"MISS"){
+  const headers=new Headers(response.headers);
+  headers.set("cache-control",PUBLIC_CACHE_CONTROL);
+  headers.set("x-site-cache",status);
+  return new Response(response.body,{status:response.status,statusText:response.statusText,headers});
+}
+
 // Image security config. SVG sources with .svg extension auto-skip the
 // optimization endpoint on the client side (served directly, no proxy).
 // To route SVGs through the optimizer (with security headers), set
@@ -48,9 +70,23 @@ const worker = {
       }, allowedWidths);
     }
 
-    return handler.fetch(request, env, ctx);
+    const cacheable=isPublicDocumentRequest(request,url);
+    const edgeCache=(caches as EdgeCacheStorage).default;
+    const key=cacheable?cacheKey(url):null;
+    if(key){
+      const cached=await edgeCache.match(key);
+      if(cached)return withCacheHeader(cached,"HIT");
+    }
+
+    const response=await handler.fetch(request, env, ctx);
+    if(key&&response.status===200&&response.headers.get("content-type")?.includes("text/html")&&!response.headers.has("set-cookie")){
+      const publicResponse=withCacheHeader(response,"MISS");
+      ctx.waitUntil(edgeCache.put(key,publicResponse.clone()).catch(error=>console.error(JSON.stringify({event:"public_cache_write_failed",path:url.pathname,message:error instanceof Error?error.message:String(error)}))));
+      return publicResponse;
+    }
+    return response;
   },
-  async scheduled(_controller:ScheduledController,_env:Env,ctx:ExecutionContext){ctx.waitUntil(runDueContentAgents());},
+  async scheduled(_controller:ScheduledController,_env:Env,ctx:ExecutionContext){ctx.waitUntil(runDueContentAgents().catch(error=>console.error(JSON.stringify({event:"scheduled_content_failed",message:error instanceof Error?error.message:String(error)}))));},
 };
 
 export default worker;
