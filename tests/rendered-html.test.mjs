@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("renders the finished Korean content site", async () => {
-  const [page, layout, search, article, media, enrichment, content, footer, mobileMenu, site, css, richEditor, articleHtml, readerTools] = await Promise.all([
+  const [page, layout, search, article, media, enrichment, content, footer, mobileMenu, site, css, richEditor, articleHtml, readerTools, management, repository] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/search/page.tsx", import.meta.url), "utf8"),
@@ -18,6 +18,8 @@ test("renders the finished Korean content site", async () => {
     readFile(new URL("../app/admin/RichTextEditor.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/article-html.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/posts/[slug]/ArticleReaderTools.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../lib/management-department.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/repository.ts", import.meta.url), "utf8"),
   ]);
   assert.match(layout, /퇴\.기\.사/);
   assert.match(site, /100세시대! 퇴직이 기회가 되는 사람들/);
@@ -29,9 +31,13 @@ test("renders the finished Korean content site", async () => {
   assert.match(page, /본문으로 바로가기/);
   assert.match(page, /hero-facts/);
   assert.match(page, /최근 발행 글/);
-  assert.match(page, /recentPosts=sortedPosts\.slice\(0,5\)/);
+  assert.match(page, /recentPosts=posts\.slice\(0,5\)/);
   assert.match(page, /recent-title-list/);
+  assert.match(page, /recent-post-category[^}]+post\.category/);
   assert.match(css, /\.recent-title-list a\{min-height:64px/);
+  assert.match(css, /\.recent-title-list \.recent-post-category/);
+  assert.match(repository, /sortPostsNewestFirst/);
+  assert.match(repository, /publishedAt\.localeCompare\(a\.publishedAt\) \|\| b\.id - a\.id/);
   assert.match(page, /ContactPoint/);
   assert.match(page, /master@adbles\.com/);
   assert.match(page, /MobileMenu/);
@@ -67,7 +73,22 @@ test("renders the finished Korean content site", async () => {
   assert.match(layout, /<meta name="google-adsense-account" content="ca-pub-4030620718116834"\/>/);
   assert.match(media, /ArticleThumbnail/);
   assert.doesNotMatch(media, /읽은 뒤 다시 확인/);
-  assert.match(media, /핵심 내용과 확인표/);
+  assert.doesNotMatch(media, /핵심 내용과 확인표/);
+  assert.doesNotMatch(media, /읽으면서 확인할 표/);
+  assert.doesNotMatch(enrichment, /목표와 기간 확인/);
+  assert.match(content, /<ol><li>/);
+  assert.match(content, /<ul><li>/);
+  assert.match(css, /\.article-copy ul\{list-style:disc\}/);
+  assert.match(css, /\.article-copy ol\{list-style:decimal\}/);
+  assert.match(css, /\.article-copy li::marker/);
+  assert.match(css, /Article readability: comfortable Korean text measure/);
+  assert.match(css, /max-width:42em!important/);
+  assert.match(css, /font-size:19px;line-height:1\.82/);
+  assert.match(css, /\.rich-article-body tbody tr:nth-child\(even\)/);
+  assert.match(css, /\.related-posts a>strong\{display:block/);
+  assert.match(css, /\.footer-links a\{font-size:14px/);
+  assert.match(management, /list-missing/);
+  assert.match(management, /본문 목록이 없습니다/);
   assert.doesNotMatch(media, /자동 구성된/);
   assert.match(enrichment, /wikipedia\.org/);
   assert.match(enrichment, /categoryOfficialLinks/);
@@ -85,6 +106,10 @@ test("renders the finished Korean content site", async () => {
   assert.match(articleHtml, /https:\/\/www\.work24\.go\.kr\//);
   assert.match(articleHtml, /https:\/\/www\.nts\.go\.kr\//);
   assert.match(articleHtml, /https:\/\/hometax\.go\.kr\//);
+  assert.match(articleHtml, /const linked=new Set<string>\(\)/);
+  assert.match(articleHtml, /linked\.has\(item\.term\)/);
+  assert.match(articleHtml, /refreshOfficialUrl\(rawHref\)/);
+  assert.match(article, /\.map\(refreshOfficialUrl\)/);
   assert.match(article, /addOfficialOrganizationLinksToHtml/);
   assert.match(enrichment, /youtube-nocookie/);
   assert.match(enrichment, /article-thumbnails/);
@@ -270,7 +295,7 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(admin,/선택한 이름이 글 상단과 검색엔진용 작성자 정보에 함께 표시됩니다/);
   assert.match(sitemap,/challenge/);
   assert.doesNotMatch(sitemap,/keyword-lab/);
-  const robots = await readFile(new URL("../app/robots.ts", import.meta.url), "utf8");
+  const robots = await readFile(new URL("../public/robots.txt", import.meta.url), "utf8");
   assert.match(robots,/OAI-SearchBot/);
   assert.match(robots,/bingbot/);
   assert.match(robots,/Yeti/);
@@ -369,7 +394,7 @@ test("ships mobile-first SEO, GEO, trust and original-value pages", async () => 
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/posts/[slug]/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8"),
-    readFile(new URL("../app/robots.ts", import.meta.url), "utf8"),
+    readFile(new URL("../public/robots.txt", import.meta.url), "utf8"),
     readFile(new URL("../app/rss.xml/route.ts", import.meta.url), "utf8"),
     readFile(new URL("../public/llms.txt", import.meta.url), "utf8"),
     readFile(new URL("../public/ads.txt", import.meta.url), "utf8"),
@@ -454,6 +479,9 @@ test("keeps public reads fast while automation runs in the background", async ()
   assert.match(repository, /db\(\{initialize:false\}\)/);
   assert.match(repository, /persistedSlugs/);
   assert.match(repository, /post\.status===\"published\"&&!persistedSlugs\.has\(post\.slug\)/);
+  assert.match(repository, /decodeURIComponent\(slug\)\.normalize\(\"NFC\"\)/);
+  assert.match(repository, /bind\(normalizedSlug\)/);
+  assert.match(repository, /legacyPostSlugAliases\[slug\]/);
   assert.match(repository, /runDueSiteManagementAudit/);
   assert.match(repository, /await publishDuePosts\(\)/);
   assert.match(releasePolicy, /availability:/);

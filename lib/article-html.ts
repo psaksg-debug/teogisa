@@ -8,6 +8,10 @@ function safeYoutube(value:string){try{const url=new URL(value);return url.proto
 function attributes(raw:string){const result=new Map<string,string>();const pattern=/([a-zA-Z0-9:-]+)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+))/g;for(const match of raw.matchAll(pattern))result.set(match[1].toLowerCase(),match[2]??match[3]??match[4]??"");return result;}
 function safeClasses(value:string){return value.split(/\s+/).filter((item)=>allowedClasses.has(item)).join(" ");}
 function safeStyle(value:string){return value.split(";").map(item=>item.trim()).filter(item=>/^text-align\s*:\s*(left|center|right|justify)$/i.test(item)).join(";");}
+const refreshedOfficialUrls=new Map([
+  ["https://j.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=238978&mi=40483","https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=238978"],
+]);
+export function refreshOfficialUrl(value:string){return refreshedOfficialUrls.get(value)??value;}
 
 export function sanitizeArticleHtml(value:string){
   let html=value.replace(/<!--[\s\S]*?-->/g,"").replace(blockedElements,"");
@@ -20,7 +24,8 @@ export function sanitizeArticleHtml(value:string){
     const style=safeStyle(attrs.get("style")??"");
     const common=`${className?` class="${escapeAttribute(className)}"`:""}${style?` style="${escapeAttribute(style)}"`:""}`;
     if(tag==="a"){
-      const href=safeUrl(attrs.get("href")??"",true);
+      const rawHref=attrs.get("href")??"";
+      const href=safeUrl(refreshOfficialUrl(rawHref),true);
       return href?`<a href="${escapeAttribute(href)}" target="_blank" rel="noopener noreferrer"${common}>`:"<span>";
     }
     if(tag==="img"){
@@ -90,6 +95,7 @@ const officialOrganizationLinks=[
 
 export function addOfficialOrganizationLinksToHtml(html:string){
   let anchorDepth=0;
+  const linked=new Set<string>();
   return html.split(/(<[^>]+>)/g).map((token)=>{
     if(token.startsWith("<")){
       if(/^<a\b/i.test(token))anchorDepth+=1;else if(/^<\/a\b/i.test(token))anchorDepth=Math.max(0,anchorDepth-1);
@@ -98,7 +104,11 @@ export function addOfficialOrganizationLinksToHtml(html:string){
     if(anchorDepth>0)return token;
     let text=token;
     for(const item of officialOrganizationLinks){
-      text=text.split(item.term).join(`<a class="official-organization-link" href="${escapeAttribute(item.url)}" target="_blank" rel="noopener noreferrer" title="${escapeAttribute(item.term)} 공식 홈페이지 열기">${item.term}</a>`);
+      if(linked.has(item.term))continue;
+      const index=text.indexOf(item.term);if(index<0)continue;
+      linked.add(item.term);
+      const link=`<a class="official-organization-link" href="${escapeAttribute(item.url)}" target="_blank" rel="noopener noreferrer" title="${escapeAttribute(item.term)} 공식 홈페이지 열기">${item.term}</a>`;
+      text=`${text.slice(0,index)}${link}${text.slice(index+item.term.length)}`;
     }
     return text;
   }).join("");

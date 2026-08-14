@@ -164,7 +164,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 
 /* Mobile site-wide navigation */
 .mobile-menu{display:none}
-@media(max-width:900px){
+@media(max-width:1100px){
   .mobile-menu{display:block;margin-left:auto}
   .mobile-menu-toggle,.mobile-menu-close{width:48px;height:48px;padding:0;display:grid;place-content:center;border:1px solid var(--line);border-radius:50%;color:var(--navy);background:#fff;cursor:pointer}
   .mobile-menu-toggle{gap:5px}
@@ -672,8 +672,12 @@ button:not(:disabled),[role="button"],summary{cursor:pointer}
 .reader-progress-value{display:block;width:var(--reading-progress);height:100%;background:var(--orange);transition:width .12s linear}
 .article-copy h2,.article-copy h3{scroll-margin-top:108px}
 .article-copy p{margin:0 0 1.55em}
-.article-copy ul,.article-copy ol{margin:1.25em 0 1.7em;padding-left:1.45em}
-.article-copy li+li{margin-top:.55em}
+.article-copy ul,.article-copy ol{margin:1.35em 0 1.8em;padding:1.15em 1.35em 1.15em 2.85em;border-left:4px solid var(--orange);background:var(--mist)}
+.article-copy ul{list-style:disc}
+.article-copy ol{list-style:decimal}
+.article-copy li{padding-left:.3em;line-height:1.78}
+.article-copy li+li{margin-top:.65em}
+.article-copy li::marker{color:var(--orange);font-weight:900}
 .article-copy strong{color:var(--navy);font-weight:800}
 .article-copy blockquote{margin:2em 0;padding:20px 24px;border-left:4px solid var(--orange);background:var(--mist);color:var(--navy)}
 .article-copy.reader-large{width:100%;max-width:100%!important;min-width:0;font-size:20px;line-height:2;letter-spacing:0;overflow:visible}
@@ -698,10 +702,11 @@ button:not(:disabled),[role="button"],summary{cursor:pointer}
 .recent-posts-header>a{min-height:44px;display:inline-flex;align-items:center;gap:10px;border-bottom:1px solid var(--line);color:var(--teal);font-size:13px;font-weight:800}
 .recent-title-list{counter-reset:recent-post;margin:0;padding:0;border-top:2px solid var(--navy);list-style:none}
 .recent-title-list li{counter-increment:recent-post}
-.recent-title-list a{min-height:64px;display:grid;grid-template-columns:44px minmax(0,1fr) 28px;align-items:center;gap:16px;padding:8px 12px;border-bottom:1px solid var(--line);color:var(--navy);transition:background-color .18s ease,color .18s ease}
+.recent-title-list a{min-height:64px;display:grid;grid-template-columns:44px minmax(120px,160px) minmax(0,1fr) 28px;align-items:center;gap:16px;padding:8px 12px;border-bottom:1px solid var(--line);color:var(--navy);transition:background-color .18s ease,color .18s ease}
 .recent-title-list a::before{content:counter(recent-post,decimal-leading-zero);color:var(--orange);font:800 11px/1 ui-monospace,monospace}
+.recent-title-list .recent-post-category{min-width:0;color:var(--teal);font-size:13px;font-weight:800;line-height:1.45;overflow-wrap:anywhere}
 .recent-title-list strong{min-width:0;font:700 18px/1.5 "Noto Serif KR","AppleMyungjo","Batang",serif;letter-spacing:-.035em;white-space:normal;overflow-wrap:anywhere}
-.recent-title-list a>span{color:var(--teal);font-size:18px;text-align:right}
+.recent-title-list .recent-post-arrow{color:var(--teal);font-size:18px;text-align:right}
 .recent-title-list a:hover,.recent-title-list a:focus-visible{color:var(--teal);background:var(--mint)}
 .recent-title-list a:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
 
@@ -710,8 +715,11 @@ button:not(:disabled),[role="button"],summary{cursor:pointer}
   .recent-posts-header{align-items:flex-start;margin-bottom:18px}
   .recent-posts-header h2{font-size:28px}
   .recent-posts-header>a{flex:0 0 auto;font-size:12px}
-  .recent-title-list a{min-height:56px;grid-template-columns:30px minmax(0,1fr) 22px;gap:10px;padding:9px 4px}
+  .recent-title-list a{min-height:66px;grid-template-columns:30px minmax(0,1fr) 22px;grid-template-rows:auto auto;column-gap:10px;row-gap:2px;padding:10px 4px}
+  .recent-title-list a::before{grid-column:1;grid-row:1/3}
+  .recent-title-list .recent-post-category{grid-column:2;grid-row:1;font-size:12px}
   .recent-title-list strong{font-size:16.5px;line-height:1.55;letter-spacing:-.02em}
+  .recent-title-list .recent-post-arrow{grid-column:3;grid-row:1/3;align-self:center}
 }
 
 @media(max-width:700px){
@@ -724,6 +732,7 @@ button:not(:disabled),[role="button"],summary{cursor:pointer}
   .article-copy.reader-large{font-size:18.5px;line-height:1.95}
   .article-copy.reader-large .article-flow{grid-template-columns:1fr}
   .article-copy.reader-large .article-flow li{border-right:0}
+  .article-copy ul,.article-copy ol{padding:1em 1em 1em 2.45em}
 }
 @media(prefers-reduced-motion:reduce){.reader-progress-value{transition:none}}
 
@@ -818,15 +827,33 @@ button:not(:disabled),[role="button"],summary{cursor:pointer}
 @media(max-width:900px){.team-permission-grid,.activity-team-list details>div{grid-template-columns:repeat(2,1fr)}.activity-run-log article{grid-template-columns:80px 1fr}.activity-run-log article p,.activity-run-log time{grid-column:2}}
 @media(max-width:600px){.release-safety-summary,.team-permission-grid,.release-gate-list ol,.activity-summary,.activity-team-list details>div{grid-template-columns:1fr}.team-permission-grid p{min-height:0}.release-governance-panel .panel-title,.member-activity-panel .panel-title{align-items:flex-start;flex-direction:column}.activity-run-log article{grid-template-columns:1fr}.activity-run-log article p,.activity-run-log time{grid-column:auto;text-align:left}}
 
-/* Navigation readability: keep the site identity and menus legible at a glance. */
+/* Navigation readability: scale the identity and menus as one balanced type system. */
 .brand-copy{min-width:0;gap:3px}
 .brand-copy strong{font-size:19px;line-height:1.08}
 .brand-copy small{font-size:10.5px;line-height:1.4}
 .brand-logo{width:44px;height:44px}
-.site-header .main-nav a,.inner-portal-nav a{font-size:13px;font-weight:800;line-height:1.4}
-.inner-portal-nav a{min-height:44px;display:inline-flex;align-items:center}
+.site-header{height:clamp(96px,7.8vw,112px)}
+.site-header .brand{gap:clamp(11px,1vw,14px)}
+.site-header .brand-logo{width:clamp(48px,3.9vw,56px);height:clamp(48px,3.9vw,56px);flex:0 0 auto}
+.site-header .brand-copy strong{font-size:clamp(22px,1.8vw,26px);line-height:1.08}
+.site-header .brand-copy small{font-size:clamp(12px,.98vw,14px);line-height:1.4}
+.site-header .main-nav{gap:clamp(14px,1.6vw,28px)}
+.site-header .main-nav a{font-size:clamp(14px,1.1vw,16px);font-weight:800;line-height:1.4}
+.inner-brand-row .brand-logo{width:48px;height:48px;flex:0 0 48px}
+.inner-brand-row .brand-copy strong{font-size:22px;line-height:1.1}
+.inner-brand-row .brand-copy small{font-size:12px;line-height:1.4}
+.inner-portal-nav a{min-height:44px;display:inline-flex;align-items:center;font-size:15px;font-weight:800;line-height:1.4}
+
+@media(max-width:1100px){
+  .site-header{grid-template-columns:minmax(0,1fr) auto}
+  .site-header .main-nav,.site-header .verified-label{display:none}
+}
 
 @media(max-width:900px){
+  .site-header{height:88px}
+  .site-header .brand-logo{width:48px;height:48px;flex-basis:48px}
+  .site-header .brand-copy strong{font-size:22px}
+  .site-header .brand-copy small{font-size:12px}
   .mobile-menu-drawer>header div>span{font-size:13px;line-height:1.4}
   .mobile-menu-drawer>header strong{font-size:28px;line-height:1.2}
   .mobile-menu-drawer nav a{min-height:88px;padding:16px 4px}
@@ -845,4 +872,55 @@ button:not(:disabled),[role="button"],summary{cursor:pointer}
 
 @media(max-width:420px){
   .site-header .brand-copy small,.inner-brand-row .brand-copy small{max-width:150px}
+}
+
+/* Article readability: comfortable Korean text measure and consistent supporting type. */
+.article-layout{grid-template-columns:minmax(0,800px) minmax(230px,280px);gap:clamp(48px,6vw,76px)}
+.article-copy{width:100%;max-width:42em!important;color:#1f3944;font-size:19px;line-height:1.82;letter-spacing:0}
+.article-copy :where(p,li,blockquote){text-wrap:pretty}
+.article-copy p{margin-bottom:1.45em}
+.article-copy h2{max-inline-size:25ch;margin-top:2.75em;font-size:clamp(29px,2.8vw,35px);line-height:1.38;text-wrap:balance}
+.article-copy h3{max-inline-size:30ch;margin-top:2em;font-size:24px;line-height:1.45;text-wrap:balance}
+.article-copy .rich-article-body a:not(.primary-button,.link-embed>a),.article-copy.policy-copy a:not(.primary-button){color:var(--teal);text-decoration-line:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.rich-article-body table{font-size:16px;line-height:1.65}
+.rich-article-body th,.rich-article-body td{padding:15px 16px;vertical-align:top}
+.rich-article-body tbody tr:nth-child(even){background:#f7faf8}
+.article-aside{font-size:14px;line-height:1.75}
+.article-aside>strong{font-size:15px}
+.article-aside .chip{font-size:12px;line-height:1.45}
+.byline>a strong{font-size:14px}
+.byline>a small{font-size:11px}
+.article-header .byline>span{font-size:13px}
+.article-reference-grid h3{font-size:19px;line-height:1.45}
+.article-reference-grid a{min-height:48px;display:flex;align-items:center;font-size:14px;line-height:1.55}
+.article-copy.reader-large{font-size:21px;line-height:1.88}
+.related-posts a>span{display:block;margin-top:18px;color:var(--teal);font-size:12px;font-weight:800;line-height:1.4}
+.related-posts a>strong{display:block;margin-top:7px;color:var(--navy);font:700 19px/1.5 "Noto Serif KR","AppleMyungjo","Batang",serif;letter-spacing:-.025em}
+.related-posts a>p{margin:9px 0 0;color:var(--muted-ink);font-size:14px;line-height:1.7}
+.footer-intro>p{font-size:16px;line-height:1.75}
+.footer-contact span{font-size:12px}
+.footer-contact strong,.footer-contact a{font-size:14px}
+.footer-links nav>strong{font-size:14px}
+.footer-links a{font-size:14px;line-height:1.5}
+.footer-bottom small{font-size:12px;line-height:1.75}
+.footer-bottom p{font-size:12px;line-height:1.75}
+
+@media(max-width:900px){
+  .article-layout{grid-template-columns:1fr}
+  .article-copy{margin-inline:auto}
+}
+
+@media(max-width:600px){
+  .article-copy{font-size:18px;line-height:1.82}
+  .article-copy h2{margin-top:2.45em;font-size:29px;line-height:1.4}
+  .article-copy h3{font-size:22px}
+  .rich-article-body table{font-size:15px;line-height:1.6}
+  .rich-article-body th,.rich-article-body td{padding:12px 8px;overflow-wrap:normal;word-break:keep-all}
+  .article-aside{font-size:14px}
+  .article-copy.reader-large{font-size:19px;line-height:1.88}
+  .related-posts a>strong{font-size:18px}
+  .related-posts a>p{font-size:15px}
+  .footer-intro>p{font-size:15px}
+  .footer-contact strong,.footer-contact a,.footer-links a{font-size:14px}
+  .footer-bottom small,.footer-bottom p{font-size:12px}
 }

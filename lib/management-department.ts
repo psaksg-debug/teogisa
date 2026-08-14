@@ -27,10 +27,12 @@ export function inspectPublicationPolicy(post: Omit<Post, "id"> | Post): PolicyF
   const text = post.body.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
   const hasOfficialSource = /https?:\/\//i.test(post.body);
   const headingCount = (post.body.match(/<h[23][^>]*>/gi) ?? []).length + (post.body.match(/^#{2,3}\s+/gm) ?? []).length;
+  const hasList = /<(?:ul|ol)\b/i.test(post.body) || /^(?:\s*[-*+]\s+|\s*\d+[.)]\s+)/m.test(post.body);
   const findings: PolicyFinding[] = [];
 
   if (text.length < 700) findings.push({ code: "body-too-short", severity: "warning", title: "본문 근거가 부족합니다", details: "발행 전 사례·조건·확인 절차를 보강해 본문을 700자 이상으로 작성하세요." });
   if (headingCount < 2) findings.push({ code: "structure-missing", severity: "warning", title: "읽기 구조가 부족합니다", details: "독자의 질문, 확인 기준, 실행 순서를 구분하는 소제목을 2개 이상 추가하세요." });
+  if (!hasList) findings.push({ code: "list-missing", severity: "warning", title: "본문 목록이 없습니다", details: "준비물·순서·주의사항 가운데 적합한 내용을 불릿 또는 번호 목록으로 정리하세요." });
   if (!post.excerpt.trim()) findings.push({ code: "excerpt-missing", severity: "warning", title: "검색 요약이 없습니다", details: "글의 대상과 답을 설명하는 한 줄 요약을 입력하세요." });
   if (HIGH_RISK_CATEGORIES.has(post.category) && !hasOfficialSource) findings.push({ code: "official-source-missing", severity: "critical", title: "고위험 정보의 공식 출처가 없습니다", details: "정부지원·세무·투자·건강 정보는 발행 전에 공식기관 원문 주소를 연결해야 합니다." });
   if (GUARANTEE_PATTERN.test(text)) findings.push({ code: "guarantee-language", severity: "critical", title: "보장·과장 표현이 감지되었습니다", details: "수익·승인·치료 결과를 보장하는 표현을 삭제하고 조건과 한계를 함께 설명하세요." });

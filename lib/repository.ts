@@ -36,7 +36,7 @@ export type MemberActivityPlanState={id:string;memberId:string;memberName:string
 export type MemberActivityRun={id:number;planId:string;memberName:string;teamName:string;action:ActivityAction;status:"completed"|"noop"|"failed"|"review";summary:string;startedAt:string;completedAt:string|null};
 
 let initialized = false;
-const CONTENT_QUALITY_REVISION="2026-08-14-adsense-readiness-v2-deposit-protection-v1";
+const CONTENT_QUALITY_REVISION="2026-08-14-adsense-readiness-v2-deposit-protection-v1-official-source-refresh-v1";
 
 async function db(options:{initialize?:boolean}={}) {
   const d1 = (env as unknown as { DB?: D1Database }).DB;
@@ -155,6 +155,12 @@ function mapPost(row: Record<string, unknown>): Post {
   };
 }
 
+export function sortPostsNewestFirst(posts: readonly Post[]) {
+  return posts.toSorted(
+    (a, b) => b.publishedAt.localeCompare(a.publishedAt) || b.id - a.id,
+  );
+}
+
 export async function publishDuePosts() {
   const d1 = await db();
   const now = new Date().toISOString();
@@ -174,12 +180,12 @@ export async function getPublishedPosts() {
       .all();
     const persisted=result.results.map((row) => mapPost(row as Record<string, unknown>));
     const persistedSlugs=new Set(persisted.map(post=>post.slug));
-    return [
+    return sortPostsNewestFirst([
       ...persisted.filter(post=>post.status==="published"),
       ...seedPosts.filter(post=>post.status==="published"&&!persistedSlugs.has(post.slug)),
-    ].sort((a,b)=>b.publishedAt.localeCompare(a.publishedAt)||b.id-a.id);
+    ]);
   } catch {
-    return seedPosts.filter((post) => post.status === "published");
+    return sortPostsNewestFirst(seedPosts.filter((post) => post.status === "published"));
   }
 }
 
@@ -190,18 +196,33 @@ export async function getAllPosts() {
   return result.results.map((row) => mapPost(row as Record<string, unknown>));
 }
 
+function normalizePostSlug(slug:string){
+  try{return decodeURIComponent(slug).normalize("NFC");}
+  catch{return slug.normalize("NFC");}
+}
+
+const legacyPostSlugAliases:Record<string,string>={
+  "퇴직-후-건강보험료-첫-고지서-전에-확인할-3가지":"health-insurance-after-retirement-three-checks",
+};
+
+function findSeedPost(slug:string){
+  const seedSlug=legacyPostSlugAliases[slug]??slug;
+  return seedPosts.find((post)=>post.slug.normalize("NFC")===seedSlug)??null;
+}
+
 export async function getPost(slug: string) {
+  const normalizedSlug=normalizePostSlug(slug);
   try {
     const d1 = await db({initialize:false});
     const row = await d1
       .prepare("SELECT * FROM posts WHERE slug=? AND status='published'")
-      .bind(slug)
+      .bind(normalizedSlug)
       .first();
     return row
       ? mapPost(row as Record<string, unknown>)
-      : seedPosts.find((post) => post.slug === slug) ?? null;
+      : findSeedPost(normalizedSlug);
   } catch {
-    return seedPosts.find((post) => post.slug === slug) ?? null;
+    return findSeedPost(normalizedSlug);
   }
 }
 

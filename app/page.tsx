@@ -32,8 +32,7 @@ const categories = [
 
 export default async function Home() {
   const posts = await getPublishedPosts();
-  const sortedPosts=posts.toSorted((a,b)=>b.publishedAt.localeCompare(a.publishedAt)||b.id-a.id);
-  const recentPosts=sortedPosts.slice(0,5);
+  const recentPosts=posts.slice(0,5);
   const jsonLd = {"@context":"https://schema.org","@graph":[
     {"@type":"Organization","@id":`${SITE_URL}/#organization`,name:SITE_NAME,legalName:"애드블스",url:SITE_URL,logo:{"@type":"ImageObject",url:`${SITE_URL}/brand-mark-v2.png`},contactPoint:{"@type":"ContactPoint",contactType:"customer support",email:"master@adbles.com",url:`${SITE_URL}/contact`,availableLanguage:"Korean"}},
     {"@type":"WebSite","@id":`${SITE_URL}/#website`,url:SITE_URL,name:SITE_NAME,description:SITE_DESCRIPTION,publisher:{"@id":`${SITE_URL}/#organization`},inLanguage:"ko-KR",potentialAction:{"@type":"SearchAction",target:{"@type":"EntryPoint",urlTemplate:`${SITE_URL}/search?q={search_term_string}`},"query-input":"required name=search_term_string"}},
@@ -77,7 +76,7 @@ export default async function Home() {
             <a href="/search">모든 글 보기 <span aria-hidden="true">→</span></a>
           </header>
           <ol className="recent-title-list">
-            {recentPosts.map(post=><li key={post.slug}><a href={`/posts/${post.slug}`}><strong>{post.title}</strong><span aria-hidden="true">→</span></a></li>)}
+            {recentPosts.map(post=><li key={post.slug}><a href={`/posts/${post.slug}`}><span className="recent-post-category">{post.category}</span><strong>{post.title}</strong><span className="recent-post-arrow" aria-hidden="true">→</span></a></li>)}
           </ol>
         </section>
 
@@ -109,7 +108,7 @@ export default async function Home() {
             <a href="/search">모든 글 보기 <span aria-hidden="true">→</span></a>
           </div>
           <div className="post-grid">
-            {sortedPosts.slice(0, 3).map((post, index) => (
+            {posts.slice(0, 3).map((post, index) => (
               <article className={`post-card post-${index + 1}`} key={post.slug}>
                 <ArticleThumbnail post={post}/>
                 <div className="post-body">

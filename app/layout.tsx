@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: SITE_NAME, template: `%s | ${SITE_NAME}` },
   description: SITE_DESCRIPTION,
-  alternates: { canonical: "/" },
+  alternates: { canonical: "/", types: { "application/rss+xml": `${SITE_URL}/rss.xml` } },
   applicationName: SITE_NAME,
   creator: "퇴.기.사 편집실",
   publisher: SITE_NAME,

@@ -65,6 +65,17 @@ if (sitemap) {
   if (articleUrl) articlePath = new URL(articleUrl).pathname;
 }
 
+const rss = await fetchPage("/rss.xml");
+if (rss) {
+  if (!rss.response.ok) report("critical", "rss.xml", "RSS 피드가 정상 응답하지 않습니다.", String(rss.response.status));
+  const contentType = rss.response.headers.get("content-type") ?? "";
+  if (!/application\/rss\+xml|application\/xml|text\/xml/i.test(contentType)) report("warning", "rss.xml", "RSS XML 콘텐츠 유형이 아닙니다.", contentType);
+  if (!/<rss\b[^>]*version=["']2\.0["']/i.test(rss.text) || !/<channel>/i.test(rss.text)) report("critical", "rss.xml", "RSS 2.0 채널 형식이 아닙니다.");
+  const itemLinks = [...rss.text.matchAll(/<item>[\s\S]*?<link>([^<]+)<\/link>[\s\S]*?<\/item>/gi)].map((match) => match[1]);
+  if (itemLinks.length === 0) report("critical", "rss.xml", "RSS에 발행 글이 없습니다.");
+  if (itemLinks.some((url) => !url.startsWith(`${baseUrl.origin}/posts/`))) report("critical", "rss.xml", "RSS에 다른 도메인 또는 비표준 글 주소가 있습니다.");
+}
+
 const search = await fetchPage("/search?q=%ED%87%B4%EC%A7%81");
 if (search) {
   if (!search.response.ok) report("warning", "/search", "내부 검색이 정상 응답하지 않습니다.", String(search.response.status));

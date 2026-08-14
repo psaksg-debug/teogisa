@@ -70,7 +70,7 @@ export const qualityDesignTeam: QualityDesignMember[] = [
 export const qualityDesignGates = [
   "디자인 시스템과 브랜드 일관성",
   "모바일 · 데스크톱 레이아웃과 접근성",
-  "제목 · 요약 · 본문 · 행동 안내의 정보 위계",
+  "제목 · 요약 · 본문 · 불릿·번호 목록 · 행동 안내의 정보 위계",
   "썸네일 · 도표 · 캡션 · 대체텍스트의 완결성",
   "카테고리 · 태그 · 작성자 · 링크 · 발행 상태의 정확성",
 ] as const;
