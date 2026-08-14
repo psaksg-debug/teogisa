@@ -158,10 +158,10 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(agentsData,/health-column/);
   assert.match(repository,/runDueContentAgents/);
   assert.match(repository,/status:"draft"/);
-  assert.match(repository,/관리부서의 발행정책 검토 대기열에 등록했습니다/);
+  assert.match(repository,/경영관리팀의 발행정책 검토 대기열에 등록했습니다/);
   assert.match(repository,/runSiteManagementAudit/);
   assert.match(repository,/management_issues/);
-  assert.match(admin,/사이트 관리부서 상황실/);
+  assert.match(admin,/사이트 경영관리팀 상황실/);
   assert.match(admin,/전사 감사실/);
   assert.match(admin,/전 프로젝트 감사 실행/);
   assert.match(repository,/runOrganizationAudit/);
@@ -227,7 +227,7 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(marketingCampaigns,/always_on_/);
   assert.match(marketingCampaigns,/name: "네이버 블로그"/);
   assert.match(marketingCampaigns,/name: "Facebook"/);
-  assert.match(admin,/홍보부 조직·SEO 운영실/);
+  assert.match(admin,/홍보마케팅팀 조직·SEO 운영실/);
   assert.match(admin,/역할이 바로 연상되는 짧은 닉네임을 사용하는 AI 조직/);
   const qualityDesignTeam = await readFile(new URL("../lib/quality-design-team.ts", import.meta.url), "utf8");
   const organizationPolicy = await readFile(new URL("../lib/organization-policy.ts", import.meta.url), "utf8");
@@ -240,7 +240,7 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(qualityDesignTeam, /name: "눈금"/);
   assert.match(qualityDesignTeam, /발행 전 필수 품질 게이트|qualityDesignGates/);
   assert.match(admin,/품질디자인팀 운영실/);
-  assert.match(admin,/최종 공개는 관리부 승인 뒤에만 진행합니다/);
+  assert.match(admin,/최종 공개는 경영관리팀 승인 뒤에만 진행합니다/);
   assert.match(organizationPolicy, /department:"품질디자인팀"/);
   assert.match(admin,/글 작성자/);
   assert.match(admin,/선택한 이름이 글 상단과 검색엔진용 작성자 정보에 함께 표시됩니다/);
@@ -274,7 +274,7 @@ test("현재 전체 조직도를 단일 명부에서 집계한다", async () => 
   assert.match(chart,/allEditorialAuthors\.map/);
   assert.match(chart,/managementDepartment\.map/);
   assert.match(page,/퇴\.기\.사 전체 조직도/);
-  assert.match(page,/직원 수는 현재 각 부서 명부에서 자동 집계/);
+  assert.match(page,/직원 수는 현재 각 팀 명부에서 자동 집계/);
   assert.match(notice,/총 33명/);
 });
 
@@ -379,7 +379,7 @@ test("ships mobile-first SEO, GEO, trust and original-value pages", async () => 
   assert.match(contact, /콘텐츠 오류와 끊어진 링크/);
   assert.match(contact, /master@adbles\.com/);
   assert.match(terms, /정보와 계산 결과의 한계/);
-  assert.match(author, /편집부장은 ‘/);
+  assert.match(author, /콘텐츠편집팀장은 ‘/);
   assert.match(author, /editorialAuthors\.length}명/);
   assert.match(author, /AI 기반 실무자/);
   assert.match(post, /author\.role/);
@@ -413,6 +413,8 @@ test("keeps public reads fast while automation runs in the background", async ()
   assert.match(worker, /stale-while-revalidate=86400/);
   assert.match(worker, /edgeCache\.match/);
   assert.match(worker, /edgeCache\.put/);
+  assert.match(worker, /caches\?\.default/);
+  assert.match(worker, /if\(key&&edgeCache\)/);
   assert.match(worker, /scheduled_content_failed/);
   assert.match(repository, /db\(\{initialize:false\}\)/);
   assert.match(repository, /runDueSiteManagementAudit/);

@@ -24,6 +24,8 @@ interface EdgeCacheStorage extends CacheStorage {
   readonly default: Cache;
 }
 
+type WorkerGlobalWithCache=typeof globalThis&{caches?:EdgeCacheStorage};
+
 const PUBLIC_CACHE_CONTROL="public, max-age=0, s-maxage=300, stale-while-revalidate=86400";
 
 function isPublicDocumentRequest(request:Request,url:URL){
@@ -71,9 +73,11 @@ const worker = {
     }
 
     const cacheable=isPublicDocumentRequest(request,url);
-    const edgeCache=(caches as EdgeCacheStorage).default;
+    // Sites preview/runtime variants may not expose the Cache API. Caching is
+    // therefore an optimization, never a requirement for serving the page.
+    const edgeCache=(globalThis as WorkerGlobalWithCache).caches?.default;
     const key=cacheable?cacheKey(url):null;
-    if(key){
+    if(key&&edgeCache){
       const cached=await edgeCache.match(key);
       if(cached)return withCacheHeader(cached,"HIT");
     }
@@ -81,7 +85,7 @@ const worker = {
     const response=await handler.fetch(request, env, ctx);
     if(key&&response.status===200&&response.headers.get("content-type")?.includes("text/html")&&!response.headers.has("set-cookie")){
       const publicResponse=withCacheHeader(response,"MISS");
-      ctx.waitUntil(edgeCache.put(key,publicResponse.clone()).catch(error=>console.error(JSON.stringify({event:"public_cache_write_failed",path:url.pathname,message:error instanceof Error?error.message:String(error)}))));
+      if(edgeCache)ctx.waitUntil(edgeCache.put(key,publicResponse.clone()).catch(error=>console.error(JSON.stringify({event:"public_cache_write_failed",path:url.pathname,message:error instanceof Error?error.message:String(error)}))));
       return publicResponse;
     }
     return response;
