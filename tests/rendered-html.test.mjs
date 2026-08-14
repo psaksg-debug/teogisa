@@ -107,6 +107,8 @@ test("renders the finished Korean content site", async () => {
   assert.match(content, /ProShot에 업로드하기 전 휴대폰 정면 셀카 예시/);
   assert.match(content, /ProShot으로 생성한 정장 차림의 스튜디오 비즈니스 프로필 사진 예시/);
   assert.match(content, /retirement-pay-irp-five-checks-before-withdrawal/);
+  assert.match(content, /retirement-pay-irp-five-checks-before-withdrawal[\s\S]*publishedAt:"2026-08-15"/);
+  assert.match(content, /proshot-mobile-id-studio-photo-guide[\s\S]*publishedAt:"2026-08-15"/);
   assert.match(content, /퇴직금이 IRP에 입금된 뒤 일시금과 연금 수령 절차를 확인하는 서류·일정표 일러스트/);
   assert.match(content, /박세온 · 세금·보험 편집자/);
   assert.match(enrichment, /국세청 연금계좌 원천징수세율/);
