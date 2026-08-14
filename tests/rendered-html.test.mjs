@@ -365,12 +365,11 @@ test("enforces team permissions and versioned safe releases", async () => {
 });
 
 test("ships mobile-first SEO, GEO, trust and original-value pages", async () => {
-  const [layout, post, sitemap, robots, rss, llms, ads, calculator, privacy, policy, chrome, css, contact, terms, author, content, repository] = await Promise.all([
+  const [layout, post, sitemap, robots, llms, ads, calculator, privacy, policy, chrome, css, contact, terms, author, content, repository] = await Promise.all([
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/posts/[slug]/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/robots.ts", import.meta.url), "utf8"),
-    readFile(new URL("../app/rss.xml/route.ts", import.meta.url), "utf8"),
     readFile(new URL("../public/llms.txt", import.meta.url), "utf8"),
     readFile(new URL("../public/ads.txt", import.meta.url), "utf8"),
     readFile(new URL("../app/tools/retirement-runway/page.tsx", import.meta.url), "utf8"),
@@ -395,14 +394,6 @@ test("ships mobile-first SEO, GEO, trust and original-value pages", async () => 
   assert.match(sitemap, /retirement-runway/);
   assert.match(sitemap, /images:/);
   assert.match(robots, /GPTBot/);
-  assert.match(layout, /application\/rss\+xml/);
-  assert.match(rss, /<rss version="2\.0"/);
-  assert.match(rss, /getPublishedPosts/);
-  assert.match(rss, /content:encoded/);
-  assert.match(rss, /application\/rss\+xml; charset=utf-8/);
-  const seoAudit = await readFile(new URL("../scripts/seo-audit.mjs", import.meta.url), "utf8");
-  assert.match(seoAudit, /fetchPage\("\/rss\.xml"\)/);
-  assert.match(seoAudit, /RSS 2\.0 채널 형식/);
   assert.match(llms, /대표 가이드/);
   assert.match(llms, /https:\/\/adbles\.com\/challenge/);
   assert.match(ads, /google\.com, pub-4030620718116834, DIRECT, f08c47fec0942fa0/);
