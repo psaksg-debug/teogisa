@@ -53,6 +53,10 @@ test("renders the finished Korean content site", async () => {
   assert.match(media, /읽기 전에 한눈에/);
   assert.doesNotMatch(media, /자동 구성된/);
   assert.match(enrichment, /wikipedia\.org/);
+  assert.match(enrichment, /categoryOfficialLinks/);
+  assert.match(enrichment, /z08sPVTv39M/);
+  assert.match(media, /관련 공식 영상/);
+  assert.match(enrichment, /youtube-nocookie/);
   assert.match(enrichment, /article-thumbnails/);
   assert.match(media, /alt=\{image\.alt\}/);
   assert.match(enrichment, /thumbnailCatalog/);
@@ -119,13 +123,16 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(agentsData,/health-column/);
   assert.match(repository,/runDueContentAgents/);
   assert.match(repository,/status:"published"/);
-  assert.match(repository,/글을 만들고 사이트에 자동 발행했습니다/);
+  assert.match(repository,/공식 링크·사례·표·체크리스트 품질 기준을 통과해 자동 발행했습니다/);
+  assert.match(repository,/콘텐츠 품질 기준을 충족하지 못해 발행하지 않았습니다/);
+  assert.match(repository,/CONTENT_QUALITY_REVISION/);
   assert.match(repository,/preparePromotionCampaign/);
   assert.match(repository,/promotion_campaigns/);
   assert.doesNotMatch(repository,/tags:\[agent\.name,"공식 자료","검토 초안"\]/);
   assert.match(admin,/분야별 에이전트 운영실/);
   assert.match(admin,/자동 발행 주기/);
   assert.match(admin,/지금 발행하기/);
+  assert.match(admin,/품질 기준에 미달하면 발행하지 않고 실패 기록으로 남깁니다/);
   assert.match(admin,/홍보 에이전트 작업실/);
   assert.match(admin,/SNS용 짧은 문구/);
   assert.match(admin,/게시 완료로 표시/);

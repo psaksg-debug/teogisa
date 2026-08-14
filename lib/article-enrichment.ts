@@ -5,6 +5,7 @@ export type ArticleEnrichment = {
   checklist: Array<[string, string]>;
   officialLinks: Array<{ label: string; url: string }>;
   glossary: Array<{ term: string; url: string }>;
+  video?: { title:string; embedUrl:string; sourceUrl:string; description:string; channel:string; viewsNote?:string };
 };
 
 export type ThumbnailSeo = {
@@ -37,6 +38,25 @@ const checklists: Record<string, Array<[string, string]>> = {
 };
 
 const glossaryTerms = ["실업급여", "국민연금", "종합소득세", "인공지능", "블로그", "연금", "퇴직금", "재취업", "애드센스", "N잡"];
+
+const categoryOfficialLinks:Record<string,Array<{label:string;url:string}>>={
+  "퇴직 준비":[{label:"국민건강보험공단 자격·보험료 확인",url:"https://www.nhis.or.kr/"},{label:"국민연금공단 노후준비 안내",url:"https://www.nps.or.kr/"}],
+  "정부지원·실업급여":[{label:"고용24 실업급여·취업지원 안내",url:"https://www.work24.go.kr/"},{label:"국민연금공단 제도 안내",url:"https://www.nps.or.kr/"}],
+  "재취업·N잡":[{label:"고용24 중장년 일자리·훈련 검색",url:"https://www.work24.go.kr/"},{label:"국세청 소득 신고 안내",url:"https://www.nts.go.kr/"}],
+  "AI 활용":[{label:"Google 사람 중심 콘텐츠 작성 지침",url:"https://developers.google.com/search/docs/fundamentals/creating-helpful-content?hl=ko"},{label:"Google 생성형 AI 콘텐츠 지침",url:"https://developers.google.com/search/docs/fundamentals/using-gen-ai-content?hl=ko"}],
+  "실제 수익실험":[{label:"고용24 일자리·직업훈련 검색",url:"https://www.work24.go.kr/"},{label:"소상공인24 지원사업 확인",url:"https://www.sbiz24.kr/"}],
+  "투자·재테크":[{label:"금융감독원 금융소비자정보포털 파인",url:"https://fine.fss.or.kr/"},{label:"예금보험공사 예금자보호 안내",url:"https://www.kdic.or.kr/"}],
+};
+
+const slugResources:Record<string,{links?:Array<{label:string;url:string}>;video?:ArticleEnrichment["video"]}>={
+  "unemployment-benefit-eight-steps":{links:[{label:"고용24 실업급여 신청 절차 원문",url:"https://www.work24.go.kr/cm/c/f/1100/selecSystInfo.do?systClId=SC00000254&systId=SI00000411"}]},
+  "side-jobs-while-receiving-benefits":{links:[{label:"고용24 실업인정·취업 사실 신고 안내",url:"https://www.work24.go.kr/cm/c/f/1100/selecSystInfo.do?systClId=SC00000254&systId=SI00000411"}]},
+  "2026-unemployment-credit-guide":{
+    links:[{label:"국민연금공단 실업크레딧 업무 안내서",url:"https://edi.nps.or.kr/cm/main/guide/edi_workguide_new.pdf"}],
+    video:{title:"나와 국민연금의 징검다리, 실업크레딧",embedUrl:"https://www.youtube-nocookie.com/embed/z08sPVTv39M",sourceUrl:"https://www.youtube.com/watch?v=z08sPVTv39M",description:"구직급여 수급자가 연금보험료의 25%를 부담하고 지원을 받는 과정을 사례로 설명한 국민연금공단 공식 영상입니다.",channel:"국민연금TV",viewsNote:"확인 당시 약 6.2만 회 재생"},
+  },
+  "side-income-tax-records":{links:[{label:"국세청 3.3% 원천징수 종합소득세 안내",url:"https://j.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=238978&mi=40483"},{label:"홈택스 신고·지급명세서 확인",url:"https://www.hometax.go.kr/"}]},
+};
 
 const thumbnailCatalog = [
   { file: "retirement-checklist.webp", description: "체크 표시가 된 퇴직 준비 체크리스트 일러스트" },
@@ -82,7 +102,7 @@ export function appendSourceUrl(body: string, sourceUrl?: string) {
 export function enrichArticle(post: Post): ArticleEnrichment {
   const text = `${post.title} ${post.body} ${post.tags.join(" ")}`;
   const urls = Array.from(new Set((post.body.match(/https?:\/\/[^\s)<>"']+/g) ?? []).map((url) => url.replace(/[.,;]+$/, ""))));
-  const officialLinks = urls.slice(0, 3).map((url) => {
+  const detectedLinks = urls.slice(0, 4).map((url) => {
     try {
       const host = new URL(url).hostname.replace(/^www\./, "");
       return { label: `${host} 공식자료`, url };
@@ -90,6 +110,8 @@ export function enrichArticle(post: Post): ArticleEnrichment {
       return { label: "공식자료", url };
     }
   });
+  const resource=slugResources[post.slug];
+  const officialLinks=Array.from(new Map([...(resource?.links??[]),...(categoryOfficialLinks[post.category]??[]),...detectedLinks].map(link=>[link.url,link])).values()).slice(0,5);
   const glossary = glossaryTerms.filter((term) => text.includes(term)).slice(0, 4).map((term) => ({
     term,
     url: `https://ko.wikipedia.org/w/index.php?search=${encodeURIComponent(term)}`,
@@ -99,5 +121,6 @@ export function enrichArticle(post: Post): ArticleEnrichment {
     checklist: checklists[post.category] ?? checklists["퇴직 준비"],
     officialLinks,
     glossary,
+    video:resource?.video,
   };
 }

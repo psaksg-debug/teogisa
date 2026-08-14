@@ -364,3 +364,12 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   .promotion-actions{display:grid}
   .promotion-actions a,.promotion-actions button{justify-content:center}
 }
+
+.article-video-feature{margin:42px 0 28px;padding:28px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(320px,1.2fr);gap:28px;align-items:center;color:#fff;background:var(--navy)}
+.article-video-feature .eyebrow{margin-bottom:12px;color:#9fcfc4}
+.article-video-feature h3{margin:0;color:#fff;font:700 23px/1.45 "Noto Serif KR",serif}
+.article-video-feature p:not(.eyebrow){margin:12px 0;color:#b8c9ce;font-size:12px;line-height:1.75}
+.article-video-feature small{display:block;margin-bottom:15px;color:#8da8b0;font-size:10px}
+.article-video-feature a{min-height:42px;display:inline-flex;align-items:center;color:#fff;border-bottom:1px solid rgba(255,255,255,.45);font-size:11px;font-weight:800}
+.article-video-feature .embedded-video{margin:0;border:1px solid rgba(255,255,255,.18)}
+@media(max-width:760px){.article-video-feature{grid-template-columns:1fr;padding:22px 16px;gap:20px}.article-video-feature h3{font-size:20px}}
