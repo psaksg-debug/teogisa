@@ -279,7 +279,7 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(admin,/선택한 이름이 글 상단과 검색엔진용 작성자 정보에 함께 표시됩니다/);
   assert.match(sitemap,/challenge/);
   assert.doesNotMatch(sitemap,/keyword-lab/);
-  const robots = await readFile(new URL("../app/robots.ts", import.meta.url), "utf8");
+  const robots = await readFile(new URL("../public/robots.txt", import.meta.url), "utf8");
   assert.match(robots,/OAI-SearchBot/);
   assert.match(robots,/bingbot/);
   assert.match(robots,/Yeti/);
@@ -378,7 +378,7 @@ test("ships mobile-first SEO, GEO, trust and original-value pages", async () => 
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/posts/[slug]/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8"),
-    readFile(new URL("../app/robots.ts", import.meta.url), "utf8"),
+    readFile(new URL("../public/robots.txt", import.meta.url), "utf8"),
     readFile(new URL("../public/llms.txt", import.meta.url), "utf8"),
     readFile(new URL("../public/ads.txt", import.meta.url), "utf8"),
     readFile(new URL("../app/tools/retirement-runway/page.tsx", import.meta.url), "utf8"),

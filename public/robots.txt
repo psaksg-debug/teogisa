@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+User-agent: Googlebot
+User-agent: Google-InspectionTool
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: GPTBot
+User-agent: PerplexityBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: bingbot
+User-agent: Yeti
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+Sitemap: https://adbles.com/sitemap.xml
