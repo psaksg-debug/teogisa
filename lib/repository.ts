@@ -59,7 +59,21 @@ async function db() {
     }
     for (const agent of contentAgentProfiles) {
       const nextRunAt=new Date(Date.now()+agent.cadenceHours*60*60*1000).toISOString();
-      await d1.prepare("INSERT OR IGNORE INTO content_agents (id,name,category,mission,status,cadence_hours,sources_json,topics_json,video_json,next_run_at) VALUES (?,?,?,?,?,?,?,?,?,?)")
+      await d1.prepare(`INSERT INTO content_agents (id,name,category,mission,status,cadence_hours,sources_json,topics_json,video_json,next_run_at)
+        VALUES (?,?,?,?,?,?,?,?,?,?)
+        ON CONFLICT(id) DO UPDATE SET
+          name=excluded.name,
+          category=excluded.category,
+          mission=excluded.mission,
+          cadence_hours=excluded.cadence_hours,
+          sources_json=excluded.sources_json,
+          topics_json=excluded.topics_json,
+          video_json=excluded.video_json,
+          next_run_at=CASE
+            WHEN content_agents.next_run_at IS NULL OR content_agents.next_run_at>excluded.next_run_at THEN excluded.next_run_at
+            ELSE content_agents.next_run_at
+          END,
+          updated_at=CURRENT_TIMESTAMP`)
         .bind(agent.id,agent.name,agent.category,agent.mission,"active",agent.cadenceHours,JSON.stringify(agent.sources),JSON.stringify(agent.topics),agent.video?JSON.stringify(agent.video):null,nextRunAt).run();
     }
     initialized = true;
