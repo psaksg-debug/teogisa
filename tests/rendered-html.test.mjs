@@ -233,6 +233,8 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(editorialTeam, /name: "툴"/);
   assert.match(editorialTeam, /name: "로컬"/);
   assert.match(editorialTeam, /name: "케어"/);
+  assert.match(editorialTeam, /name: "박여유"/);
+  assert.match(editorialTeam, /name: "서든든"/);
   assert.match(editorialTeam, /name: "큐"/);
   assert.match(repository,/authorName:agent\.name/);
   assert.doesNotMatch(repository,/tags:\[agent\.name,"공식 자료","검토 초안"\]/);

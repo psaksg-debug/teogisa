@@ -36,7 +36,7 @@ export type MemberActivityPlanState={id:string;memberId:string;memberName:string
 export type MemberActivityRun={id:number;planId:string;memberName:string;teamName:string;action:ActivityAction;status:"completed"|"noop"|"failed"|"review";summary:string;startedAt:string;completedAt:string|null};
 
 let initialized = false;
-const CONTENT_QUALITY_REVISION="2026-08-14-adsense-readiness-v2";
+const CONTENT_QUALITY_REVISION="2026-08-14-adsense-readiness-v2-deposit-protection-v1";
 
 async function db(options:{initialize?:boolean}={}) {
   const d1 = (env as unknown as { DB?: D1Database }).DB;
@@ -81,7 +81,7 @@ async function db(options:{initialize?:boolean}={}) {
     for (const post of seedPosts) {
       await d1
         .prepare(
-          "INSERT OR IGNORE INTO posts (title,slug,excerpt,body,category,tags_json,status,published_at,scheduled_at,reading_minutes,visual) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+          "INSERT OR IGNORE INTO posts (title,slug,excerpt,body,category,tags_json,status,published_at,scheduled_at,reading_minutes,visual,author_name) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
         )
         .bind(
           post.title,
@@ -95,13 +95,14 @@ async function db(options:{initialize?:boolean}={}) {
           post.scheduledAt,
           post.readingMinutes,
           post.visual,
+          post.authorName ?? EDITOR_IN_CHIEF.name,
         )
         .run();
     }
     const appliedRevision=await d1.prepare("SELECT value_json FROM site_settings WHERE key='content_quality_revision'").first<{value_json:string}>();
     if(appliedRevision?.value_json!==JSON.stringify(CONTENT_QUALITY_REVISION)){
       for(const post of seedPosts){
-        await d1.prepare("UPDATE posts SET excerpt=?,body=?,tags_json=?,reading_minutes=?,updated_at=CURRENT_TIMESTAMP WHERE slug=?").bind(post.excerpt,post.body,JSON.stringify(post.tags),post.readingMinutes,post.slug).run();
+        await d1.prepare("UPDATE posts SET excerpt=?,body=?,tags_json=?,reading_minutes=?,author_name=?,updated_at=CURRENT_TIMESTAMP WHERE slug=?").bind(post.excerpt,post.body,JSON.stringify(post.tags),post.readingMinutes,post.authorName ?? EDITOR_IN_CHIEF.name,post.slug).run();
       }
       await d1.prepare("INSERT INTO site_settings (key,value_json,updated_at) VALUES ('content_quality_revision',?,CURRENT_TIMESTAMP) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json,updated_at=CURRENT_TIMESTAMP").bind(JSON.stringify(CONTENT_QUALITY_REVISION)).run();
     }
