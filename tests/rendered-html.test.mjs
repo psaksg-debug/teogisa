@@ -444,7 +444,8 @@ test("keeps public reads fast while automation runs in the background", async ()
   assert.match(worker, /runScheduledOrganizationActivities/);
   assert.match(repository, /db\(\{initialize:false\}\)/);
   assert.match(repository, /persistedSlugs/);
-  assert.match(repository, /post\.status===\"published\"&&!persistedSlugs\.has\(post\.slug\)/);
+  assert.match(repository, /persistedTitles/);
+  assert.match(repository, /!persistedSlugs\.has\(post\.slug\)&&!persistedTitles\.has\(post\.title\.trim\(\)\)/);
   assert.match(repository, /runDueSiteManagementAudit/);
   assert.match(repository, /await publishDuePosts\(\)/);
   assert.match(releasePolicy, /availability:/);

@@ -174,9 +174,10 @@ export async function getPublishedPosts() {
       .all();
     const persisted=result.results.map((row) => mapPost(row as Record<string, unknown>));
     const persistedSlugs=new Set(persisted.map(post=>post.slug));
+    const persistedTitles=new Set(persisted.map(post=>post.title.trim()));
     return [
       ...persisted.filter(post=>post.status==="published"),
-      ...seedPosts.filter(post=>post.status==="published"&&!persistedSlugs.has(post.slug)),
+      ...seedPosts.filter(post=>post.status==="published"&&!persistedSlugs.has(post.slug)&&!persistedTitles.has(post.title.trim())),
     ].sort((a,b)=>b.publishedAt.localeCompare(a.publishedAt)||b.id-a.id);
   } catch {
     return seedPosts.filter((post) => post.status === "published");
