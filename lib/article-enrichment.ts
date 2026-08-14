@@ -53,6 +53,10 @@ const categoryOfficialLinks:Record<string,Array<{label:string;url:string}>>={
 };
 
 const slugResources:Record<string,{links?:Array<{label:string;url:string}>;images?:ArticleEnrichment["images"];video?:ArticleEnrichment["video"]}>={
+  "deposit-protection-100-million-retirement-money-checks":{
+    links:[{label:"금융위원회 예금보호한도 1억원 안내",url:"https://www.fsc.go.kr/edu/news/85225"},{label:"금융위원회 적용 대상·별도 한도 안내",url:"https://www.fsc.go.kr/edu/news/85077"},{label:"예금보험공사 예금자보호 안내",url:"https://www.kdic.or.kr/"}],
+    images:[{src:"/article-thumbnails/income-tax-calculation.webp",alt:"예금보호한도와 퇴직금 분산 예치를 계산하는 표·계산기 일러스트",caption:"보호한도만 보지 말고 금융회사별 원금·예상 이자 합계와 만기일을 함께 적어야 합니다. · 퇴.기.사 제작 일러스트",width:355,height:444}],
+  },
   "health-insurance-after-retirement-three-checks":{
     links:[{label:"국민건강보험공단 임의계속가입 안내",url:"https://www.nhis.or.kr/static/alim/paper/oldpaper/202212/sub/18.html"},{label:"국민건강보험공단 2026년도 보험료율",url:"https://edi.nhis.or.kr/portal/images/popup/20251204_pop01longdesc.html"}],
     images:[{src:"/article-thumbnails/retirement-pension-life.webp",alt:"퇴직 후 건강보험 가입 유형을 확인하는 중장년 부부 일러스트",caption:"퇴직 후에는 피부양자·지역가입자·임의계속가입 가운데 가능한 경로와 예상 보험료를 함께 확인해야 합니다. · 퇴.기.사 제작 일러스트",width:355,height:444}],
