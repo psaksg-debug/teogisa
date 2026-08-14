@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { InnerHeader, SiteFooter } from "../components/SiteChrome";
 
-export const metadata:Metadata={title:"사이트 소개",description:"퇴직하고 부자되기가 어떤 질문을 다루고 어떻게 자료를 검증하는지 소개합니다.",alternates:{canonical:"/about"}};
+export const metadata:Metadata={title:"사이트 소개",description:"퇴직생활 연구소가 어떤 질문을 다루고 어떻게 자료를 검증하는지 소개합니다.",alternates:{canonical:"/about"}};
 
 export default function About(){return <><InnerHeader eyebrow="ABOUT THE PROJECT" title="막연한 부자가 아니라, 버틸 시간과 다음 수입을 계산합니다." description="퇴직 이후의 선택을 생활비 방어 → 일 소득 → 축적형 수입 → 자산 관리 순서로 풀어내는 독립 콘텐츠 사이트입니다."/><main className="content-shell article-copy policy-copy">
   <h2>왜 이 사이트를 만들었나요?</h2><p>퇴직을 앞두면 정보는 넘치지만 내 상황에 맞는 순서는 잘 보이지 않습니다. 이곳은 ‘무엇을 사라’는 권유보다 한 달에 꼭 필요한 돈이 얼마인지, 지금 가진 자금으로 얼마나 준비할 수 있는지, 어떤 수입원을 먼저 시험할지 판단할 수 있는 기준을 제공합니다.</p>

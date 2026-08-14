@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { Post } from "../../lib/content";
-import type { QueueItem } from "../../lib/repository";
+import type { AgentRun, ContentAgentState, QueueItem } from "../../lib/repository";
 import RichTextEditor from "./RichTextEditor";
 
-const categories = ["퇴직 준비", "정부지원·실업급여", "재취업·N잡", "블로그·애드센스", "AI 활용", "온라인 부업", "투자·재테크", "실제 수익실험"];
+const categories = ["퇴직 준비", "정부지원·실업급여", "정부지원·세무", "재취업·N잡", "블로그·애드센스", "AI 활용", "온라인 부업", "투자·재테크", "실제 수익실험", "유용한 도구", "지역 생활정보", "건강·예방", "영상 큐레이션"];
 
 function datetimeLocal(value: string | null) {
   if (!value) return "";
@@ -18,18 +18,23 @@ function datetimeLocal(value: string | null) {
 export default function AdminClient({ username }: { username: string }) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [queue, setQueue] = useState<QueueItem[]>([]);
+  const [agents,setAgents]=useState<ContentAgentState[]>([]);
+  const [agentRuns,setAgentRuns]=useState<AgentRun[]>([]);
   const [selected, setSelected] = useState<Post | null>(null);
   const [message, setMessage] = useState("편집실을 준비하고 있습니다…");
   const [saving, setSaving] = useState(false);
   const editorPanelRef = useRef<HTMLElement>(null);
 
   async function load() {
-    const [postsResponse, queueResponse] = await Promise.all([fetch("/api/posts"), fetch("/api/automation")]);
+    const [postsResponse, queueResponse, agentsResponse] = await Promise.all([fetch("/api/posts"), fetch("/api/automation"),fetch("/api/agents")]);
     const postsData = await postsResponse.json();
     const queueData = await queueResponse.json();
-    if (postsResponse.ok && queueResponse.ok) {
+    const agentsData=await agentsResponse.json();
+    if (postsResponse.ok && queueResponse.ok && agentsResponse.ok) {
       setPosts(postsData.posts);
       setQueue(queueData.queue);
+      setAgents(agentsData.agents);
+      setAgentRuns(agentsData.runs);
       const requestedPostId = Number(new URLSearchParams(window.location.search).get("post"));
       const requestedPost = postsData.posts.find((post: Post) => post.id === requestedPostId);
       if (requestedPost) {
@@ -39,7 +44,7 @@ export default function AdminClient({ username }: { username: string }) {
         setMessage("");
       }
     } else {
-      setMessage(postsData.error || queueData.error || "편집실 자료를 불러오지 못했습니다.");
+      setMessage(postsData.error || queueData.error || agentsData.error || "편집실 자료를 불러오지 못했습니다.");
     }
   }
 
@@ -99,6 +104,10 @@ export default function AdminClient({ username }: { username: string }) {
     } else setMessage(data.error);
   }
 
+  async function controlAgent(id:string,action:"run"|"status",status?:"active"|"paused"){
+    setSaving(true);const response=await fetch("/api/agents",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({id,action,status})});const data=await response.json();setSaving(false);if(response.ok){setMessage(action==="run"?`‘${data.post.title}’ 초안을 검토 대기열에 만들었습니다.`:`에이전트를 ${status==="active"?"가동":"일시정지"}했습니다.`);await load();}else setMessage(data.error);
+  }
+
   async function logout(){await fetch("/api/admin/session",{method:"DELETE"});window.location.href="/admin/login";}
 
   const count = (status: string) => posts.filter((post) => post.status === status).length;
@@ -106,7 +115,7 @@ export default function AdminClient({ username }: { username: string }) {
   return (
     <main className="admin-shell">
       <header className="admin-top">
-        <div><strong>퇴직하고 부자되기 · 편집실</strong><span>{username} · 독립 관리자</span></div>
+        <div><strong>퇴직생활 연구소 · 편집실</strong><span>{username} · 독립 관리자</span></div>
         <div className="admin-actions"><a className="admin-button secondary" href="/api/export">전체 백업</a><a className="admin-button secondary" href="/">사이트 보기</a><button className="admin-button secondary" type="button" onClick={logout}>로그아웃</button></div>
       </header>
 
@@ -145,6 +154,13 @@ export default function AdminClient({ username }: { username: string }) {
             <button className="admin-button" disabled={saving}>검토용 초안 만들기</button>
           </form>
           <div className="queue-list">{queue.map((item) => <button type="button" key={item.id} onClick={() => { const post = posts.find((candidate) => candidate.id === item.postId); if (post) openEditor(post); }}><span>{item.status === "review" ? "검토 필요" : item.status}</span><strong>{item.title}</strong><small>{item.sourceUrl}</small></button>)}</div>
+        </section>
+
+        <section className="panel automation-panel agent-control-panel">
+          <div className="panel-title"><div><p className="eyebrow">CONTENT AGENTS</p><h2>분야별 에이전트 운영실</h2></div><span className="queue-count">가동 {agents.filter(agent=>agent.status==="active").length}/{agents.length}</span></div>
+          <p className="panel-help">각 에이전트는 정해진 공식 출처와 주제만 사용합니다. 자동 실행 결과는 공개되지 않고 콘텐츠 보관함의 검토 초안으로 들어옵니다. 건강·세무 글은 반드시 원문과 기준일을 사람이 확인하세요.</p>
+          <div className="agent-grid">{agents.map(agent=><article className={`agent-card ${agent.status}`} key={agent.id}><div><span>{agent.status==="active"?"가동 중":"일시정지"}</span><small>{agent.category}</small></div><h3>{agent.name}</h3><p>{agent.mission}</p><dl><div><dt>업데이트 주기</dt><dd>{Math.round(agent.cadenceHours/24)}일</dd></div><div><dt>다음 실행</dt><dd>{agent.nextRunAt?new Date(agent.nextRunAt).toLocaleString("ko-KR"):"미정"}</dd></div><div><dt>공식 출처</dt><dd>{agent.sources.length}곳</dd></div></dl><div className="agent-actions"><button type="button" disabled={saving||agent.status!=="active"} onClick={()=>controlAgent(agent.id,"run")}>지금 초안 만들기</button><button type="button" disabled={saving} onClick={()=>controlAgent(agent.id,"status",agent.status==="active"?"paused":"active")}>{agent.status==="active"?"일시정지":"다시 가동"}</button></div></article>)}</div>
+          <div className="agent-run-log"><h3>최근 작업 기록</h3>{agentRuns.length===0?<p>아직 실행 기록이 없습니다.</p>:agentRuns.map(run=><div key={run.id}><span>{run.status==="review"?"검토 대기":run.status}</span><strong>{run.agentName}</strong><p>{run.topic}</p><time>{new Date(run.createdAt).toLocaleString("ko-KR")}</time></div>)}</div>
         </section>
       </div>
     </main>

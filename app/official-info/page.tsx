@@ -1,0 +1,6 @@
+import type { Metadata } from "next";
+import { InnerHeader, SiteFooter } from "../components/SiteChrome";
+import { officialSections } from "../../lib/portal";
+
+export const metadata:Metadata={title:"공신력 정보센터",description:"퇴직 후 필요한 지원금·세무·연금·건강 정보를 정부와 공공기관 원문으로 확인합니다.",alternates:{canonical:"/official-info"}};
+export default function OfficialInfo(){return <><InnerHeader eyebrow="OFFICIAL SOURCE DESK" title="공신력 정보센터" description="경험담보다 원문을 먼저 확인합니다. 제도명, 기준일과 담당기관을 확인한 뒤 내 상황에 맞는지 다시 문의하세요."/><main className="content-shell portal-shell"><section className="official-grid">{officialSections.map(section=><article key={section.title}><span className="source-badge">공식 출처</span><h2>{section.title}</h2><p>{section.description}</p><div>{section.links.map(([label,url])=><a href={url} target="_blank" rel="noreferrer" key={label}><strong>{label}</strong><span>원문 확인 ↗</span></a>)}</div></article>)}</section><section className="verification-guide"><p className="eyebrow">3-STEP CHECK</p><h2>정보를 확인하는 순서</h2><ol><li><strong>기준일</strong><span>게시일과 최근 수정일을 확인합니다.</span></li><li><strong>적용 대상</strong><span>나이·소득·재산·고용형태 조건을 확인합니다.</span></li><li><strong>최종 문의</strong><span>신청 전 담당기관에 내 상황을 설명하고 답변을 기록합니다.</span></li></ol></section></main><SiteFooter/></>}

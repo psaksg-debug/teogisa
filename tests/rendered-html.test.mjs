@@ -16,16 +16,16 @@ test("renders the finished Korean content site", async () => {
     readFile(new URL("../app/admin/RichTextEditor.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/article-html.ts", import.meta.url), "utf8"),
   ]);
-  assert.match(layout, /퇴직하고 부자되기/);
-  assert.match(page, /퇴직은 끝이 아니라/);
+  assert.match(layout, /퇴직생활 연구소/);
+  assert.match(page, /돈·일·건강을 다시 설계합니다/);
   assert.match(page, /공식 자료 검토/);
-  assert.match(page, /월 목표 현금흐름/);
+  assert.match(page, /30일 수입 실험/);
   assert.match(page, /본문으로 바로가기/);
   assert.match(page, /hero-facts/);
   assert.match(page, /mobile-home-nav/);
   assert.match(css, /trust-band/);
   assert.match(css, /grid-template-columns:1\.18fr \.82fr/);
-  assert.match(layout, /og-v2\.png/);
+  assert.match(layout, /og-lab\.png/);
   assert.match(footer, /운영사/);
   assert.match(footer, /애드블스가 운영합니다/);
   assert.match(site, /Adbles\.com/);
@@ -61,6 +61,47 @@ test("renders the finished Korean content site", async () => {
   assert.match(articleHtml, /youtube-nocookie/);
   assert.doesNotMatch(`${page}\n${search}\n${article}\n${footer}`, /next\/link|<Link/);
   assert.doesNotMatch(`${page}\n${layout}`, /codex-preview|react-loading-skeleton/i);
+});
+
+test("ships the challenge, official information, tools, health and agent desks", async()=>{
+  const [home,chrome,challenge,workbook,official,portal,tools,severance,health,keyword,localPage,agentsApi,agentsData,repository,admin,sitemap]=await Promise.all([
+    readFile(new URL("../app/page.tsx",import.meta.url),"utf8"),
+    readFile(new URL("../app/components/SiteChrome.tsx",import.meta.url),"utf8"),
+    readFile(new URL("../app/challenge/page.tsx",import.meta.url),"utf8"),
+    readFile(new URL("../app/challenge/ChallengeWorkbook.tsx",import.meta.url),"utf8"),
+    readFile(new URL("../app/official-info/page.tsx",import.meta.url),"utf8"),
+    readFile(new URL("../lib/portal.ts",import.meta.url),"utf8"),
+    readFile(new URL("../app/tools/page.tsx",import.meta.url),"utf8"),
+    readFile(new URL("../app/tools/severance-pay/SeveranceCalculator.tsx",import.meta.url),"utf8"),
+    readFile(new URL("../app/health/page.tsx",import.meta.url),"utf8"),
+    readFile(new URL("../app/keyword-lab/page.tsx",import.meta.url),"utf8"),
+    readFile(new URL("../app/local/[region]/[topic]/page.tsx",import.meta.url),"utf8"),
+    readFile(new URL("../app/api/agents/route.ts",import.meta.url),"utf8"),
+    readFile(new URL("../lib/content-agents.ts",import.meta.url),"utf8"),
+    readFile(new URL("../lib/repository.ts",import.meta.url),"utf8"),
+    readFile(new URL("../app/admin/AdminClient.tsx",import.meta.url),"utf8"),
+    readFile(new URL("../app/sitemap.ts",import.meta.url),"utf8"),
+  ]);
+  assert.match(home,/월 100만원 챌린지/);
+  assert.match(chrome,/portalMenu/);
+  assert.match(challenge,/온라인에서 월 100만원 수입 만들기/);
+  assert.match(workbook,/30일 실행 워크북/);
+  assert.match(workbook,/localStorage/);
+  assert.match(official,/officialSections/);
+  assert.match(portal,/국세법령정보시스템/);
+  assert.match(tools,/toolCatalog/);
+  assert.match(portal,/이미지 변환기/);
+  assert.match(severance,/예상 퇴직금/);
+  assert.match(health,/youtube-nocookie\.com/);
+  assert.match(health,/응급 증상은 콘텐츠보다 119/);
+  assert.match(keyword,/대량 생성 제한/);
+  assert.match(localPage,/지역명만 바꾸지 않고/);
+  assert.match(agentsApi,/requireOwnerApi/);
+  assert.match(agentsData,/health-column/);
+  assert.match(repository,/runDueContentAgents/);
+  assert.match(repository,/검토용 초안/);
+  assert.match(admin,/분야별 에이전트 운영실/);
+  assert.match(sitemap,/challenge/);
 });
 
 test("keeps the independent editor and write APIs session-protected", async () => {

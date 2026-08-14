@@ -1,5 +1,5 @@
 import { getPublishedPosts } from "../lib/repository";
-import { Brand, SiteFooter } from "./components/SiteChrome";
+import { Brand, PortalNav, SiteFooter } from "./components/SiteChrome";
 import { ArticleThumbnail } from "./components/ArticleMedia";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "../lib/site";
 
@@ -34,37 +34,32 @@ export default async function Home() {
       <a className="skip-link" href="#main-content">본문으로 바로가기</a>
       <header className="site-header">
         <Brand/>
-        <nav className="main-nav" aria-label="주요 메뉴">
-          <a href="#roadmap">월 300만 원 로드맵</a>
-          <a href="#latest">새 글</a>
-          <a href="#topics">주제</a>
-          <a href="/about">소개</a>
-        </nav>
+        <PortalNav className="main-nav"/>
         <div className="header-tools"><span className="verified-label">공식 자료 검토</span><a className="tool-link" href="/tools/retirement-runway">생활비 계산기</a><a className="search-link" href="/search" aria-label="글 검색">검색 <span>⌕</span></a></div>
       </header>
 
       <nav className="mobile-home-nav" aria-label="모바일 빠른 메뉴">
-        <a href="/tools/retirement-runway">생활비 계산</a><a href="#latest">새 글</a><a href="#topics">주제</a><a href="/search">검색</a>
+        <a href="/challenge">월 100만원 챌린지</a><a href="/official-info">공신력 정보</a><a href="/tools">도구</a><a href="/keyword-lab">키워드랩</a><a href="/health">건강</a><a href="/search">검색</a>
       </nav>
 
       <main id="main-content">
         <section className="hero">
           <div className="hero-copy">
-            <p className="eyebrow">RETIREMENT INCOME LAB · 2026</p>
-            <h1>퇴직은 끝이 아니라<br/><em>새 수입의 시작</em>입니다.</h1>
-            <p className="hero-lead">퇴직 이후의 돈·일·부업·재테크를 직접 공부하고 실험합니다. 막연한 부자가 아니라, 매달 들어오는 300만 원부터 함께 만듭니다.</p>
+            <p className="eyebrow">RETIREMENT LIFE LAB · 2026</p>
+            <h1>퇴직 이후,<br/><em>돈·일·건강을 다시 설계합니다.</em></h1>
+            <p className="hero-lead">지원금과 세무는 공식 원문으로, 새로운 수입은 30일 챌린지로, 건강은 공공기관 자료로 확인합니다. 계산과 반복 작업은 무료 도구로 줄입니다.</p>
             <dl className="hero-facts" aria-label="사이트 콘텐츠 현황">
-              <div><dt>발행한 연구노트</dt><dd>{posts.length}편</dd></div><div><dt>연구 주제</dt><dd>{categories.length}개</dd></div><div><dt>무료 계산 도구</dt><dd>1개</dd></div>
+              <div><dt>발행한 연구노트</dt><dd>{posts.length}편</dd></div><div><dt>30일 워크북</dt><dd>30칸</dd></div><div><dt>사용 가능 도구</dt><dd>2개</dd></div>
             </dl>
             <div className="hero-actions">
-              <a className="primary-button" href="/tools/retirement-runway">내 버틸 기간 계산하기 <span aria-hidden="true">→</span></a>
-              <a className="text-button" href="#roadmap">로드맵 보기</a>
+              <a className="primary-button" href="/challenge">월 100만원 챌린지 시작 <span aria-hidden="true">→</span></a>
+              <a className="text-button" href="/tools">무료 도구 보기</a>
             </div>
           </div>
-          <div className="income-ledger" aria-label="월 300만 원 수입 로드맵">
+          <div className="income-ledger" aria-label="온라인 월 100만 원 수입 챌린지">
             <div className="ledger-top">
-              <span>월 목표 현금흐름</span>
-              <strong>₩ 3,000,000</strong>
+              <span>30일 수입 실험</span>
+              <strong>₩ 1,000,000</strong>
             </div>
             <div className="ledger-scale" aria-hidden="true"><span>300</span><span>200</span><span>100</span><span>0</span></div>
             <div className="steps">
@@ -73,7 +68,18 @@ export default async function Home() {
               <div className="step step-3"><b>03</b><span>콘텐츠</span></div>
               <div className="step step-4"><b>04</b><span>자산소득</span></div>
             </div>
-            <p className="ledger-note">한 번에 뛰어오르지 않습니다.<br/>가능한 수입원을 하나씩 쌓습니다.</p>
+            <p className="ledger-note">매출을 약속하지 않습니다.<br/>하루 한 칸씩 가능성을 검증합니다.</p>
+          </div>
+        </section>
+
+        <section className="home-hubs section-wrap" aria-labelledby="hub-title">
+          <div className="section-heading"><div><p className="eyebrow">ONE LAB, FIVE DESKS</p><h2 id="hub-title">퇴직생활에 필요한 다섯 개 연구실</h2><p className="section-intro">읽고 끝나지 않도록 실행·원문·도구·지역정보·건강을 한곳에 연결했습니다.</p></div></div>
+          <div className="hub-grid">
+            <a href="/challenge"><span>30일</span><h3>월 100만원 챌린지</h3><p>일차별 워크북을 따라 첫 수입 실험을 진행합니다.</p><b>시작하기 →</b></a>
+            <a href="/official-info"><span>원문</span><h3>공신력 정보센터</h3><p>지원금·세무·연금 정보를 공식기관에서 확인합니다.</p><b>확인하기 →</b></a>
+            <a href="/tools"><span>무료</span><h3>유용한 도구모음</h3><p>계산기와 이미지·영수증·콘텐츠 도구를 모읍니다.</p><b>도구 보기 →</b></a>
+            <a href="/keyword-lab"><span>운영</span><h3>지역·키워드랩</h3><p>지역과 세부 질문별 페이지 운영 현황을 공개합니다.</p><b>페이지 보기 →</b></a>
+            <a href="/health"><span>예방</span><h3>건강·이벤트</h3><p>질병 증상·예방법과 공공 건강행사를 확인합니다.</p><b>건강정보 →</b></a>
           </div>
         </section>
 
@@ -110,7 +116,7 @@ export default async function Home() {
 
         <section className="trust-band" aria-label="콘텐츠 운영 원칙">
           <p className="eyebrow">HOW WE VERIFY</p>
-          <h2>돈에 관한 글일수록<br/>근거와 날짜를 남깁니다.</h2>
+          <h2>돈과 건강에 관한 글일수록<br/>근거와 날짜를 남깁니다.</h2>
           <div className="trust-rules">
             <div><span>원문</span><strong>정부·공공기관 자료 우선</strong><p>정책과 신청 조건은 경험담보다 공식 안내를 먼저 확인합니다.</p></div>
             <div><span>검토</span><strong>AI 초안도 사람이 확인</strong><p>숫자, 날짜, 대상 조건을 대조한 뒤 공개합니다.</p></div>
