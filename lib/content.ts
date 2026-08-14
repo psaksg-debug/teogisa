@@ -72,7 +72,7 @@ export const seedPosts: Post[] = [
 <table><thead><tr><th>비교 항목</th><th>월 건강보험료</th><th>월 장기요양보험료</th><th>적용기간·기한</th></tr></thead><tbody><tr><td>퇴직 전 본인부담액</td><td>급여명세서 확인</td><td>급여명세서 확인</td><td>퇴직일까지</td></tr><tr><td>예상 지역보험료</td><td>공단 확인</td><td>공단 확인</td><td>자격 변동일부터</td></tr><tr><td>예상 임의계속보험료</td><td>공단 확인</td><td>공단 확인</td><td>최대 36개월·신청기한 확인</td></tr></tbody></table>
 <p>건강보험료는 퇴직 후 고정비를 크게 바꿀 수 있지만, 무조건 피부양자나 임의계속가입이 유리하다고 정해져 있지는 않습니다. 내 자료로 세 경로를 비교하고 기한 안에 선택하는 것이 핵심입니다.</p>
 <p>공식 확인: <a href="https://www.nhis.or.kr/static/alim/paper/oldpaper/202212/sub/18.html" target="_blank" rel="noreferrer">국민건강보험공단 임의계속가입 안내</a> · <a href="https://edi.nhis.or.kr/portal/images/popup/20251204_pop01longdesc.html" target="_blank" rel="noreferrer">2026년도 보험료율 안내</a> · <a href="https://www.nhis.or.kr/" target="_blank" rel="noreferrer">국민건강보험공단</a></p>
-<p><strong>김연수 · 연금·보험 편집자</strong></p>`, category:"연금·세금·보험", tags:["퇴직 건강보험료","지역가입자","피부양자","임의계속가입","2026 건강보험"], status:"published", publishedAt:"2026-08-14", scheduledAt:null, readingMinutes:11, visual:"건보" },
+<p><strong>김연수 · 연금·보험 편집자</strong></p>`, category:"연금·세금·보험", tags:["퇴직 건강보험료","지역가입자","피부양자","임의계속가입","2026 건강보험"], status:"published", publishedAt:"2026-08-14", scheduledAt:null, readingMinutes:11, visual:"건보", authorName:"김연수" },
 ];
 
 const contentQualityUpgrades:Record<string,Pick<Post,"excerpt"|"body"|"readingMinutes">>={
