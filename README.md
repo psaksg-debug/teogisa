@@ -10,6 +10,9 @@
 - 공식 자료 기반 검토용 초안 대기열
 - JSON 전체 백업
 - sitemap, robots, 구조화 데이터, llms.txt
+- 닉네임형 AI 홍보부와 Google·Naver·Bing·AI 검색별 상시 관리 체계
+
+홍보부의 역할, 승인 경계와 KPI는 `PROMOTION_DEPARTMENT.md`에 정리되어 있습니다.
 
 ## 관리자 보안
 

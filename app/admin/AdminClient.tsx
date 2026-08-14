@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { Post } from "../../lib/content";
 import type { AgentRun, ContentAgentState, PromotionCampaign, QueueItem } from "../../lib/repository";
+import { getPromotionMember, promotionTeam, searchPrograms } from "../../lib/promotion-team";
 import RichTextEditor from "./RichTextEditor";
 
 const categories = ["퇴직 준비", "정부지원·실업급여", "정부지원·세무", "재취업·N잡", "블로그·애드센스", "AI 활용", "온라인 부업", "투자·재테크", "실제 수익실험", "유용한 도구", "지역 생활정보", "건강·예방", "영상 큐레이션"];
@@ -190,6 +191,13 @@ export default function AdminClient({ username }: { username: string }) {
             <section><strong>커뮤니티용 소개문</strong><p>{campaign.communityCopy}</p><button type="button" disabled={saving} onClick={()=>copyPromotion(campaign.communityCopy,"커뮤니티 홍보 문구")}>소개문 복사</button></section>
             <div className="promotion-actions"><a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(campaign.socialCopy)}`} target="_blank" rel="noreferrer">X 공유 화면 열기</a><a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://adbles.com/posts/${campaign.slug}`)}`} target="_blank" rel="noreferrer">Facebook 공유 화면 열기</a>{campaign.status==="prepared"&&<button type="button" disabled={saving} onClick={()=>finishPromotion(campaign.id)}>게시 완료로 표시</button>}</div>
           </article>)}</div>
+        </section>
+
+        <section className="panel promotion-department-panel">
+          <div className="panel-title"><div><p className="eyebrow">SEARCH GROWTH TEAM</p><h2>홍보부 조직·SEO 운영실</h2></div><span className="queue-count">AI 실무자 {promotionTeam.length}명</span></div>
+          <p className="panel-help">역할이 바로 연상되는 짧은 닉네임을 사용하는 AI 조직입니다. 검색 결과 점검과 개선안 작성은 반복 수행하되, 외부 게시·검색도구 설정 변경·배포는 사람의 확인과 승인 뒤에만 실행합니다.</p>
+          <div className="promotion-team-grid">{promotionTeam.map(member=><article className="promotion-member-card" key={member.id}><div><span>{member.name}</span><small>AI 실무자</small></div><h3>{member.title}</h3><p>{member.scope}</p><strong>{member.cadence}</strong><ul>{member.kpis.map(kpi=><li key={kpi}>{kpi}</li>)}</ul></article>)}</div>
+          <div className="search-programs"><h3>검색엔진별 상시 관리</h3>{searchPrograms.map(program=>{const owner=getPromotionMember(program.ownerId);return <article key={program.id}><header><div><span>{program.engine}</span><strong>{owner?.name} · {owner?.title}</strong></div><small>{program.successMetric}</small></header><ol>{program.routine.map(item=><li key={item}>{item}</li>)}</ol></article>;})}</div>
         </section>
       </div>
     </main>

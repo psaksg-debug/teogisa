@@ -353,6 +353,26 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .promotion-actions a,.promotion-actions button{min-height:42px;padding:0 14px;display:inline-flex;align-items:center;border:1px solid var(--navy);color:var(--navy);background:#fff;font-size:10px;font-weight:800;cursor:pointer}
 .promotion-actions button{color:#fff;background:var(--navy)}
 .promotion-actions a:hover,.promotion-actions a:focus-visible,.promotion-actions button:hover,.promotion-actions button:focus-visible{border-color:var(--orange);outline:0;box-shadow:0 0 0 3px rgba(230,123,50,.18)}
+.promotion-department-panel{border-top:4px solid var(--teal)}
+.promotion-team-grid{margin-top:22px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.promotion-member-card{padding:20px;border:1px solid var(--line);background:#fff}
+.promotion-member-card>div{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.promotion-member-card>div span{color:var(--navy);font:800 18px/1.2 "Noto Serif KR",serif}
+.promotion-member-card>div small{padding:4px 7px;color:var(--teal);background:var(--mint);font-size:9px;font-weight:800}
+.promotion-member-card h3{margin:10px 0 0;color:var(--navy);font-size:13px}
+.promotion-member-card p{min-height:42px;margin:9px 0;color:#5f747b;font-size:11px;line-height:1.7}
+.promotion-member-card>strong{display:block;color:var(--orange);font-size:10px}
+.promotion-member-card ul{margin:12px 0 0;padding-left:17px;color:#536b73;font-size:10px;line-height:1.7}
+.search-programs{margin-top:28px}
+.search-programs>h3{margin:0 0 12px;color:var(--navy);font:700 18px/1.4 "Noto Serif KR",serif}
+.search-programs>article{padding:18px 20px;border:1px solid var(--line);border-bottom:0;background:var(--mist)}
+.search-programs>article:last-child{border-bottom:1px solid var(--line)}
+.search-programs header{display:flex;justify-content:space-between;gap:24px}
+.search-programs header div{display:grid;gap:4px}
+.search-programs header span{color:var(--navy);font-size:13px;font-weight:800}
+.search-programs header strong{color:var(--teal);font-size:10px}
+.search-programs header small{max-width:300px;color:#6b7e84;font-size:10px;text-align:right}
+.search-programs ol{margin:14px 0 0;padding-left:18px;color:#536b73;font-size:11px;line-height:1.8}
 @media(max-width:600px){
   .promotion-agent-form{grid-template-columns:1fr;padding:16px}
   .promotion-agent-form .admin-button{width:100%}
@@ -363,6 +383,11 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   .promotion-card>section>button{position:static;margin-top:14px}
   .promotion-actions{display:grid}
   .promotion-actions a,.promotion-actions button{justify-content:center}
+  .promotion-team-grid{grid-template-columns:1fr}
+  .promotion-member-card p{min-height:0}
+  .search-programs>article{padding:16px}
+  .search-programs header{display:grid;gap:8px}
+  .search-programs header small{max-width:none;text-align:left}
 }
 
 .article-video-feature{margin:42px 0 28px;padding:28px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(320px,1.2fr);gap:28px;align-items:center;color:#fff;background:var(--navy)}

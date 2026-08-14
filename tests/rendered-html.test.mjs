@@ -132,6 +132,17 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(repository,/CONTENT_QUALITY_REVISION/);
   assert.match(repository,/preparePromotionCampaign/);
   assert.match(repository,/promotion_campaigns/);
+  const promotionTeam = await readFile(new URL("../lib/promotion-team.ts", import.meta.url), "utf8");
+  assert.match(promotionTeam, /name: "픽"/);
+  assert.match(promotionTeam, /name: "랭크"/);
+  assert.match(promotionTeam, /name: "네오"/);
+  assert.match(promotionTeam, /name: "빙고"/);
+  assert.match(promotionTeam, /name: "소스"/);
+  assert.match(promotionTeam, /name: "크롤"/);
+  assert.match(promotionTeam, /name: "펄스"/);
+  assert.match(promotionTeam, /Google · Gemini · AI Overviews/);
+  assert.match(promotionTeam, /Naver 통합검색/);
+  assert.match(promotionTeam, /ChatGPT · Perplexity · Claude/);
   assert.doesNotMatch(repository,/tags:\[agent\.name,"공식 자료","검토 초안"\]/);
   assert.match(admin,/분야별 에이전트 운영실/);
   assert.match(admin,/자동 발행 주기/);
@@ -140,8 +151,14 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(admin,/홍보 에이전트 작업실/);
   assert.match(admin,/SNS용 짧은 문구/);
   assert.match(admin,/게시 완료로 표시/);
+  assert.match(admin,/홍보부 조직·SEO 운영실/);
+  assert.match(admin,/역할이 바로 연상되는 짧은 닉네임을 사용하는 AI 조직/);
   assert.match(sitemap,/challenge/);
   assert.doesNotMatch(sitemap,/keyword-lab/);
+  const robots = await readFile(new URL("../app/robots.ts", import.meta.url), "utf8");
+  assert.match(robots,/OAI-SearchBot/);
+  assert.match(robots,/bingbot/);
+  assert.match(robots,/Yeti/);
 });
 
 test("keeps the independent editor and write APIs session-protected", async () => {
