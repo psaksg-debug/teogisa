@@ -75,7 +75,11 @@ const worker = {
     const cacheable=isPublicDocumentRequest(request,url);
     // Sites preview/runtime variants may not expose the Cache API. Caching is
     // therefore an optimization, never a requirement for serving the page.
-    const edgeCache=(globalThis as WorkerGlobalWithCache).caches?.default;
+    let edgeCache:Cache|undefined;
+    if(cacheable){
+      try{edgeCache=(globalThis as WorkerGlobalWithCache).caches?.default;}
+      catch(error){console.warn(JSON.stringify({event:"public_cache_unavailable",path:url.pathname,message:error instanceof Error?error.message:String(error)}));}
+    }
     const key=cacheable?cacheKey(url):null;
     if(key&&edgeCache){
       const cached=await edgeCache.match(key);
