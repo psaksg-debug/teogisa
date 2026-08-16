@@ -603,6 +603,39 @@ export async function setMemberActivityPlanStatus(id:string,status:"active"|"pau
 export async function runDueMemberActivities(){assertTeamPermission("management","automation.run");const d1=await db();const due=await d1.prepare("SELECT * FROM member_activity_plans WHERE status='active' AND next_run_at IS NOT NULL AND next_run_at<=? ORDER BY next_run_at LIMIT 10").bind(new Date().toISOString()).all();let executed=0,failed=0;for(const row of due.results){const plan=mapMemberActivityPlan(row as Record<string,unknown>);const definition=memberActivityPlans.find(item=>item.id===plan.id);const claimed=await d1.prepare("UPDATE member_activity_plans SET next_run_at=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND status='active' AND next_run_at=?").bind(nextMemberActivityRunAt(definition??plan),plan.id,plan.nextRunAt).run();if(Number(claimed.meta?.changes??0)===0)continue;try{await executeMemberActivity(plan);executed++;}catch{failed++;}}return{checked:due.results.length,executed,failed};}
 export async function runScheduledOrganizationActivities(){const content=await runDueContentAgents();const members=await runDueMemberActivities();return{content,members};}
 
-export async function isAdminLoginAllowed(attemptKey:string){const d1=await db();const now=Math.floor(Date.now()/1000);const row=await d1.prepare("SELECT blocked_until FROM admin_login_attempts WHERE attempt_key=?").bind(attemptKey).first<{blocked_until:number}>();return !row||Number(row.blocked_until)<=now;}
-export async function recordAdminLoginFailure(attemptKey:string){const d1=await db();const now=Math.floor(Date.now()/1000);const windowStart=now-15*60;await d1.prepare(`INSERT INTO admin_login_attempts (attempt_key,failures,window_started_at,blocked_until) VALUES (?,1,?,0) ON CONFLICT(attempt_key) DO UPDATE SET failures=CASE WHEN window_started_at<? THEN 1 ELSE failures+1 END,window_started_at=CASE WHEN window_started_at<? THEN ? ELSE window_started_at END,blocked_until=CASE WHEN window_started_at>=? AND failures+1>=5 THEN ? ELSE 0 END`).bind(attemptKey,now,windowStart,windowStart,now,windowStart,now+15*60).run();}
-export async function clearAdminLoginFailures(attemptKey:string){const d1=await db();await d1.prepare("DELETE FROM admin_login_attempts WHERE attempt_key=?").bind(attemptKey).run();}
+export async function isAdminLoginAllowed(attemptKey:string){
+  try {
+    const pg = getPgClient();
+    if (pg) return true;
+    const d1 = await db();
+    const now = Math.floor(Date.now()/1000);
+    const row = await d1.prepare("SELECT blocked_until FROM admin_login_attempts WHERE attempt_key=?").bind(attemptKey).first<{blocked_until:number}>();
+    return !row||Number(row.blocked_until)<=now;
+  } catch {
+    return true;
+  }
+}
+
+export async function recordAdminLoginFailure(attemptKey:string){
+  try {
+    const pg = getPgClient();
+    if (pg) return;
+    const d1 = await db();
+    const now = Math.floor(Date.now()/1000);
+    const windowStart = now - 15 * 60;
+    await d1.prepare(`INSERT INTO admin_login_attempts (attempt_key,failures,window_started_at,blocked_until) VALUES (?,1,?,0) ON CONFLICT(attempt_key) DO UPDATE SET failures=CASE WHEN window_started_at<? THEN 1 ELSE failures+1 END,window_started_at=CASE WHEN window_started_at<? THEN ? ELSE window_started_at END,blocked_until=CASE WHEN window_started_at>=? AND failures+1>=5 THEN ? ELSE 0 END`).bind(attemptKey,now,windowStart,windowStart,now,windowStart,now+15*60).run();
+  } catch {
+    // Ignore rate limit write error on environments without D1
+  }
+}
+
+export async function clearAdminLoginFailures(attemptKey:string){
+  try {
+    const pg = getPgClient();
+    if (pg) return;
+    const d1 = await db();
+    await d1.prepare("DELETE FROM admin_login_attempts WHERE attempt_key=?").bind(attemptKey).run();
+  } catch {
+    // Ignore rate limit clear error on environments without D1
+  }
+}
