@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import Link from "next/link";
 import type { Post } from "../../lib/content";
 import type { AgentRun, AuditFinding, AuditRun, ContentAgentState, ManagementIssue, ManagementRun, MemberActivityPlanState, MemberActivityRun, OriginalityCheck, PromotionCampaign, QueueItem } from "../../lib/repository";
@@ -24,6 +24,24 @@ function datetimeLocal(value: string | null) {
   if (Number.isNaN(date.getTime())) return value.slice(0, 16);
   const local = new Date(date.getTime() - date.getTimezoneOffset() * 60_000);
   return local.toISOString().slice(0, 16);
+}
+
+type ComboOption = { value: string; label: string; group?: string };
+
+function AdminCombo({ id, label, options, value, onChange, children }: { id: string; label: string; options: ComboOption[]; value: string; onChange: (value: string) => void; children?: ReactNode }) {
+  const groups = Array.from(new Set(options.map((option) => option.group ?? "")));
+  return (
+    <div className="admin-combo-section">
+      <label htmlFor={id}>{label}</label>
+      <select id={id} className="admin-combo-select" value={value} onChange={(event) => onChange(event.target.value)}>
+        {options.length === 0 && <option value="">등록된 항목이 없습니다</option>}
+        {groups.length > 1
+          ? groups.map((group) => <optgroup label={group} key={group}>{options.filter((option) => (option.group ?? "") === group).map((option) => <option value={option.value} key={option.value}>{option.label}</option>)}</optgroup>)
+          : options.map((option) => <option value={option.value} key={option.value}>{option.label}</option>)}
+      </select>
+      {children && <div className="admin-combo-detail">{children}</div>}
+    </div>
+  );
 }
 
 export default function AdminClient({ username }: { username: string }) {
@@ -51,7 +69,15 @@ export default function AdminClient({ username }: { username: string }) {
   const [selected, setSelected] = useState<Post | null>(null);
   const [message, setMessage] = useState("편집실을 준비하고 있습니다…");
   const [saving, setSaving] = useState(false);
+  const [comboPick, setComboPick] = useState<Record<string, string>>({});
   const editorPanelRef = useRef<HTMLElement>(null);
+
+  // 목록이 다시 불려와도 선택이 사라지지 않도록, 남아 있는 id면 유지하고 없으면 첫 항목으로 되돌린다.
+  const pickId = (key: string, ids: readonly string[]) => {
+    const current = comboPick[key];
+    return current && ids.includes(current) ? current : ids[0] ?? "";
+  };
+  const setPick = (key: string) => (value: string) => setComboPick((previous) => ({ ...previous, [key]: value }));
 
   async function load() {
     const [postsResponse, queueResponse, agentsResponse, promotionsResponse, managementResponse,auditResponse,activityResponse] = await Promise.all([fetch("/api/posts"), fetch("/api/automation"),fetch("/api/agents"),fetch("/api/promotions"),fetch("/api/management"),fetch("/api/audits"),fetch("/api/activity-plans")]);
@@ -174,6 +200,17 @@ export default function AdminClient({ username }: { username: string }) {
 
   const count = (status: string) => posts.filter((post) => post.status === status).length;
 
+  const activePlanId = pickId("activity", activityPlans.map((plan) => plan.id));
+  const activePlan = activityPlans.find((plan) => plan.id === activePlanId);
+  const activeAgentId = pickId("agent", agents.map((agent) => agent.id));
+  const activeAgent = agents.find((agent) => agent.id === activeAgentId);
+  const activeTeam = teamPermissions.find((team) => team.id === pickId("permission", teamPermissions.map((team) => team.id)));
+  const activeManager = managementMembers.find((member) => member.id === pickId("manager", managementMembers.map((member) => member.id)));
+  const activeOfficer = auditOfficers.find((officer) => officer.id === pickId("officer", auditOfficers.map((officer) => officer.id)));
+  const planningMember = contentPlanningTeam.find((member) => member.id === pickId("planning", contentPlanningTeam.map((member) => member.id)));
+  const qualityMember = qualityDesignTeam.find((member) => member.id === pickId("quality", qualityDesignTeam.map((member) => member.id)));
+  const growthMember = promotionTeam.find((member) => member.id === pickId("growth", promotionTeam.map((member) => member.id)));
+
   return (
     <main className="admin-shell">
       <header className="admin-top">
@@ -223,7 +260,7 @@ export default function AdminClient({ username }: { username: string }) {
           <div className="panel-title"><div><p className="eyebrow">ORGANIZATION SCHEDULER</p><h2>전 구성원 자동 실행계획</h2></div><span className="queue-count">가동 {activityPlans.filter(plan=>plan.status==="active").length}/{activityPlans.length}</span></div>
           <p className="panel-help">기존 30분 주기 스케줄러가 각 구성원의 시간 단위·일 단위 계획 중 실행 시각이 된 업무를 처리합니다. 내부 점검·초안·준비 기록만 자동화하며 발행, 외부 게시와 운영 배포는 승인 후 실행합니다.</p>
           <div className="activity-summary"><article><span>시간 단위</span><strong>{activityPlans.filter(plan=>plan.frequency==="hourly").length}명</strong></article><article><span>일 단위</span><strong>{activityPlans.filter(plan=>plan.frequency==="daily").length}명</strong></article><article><span>검토 필요</span><strong>{activityRuns.filter(run=>run.status==="review").length}건</strong></article><article><span>최근 실패</span><strong>{activityRuns.filter(run=>run.status==="failed").length}건</strong></article></div>
-          <div className="activity-team-list">{Array.from(new Set(activityPlans.map(plan=>plan.teamName))).map(teamName=><details key={teamName} open={teamName==="경영관리팀"}><summary><strong>{teamName}</strong><span>{activityPlans.filter(plan=>plan.teamName===teamName).length}명</span></summary><div>{activityPlans.filter(plan=>plan.teamName===teamName).map(plan=><article className={plan.status} key={plan.id}><header><div><span>{plan.memberName}</span><strong>{plan.role}</strong></div><small>{plan.frequency==="hourly"?`${plan.intervalHours}시간마다`:`매일 ${String(plan.dailyHourKst).padStart(2,"0")}:${String(plan.minuteOffset).padStart(2,"0")} KST`}</small></header><h3>{plan.taskTitle}</h3><p>{plan.instruction}</p><dl><div><dt>다음 실행</dt><dd>{plan.nextRunAt?new Date(plan.nextRunAt).toLocaleString("ko-KR"):"미정"}</dd></div><div><dt>자동 산출물</dt><dd>{plan.safeOutput}</dd></div></dl>{plan.requiresApproval&&<p className="activity-approval">승인 필요 · 공개 및 외부 실행은 자동 처리하지 않음</p>}<footer><button type="button" disabled={saving||plan.status!=="active"} onClick={()=>controlActivity(plan.id,"run")}>지금 실행</button><button type="button" disabled={saving} onClick={()=>controlActivity(plan.id,"status",plan.status==="active"?"paused":"active")}>{plan.status==="active"?"일시정지":"다시 가동"}</button></footer></article>)}</div></details>)}</div>
+          <AdminCombo id="activity-plan-select" label="구성원 선택" options={activityPlans.map(plan=>({value:plan.id,label:`${plan.memberName} · ${plan.role}`,group:plan.teamName}))} value={activePlanId} onChange={setPick("activity")}>{activePlan&&<><strong>{activePlan.memberName} · {activePlan.role}</strong><p>{activePlan.taskTitle}</p><p>{activePlan.instruction}</p><dl><div><dt>소속</dt><dd>{activePlan.teamName}</dd></div><div><dt>실행 주기</dt><dd>{activePlan.frequency==="hourly"?`${activePlan.intervalHours}시간마다`:`매일 ${String(activePlan.dailyHourKst).padStart(2,"0")}:${String(activePlan.minuteOffset).padStart(2,"0")} KST`}</dd></div><div><dt>다음 실행</dt><dd>{activePlan.nextRunAt?new Date(activePlan.nextRunAt).toLocaleString("ko-KR"):"미정"}</dd></div><div><dt>자동 산출물</dt><dd>{activePlan.safeOutput}</dd></div><div><dt>상태</dt><dd>{activePlan.status==="active"?"가동 중":"일시정지"}</dd></div></dl>{activePlan.requiresApproval&&<p className="combo-note">승인 필요 · 공개 및 외부 실행은 자동 처리하지 않음</p>}<div className="combo-actions"><button type="button" disabled={saving||activePlan.status!=="active"} onClick={()=>controlActivity(activePlan.id,"run")}>지금 실행</button><button type="button" disabled={saving} onClick={()=>controlActivity(activePlan.id,"status",activePlan.status==="active"?"paused":"active")}>{activePlan.status==="active"?"일시정지":"다시 가동"}</button></div></>}</AdminCombo>
           <div className="activity-run-log"><h3>최근 자동 실행 기록</h3>{activityRuns.length===0?<p className="management-empty">첫 실행 시각이 되면 결과와 실패 이력이 여기에 기록됩니다.</p>:activityRuns.slice(0,20).map(run=><article className={run.status} key={run.id}><span>{run.status==="completed"?"완료":run.status==="review"?"검토 필요":run.status==="noop"?"중복 생략":"실패"}</span><strong>{run.memberName} · {run.teamName}</strong><p>{run.summary}</p><time>{new Date(run.startedAt).toLocaleString("ko-KR")}</time></article>)}</div>
         </section>
 
@@ -231,7 +268,7 @@ export default function AdminClient({ username }: { username: string }) {
           <div className="panel-title"><div><p className="eyebrow">SAFE RELEASE & ACCESS</p><h2>팀별 권한·무중단 배포</h2></div><span className="queue-count">운영 배포 {safeReleasePolicy.productionAuthority} 전용</span></div>
           <p className="panel-help">콘텐츠 업데이트는 운영 중인 사이트를 멈추지 않고 데이터에 반영합니다. 디자인·기능 변경은 새 버전에서 빌드와 자동 테스트를 마친 뒤 경영관리팀 승인과 대표의 최종 배포를 거쳐 한 번에 교체합니다.</p>
           <div className="release-safety-summary"><article><span>배포 방식</span><strong>버전 분리·일괄 교체</strong><p>검증 중에는 현재 정상 사이트를 그대로 제공합니다.</p></article><article><span>승인</span><strong>{safeReleasePolicy.approvalAuthority}</strong><p>정책·품질·보안 게이트를 확인합니다.</p></article><article><span>복구</span><strong>직전 정상 버전 유지</strong><p>{safeReleasePolicy.rollback}</p></article></div>
-          <div className="team-permission-grid">{teamPermissions.map(team=><article key={team.id}><header><span>{team.name}</span><strong>{team.capabilities.length}개 권한</strong></header><p>{team.responsibility}</p><div>{team.capabilities.map(capability=><code key={capability}>{capability}</code>)}</div><ul>{team.restrictions.map(rule=><li key={rule}>{rule}</li>)}</ul></article>)}</div>
+          <AdminCombo id="team-permission-select" label="팀별 권한 보기" options={teamPermissions.map(team=>({value:team.id,label:team.name}))} value={activeTeam?.id??""} onChange={setPick("permission")}>{activeTeam&&<><strong>{activeTeam.name} · 권한 {activeTeam.capabilities.length}개</strong><p>{activeTeam.responsibility}</p><dl><div><dt>보유 권한</dt><dd>{activeTeam.capabilities.join(" · ")}</dd></div>{activeTeam.restrictions.map((rule,index)=><div key={rule}><dt>제약 {index+1}</dt><dd>{rule}</dd></div>)}</dl></>}</AdminCombo>
           <div className="release-gate-list"><h3>운영 교체 필수 게이트</h3><ol>{safeReleasePolicy.gates.map((gate,index)=><li key={gate}><span>{String(index+1).padStart(2,"0")}</span>{gate}</li>)}</ol></div>
         </section>
 
@@ -242,7 +279,7 @@ export default function AdminClient({ username }: { username: string }) {
           {organizationNotice&&<section className="organization-notice" aria-labelledby="organization-notice-title"><header><div><span>전사 공지 · {organizationNotice.effectiveDate}</span><h3 id="organization-notice-title">{organizationNotice.title}</h3><p>{organizationNotice.message}</p></div><strong>전사 적용 {policyCoverage.applied}/{policyCoverage.total}명</strong></header><ol>{organizationNotice.rules.map(rule=><li key={rule}>{rule}</li>)}</ol><div className="policy-departments">{policyCoverage.departments.map(item=><span key={item.department}>{item.department} {item.count}명</span>)}</div><details><summary>적용 구성원 전체 보기</summary><div className="policy-recipient-list">{policyRecipients.map(member=><span key={member.id}><b>{member.name}</b>{member.title}</span>)}</div></details><footer>{organizationNotice.issuedBy} 공지 · 중앙 발행검사와 경영관리팀 점검으로 의무 적용</footer></section>}
           <section className="originality-monitor"><header><div><p className="eyebrow">ORIGINALITY MONITOR</p><h3>원문 복사 자동감시</h3></div><strong>최근 차단 {originalityChecks.filter(check=>check.status==="blocked").length}건</strong></header><p>편집자가 글을 발행하거나 예약할 때 연결된 원문과 기존 게시물을 자동 대조합니다. 동일 문장이 과도하면 발행을 중지하고 자신의 설명·사례·표로 재작성하도록 즉시 요청합니다.</p><div>{originalityChecks.length===0?<span className="originality-empty">아직 검사 기록이 없습니다. 다음 발행·예약 시 자동으로 검사합니다.</span>:originalityChecks.slice(0,8).map(check=><article className={check.status} key={check.id}><span>{check.status==="passed"?"통과":check.status==="blocked"?"발행 차단":"직접 확인 필요"}</span><strong>{check.editorName} · {check.title}</strong><small>문장 중복 {Math.round(check.overlapRatio*100)}% · 최장 일치 {check.longestMatchChars}자</small><p>{check.message}</p></article>)}</div></section>
           <div className="management-summary"><div><span>열린 문제</span><strong>{managementIssues.filter(issue=>issue.status==="open").length}</strong></div><div><span>긴급</span><strong>{managementIssues.filter(issue=>issue.status==="open"&&issue.severity==="critical").length}</strong></div><div><span>최근 점검</span><strong>{managementRuns[0]?new Date(managementRuns[0].createdAt).toLocaleString("ko-KR"):"대기 중"}</strong></div></div>
-          <div className="management-team-grid">{managementMembers.map(member=><article key={member.id}><span>{member.role}</span><h3>{member.name}</h3><p>{member.mission}</p></article>)}</div>
+          <AdminCombo id="management-member-select" label="관리 담당자 보기" options={managementMembers.map(member=>({value:member.id,label:`${member.name} · ${member.role}`}))} value={activeManager?.id??""} onChange={setPick("manager")}>{activeManager&&<><strong>{activeManager.name} · {activeManager.role}</strong><p>{activeManager.mission}</p></>}</AdminCombo>
           <div className="management-issue-list"><h3>문제 보고 및 조치 내역</h3>{managementIssues.length===0?<p className="management-empty">아직 발견된 문제가 없습니다. ‘지금 전체 점검’을 실행하세요.</p>:managementIssues.map(issue=><article className={`${issue.status} ${issue.severity}`} key={issue.id}><header><div><span>{issue.status==="resolved"?"조치 완료":issue.severity==="critical"?"긴급 보고":"확인 필요"}</span><strong>{issue.title}</strong></div><small>{issue.auditorName} · {issue.scope}</small></header><p>{issue.details}</p>{issue.actionTaken&&<p className="management-action">즉시 조치: {issue.actionTaken}</p>}<footer>{issue.postId?<button type="button" onClick={()=>{const post=posts.find(item=>item.id===issue.postId);if(post)openEditor(post);}}>해당 글 열기</button>:<span/>}{issue.status==="open"&&<button type="button" disabled={saving} onClick={()=>manageSite("resolve",issue.id)}>조치 완료 표시</button>}</footer></article>)}</div>
         </section>
 
@@ -250,7 +287,7 @@ export default function AdminClient({ username }: { username: string }) {
           <div className="panel-title"><div><p className="eyebrow">INTERNAL AUDIT</p><h2>전사 감사실</h2></div><button className="admin-button" type="button" disabled={saving} onClick={()=>auditOrganization("run")}>전 프로젝트 감사 실행</button></div>
           <p className="panel-help">{auditScope||"퇴.기.사 전 프로젝트 업무"}를 대상으로 사규·인사·리소스·콘텐츠·품질·홍보·보안·데이터·자동화·배포 증거를 점검합니다. 지적사항에는 담당자와 완료기한을 지정하고 재점검 결과까지 보존합니다.</p>
           <div className="audit-summary"><div><span>최근 감사의견</span><strong>{auditRuns[0]?.overallOpinion??"감사 대기"}</strong></div><div><span>통과 항목</span><strong>{auditRuns[0]?`${auditRuns[0].passedItems}/${auditRuns[0].totalItems}`:"-"}</strong></div><div><span>열린 지적사항</span><strong>{auditFindings.filter(item=>item.status==="open").length}</strong></div></div>
-          <div className="audit-officers">{auditOfficers.map(officer=><article key={officer.id}><span>{officer.title}</span><h3>{officer.name}</h3><p>{officer.responsibility}</p></article>)}</div>
+          <AdminCombo id="audit-officer-select" label="감사 담당관 보기" options={auditOfficers.map(officer=>({value:officer.id,label:`${officer.name} · ${officer.title}`}))} value={activeOfficer?.id??""} onChange={setPick("officer")}>{activeOfficer&&<><strong>{activeOfficer.name} · {activeOfficer.title}</strong><p>{activeOfficer.responsibility}</p></>}</AdminCombo>
           <details className="audit-domains"><summary>감사영역 {auditDomains.length}개와 증거기준 보기</summary><div>{auditDomains.map(domain=><article key={domain.id}><span>{domain.owner} 담당</span><h4>{domain.name}</h4><p>{domain.standard}</p><small>{domain.evidence.join(" · ")}</small></article>)}</div></details>
           <div className="audit-findings"><h3>감사조서 · 시정조치</h3>{auditFindings.length===0?<p className="management-empty">아직 감사 이력이 없습니다. ‘전 프로젝트 감사 실행’을 눌러 최초 감사를 시작하세요.</p>:auditFindings.slice(0,24).map(finding=><article className={`${finding.status} ${finding.severity}`} key={finding.id}><header><div><span>{finding.status==="compliant"?"적정":finding.status==="resolved"?"조치 완료":finding.severity==="critical"?"긴급":"시정 필요"}</span><strong>{finding.title}</strong></div><small>{auditDomains.find(domain=>domain.id===finding.domain)?.name??finding.domain}</small></header><p>{finding.details}</p><footer><span>담당 {finding.actionOwner}{finding.dueAt?` · ${new Date(finding.dueAt).toLocaleDateString("ko-KR")}까지`:""}</span>{finding.status==="open"&&<button type="button" disabled={saving} onClick={()=>auditOrganization("resolve",finding.id)}>시정조치 기록</button>}</footer>{finding.resolution&&<p className="management-action">완료 증거: {finding.resolution}</p>}</article>)}</div>
         </section>
@@ -258,21 +295,21 @@ export default function AdminClient({ username }: { username: string }) {
         <section className="panel automation-panel agent-control-panel">
           <div className="panel-title"><div><p className="eyebrow">CONTENT AGENTS</p><h2>분야별 에이전트 운영실</h2></div><span className="queue-count">가동 {agents.filter(agent=>agent.status==="active").length}/{agents.length}</span></div>
           <p className="panel-help">각 에이전트는 정해진 공식 출처와 주제를 사용해 16시간마다 초안을 준비합니다. 모든 초안은 경영관리팀의 정책 검토 대기에 들어가며, 사람이 확인해 예약 또는 발행 상태로 바꾼 글만 공개됩니다. 품질 기준에 미달하면 실패 기록으로 남깁니다.</p>
-          <div className="agent-grid">{agents.map(agent=><article className={`agent-card ${agent.status}`} key={agent.id}><div><span>{agent.status==="active"?"가동 중":"일시정지"}</span><small>{agent.category}</small></div><h3>{agent.name}</h3><p>{agent.mission}</p><dl><div><dt>초안 생성 주기</dt><dd>{agent.cadenceHours<24?`${agent.cadenceHours}시간`:`${Math.round(agent.cadenceHours/24)}일`}</dd></div><div><dt>다음 실행</dt><dd>{agent.nextRunAt?new Date(agent.nextRunAt).toLocaleString("ko-KR"):"미정"}</dd></div><div><dt>공식 출처</dt><dd>{agent.sources.length}곳</dd></div></dl><div className="agent-actions"><button type="button" disabled={saving||agent.status!=="active"} onClick={()=>controlAgent(agent.id,"run")}>지금 초안 만들기</button><button type="button" disabled={saving} onClick={()=>controlAgent(agent.id,"status",agent.status==="active"?"paused":"active")}>{agent.status==="active"?"일시정지":"다시 가동"}</button></div></article>)}</div>
+          <AdminCombo id="content-agent-select" label="에이전트 선택" options={agents.map(agent=>({value:agent.id,label:`${agent.name} · ${agent.category}`}))} value={activeAgentId} onChange={setPick("agent")}>{activeAgent&&<><strong>{activeAgent.name} · {activeAgent.category}</strong><p>{activeAgent.mission}</p><dl><div><dt>상태</dt><dd>{activeAgent.status==="active"?"가동 중":"일시정지"}</dd></div><div><dt>초안 생성 주기</dt><dd>{activeAgent.cadenceHours<24?`${activeAgent.cadenceHours}시간`:`${Math.round(activeAgent.cadenceHours/24)}일`}</dd></div><div><dt>다음 실행</dt><dd>{activeAgent.nextRunAt?new Date(activeAgent.nextRunAt).toLocaleString("ko-KR"):"미정"}</dd></div><div><dt>공식 출처</dt><dd>{activeAgent.sources.length}곳</dd></div></dl><div className="combo-actions"><button type="button" disabled={saving||activeAgent.status!=="active"} onClick={()=>controlAgent(activeAgent.id,"run")}>지금 초안 만들기</button><button type="button" disabled={saving} onClick={()=>controlAgent(activeAgent.id,"status",activeAgent.status==="active"?"paused":"active")}>{activeAgent.status==="active"?"일시정지":"다시 가동"}</button></div></>}</AdminCombo>
           <div className="agent-run-log"><h3>최근 작업 기록</h3>{agentRuns.length===0?<p>아직 실행 기록이 없습니다.</p>:agentRuns.map(run=><div key={run.id}><span>{run.status==="review"?"검토 대기":run.status==="published"?"자동 발행":"실패"}</span><strong>{run.agentName}</strong><p>{run.topic}</p><time>{new Date(run.createdAt).toLocaleString("ko-KR")}</time></div>)}</div>
         </section>
 
         <section className="panel promotion-department-panel">
           <div className="panel-title"><div><p className="eyebrow">CONTENT PLANNING TEAM</p><h2>콘텐츠기획팀 운영실</h2></div><span className="queue-count">AI 실무자 {contentPlanningTeam.length}명</span></div>
           <p className="panel-help">독자 질문을 주제 포트폴리오와 제작 브리프로 바꿔 콘텐츠편집팀에 인계합니다. 기획팀은 무엇을 왜 만들지 책임지고, 집필·사실검증·발행 권한은 각각 콘텐츠편집팀과 경영관리팀에 둡니다.</p>
-          <div className="promotion-team-grid">{contentPlanningTeam.map(member=><article className="promotion-member-card" key={member.id}><div><span>{member.name}</span><small>AI 실무자</small></div><h3>{member.title}</h3><p>{member.mission}</p><strong>전담: {member.owns.join(" · ")}</strong><ul>{member.kpis.map(kpi=><li key={kpi}>{kpi}</li>)}</ul></article>)}</div>
+          <AdminCombo id="planning-member-select" label="콘텐츠기획팀 실무자" options={contentPlanningTeam.map(member=>({value:member.id,label:`${member.name} · ${member.title}`}))} value={planningMember?.id??""} onChange={setPick("planning")}>{planningMember&&<><strong>{planningMember.name} · {planningMember.title}</strong><p>{planningMember.mission}</p><dl><div><dt>전담</dt><dd>{planningMember.owns.join(" · ")}</dd></div>{planningMember.kpis.map((kpi,index)=><div key={kpi}><dt>KPI {index+1}</dt><dd>{kpi}</dd></div>)}</dl></>}</AdminCombo>
           <div className="search-programs"><h3>기획 → 학습 운영 흐름</h3><article><ol>{contentPlanningWorkflow.map(item=><li key={item}>{item}</li>)}</ol></article><h3>출범 후 첫 30일</h3><article><ol>{contentPlanningFirstMonth.map(item=><li key={item}>{item}</li>)}</ol></article></div>
         </section>
 
         <section className="panel promotion-department-panel">
           <div className="panel-title"><div><p className="eyebrow">QUALITY DESIGN TEAM</p><h2>품질디자인팀 운영실</h2></div><span className="queue-count">AI 실무자 {qualityDesignTeam.length}명</span></div>
           <p className="panel-help">콘텐츠편집팀이 만든 글을 디자인, 가독성, 시각자료, 모바일·접근성, 발행 정보까지 하나의 완성품으로 검수합니다. 기준 미달 작업은 보완 대기로 돌리고, 최종 공개는 경영관리팀 승인 뒤에만 진행합니다.</p>
-          <div className="promotion-team-grid">{qualityDesignTeam.map(member=><article className="promotion-member-card" key={member.id}><div><span>{member.name}</span><small>AI 실무자</small></div><h3>{member.title}</h3><p>{member.mission}</p><strong>전담: {member.owns.join(" · ")}</strong><ul>{member.kpis.map(kpi=><li key={kpi}>{kpi}</li>)}</ul></article>)}</div>
+          <AdminCombo id="quality-member-select" label="품질디자인팀 실무자" options={qualityDesignTeam.map(member=>({value:member.id,label:`${member.name} · ${member.title}`}))} value={qualityMember?.id??""} onChange={setPick("quality")}>{qualityMember&&<><strong>{qualityMember.name} · {qualityMember.title}</strong><p>{qualityMember.mission}</p><dl><div><dt>전담</dt><dd>{qualityMember.owns.join(" · ")}</dd></div>{qualityMember.kpis.map((kpi,index)=><div key={kpi}><dt>KPI {index+1}</dt><dd>{kpi}</dd></div>)}</dl></>}</AdminCombo>
           <div className="search-programs"><h3>발행 전 필수 품질 게이트</h3><article><ol>{qualityDesignGates.map(gate=><li key={gate}>{gate}</li>)}</ol></article></div>
         </section>
 
@@ -294,7 +331,7 @@ export default function AdminClient({ username }: { username: string }) {
         <section className="panel promotion-department-panel">
           <div className="panel-title"><div><p className="eyebrow">SEARCH GROWTH TEAM</p><h2>홍보마케팅팀 조직·SEO 운영실</h2></div><span className="queue-count">AI 실무자 {promotionTeam.length}명</span></div>
           <p className="panel-help">역할이 바로 연상되는 짧은 닉네임을 사용하는 AI 조직입니다. 검색 결과 점검과 개선안 작성은 반복 수행하되, 외부 게시·검색도구 설정 변경·배포는 사람의 확인과 승인 뒤에만 실행합니다.</p>
-          <div className="promotion-team-grid">{promotionTeam.map(member=><article className="promotion-member-card" key={member.id}><div><span>{member.name}</span><small>AI 실무자</small></div><h3>{member.title}</h3><p>{member.scope}</p><strong>{member.cadence}</strong><ul>{member.kpis.map(kpi=><li key={kpi}>{kpi}</li>)}</ul></article>)}</div>
+          <AdminCombo id="growth-member-select" label="홍보마케팅팀 실무자" options={promotionTeam.map(member=>({value:member.id,label:`${member.name} · ${member.title}`}))} value={growthMember?.id??""} onChange={setPick("growth")}>{growthMember&&<><strong>{growthMember.name} · {growthMember.title}</strong><p>{growthMember.scope}</p><dl><div><dt>수행 주기</dt><dd>{growthMember.cadence}</dd></div>{growthMember.kpis.map((kpi,index)=><div key={kpi}><dt>KPI {index+1}</dt><dd>{kpi}</dd></div>)}</dl></>}</AdminCombo>
           <div className="search-programs"><h3>검색엔진별 상시 관리</h3>{searchPrograms.map(program=>{const owner=getPromotionMember(program.ownerId);return <article key={program.id}><header><div><span>{program.engine}</span><strong>{owner?.name} · {owner?.title}</strong></div><small>{program.successMetric}</small></header><ol>{program.routine.map(item=><li key={item}>{item}</li>)}</ol></article>;})}</div>
         </section>
       </div>
