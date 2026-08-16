@@ -27,6 +27,7 @@ interface EdgeCacheStorage extends CacheStorage {
 type WorkerGlobalWithCache=typeof globalThis&{caches?:EdgeCacheStorage};
 
 const PUBLIC_CACHE_CONTROL="public, max-age=0, s-maxage=300, stale-while-revalidate=86400";
+const NAVER_SITE_VERIFICATION_PATH="/naverafe0ef74210245a649d66c3a595329e9.html";
 
 function isPublicDocumentRequest(request:Request,url:URL){
   if(request.method!=="GET"||url.search!=="")return false;
@@ -59,6 +60,10 @@ const worker = {
       url.hostname = "adbles.com";
       url.port = "";
       return Response.redirect(url.toString(), 301);
+    }
+
+    if (request.method === "GET" && url.pathname === NAVER_SITE_VERIFICATION_PATH) {
+      return env.ASSETS.fetch(request);
     }
 
     if (url.pathname === "/_vinext/image") {

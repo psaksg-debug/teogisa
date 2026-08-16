@@ -177,6 +177,16 @@ test("redirects www to the canonical apex domain", async () => {
   assert.match(worker, /Response\.redirect\(url\.toString\(\), 301\)/);
 });
 
+test("serves the Naver verification file at its exact public path", async () => {
+  const [worker, verification] = await Promise.all([
+    readFile(new URL("../worker/index.ts", import.meta.url), "utf8"),
+    readFile(new URL("../public/naverafe0ef74210245a649d66c3a595329e9.html", import.meta.url), "utf8"),
+  ]);
+  assert.match(worker, /NAVER_SITE_VERIFICATION_PATH/);
+  assert.match(worker, /return env\.ASSETS\.fetch\(request\)/);
+  assert.equal(verification.trim(), "naver-site-verification: naverafe0ef74210245a649d66c3a595329e9.html");
+});
+
 test("ships the challenge, official information, tools, health and agent desks", async()=>{
   const [home,chrome,challenge,workbook,official,portal,tools,severance,health,keyword,localPage,agentsApi,agentsData,repository,admin,sitemap]=await Promise.all([
     readFile(new URL("../app/page.tsx",import.meta.url),"utf8"),
