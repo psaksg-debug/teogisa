@@ -189,12 +189,23 @@ export function sortPostsNewestFirst(posts: readonly Post[]) {
 }
 
 export async function publishDuePosts() {
-  const d1 = await db();
-  const now = new Date().toISOString();
-  await d1.batch([
-    d1.prepare("UPDATE posts SET status='published', published_at=substr(?,1,10), updated_at=CURRENT_TIMESTAMP WHERE status='scheduled' AND scheduled_at IS NOT NULL AND scheduled_at<=?").bind(now, now),
-    d1.prepare("UPDATE posting_queue SET status='published' WHERE status='scheduled' AND scheduled_at IS NOT NULL AND scheduled_at<=?").bind(now),
-  ]);
+  try {
+    const pg = getPgClient();
+    if (pg) {
+      const now = new Date().toISOString();
+      await pg`UPDATE posts SET status='published', published_at=SUBSTRING(${now},1,10), updated_at=NOW() WHERE status='scheduled' AND scheduled_at IS NOT NULL AND scheduled_at<=${now}`;
+      await pg`UPDATE posting_queue SET status='published' WHERE status='scheduled' AND scheduled_at IS NOT NULL AND scheduled_at<=${now}`;
+      return;
+    }
+    const d1 = await db();
+    const now = new Date().toISOString();
+    await d1.batch([
+      d1.prepare("UPDATE posts SET status='published', published_at=substr(?,1,10), updated_at=CURRENT_TIMESTAMP WHERE status='scheduled' AND scheduled_at IS NOT NULL AND scheduled_at<=?").bind(now, now),
+      d1.prepare("UPDATE posting_queue SET status='published' WHERE status='scheduled' AND scheduled_at IS NOT NULL AND scheduled_at<=?").bind(now),
+    ]);
+  } catch {
+    // Graceful fallback
+  }
 }
 
 export async function getPublishedPosts() {
@@ -212,8 +223,6 @@ export async function getPublishedPosts() {
     }
     const d1 = await db({initialize:false});
     const result = await d1
-      // Read every persisted status so an editor's explicit draft/unpublish
-      // decision always wins over a bundled fallback post.
       .prepare("SELECT * FROM posts ORDER BY published_at DESC, id DESC")
       .all();
     const persisted=result.results.map((row) => mapPost(row as Record<string, unknown>));
@@ -233,11 +242,27 @@ export async function getAllPosts() {
   const pg = getPgClient();
   if (pg) {
     const rows = await pg`SELECT * FROM posts ORDER BY updated_at DESC, id DESC`;
-    return rows.map((row) => mapPost(row as Record<string, unknown>));
+    const persisted = rows.map((row) => mapPost(row as Record<string, unknown>));
+    const persistedSlugs = new Set(persisted.map((post) => post.slug));
+    const persistedTitles = new Set(persisted.map((post) => post.title.trim()));
+    return [
+      ...persisted,
+      ...seedPosts.filter((post) => !persistedSlugs.has(post.slug) && !persistedTitles.has(post.title.trim())),
+    ];
   }
-  const d1 = await db();
-  const result = await d1.prepare("SELECT * FROM posts ORDER BY updated_at DESC, id DESC").all();
-  return result.results.map((row) => mapPost(row as Record<string, unknown>));
+  try {
+    const d1 = await db();
+    const result = await d1.prepare("SELECT * FROM posts ORDER BY updated_at DESC, id DESC").all();
+    const persisted = result.results.map((row) => mapPost(row as Record<string, unknown>));
+    const persistedSlugs = new Set(persisted.map((post) => post.slug));
+    const persistedTitles = new Set(persisted.map((post) => post.title.trim()));
+    return [
+      ...persisted,
+      ...seedPosts.filter((post) => !persistedSlugs.has(post.slug) && !persistedTitles.has(post.title.trim())),
+    ];
+  } catch {
+    return seedPosts;
+  }
 }
 
 function normalizePostSlug(slug:string){
@@ -356,19 +381,40 @@ export async function createAutomationDraft(input: {
 }
 
 export async function getPostingQueue() {
-  const d1 = await db();
-  const result = await d1
-    .prepare("SELECT q.id,q.post_id,p.title,q.status,q.source_url,q.scheduled_at,q.attempts FROM posting_queue q JOIN posts p ON p.id=q.post_id ORDER BY q.created_at DESC")
-    .all();
-  return result.results.map((row) => ({
-    id: Number(row.id),
-    postId: Number(row.post_id),
-    title: String(row.title),
-    status: String(row.status),
-    sourceUrl: row.source_url ? String(row.source_url) : null,
-    scheduledAt: row.scheduled_at ? String(row.scheduled_at) : null,
-    attempts: Number(row.attempts ?? 0),
-  } satisfies QueueItem));
+  const pg = getPgClient();
+  if (pg) {
+    const rows = await pg`
+      SELECT q.id, q.post_id, p.title, q.status, q.source_url, q.scheduled_at, q.attempts
+      FROM posting_queue q JOIN posts p ON p.id = q.post_id
+      ORDER BY q.created_at DESC
+    `;
+    return rows.map((row) => ({
+      id: Number(row.id),
+      postId: Number(row.post_id),
+      title: String(row.title),
+      status: String(row.status),
+      sourceUrl: row.source_url ? String(row.source_url) : null,
+      scheduledAt: row.scheduled_at ? String(row.scheduled_at) : null,
+      attempts: Number(row.attempts ?? 0),
+    } satisfies QueueItem));
+  }
+  try {
+    const d1 = await db();
+    const result = await d1
+      .prepare("SELECT q.id,q.post_id,p.title,q.status,q.source_url,q.scheduled_at,q.attempts FROM posting_queue q JOIN posts p ON p.id=q.post_id ORDER BY q.created_at DESC")
+      .all();
+    return result.results.map((row) => ({
+      id: Number(row.id),
+      postId: Number(row.post_id),
+      title: String(row.title),
+      status: String(row.status),
+      sourceUrl: row.source_url ? String(row.source_url) : null,
+      scheduledAt: row.scheduled_at ? String(row.scheduled_at) : null,
+      attempts: Number(row.attempts ?? 0),
+    } satisfies QueueItem));
+  } catch {
+    return [];
+  }
 }
 
 export async function exportAll() {
@@ -411,11 +457,44 @@ function mapAgent(row:Record<string,unknown>):ContentAgentState{return{id:String
 function mapAgentRun(row:Record<string,unknown>):AgentRun{return{id:Number(row.id),agentId:String(row.agent_id),agentName:String(row.agent_name??""),status:String(row.status),topic:String(row.topic),postId:row.post_id?Number(row.post_id):null,message:row.message?String(row.message):null,createdAt:String(row.created_at)};}
 function mapPromotion(row:Record<string,unknown>):PromotionCampaign{const hashtags=JSON.parse(String(row.hashtags_json??"[]")) as string[];return{id:Number(row.id),postId:Number(row.post_id),title:String(row.title),slug:String(row.slug),status:row.status==="executed"?"executed":"prepared",headline:String(row.headline),socialCopy:String(row.social_copy),communityCopy:String(row.community_copy),hashtags,channels:JSON.parse(String(row.channels_json??"[]")),channelPlans:buildMarketingChannelPlans({slug:String(row.slug),title:String(row.title),excerpt:row.excerpt?String(row.excerpt):undefined,category:row.category?String(row.category):undefined,hashtags}),createdAt:String(row.created_at),executedAt:row.executed_at?String(row.executed_at):null};}
 function htmlEscape(value:string){return value.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
-export async function getContentAgentDashboard(){const d1=await db();const [agents,runs]=await Promise.all([d1.prepare("SELECT * FROM content_agents ORDER BY name").all(),d1.prepare("SELECT r.*,a.name AS agent_name FROM agent_runs r JOIN content_agents a ON a.id=r.agent_id ORDER BY r.created_at DESC,r.id DESC LIMIT 30").all()]);return{agents:agents.results.map(row=>mapAgent(row as Record<string,unknown>)),runs:runs.results.map(row=>mapAgentRun(row as Record<string,unknown>))};}
+export async function getContentAgentDashboard(){
+  const pg = getPgClient();
+  if (pg) {
+    const agents = await pg`SELECT * FROM content_agents ORDER BY name`;
+    const runs = await pg`SELECT r.*, a.name AS agent_name FROM agent_runs r JOIN content_agents a ON a.id = r.agent_id ORDER BY r.created_at DESC, r.id DESC LIMIT 30`;
+    return {
+      agents: agents.map((row) => mapAgent(row as Record<string, unknown>)),
+      runs: runs.map((row) => mapAgentRun(row as Record<string, unknown>)),
+    };
+  }
+  try {
+    const d1=await db();
+    const [agents,runs]=await Promise.all([
+      d1.prepare("SELECT * FROM content_agents ORDER BY name").all(),
+      d1.prepare("SELECT r.*,a.name AS agent_name FROM agent_runs r JOIN content_agents a ON a.id=r.agent_id ORDER BY r.created_at DESC,r.id DESC LIMIT 30").all()
+    ]);
+    return{agents:agents.results.map(row=>mapAgent(row as Record<string,unknown>)),runs:runs.results.map(row=>mapAgentRun(row as Record<string,unknown>))};
+  } catch {
+    return { agents: contentAgentProfiles.map((a) => ({ ...a, status: "active", cadenceHours: a.cadenceHours, sources: a.sources, topics: a.topics, nextRunAt: null, lastRunAt: null, topicCursor: 0 })), runs: [] };
+  }
+}
 
 export async function setContentAgentStatus(id:string,status:"active"|"paused"){const d1=await db();const row=await d1.prepare("UPDATE content_agents SET status=?,updated_at=CURRENT_TIMESTAMP WHERE id=? RETURNING *").bind(status,id).first();if(!row)throw new Error("에이전트를 찾지 못했습니다.");return mapAgent(row as Record<string,unknown>);}
 
-export async function getPromotionCampaigns(){const d1=await db();const result=await d1.prepare("SELECT c.*,p.title,p.slug,p.excerpt,p.category FROM promotion_campaigns c JOIN posts p ON p.id=c.post_id ORDER BY c.created_at DESC,c.id DESC LIMIT 30").all();return result.results.map(row=>mapPromotion(row as Record<string,unknown>));}
+export async function getPromotionCampaigns(){
+  const pg = getPgClient();
+  if (pg) {
+    const rows = await pg`SELECT c.*, p.title, p.slug, p.excerpt, p.category FROM promotion_campaigns c JOIN posts p ON p.id = c.post_id ORDER BY c.created_at DESC, c.id DESC LIMIT 30`;
+    return rows.map((row) => mapPromotion(row as Record<string, unknown>));
+  }
+  try {
+    const d1=await db();
+    const result=await d1.prepare("SELECT c.*,p.title,p.slug,p.excerpt,p.category FROM promotion_campaigns c JOIN posts p ON p.id=c.post_id ORDER BY c.created_at DESC,c.id DESC LIMIT 30").all();
+    return result.results.map(row=>mapPromotion(row as Record<string,unknown>));
+  } catch {
+    return [];
+  }
+}
 
 export async function preparePromotionCampaign(postId?:number){
   assertTeamPermission("promotion","promotion.prepare");
@@ -512,8 +591,40 @@ export async function runSiteManagementAudit(){
   return mapManagementRun(run as Record<string,unknown>);
 }
 
-export async function getSiteManagementDashboard(){const d1=await db();const [issues,runs,originalityChecks]=await Promise.all([d1.prepare("SELECT i.*,p.title AS post_title FROM management_issues i LEFT JOIN posts p ON p.id=i.post_id ORDER BY CASE i.status WHEN 'open' THEN 0 ELSE 1 END,CASE i.severity WHEN 'critical' THEN 0 WHEN 'warning' THEN 1 ELSE 2 END,i.updated_at DESC LIMIT 60").all(),d1.prepare("SELECT * FROM management_runs ORDER BY created_at DESC,id DESC LIMIT 20").all(),d1.prepare("SELECT * FROM originality_checks ORDER BY checked_at DESC,id DESC LIMIT 30").all()]);return{members:managementDepartment,companyRules,companyResources:companyResourceRegistry,safeReleasePolicy,notice:organizationNotice,policyCoverage:organizationPolicyCoverage,policyRecipients:organizationPolicyRecipients,originalityChecks:originalityChecks.results.map(row=>mapOriginalityCheck(row as Record<string,unknown>)),issues:issues.results.map(row=>mapManagementIssue(row as Record<string,unknown>)),runs:runs.results.map(row=>mapManagementRun(row as Record<string,unknown>))};}
-export async function runDueSiteManagementAudit(){const d1=await db();const recent=await d1.prepare("SELECT id FROM management_runs WHERE created_at>=datetime('now','-6 hours') LIMIT 1").first();return recent?null:runSiteManagementAudit();}
+export async function getSiteManagementDashboard(){
+  const pg = getPgClient();
+  if (pg) {
+    const issues = await pg`SELECT i.*, p.title AS post_title FROM management_issues i LEFT JOIN posts p ON p.id = i.post_id ORDER BY CASE i.status WHEN 'open' THEN 0 ELSE 1 END, CASE i.severity WHEN 'critical' THEN 0 WHEN 'warning' THEN 1 ELSE 2 END, i.updated_at DESC LIMIT 60`;
+    const runs = await pg`SELECT * FROM management_runs ORDER BY created_at DESC, id DESC LIMIT 20`;
+    const originalityChecks = await pg`SELECT * FROM originality_checks ORDER BY checked_at DESC, id DESC LIMIT 30`;
+    return {
+      members: managementDepartment,
+      companyRules,
+      companyResources: companyResourceRegistry,
+      safeReleasePolicy,
+      notice: organizationNotice,
+      policyCoverage: organizationPolicyCoverage,
+      policyRecipients: organizationPolicyRecipients,
+      originalityChecks: originalityChecks.map((row) => mapOriginalityCheck(row as Record<string, unknown>)),
+      issues: issues.map((row) => mapManagementIssue(row as Record<string, unknown>)),
+      runs: runs.map((row) => mapManagementRun(row as Record<string, unknown>)),
+    };
+  }
+  try {
+    const d1=await db();
+    const [issues,runs,originalityChecks]=await Promise.all([d1.prepare("SELECT i.*,p.title AS post_title FROM management_issues i LEFT JOIN posts p ON p.id=i.post_id ORDER BY CASE i.status WHEN 'open' THEN 0 ELSE 1 END,CASE i.severity WHEN 'critical' THEN 0 WHEN 'warning' THEN 1 ELSE 2 END,i.updated_at DESC LIMIT 60").all(),d1.prepare("SELECT * FROM management_runs ORDER BY created_at DESC,id DESC LIMIT 20").all(),d1.prepare("SELECT * FROM originality_checks ORDER BY checked_at DESC,id DESC LIMIT 30").all()]);
+    return{members:managementDepartment,companyRules,companyResources:companyResourceRegistry,safeReleasePolicy,notice:organizationNotice,policyCoverage:organizationPolicyCoverage,policyRecipients:organizationPolicyRecipients,originalityChecks:originalityChecks.results.map(row=>mapOriginalityCheck(row as Record<string,unknown>)),issues:issues.results.map(row=>mapManagementIssue(row as Record<string,unknown>)),runs:runs.results.map(row=>mapManagementRun(row as Record<string,unknown>))};
+  } catch {
+    return { members: managementDepartment, companyRules, companyResources: companyResourceRegistry, safeReleasePolicy, notice: organizationNotice, policyCoverage: organizationPolicyCoverage, policyRecipients: organizationPolicyRecipients, originalityChecks: [], issues: [], runs: [] };
+  }
+}
+export async function runDueSiteManagementAudit(){
+  try {
+    const d1=await db();const recent=await d1.prepare("SELECT id FROM management_runs WHERE created_at>=datetime('now','-6 hours') LIMIT 1").first();return recent?null:runSiteManagementAudit();
+  } catch {
+    return null;
+  }
+}
 export async function resolveManagementIssue(id:number){assertTeamPermission("management","audit.resolve");const d1=await db();const row=await d1.prepare("UPDATE management_issues SET status='resolved',resolved_at=CURRENT_TIMESTAMP,updated_at=CURRENT_TIMESTAMP WHERE id=? RETURNING *").bind(id).first();if(!row)throw new Error("관리 문제를 찾지 못했습니다.");return mapManagementIssue(row as Record<string,unknown>);}
 
 function mapAuditRun(row:Record<string,unknown>):AuditRun{return{id:Number(row.id),scope:String(row.scope),leadAuditor:String(row.lead_auditor),status:String(row.status),overallOpinion:String(row.overall_opinion),totalItems:Number(row.total_items),passedItems:Number(row.passed_items),findingCount:Number(row.finding_count),startedAt:String(row.started_at),completedAt:row.completed_at?String(row.completed_at):null};}
@@ -565,8 +676,34 @@ export async function runOrganizationAudit(){
   }catch(error){await d1.prepare("UPDATE audit_runs SET status='failed',overall_opinion=?,completed_at=CURRENT_TIMESTAMP WHERE id=?").bind(error instanceof Error?error.message:"감사 중 오류",auditRunId).run();throw error;}
 }
 
-export async function getAuditDashboard(){const d1=await db();const [runs,findings]=await Promise.all([d1.prepare("SELECT * FROM audit_runs ORDER BY started_at DESC,id DESC LIMIT 20").all(),d1.prepare("SELECT * FROM audit_findings ORDER BY CASE status WHEN 'open' THEN 0 WHEN 'resolved' THEN 1 ELSE 2 END,CASE severity WHEN 'critical' THEN 0 WHEN 'major' THEN 1 WHEN 'minor' THEN 2 ELSE 3 END,created_at DESC,id DESC LIMIT 100").all()]);return{scope:AUDIT_SCOPE,officers:auditOfficers,domains:auditDomains,runs:runs.results.map(row=>mapAuditRun(row as Record<string,unknown>)),findings:findings.results.map(row=>mapAuditFinding(row as Record<string,unknown>))};}
-export async function runDueOrganizationAudit(){const d1=await db();const recent=await d1.prepare("SELECT id FROM audit_runs WHERE status='completed' AND completed_at>=datetime('now','-30 days') LIMIT 1").first();return recent?null:runOrganizationAudit();}
+export async function getAuditDashboard(){
+  const pg = getPgClient();
+  if (pg) {
+    const runs = await pg`SELECT * FROM audit_runs ORDER BY started_at DESC, id DESC LIMIT 20`;
+    const findings = await pg`SELECT * FROM audit_findings ORDER BY CASE status WHEN 'open' THEN 0 WHEN 'resolved' THEN 1 ELSE 2 END, CASE severity WHEN 'critical' THEN 0 WHEN 'major' THEN 1 WHEN 'minor' THEN 2 ELSE 3 END, created_at DESC, id DESC LIMIT 100`;
+    return {
+      scope: AUDIT_SCOPE,
+      officers: auditOfficers,
+      domains: auditDomains,
+      runs: runs.map((row) => mapAuditRun(row as Record<string, unknown>)),
+      findings: findings.map((row) => mapAuditFinding(row as Record<string, unknown>)),
+    };
+  }
+  try {
+    const d1=await db();
+    const [runs,findings]=await Promise.all([d1.prepare("SELECT * FROM audit_runs ORDER BY started_at DESC,id DESC LIMIT 20").all(),d1.prepare("SELECT * FROM audit_findings ORDER BY CASE status WHEN 'open' THEN 0 WHEN 'resolved' THEN 1 ELSE 2 END,CASE severity WHEN 'critical' THEN 0 WHEN 'major' THEN 1 WHEN 'minor' THEN 2 ELSE 3 END,created_at DESC,id DESC LIMIT 100").all()]);
+    return{scope:AUDIT_SCOPE,officers:auditOfficers,domains:auditDomains,runs:runs.results.map(row=>mapAuditRun(row as Record<string,unknown>)),findings:findings.results.map(row=>mapAuditFinding(row as Record<string,unknown>))};
+  } catch {
+    return { scope: AUDIT_SCOPE, officers: auditOfficers, domains: auditDomains, runs: [], findings: [] };
+  }
+}
+export async function runDueOrganizationAudit(){
+  try {
+    const d1=await db();const recent=await d1.prepare("SELECT id FROM audit_runs WHERE status='completed' AND completed_at>=datetime('now','-30 days') LIMIT 1").first();return recent?null:runOrganizationAudit();
+  } catch {
+    return null;
+  }
+}
 export async function resolveAuditFinding(id:number,resolution:string){assertTeamPermission("management","audit.resolve");if(!resolution.trim())throw new Error("시정조치 내용을 입력하세요.");const d1=await db();const row=await d1.prepare("UPDATE audit_findings SET status='resolved',resolution=?,resolved_at=CURRENT_TIMESTAMP WHERE id=? AND status='open' RETURNING *").bind(resolution.trim(),id).first();if(!row)throw new Error("열린 감사 지적사항을 찾지 못했습니다.");return mapAuditFinding(row as Record<string,unknown>);}
 
 function mapMemberActivityPlan(row:Record<string,unknown>):MemberActivityPlanState{return{id:String(row.id),memberId:String(row.member_id),memberName:String(row.member_name),teamId:String(row.team_id),teamName:String(row.team_name),role:String(row.role),frequency:row.frequency==="hourly"?"hourly":"daily",intervalHours:row.interval_hours==null?null:Number(row.interval_hours),dailyHourKst:row.daily_hour_kst==null?null:Number(row.daily_hour_kst),minuteOffset:Number(row.minute_offset??0),action:row.action as ActivityAction,taskTitle:String(row.task_title),instruction:String(row.instruction),safeOutput:String(row.safe_output),requiresApproval:Number(row.requires_approval)===1,status:row.status==="paused"?"paused":"active",nextRunAt:row.next_run_at?String(row.next_run_at):null,lastRunAt:row.last_run_at?String(row.last_run_at):null};}
@@ -597,7 +734,25 @@ async function executeMemberActivity(plan:MemberActivityPlanState){
   catch(error){const message=error instanceof Error?error.message:"알 수 없는 실행 오류";await d1.batch([d1.prepare("UPDATE member_activity_runs SET status='failed',summary=?,completed_at=CURRENT_TIMESTAMP WHERE id=?").bind(message,started.id),d1.prepare("UPDATE member_activity_plans SET last_run_at=CURRENT_TIMESTAMP,next_run_at=?,updated_at=CURRENT_TIMESTAMP WHERE id=?").bind(next,plan.id)]);throw error;}
 }
 
-export async function getMemberActivityDashboard(){const d1=await db();const [plans,runs]=await Promise.all([d1.prepare("SELECT * FROM member_activity_plans ORDER BY team_name,member_name").all(),d1.prepare("SELECT * FROM member_activity_runs ORDER BY started_at DESC,id DESC LIMIT 100").all()]);return{scheduler:{intervalMinutes:30,timeZone:"Asia/Seoul",automatic:true,safeBoundary:"내부 점검·초안·준비 기록만 자동 실행하며 발행·외부 게시·배포는 승인이 필요합니다."},plans:plans.results.map(row=>mapMemberActivityPlan(row as Record<string,unknown>)),runs:runs.results.map(row=>mapMemberActivityRun(row as Record<string,unknown>))};}
+export async function getMemberActivityDashboard(){
+  const pg = getPgClient();
+  if (pg) {
+    const plans = await pg`SELECT * FROM member_activity_plans ORDER BY team_name, member_name`;
+    const runs = await pg`SELECT * FROM member_activity_runs ORDER BY started_at DESC, id DESC LIMIT 100`;
+    return {
+      scheduler: { intervalMinutes: 30, timeZone: "Asia/Seoul", automatic: true, safeBoundary: "내부 점검·초안·준비 기록만 자동 실행하며 발행·외부 게시·배포는 승인이 필요합니다." },
+      plans: plans.map((row) => mapMemberActivityPlan(row as Record<string, unknown>)),
+      runs: runs.map((row) => mapMemberActivityRun(row as Record<string, unknown>)),
+    };
+  }
+  try {
+    const d1=await db();
+    const [plans,runs]=await Promise.all([d1.prepare("SELECT * FROM member_activity_plans ORDER BY team_name,member_name").all(),d1.prepare("SELECT * FROM member_activity_runs ORDER BY started_at DESC,id DESC LIMIT 100").all()]);
+    return{scheduler:{intervalMinutes:30,timeZone:"Asia/Seoul",automatic:true,safeBoundary:"내부 점검·초안·준비 기록만 자동 실행하며 발행·외부 게시·배포는 승인이 필요합니다."},plans:plans.results.map(row=>mapMemberActivityPlan(row as Record<string,unknown>)),runs:runs.results.map(row=>mapMemberActivityRun(row as Record<string,unknown>))};
+  } catch {
+    return { scheduler: { intervalMinutes: 30, timeZone: "Asia/Seoul", automatic: true, safeBoundary: "내부 점검·초안·준비 기록만 자동 실행하며 발행·외부 게시·배포는 승인이 필요합니다." }, plans: memberActivityPlans.map((p) => ({ ...p, status: "active", nextRunAt: null, lastRunAt: null })), runs: [] };
+  }
+}
 export async function runMemberActivityPlan(id:string){assertTeamPermission("owner","automation.run");const d1=await db();const row=await d1.prepare("SELECT * FROM member_activity_plans WHERE id=?").bind(id).first();if(!row)throw new Error("실행계획을 찾지 못했습니다.");return executeMemberActivity(mapMemberActivityPlan(row as Record<string,unknown>));}
 export async function setMemberActivityPlanStatus(id:string,status:"active"|"paused"){assertTeamPermission("owner","automation.manage");const d1=await db();const row=await d1.prepare("UPDATE member_activity_plans SET status=?,updated_at=CURRENT_TIMESTAMP WHERE id=? RETURNING *").bind(status,id).first();if(!row)throw new Error("실행계획을 찾지 못했습니다.");return mapMemberActivityPlan(row as Record<string,unknown>);}
 export async function runDueMemberActivities(){assertTeamPermission("management","automation.run");const d1=await db();const due=await d1.prepare("SELECT * FROM member_activity_plans WHERE status='active' AND next_run_at IS NOT NULL AND next_run_at<=? ORDER BY next_run_at LIMIT 10").bind(new Date().toISOString()).all();let executed=0,failed=0;for(const row of due.results){const plan=mapMemberActivityPlan(row as Record<string,unknown>);const definition=memberActivityPlans.find(item=>item.id===plan.id);const claimed=await d1.prepare("UPDATE member_activity_plans SET next_run_at=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND status='active' AND next_run_at=?").bind(nextMemberActivityRunAt(definition??plan),plan.id,plan.nextRunAt).run();if(Number(claimed.meta?.changes??0)===0)continue;try{await executeMemberActivity(plan);executed++;}catch{failed++;}}return{checked:due.results.length,executed,failed};}
