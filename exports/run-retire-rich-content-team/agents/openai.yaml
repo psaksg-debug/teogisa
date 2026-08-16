@@ -1,0 +1,4 @@
+interface:
+  display_name: "퇴.기.사 콘텐츠 운영팀"
+  short_description: "퇴직 콘텐츠를 기획·검수·발행·홍보하는 운영 서브에이전트"
+  default_prompt: "Use $run-retire-rich-content-team to plan, hand off, review, and publish the next 퇴.기.사 content safely."

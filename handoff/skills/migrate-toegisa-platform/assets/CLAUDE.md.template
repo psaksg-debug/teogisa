@@ -1,0 +1,11 @@
+# 퇴.기.사 migration instructions for Claude
+
+Use `{{TOEGISA_SKILL_PATH}}` as the controlling migration workflow. Its directory is `{{TOEGISA_SKILL_DIR}}`. Resolve project paths from the project root and skill references from that skill directory.
+
+Read only the references required by the current phase. Start with `references/current-stack.md`, `references/migration-runbook.md`, and `references/known-gaps.md`.
+
+Load portable roles, organization, member activity plans, permissions, schedules, and approvals from `{{TOEGISA_SKILL_DIR}}/assets/config/*.json`. Use isolated subagents for read-only research and review when available. Assign exactly one writer to each shared file, schema, deployment adapter, or merged report.
+
+Preserve user changes. Do not publish, deploy, change DNS or remote databases, connect accounts, post externally, spend money, or transfer credentials without fresh explicit approval. Keep draft, review, schedule, publication, external promotion, database, and deployment states separate.
+
+Run the included validators and report implemented, locally verified, deployed, and production-verified states separately.

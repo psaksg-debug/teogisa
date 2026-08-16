@@ -1,6 +1,18 @@
 import postgres from "postgres";
-import { env } from "cloudflare:workers";
 import { seedPosts, type Post } from "./content";
+
+let cfEnv: Record<string, any> = {};
+try {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  cfEnv = require("cloudflare:workers").env || {};
+} catch {
+  cfEnv = {};
+}
+const env = new Proxy(cfEnv, {
+  get(target, prop: string) {
+    return target[prop] ?? process.env[prop];
+  }
+});
 import { contentAgentProfiles, type ContentAgentProfile } from "./content-agents";
 import { EDITOR_IN_CHIEF } from "./editorial-team";
 import { SITE_NAME } from "./site";

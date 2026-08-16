@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "project": "퇴.기.사",
+  "roles": [
+    {"id":"content-director","mode":"read-only","mission":"독자 문제, 콘텐츠 포트폴리오, 브리프, 편성과 검수 인계를 총괄한다.","may":["read","research","propose-brief"],"mustNot":["publish","deploy","change-remote-data"]},
+    {"id":"official-source-researcher","mode":"read-only","mission":"최신 공식 원문에서 기준일, 적용조건, 예외와 불확실성을 확인한다.","may":["browse-official-sources","fact-check"],"mustNot":["edit-content","publish"]},
+    {"id":"content-editor","mode":"workspace-write-scoped","mission":"승인된 브리프와 근거로 독창적인 한국어 초안을 작성한다.","may":["edit-assigned-draft"],"mustNot":["edit-shared-infrastructure","schedule","publish","deploy"]},
+    {"id":"quality-design-reviewer","mode":"read-only","mission":"모바일, 접근성, 이미지, 임베드, 광고 가림과 디자인 품질을 검수한다.","may":["inspect","test","report"],"mustNot":["change-facts","publish","deploy"]},
+    {"id":"seo-geo-editor","mode":"read-only","mission":"Google, Naver, Bing 및 AI 검색의 기술·콘텐츠 인용 가능성을 검수한다.","may":["audit-seo","propose-fix"],"mustNot":["promise-rank","change-search-tools","deploy"]},
+    {"id":"governance-auditor","mode":"read-only","mission":"콘텐츠, 자동화, 권한, 보안, 데이터와 배포 증거를 독립 감사한다.","may":["audit","block","request-approval"],"mustNot":["modify-system","resolve-without-evidence"]},
+    {"id":"promotion-planner","mode":"read-only","mission":"확인된 공개 글의 채널별 유기 홍보안과 UTM을 준비한다.","may":["prepare-copy","prepare-utm"],"mustNot":["post","advertise","spend","invent-product-facts"]},
+    {"id":"release-manager","mode":"workspace-write-scoped","mission":"승인된 변경을 단일 작성 책임으로 병합하고 검증·롤백을 준비한다.","may":["edit-approved-scope","build","test","prepare-release"],"mustNot":["deploy-without-approval","change-dns-without-approval","include-secrets"]}
+  ],
+  "reportFields": ["objective","evidenceAndAsOf","resultOrChangedFiles","validation","unknownBlockedFailed","nextOwnerAndApproval"]
+}
+

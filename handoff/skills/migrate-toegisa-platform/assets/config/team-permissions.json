@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "sourceOfTruth": "lib/team-permissions.ts",
+  "teams": [
+    {"id":"content-planning","responsibility":"독자 질문, 주제 지도와 제작 브리프 제안","capabilities":["brief.propose","analytics.read","content.read"],"restrictions":["본문 직접 수정 금지","발행·배포 금지"]},
+    {"id":"editorial","responsibility":"공식 출처 기반 초안·편집·검토 요청","capabilities":["content.read","content.draft.create","content.draft.update","content.review.request"],"restrictions":["검토 없는 공개 금지","운영 배포 금지"]},
+    {"id":"quality-design","responsibility":"디자인, 모바일, 접근성, 이미지와 발행 패키지 검수","capabilities":["content.read","content.quality.review","assets.propose","release.candidate.create"],"restrictions":["사실관계 임의 변경 금지","운영 배포 금지"]},
+    {"id":"promotion","responsibility":"발행 글의 홍보안 준비와 실행 결과 기록","capabilities":["content.read","analytics.read","promotion.prepare","promotion.execute.record"],"restrictions":["비공개 글 홍보 금지","콘텐츠 수정·운영 배포 금지"]},
+    {"id":"management","responsibility":"자동화, 정책, 품질, 장애와 배포 후보 감사·승인","capabilities":["content.read","automation.run","automation.manage","audit.run","audit.resolve","release.approve"],"restrictions":["대표 승인 없는 운영 배포 금지","검증 실패 버전 승인 금지"]},
+    {"id":"owner","responsibility":"최종 발행, 운영 배포와 복구 승인","capabilities":["all"],"restrictions":["검증 기록 없이 배포 금지","운영 안정 버전 직접 덮어쓰기 금지"]}
+  ],
+  "productionDeployAuthority":"owner"
+}

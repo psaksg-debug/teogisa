@@ -55,13 +55,13 @@ export default function AdminClient({ username }: { username: string }) {
 
   async function load() {
     const [postsResponse, queueResponse, agentsResponse, promotionsResponse, managementResponse,auditResponse,activityResponse] = await Promise.all([fetch("/api/posts"), fetch("/api/automation"),fetch("/api/agents"),fetch("/api/promotions"),fetch("/api/management"),fetch("/api/audits"),fetch("/api/activity-plans")]);
-    const postsData = await postsResponse.json();
-    const queueData = await queueResponse.json();
-    const agentsData=await agentsResponse.json();
-    const promotionsData=await promotionsResponse.json();
-    const managementData=await managementResponse.json();
-    const auditData=await auditResponse.json();
-    const activityData=await activityResponse.json();
+    const postsData: any = await postsResponse.json();
+    const queueData: any = await queueResponse.json();
+    const agentsData: any = await agentsResponse.json();
+    const promotionsData: any = await promotionsResponse.json();
+    const managementData: any = await managementResponse.json();
+    const auditData: any = await auditResponse.json();
+    const activityData: any = await activityResponse.json();
     if (postsResponse.ok && queueResponse.ok && agentsResponse.ok && promotionsResponse.ok && managementResponse.ok&&auditResponse.ok&&activityResponse.ok) {
       setPosts(postsData.posts);
       setQueue(queueData.queue);
@@ -122,7 +122,7 @@ export default function AdminClient({ username }: { username: string }) {
       headers: { "content-type": "application/json" },
       body: JSON.stringify(payload),
     });
-    const data = await response.json();
+    const data: any = await response.json();
     setSaving(false);
     if (response.ok) {
       setMessage(`‘${data.post.title}’ 글을 저장했습니다.`);
@@ -139,7 +139,7 @@ export default function AdminClient({ username }: { username: string }) {
     if (payload.scheduledAt) payload.scheduledAt = new Date(payload.scheduledAt).toISOString();
     setSaving(true);
     const response = await fetch("/api/automation", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
-    const data = await response.json();
+    const data: any = await response.json();
     setSaving(false);
     if (response.ok) {
       setMessage(`‘${data.post.title}’ 검토용 초안을 만들었습니다.`);
@@ -149,23 +149,23 @@ export default function AdminClient({ username }: { username: string }) {
   }
 
   async function controlAgent(id:string,action:"run"|"status",status?:"active"|"paused"){
-    setSaving(true);const response=await fetch("/api/agents",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({id,action,status})});const data=await response.json();setSaving(false);if(response.ok){setMessage(action==="run"?`‘${data.post.title}’ 초안을 만들고 정책 검토 대기에 등록했습니다.`:`에이전트를 ${status==="active"?"가동":"일시정지"}했습니다.`);await load();}else setMessage(data.error);
+    setSaving(true);const response=await fetch("/api/agents",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({id,action,status})});const data:any=await response.json();setSaving(false);if(response.ok){setMessage(action==="run"?`‘${data.post.title}’ 초안을 만들고 정책 검토 대기에 등록했습니다.`:`에이전트를 ${status==="active"?"가동":"일시정지"}했습니다.`);await load();}else setMessage(data.error);
   }
 
   async function controlActivity(id:string,action:"run"|"status",status?:"active"|"paused"){
-    setSaving(true);const response=await fetch("/api/activity-plans",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({id,action,status})});const data=await response.json();setSaving(false);if(response.ok){setMessage(action==="run"?"구성원 업무를 실행하고 결과를 기록했습니다.":`구성원 계획을 ${status==="active"?"가동":"일시정지"}했습니다.`);await load();}else setMessage(data.error);
+    setSaving(true);const response=await fetch("/api/activity-plans",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({id,action,status})});const data:any=await response.json();setSaving(false);if(response.ok){setMessage(action==="run"?"구성원 업무를 실행하고 결과를 기록했습니다.":`구성원 계획을 ${status==="active"?"가동":"일시정지"}했습니다.`);await load();}else setMessage(data.error);
   }
 
-  async function manageSite(action:"audit"|"resolve",id?:number){setSaving(true);const response=await fetch("/api/management",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action,id})});const data=await response.json();setSaving(false);if(response.ok){setMessage(action==="audit"?`전사 점검을 마쳤습니다. 문제 ${data.run.issueCount}건, 즉시 조치 ${data.run.actionCount}건입니다.`:"문제를 조치 완료로 표시했습니다.");await load();}else setMessage(data.error);}
+  async function manageSite(action:"audit"|"resolve",id?:number){setSaving(true);const response=await fetch("/api/management",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action,id})});const data:any=await response.json();setSaving(false);if(response.ok){setMessage(action==="audit"?`전사 점검을 마쳤습니다. 문제 ${data.run.issueCount}건, 즉시 조치 ${data.run.actionCount}건입니다.`:"문제를 조치 완료로 표시했습니다.");await load();}else setMessage(data.error);}
 
-  async function auditOrganization(action:"run"|"resolve",id?:number){const resolution=action==="resolve"?window.prompt("완료한 시정조치와 확인 증거를 입력하세요.","")??"":"";if(action==="resolve"&&!resolution.trim())return;setSaving(true);const response=await fetch("/api/audits",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action,id,resolution})});const data=await response.json();setSaving(false);if(response.ok){setMessage(action==="run"?`전 프로젝트 감사를 마쳤습니다. 감사의견 ‘${data.run.overallOpinion}’, 지적 ${data.run.findingCount}건입니다.`:"시정조치와 완료 증거를 감사 이력에 기록했습니다.");await load();}else setMessage(data.error);}
+  async function auditOrganization(action:"run"|"resolve",id?:number){const resolution=action==="resolve"?window.prompt("완료한 시정조치와 확인 증거를 입력하세요.","")??"":"";if(action==="resolve"&&!resolution.trim())return;setSaving(true);const response=await fetch("/api/audits",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action,id,resolution})});const data:any=await response.json();setSaving(false);if(response.ok){setMessage(action==="run"?`전 프로젝트 감사를 마쳤습니다. 감사의견 ‘${data.run.overallOpinion}’, 지적 ${data.run.findingCount}건입니다.`:"시정조치와 완료 증거를 감사 이력에 기록했습니다.");await load();}else setMessage(data.error);}
 
   async function preparePromotion(event:FormEvent<HTMLFormElement>){
-    event.preventDefault();const postId=Number(new FormData(event.currentTarget).get("promotionPostId"));setSaving(true);const response=await fetch("/api/promotions",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action:"prepare",postId})});const data=await response.json();setSaving(false);if(response.ok){setMessage(`‘${data.campaign.title}’ 홍보안을 준비했습니다.`);await load();}else setMessage(data.error);
+    event.preventDefault();const postId=Number(new FormData(event.currentTarget).get("promotionPostId"));setSaving(true);const response=await fetch("/api/promotions",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action:"prepare",postId})});const data:any=await response.json();setSaving(false);if(response.ok){setMessage(`‘${data.campaign.title}’ 홍보안을 준비했습니다.`);await load();}else setMessage(data.error);
   }
 
   async function finishPromotion(id:number){
-    setSaving(true);const response=await fetch("/api/promotions",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action:"execute",id})});const data=await response.json();setSaving(false);if(response.ok){setMessage(`‘${data.campaign.title}’ 홍보 실행을 기록했습니다.`);await load();}else setMessage(data.error);
+    setSaving(true);const response=await fetch("/api/promotions",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action:"execute",id})});const data:any=await response.json();setSaving(false);if(response.ok){setMessage(`‘${data.campaign.title}’ 홍보 실행을 기록했습니다.`);await load();}else setMessage(data.error);
   }
 
   async function copyPromotion(text:string,label:string){try{await navigator.clipboard.writeText(text);setMessage(`${label}을 복사했습니다. 원하는 채널에 붙여넣어 확인한 뒤 게시하세요.`);}catch{setMessage("복사하지 못했습니다. 문구를 직접 선택해 복사하세요.");}}

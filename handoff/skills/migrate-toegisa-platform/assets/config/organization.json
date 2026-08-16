@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-08-14",
+  "sourceVersion": "2026.08.14-team-v2",
+  "sourceOfTruth": [
+    "lib/organization-chart.ts",
+    "lib/content-planning-team.ts",
+    "lib/editorial-team.ts",
+    "lib/quality-design-team.ts",
+    "lib/promotion-team.ts",
+    "lib/management-department.ts"
+  ],
+  "executive": {
+    "id": "owner",
+    "name": "대표",
+    "title": "대표 · 최고관리자",
+    "responsibility": "경영목표, 최종 발행, 운영 배포와 주요 자원 변경을 승인합니다."
+  },
+  "departments": [
+    {
+      "id": "content-planning",
+      "name": "콘텐츠기획팀",
+      "shortName": "기획",
+      "lead": "판",
+      "reportsTo": "대표",
+      "responsibility": "독자 질문과 사업목표를 제작 가능한 주제 포트폴리오와 브리프로 바꿉니다.",
+      "workflow": "독자 질문 → 주제 지도 → 제작 브리프 → 콘텐츠편집팀 인계",
+      "members": [
+        { "id": "planning-lead", "name": "판", "title": "콘텐츠기획팀장 · 포트폴리오 총괄", "responsibility": "독자 약속과 사업 목표를 연결하고 월간 주제 포트폴리오와 제작 우선순위를 승인합니다." },
+        { "id": "audience-insight", "name": "독자", "title": "독자 인사이트 리드", "responsibility": "퇴직 전후 독자의 질문, 불안, 실행 장벽을 수집해 검증 가능한 문제 문장으로 정리합니다." },
+        { "id": "topic-architecture", "name": "맵", "title": "주제 아키텍처 리드", "responsibility": "퇴직 준비, 제도, 소득, 도구, 지역, 건강을 독립 글과 연결 글로 구조화하고 콘텐츠 공백을 찾습니다." },
+        { "id": "brief-editor", "name": "브리프", "title": "콘텐츠 브리프 에디터", "responsibility": "목표, 대상 독자, 핵심 질문, 공식 출처 후보, 차별점과 완료기준을 갖춘 제작 지시서로 변환합니다." },
+        { "id": "editorial-calendar", "name": "캘", "title": "편성 · 캘린더 매니저", "responsibility": "시의성, 제작 난도와 팀 처리량을 고려해 주간 편성표를 만들고 지연·실패 항목을 다시 배정합니다." },
+        { "id": "content-format", "name": "형", "title": "포맷 · 시리즈 기획 리드", "responsibility": "설명글, 체크리스트, 계산도구, 실험일지와 지역 가이드를 반복 가능한 시리즈와 템플릿으로 설계합니다." },
+        { "id": "planning-analytics", "name": "루프", "title": "성과학습 · 갱신기획 리드", "responsibility": "발행·검색·독자 행동 데이터를 기획 언어로 해석해 확장, 갱신, 통합 또는 중단할 주제를 제안합니다." }
+      ]
+    },
+    {
+      "id": "editorial",
+      "name": "콘텐츠편집팀",
+      "shortName": "편집",
+      "lead": "데스크",
+      "reportsTo": "대표",
+      "responsibility": "공식 출처를 확인하고 퇴.기.사만의 설명·사례·표와 행동 안내로 작성합니다.",
+      "workflow": "브리프 인수 → 취재·집필 → 출처·독창성 검토 → 품질검수 요청",
+      "members": [
+        { "id": "editor-in-chief", "name": "데스크", "title": "콘텐츠편집팀장 · 책임편집자", "responsibility": "주제 배정, 출처 검증, 발행 승인과 정정 책임" },
+        { "id": "income-editor", "name": "원", "title": "수익실험 편집자", "responsibility": "수입 실험, 실행 기록과 워크북", "agentId": "income-challenge" },
+        { "id": "benefit-editor", "name": "가드", "title": "지원금·세무·노무 편집자", "responsibility": "공식 제도, 세금과 근로관계 확인", "agentId": "benefit-tax" },
+        { "id": "tools-editor", "name": "툴", "title": "생활도구 편집자", "responsibility": "계산기, 기록표와 반복 업무 개선", "agentId": "tool-lab" },
+        { "id": "tool-guide-editor", "name": "김기준", "title": "유용한 도구 편집자", "responsibility": "사진·문서·업무 도구의 실제 사용법과 개인정보·비용 점검" },
+        { "id": "local-editor", "name": "로컬", "title": "지역정보 편집자", "responsibility": "지역별 일자리와 공공 지원 창구", "agentId": "local-keyword" },
+        { "id": "health-editor", "name": "케어", "title": "건강·예방 편집자", "responsibility": "공공기관 기반 건강·예방 정보", "agentId": "health-column" },
+        { "id": "pension-insurance-editor", "name": "김연수", "title": "연금·보험 편집자", "responsibility": "국민연금, 퇴직연금, 건강보험 자격과 보험료 검증" },
+        { "id": "tax-insurance-editor", "name": "박세온", "title": "세금·보험 편집자", "responsibility": "퇴직 후 세금, 절세와 보험 고정비 점검" },
+        { "id": "investment-editor", "name": "박여유", "title": "투자·재테크 편집자", "responsibility": "예금, 금리, 자산배분과 투자위험 검증" },
+        { "id": "economy-editor", "name": "서든든", "title": "생활경제 편집자", "responsibility": "퇴직자의 생활비, 연금, 부채와 현금흐름 해설" },
+        { "id": "video-editor", "name": "큐", "title": "영상 큐레이터", "responsibility": "공식 영상의 출처·최신성·관련성 검토", "agentId": "video-curator" }
+      ]
+    },
+    {
+      "id": "quality-design",
+      "name": "품질디자인팀",
+      "shortName": "품질",
+      "lead": "결",
+      "reportsTo": "대표",
+      "responsibility": "디자인·가독성·시각자료·모바일·접근성과 발행 패키지를 독립 검수합니다.",
+      "workflow": "디자인 검수 → 콘텐츠 구조 → 접근성 → 발행 패키지 확인",
+      "members": [
+        { "id": "quality-lead", "name": "결", "title": "품질디자인팀장 · 최종 완성도 총괄", "responsibility": "디자인과 포스팅 품질 기준을 하나로 운영하고, 기준 미달 작업의 보완 우선순위를 결정합니다." },
+        { "id": "design-system", "name": "틀", "title": "디자인 시스템 리드", "responsibility": "색상, 글꼴, 간격, 컴포넌트 규칙을 관리해 모든 화면과 글의 인상을 일관되게 만듭니다." },
+        { "id": "content-design", "name": "글결", "title": "콘텐츠 디자인 리드", "responsibility": "제목부터 요약, 본문, 표, 행동 안내까지 독자가 막힘없이 읽고 실행하는 글 구조를 설계합니다." },
+        { "id": "visual-editor", "name": "픽셀", "title": "비주얼 에디터", "responsibility": "썸네일, 본문 이미지, 도표와 캡션을 주제에 맞게 제작하고 저작권과 대체텍스트를 확인합니다." },
+        { "id": "experience-qa", "name": "흐름", "title": "UX · 접근성 QA 리드", "responsibility": "모바일과 데스크톱에서 탐색, 읽기, 입력, 링크 이동이 자연스럽고 누구에게나 사용 가능한지 검증합니다." },
+        { "id": "publishing-qa", "name": "체크", "title": "포스팅 패키지 QA 리드", "responsibility": "본문뿐 아니라 제목, 요약, 카테고리, 태그, 링크, 작성자, 대표 이미지와 발행 상태를 한 묶음으로 검수합니다." },
+        { "id": "quality-analytics", "name": "눈금", "title": "품질 분석 · 실험 리드", "responsibility": "품질 결함과 독자 행동을 계량화하고, 변경 전후를 비교해 다음 개선 순서를 제안합니다." }
+      ]
+    },
+    {
+      "id": "promotion",
+      "name": "홍보마케팅팀",
+      "shortName": "홍보",
+      "lead": "픽",
+      "reportsTo": "대표",
+      "responsibility": "승인된 공개 콘텐츠의 검색 노출과 외부채널 홍보안을 관리합니다.",
+      "workflow": "발행물 확인 → 채널별 홍보안 → 책임자 확인 → 실행·성과 기록",
+      "members": [
+        { "id": "seo-lead", "name": "픽", "title": "홍보마케팅팀장 · 검색 성장 총괄", "responsibility": "검색엔진별 우선순위를 정하고 주간 개선안과 월간 성과 보고를 승인합니다.", "cadence": "주간 지휘 · 월간 회고" },
+        { "id": "google-seo", "name": "랭크", "title": "Google SEO 리드", "responsibility": "색인, 사이트맵, Core Web Vitals, 검색 의도와 주제 클러스터를 관리합니다.", "cadence": "매주 월요일" },
+        { "id": "naver-seo", "name": "네오", "title": "Naver 검색 리드", "responsibility": "Search Advisor 기준, 문서 품질, 출처 신뢰도와 한국어 질의 적합성을 점검합니다.", "cadence": "매주 화요일" },
+        { "id": "bing-seo", "name": "빙고", "title": "Bing · Copilot 검색 리드", "responsibility": "Bing 색인, IndexNow 적용 가능성, Copilot이 인용하기 쉬운 페이지 구조를 관리합니다.", "cadence": "매주 수요일" },
+        { "id": "ai-search", "name": "소스", "title": "AI 검색 · 인용 최적화 리드", "responsibility": "ChatGPT, Perplexity, Claude, Gemini에서 핵심 질의의 인용 여부와 출처 경쟁력을 점검합니다.", "cadence": "매주 목요일" },
+        { "id": "technical-seo", "name": "크롤", "title": "기술 SEO 엔지니어", "responsibility": "robots, canonical, 구조화 데이터, 내부 링크, 오류 페이지와 렌더링 품질을 검사합니다.", "cadence": "매주 금요일" },
+        { "id": "seo-analytics", "name": "펄스", "title": "검색 성과 분석가", "responsibility": "검색엔진별 기준선을 유지하고 개선 전후 수치, 콘텐츠 감가와 갱신 우선순위를 분석합니다.", "cadence": "매주 집계 · 매월 분석" }
+      ]
+    },
+    {
+      "id": "management",
+      "name": "경영관리팀",
+      "shortName": "관리",
+      "lead": "강한결",
+      "reportsTo": "대표",
+      "responsibility": "전사 사규, 발행정책, 자동화, 리소스, 감사와 시정조치를 통제합니다.",
+      "workflow": "상시감시 → 전사감사 → 즉시보고 → 시정조치·재점검",
+      "members": [
+        { "id": "policy-lead", "name": "강한결", "title": "경영관리팀장 · 감사책임자", "responsibility": "발행정책과 전사 감사계획을 승인하고 중대 지적사항을 대표에게 보고합니다." },
+        { "id": "operations-guard", "name": "윤서진", "title": "운영관리 매니저 · 시정조치 관리자", "responsibility": "검토 지연·자동화 실패를 관리하고 감사 지적사항의 담당자·기한·재점검을 추적합니다." },
+        { "id": "site-safety", "name": "박지안", "title": "품질감사 매니저 · 상시감사 담당", "responsibility": "전 프로젝트 업무와 리소스를 감사하고 증거·발견사항·조치 결과를 문서화합니다." }
+      ]
+    }
+  ],
+  "summary": {
+    "departments": 5,
+    "employees": 36,
+    "positionsIncludingExecutive": 37
+  }
+}

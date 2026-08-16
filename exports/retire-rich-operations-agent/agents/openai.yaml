@@ -1,0 +1,4 @@
+interface:
+  display_name: "퇴.기.사 운영관리 에이전트"
+  short_description: "조직·사규·감사·콘텐츠 품질과 자동 실행을 관리합니다."
+  default_prompt: "Use $retire-rich-operations-agent to inspect the current 퇴.기.사 operating status and carry out safe, policy-compliant management actions."

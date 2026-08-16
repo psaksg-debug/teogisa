@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "ISO-8601",
+  "source": {
+    "host": "",
+    "repository": "",
+    "commit": "",
+    "dirty": true,
+    "productionUrl": "https://adbles.com",
+    "bindings": [
+      { "name": "DB", "type": "D1Database", "secret": false },
+      { "name": "ASSETS", "type": "Fetcher", "secret": false },
+      { "name": "IMAGES", "type": "ImagesBinding", "secret": false }
+    ]
+  },
+  "target": {
+    "host": "",
+    "runtime": "",
+    "database": "",
+    "scheduler": "",
+    "objectStorage": "",
+    "authentication": ""
+  },
+  "exports": [
+    { "name": "content-json", "path": "", "createdAt": "", "checksum": "" },
+    { "name": "database-native-backup", "path": "", "createdAt": "", "checksum": "" }
+  ],
+  "secretNames": [
+    "ADMIN_USERNAME",
+    "ADMIN_PASSWORD_HASH",
+    "ADMIN_SESSION_SECRET"
+  ],
+  "portableDefinitions": [
+    "assets/config/organization.json",
+    "assets/config/member-activity-policy.json",
+    "assets/config/agents.json",
+    "assets/config/content-agents.json",
+    "assets/config/team-permissions.json",
+    "assets/config/schedules.json",
+    "assets/config/approval-policy.json"
+  ],
+  "rowCounts": {},
+  "activeSchedules": [],
+  "knownGaps": [],
+  "validation": {
+    "build": "not-run",
+    "tests": "not-run",
+    "mobile": "not-run",
+    "scheduler": "not-run",
+    "restore": "not-run"
+  },
+  "approvals": {
+    "remoteData": "not-requested",
+    "deployment": "not-requested",
+    "dns": "not-requested",
+    "externalPromotion": "not-requested"
+  },
+  "rollback": {
+    "version": "",
+    "backup": "",
+    "procedure": ""
+  }
+}

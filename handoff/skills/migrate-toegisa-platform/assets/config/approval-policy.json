@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "safeWithoutNewApproval":["read","research","write-assigned-local-file","draft","review-artifact","build","test","static-analysis","record-failure"],
+  "separateExplicitApprovalRequired":["schedule-publication","publish-site-content","preview-deploy","production-deploy","remote-database-write","dns-change","search-tool-change","external-social-post","paid-advertising","email-or-partner-contact","credential-change","destructive-action"],
+  "publicationFlow":["draft","review","needs-revision-or-approved","scheduled","published"],
+  "approvalEvidenceFields":["id","artifactType","artifactId","artifactVersion","scope","decision","approver","decidedAt","evidence","expiresAt","revokedAt"],
+  "completionRule":"mark complete only after cause removal and revalidation evidence"
+}
+

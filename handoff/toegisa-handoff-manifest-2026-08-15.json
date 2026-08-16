@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-08-15T12:54:49Z",
+  "source": {
+    "host": "OpenAI Sites",
+    "projectId": "appgprj_6a7ab733696c81919eff109ebe3b9ae9",
+    "repositoryRemote": "sites",
+    "commit": "0f1a81b7b92a2cf53aaca187ae44e070e1b8eba3",
+    "branch": "main",
+    "dirty": true,
+    "untrackedAssetsIncludedSubjectToArchiveExclusions": true,
+    "productionUrl": "https://adbles.com",
+    "bindings": [
+      { "name": "DB", "type": "D1Database", "secret": false },
+      { "name": "ASSETS", "type": "Fetcher", "secret": false },
+      { "name": "IMAGES", "type": "ImagesBinding", "secret": false }
+    ]
+  },
+  "target": {
+    "status": "not-selected",
+    "host": "",
+    "runtime": "",
+    "database": "",
+    "scheduler": "",
+    "objectStorage": "",
+    "authentication": ""
+  },
+  "inventory": {
+    "generatedAt": "2026-08-15T12:54:49.647Z",
+    "eligibleFileCountExcludingArchivesAndBuildArtifacts": 202,
+    "agentDefinitions": 8,
+    "databaseMigrations": 7,
+    "organizationDepartments": 5,
+    "organizationMembers": 36,
+    "memberActivityPlans": 36,
+    "contentAgents": 6,
+    "teamPermissionProfiles": 6
+  },
+  "exports": [
+    { "name": "source-handoff", "path": "handoff/toegisa-source-handoff-2026-08-15.tar.gz", "status": "prepared-locally", "checksumFile": "handoff/CHECKSUMS.sha256" },
+    { "name": "content-json", "path": "", "status": "not-exported-this-turn", "createdAt": "", "checksum": "" },
+    { "name": "database-native-backup", "path": "", "status": "not-exported-this-turn", "createdAt": "", "checksum": "" }
+  ],
+  "secretNames": [
+    "ADMIN_USERNAME",
+    "ADMIN_PASSWORD_HASH",
+    "ADMIN_SESSION_SECRET"
+  ],
+  "secretValuesIncluded": false,
+  "portableDefinitions": [
+    "handoff/skills/migrate-toegisa-platform/assets/config/organization.json",
+    "handoff/skills/migrate-toegisa-platform/assets/config/member-activity-policy.json",
+    "handoff/skills/migrate-toegisa-platform/assets/config/agents.json",
+    "handoff/skills/migrate-toegisa-platform/assets/config/content-agents.json",
+    "handoff/skills/migrate-toegisa-platform/assets/config/team-permissions.json",
+    "handoff/skills/migrate-toegisa-platform/assets/config/schedules.json",
+    "handoff/skills/migrate-toegisa-platform/assets/config/approval-policy.json"
+  ],
+  "knownGaps": "handoff/skills/migrate-toegisa-platform/references/known-gaps.md",
+  "validation": {
+    "currentSourceBuild": "passed-2026-08-15",
+    "currentSourceTests": "10-of-10-passed-2026-08-15",
+    "skillValidator": "passed-2026-08-15",
+    "cleanExtractionProviderBootstrap": "passed-for-claude-gemini-generic-2026-08-15",
+    "standaloneSkillArchiveReplay": "passed-with-overwrite-guard-2026-08-15",
+    "fullSourceArchiveAudit": "passed-277-paths-no-forbidden-paths-2026-08-15",
+    "mobile": "not-run-this-turn",
+    "targetScheduler": "not-run-target-not-selected",
+    "targetRestore": "not-run-target-not-selected",
+    "targetDeployment": "not-run-target-not-selected",
+    "productionVerification": "not-run"
+  },
+  "approvals": {
+    "remoteData": "not-requested",
+    "previewDeployment": "not-requested",
+    "productionDeployment": "not-requested",
+    "dns": "not-requested",
+    "externalPromotion": "not-requested"
+  },
+  "rollback": {
+    "sourceRemainsServing": true,
+    "targetVersion": "",
+    "targetBackup": "",
+    "procedure": "Keep current production unchanged until target parity, restore, deployment, and DNS approvals are complete."
+  }
+}

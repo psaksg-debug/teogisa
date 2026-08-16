@@ -1,0 +1,9 @@
+# 퇴.기.사 migration instructions for Gemini
+
+Follow `{{TOEGISA_SKILL_PATH}}`. Its directory is `{{TOEGISA_SKILL_DIR}}`. Treat it and the referenced project governance documents as authoritative unless the user gives a newer direct instruction.
+
+Start with a read-only inventory. Use the JSON files in `{{TOEGISA_SKILL_DIR}}/assets/config/` to recreate the organization, role-scoped tasks, individual activity plans, permissions, durable jobs, and approvals. If agent delegation is unavailable, perform each role sequentially and retain a separate evidence report.
+
+Keep reusable React, content, design, SEO, and domain logic. Replace only host-specific Sites, D1, scheduler, authentication, secret, and deployment boundaries required by the selected target.
+
+Never expose secrets or internal agent instructions publicly. Never auto-publish an unapproved draft. Request separate approval for remote data writes, deployment, DNS, external posts, and paid advertising.

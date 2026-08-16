@@ -1,0 +1,7 @@
+# 퇴.기.사 portable agent instructions
+
+Use `{{TOEGISA_SKILL_PATH}}` for migration and restoration work. Its directory is `{{TOEGISA_SKILL_DIR}}`. Load organization, role, individual activity, permission, schedule, and approval intent from `{{TOEGISA_SKILL_DIR}}/assets/config/*.json`.
+
+Preserve the public product and operating evidence. Separate read-only reviewers from the single responsible writer. Do not equate a copied prompt with a working scheduler or migrated approval state. Recreate durable jobs and verify one real test cycle.
+
+Do not execute production deployment, DNS, remote database writes, external posting, paid advertising, credential changes, or destructive cleanup without explicit approval.

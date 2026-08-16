@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "timezone": "Asia/Seoul",
+  "jobs": [
+    {"id":"central-control","schedule":{"type":"hourly","minute":0},"action":"collect team states, delegate one safe local follow-up, preserve approval boundaries","externalSideEffects":false},
+    {"id":"hourly-editorial","schedule":{"type":"hourly","minute":0},"sections":["퇴직 준비","정부지원·실업급여","재취업·N잡","투자·재테크","AI 활용","실제 수익실험","연금·세금·보험"],"candidatesPerSection":1,"maxDraftsPerRun":1,"excludePolitics":true,"initialState":"draft-review","requiresApprovalToSchedule":true},
+    {"id":"seo-maintenance","schedule":{"type":"daily","hours":[9,18],"minute":0},"action":"read-only production SEO, official-link and embed audit; prepare organic promotion copy","externalSideEffects":false},
+    {"id":"management-monitor","schedule":{"type":"interval-hours","hours":6},"action":"audit failures, overdue review, missing sources, policy violations and promotion mismatches","externalSideEffects":false},
+    {"id":"governance-audit","schedule":{"type":"monthly"},"action":"full organization, permission, data, publication and deployment evidence audit","externalSideEffects":false}
+  ],
+  "runContract":{"storeUtc":true,"reportKst":true,"idempotencyKey":"<job-id>:<scheduled-utc>","retainFailures":true,"catchUpMassPublish":false}
+}
+

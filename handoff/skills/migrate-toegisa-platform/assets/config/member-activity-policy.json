@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "timezone": "Asia/Seoul",
+  "storeTimestampsAs": "UTC",
+  "sourceOfTruth": "lib/member-activity-plans.ts",
+  "scheduleSemantics": {
+    "interval-hours": "Run intervalHours after the last scheduled or completed run; use a durable run key and prevent overlap.",
+    "daily-kst": "Run at dailyHourKst and minute in Asia/Seoul; convert deliberately to UTC.",
+    "missedRun": "Record missed or failed work; do not catch up by mass-publishing.",
+    "approval": "requiresApproval means the safe output remains a review artifact and cannot publish, post externally, advertise, deploy, or write remote data."
+  },
+  "actions": {
+    "planning-scan": { "taskTitle": "주제·브리프 점검", "instruction": "독자 질문, 콘텐츠 공백과 검토대기 현황을 점검하고 다음 제작 후보를 기록합니다.", "safeOutput": "기획 점검 기록" },
+    "editorial-review": { "taskTitle": "편집·출처 준비", "instruction": "검토대기 초안과 공식출처 필요 항목을 확인하고 편집 우선순위를 기록합니다. 원문 복사는 금지합니다.", "safeOutput": "편집 준비 기록" },
+    "quality-review": { "taskTitle": "품질 게이트 점검", "instruction": "공개·예약 글의 구조, 메타데이터, 접근성과 품질 신호를 점검해 보완 대상을 기록합니다.", "safeOutput": "품질 점검 기록" },
+    "promotion-prepare": { "taskTitle": "홍보안 준비 점검", "instruction": "승인된 공개 글과 준비된 홍보안을 확인합니다. 외부 채널 게시 없이 검토용 준비 기록만 남깁니다.", "safeOutput": "홍보 준비 기록" },
+    "management-monitor": { "taskTitle": "운영·정책 감시", "instruction": "사이트, 자동화, 발행정책과 미해결 문제를 점검하고 필요한 보고·안전조치를 기록합니다.", "safeOutput": "관리 점검 또는 감사 기록" },
+    "management-audit": { "taskTitle": "운영·정책 감시", "instruction": "사이트, 자동화, 발행정책과 미해결 문제를 점검하고 필요한 보고·안전조치를 기록합니다.", "safeOutput": "관리 점검 또는 감사 기록" }
+  },
+  "plans": [
+    { "id": "content-planning:planning-lead", "schedule": { "type": "interval-hours", "intervalHours": 12, "minuteOffset": 0 }, "action": "planning-scan", "requiresApproval": false },
+    { "id": "content-planning:audience-insight", "schedule": { "type": "daily-kst", "dailyHourKst": 8, "minute": 30 }, "action": "planning-scan", "requiresApproval": false },
+    { "id": "content-planning:topic-architecture", "schedule": { "type": "daily-kst", "dailyHourKst": 9, "minute": 0 }, "action": "planning-scan", "requiresApproval": false },
+    { "id": "content-planning:brief-editor", "schedule": { "type": "daily-kst", "dailyHourKst": 10, "minute": 30 }, "action": "planning-scan", "requiresApproval": false },
+    { "id": "content-planning:editorial-calendar", "schedule": { "type": "daily-kst", "dailyHourKst": 11, "minute": 0 }, "action": "planning-scan", "requiresApproval": false },
+    { "id": "content-planning:content-format", "schedule": { "type": "daily-kst", "dailyHourKst": 12, "minute": 30 }, "action": "planning-scan", "requiresApproval": false },
+    { "id": "content-planning:planning-analytics", "schedule": { "type": "daily-kst", "dailyHourKst": 13, "minute": 0 }, "action": "planning-scan", "requiresApproval": false },
+
+    { "id": "editorial:editor-in-chief", "schedule": { "type": "interval-hours", "intervalHours": 12, "minuteOffset": 0 }, "action": "editorial-review", "requiresApproval": true },
+    { "id": "editorial:income-editor", "schedule": { "type": "daily-kst", "dailyHourKst": 8, "minute": 30 }, "action": "editorial-review", "requiresApproval": true },
+    { "id": "editorial:benefit-editor", "schedule": { "type": "daily-kst", "dailyHourKst": 9, "minute": 0 }, "action": "editorial-review", "requiresApproval": true },
+    { "id": "editorial:tools-editor", "schedule": { "type": "daily-kst", "dailyHourKst": 10, "minute": 30 }, "action": "editorial-review", "requiresApproval": true },
+    { "id": "editorial:tool-guide-editor", "schedule": { "type": "daily-kst", "dailyHourKst": 11, "minute": 0 }, "action": "editorial-review", "requiresApproval": true },
+    { "id": "editorial:local-editor", "schedule": { "type": "daily-kst", "dailyHourKst": 12, "minute": 30 }, "action": "editorial-review", "requiresApproval": true },
+    { "id": "editorial:health-editor", "schedule": { "type": "daily-kst", "dailyHourKst": 13, "minute": 0 }, "action": "editorial-review", "requiresApproval": true },
+    { "id": "editorial:pension-insurance-editor", "schedule": { "type": "daily-kst", "dailyHourKst": 14, "minute": 30 }, "action": "editorial-review", "requiresApproval": true },
+    { "id": "editorial:tax-insurance-editor", "schedule": { "type": "daily-kst", "dailyHourKst": 15, "minute": 0 }, "action": "editorial-review", "requiresApproval": true },
+    { "id": "editorial:investment-editor", "schedule": { "type": "daily-kst", "dailyHourKst": 16, "minute": 30 }, "action": "editorial-review", "requiresApproval": true },
+    { "id": "editorial:economy-editor", "schedule": { "type": "daily-kst", "dailyHourKst": 17, "minute": 0 }, "action": "editorial-review", "requiresApproval": true },
+    { "id": "editorial:video-editor", "schedule": { "type": "daily-kst", "dailyHourKst": 18, "minute": 30 }, "action": "editorial-review", "requiresApproval": true },
+
+    { "id": "quality-design:quality-lead", "schedule": { "type": "interval-hours", "intervalHours": 12, "minuteOffset": 0 }, "action": "quality-review", "requiresApproval": true },
+    { "id": "quality-design:design-system", "schedule": { "type": "daily-kst", "dailyHourKst": 8, "minute": 30 }, "action": "quality-review", "requiresApproval": true },
+    { "id": "quality-design:content-design", "schedule": { "type": "daily-kst", "dailyHourKst": 9, "minute": 0 }, "action": "quality-review", "requiresApproval": true },
+    { "id": "quality-design:visual-editor", "schedule": { "type": "daily-kst", "dailyHourKst": 10, "minute": 30 }, "action": "quality-review", "requiresApproval": true },
+    { "id": "quality-design:experience-qa", "schedule": { "type": "daily-kst", "dailyHourKst": 11, "minute": 0 }, "action": "quality-review", "requiresApproval": true },
+    { "id": "quality-design:publishing-qa", "schedule": { "type": "daily-kst", "dailyHourKst": 12, "minute": 30 }, "action": "quality-review", "requiresApproval": true },
+    { "id": "quality-design:quality-analytics", "schedule": { "type": "daily-kst", "dailyHourKst": 13, "minute": 0 }, "action": "quality-review", "requiresApproval": true },
+
+    { "id": "promotion:seo-lead", "schedule": { "type": "interval-hours", "intervalHours": 12, "minuteOffset": 0 }, "action": "promotion-prepare", "requiresApproval": true },
+    { "id": "promotion:google-seo", "schedule": { "type": "daily-kst", "dailyHourKst": 8, "minute": 30 }, "action": "promotion-prepare", "requiresApproval": true },
+    { "id": "promotion:naver-seo", "schedule": { "type": "daily-kst", "dailyHourKst": 9, "minute": 0 }, "action": "promotion-prepare", "requiresApproval": true },
+    { "id": "promotion:bing-seo", "schedule": { "type": "daily-kst", "dailyHourKst": 10, "minute": 30 }, "action": "promotion-prepare", "requiresApproval": true },
+    { "id": "promotion:ai-search", "schedule": { "type": "daily-kst", "dailyHourKst": 11, "minute": 0 }, "action": "promotion-prepare", "requiresApproval": true },
+    { "id": "promotion:technical-seo", "schedule": { "type": "daily-kst", "dailyHourKst": 12, "minute": 30 }, "action": "promotion-prepare", "requiresApproval": true },
+    { "id": "promotion:seo-analytics", "schedule": { "type": "daily-kst", "dailyHourKst": 13, "minute": 0 }, "action": "promotion-prepare", "requiresApproval": true },
+
+    { "id": "management:policy-lead", "schedule": { "type": "interval-hours", "intervalHours": 6, "minuteOffset": 0 }, "action": "management-monitor", "requiresApproval": false },
+    { "id": "management:operations-guard", "schedule": { "type": "interval-hours", "intervalHours": 6, "minuteOffset": 30 }, "action": "management-monitor", "requiresApproval": false },
+    { "id": "management:site-safety", "schedule": { "type": "interval-hours", "intervalHours": 24, "minuteOffset": 0 }, "action": "management-audit", "requiresApproval": false }
+  ],
+  "planCount": 36
+}

@@ -1,5 +1,17 @@
-import { env } from "cloudflare:workers";
 import { headers } from "next/headers";
+
+let cfEnv: Record<string, any> = {};
+try {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  cfEnv = require("cloudflare:workers").env || {};
+} catch {
+  cfEnv = {};
+}
+const env = new Proxy(cfEnv, {
+  get(target, prop: string) {
+    return target[prop] ?? process.env[prop];
+  }
+});
 
 const COOKIE_NAME = "rr_admin_session";
 const SESSION_SECONDS = 8 * 60 * 60;
