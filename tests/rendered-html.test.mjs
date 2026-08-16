@@ -183,7 +183,8 @@ test("serves the Naver verification file at its exact public path", async () => 
     readFile(new URL("../public/naverafe0ef74210245a649d66c3a595329e9.html", import.meta.url), "utf8"),
   ]);
   assert.match(worker, /NAVER_SITE_VERIFICATION_PATH/);
-  assert.match(worker, /return env\.ASSETS\.fetch\(request\)/);
+  assert.match(worker, /NAVER_SITE_VERIFICATION_CONTENT/);
+  assert.match(worker, /return new Response\(NAVER_SITE_VERIFICATION_CONTENT/);
   assert.equal(verification.trim(), "naver-site-verification: naverafe0ef74210245a649d66c3a595329e9.html");
 });
 

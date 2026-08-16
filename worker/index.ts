@@ -28,6 +28,7 @@ type WorkerGlobalWithCache=typeof globalThis&{caches?:EdgeCacheStorage};
 
 const PUBLIC_CACHE_CONTROL="public, max-age=0, s-maxage=300, stale-while-revalidate=86400";
 const NAVER_SITE_VERIFICATION_PATH="/naverafe0ef74210245a649d66c3a595329e9.html";
+const NAVER_SITE_VERIFICATION_CONTENT="naver-site-verification: naverafe0ef74210245a649d66c3a595329e9.html";
 
 function isPublicDocumentRequest(request:Request,url:URL){
   if(request.method!=="GET"||url.search!=="")return false;
@@ -63,7 +64,10 @@ const worker = {
     }
 
     if (request.method === "GET" && url.pathname === NAVER_SITE_VERIFICATION_PATH) {
-      return env.ASSETS.fetch(request);
+      return new Response(NAVER_SITE_VERIFICATION_CONTENT, {
+        status: 200,
+        headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "public, max-age=3600", "x-content-type-options": "nosniff" },
+      });
     }
 
     if (url.pathname === "/_vinext/image") {
