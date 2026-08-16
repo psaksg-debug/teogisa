@@ -1,3 +1,4 @@
+import postgres from "postgres";
 import { env } from "cloudflare:workers";
 import { seedPosts, type Post } from "./content";
 import { contentAgentProfiles, type ContentAgentProfile } from "./content-agents";
@@ -13,6 +14,19 @@ import { qualityDesignGates, qualityDesignTeam } from "./quality-design-team";
 import { assertTeamPermission } from "./team-permissions";
 import { safeReleasePolicy } from "./release-policy";
 import { memberActivityPlans, nextMemberActivityRunAt, type ActivityAction } from "./member-activity-plans";
+
+let pgSql: ReturnType<typeof postgres> | null = null;
+export function getPgClient() {
+  const url = process.env.DATABASE_URL;
+  if (url) {
+    if (!pgSql) {
+      pgSql = postgres(url, { idle_timeout: 20, max: 10 });
+    }
+    return pgSql;
+  }
+  return null;
+}
+
 
 export type QueueItem = {
   id: number;
@@ -173,6 +187,17 @@ export async function publishDuePosts() {
 
 export async function getPublishedPosts() {
   try {
+    const pg = getPgClient();
+    if (pg) {
+      const rows = await pg`SELECT * FROM posts ORDER BY published_at DESC, id DESC`;
+      const persisted = rows.map((row) => mapPost(row as Record<string, unknown>));
+      const persistedSlugs = new Set(persisted.map((post) => post.slug));
+      const persistedTitles = new Set(persisted.map((post) => post.title.trim()));
+      return sortPostsNewestFirst([
+        ...persisted.filter((post) => post.status === "published"),
+        ...seedPosts.filter((post) => post.status === "published" && !persistedSlugs.has(post.slug) && !persistedTitles.has(post.title.trim())),
+      ]);
+    }
     const d1 = await db({initialize:false});
     const result = await d1
       // Read every persisted status so an editor's explicit draft/unpublish
@@ -193,6 +218,11 @@ export async function getPublishedPosts() {
 
 export async function getAllPosts() {
   await publishDuePosts();
+  const pg = getPgClient();
+  if (pg) {
+    const rows = await pg`SELECT * FROM posts ORDER BY updated_at DESC, id DESC`;
+    return rows.map((row) => mapPost(row as Record<string, unknown>));
+  }
   const d1 = await db();
   const result = await d1.prepare("SELECT * FROM posts ORDER BY updated_at DESC, id DESC").all();
   return result.results.map((row) => mapPost(row as Record<string, unknown>));
@@ -215,6 +245,11 @@ function findSeedPost(slug:string){
 export async function getPost(slug: string) {
   const normalizedSlug=normalizePostSlug(slug);
   try {
+    const pg = getPgClient();
+    if (pg) {
+      const rows = await pg`SELECT * FROM posts WHERE slug = ${normalizedSlug} AND status = 'published' LIMIT 1`;
+      return rows[0] ? mapPost(rows[0] as Record<string, unknown>) : findSeedPost(normalizedSlug);
+    }
     const d1 = await db({initialize:false});
     const row = await d1
       .prepare("SELECT * FROM posts WHERE slug=? AND status='published'")
@@ -230,6 +265,15 @@ export async function getPost(slug: string) {
 
 export async function createPost(input: Omit<Post, "id">) {
   if (input.status === "published" || input.status === "scheduled") assertPublicationReady(input);
+  const pg = getPgClient();
+  if (pg) {
+    const rows = await pg`
+      INSERT INTO posts (title, slug, excerpt, body, category, tags_json, status, published_at, scheduled_at, reading_minutes, visual, author_name)
+      VALUES (${input.title}, ${input.slug}, ${input.excerpt}, ${input.body}, ${input.category}, ${JSON.stringify(input.tags)}, ${input.status}, ${input.publishedAt || null}, ${input.scheduledAt}, ${input.readingMinutes}, ${input.visual}, ${input.authorName || EDITOR_IN_CHIEF.name})
+      RETURNING *
+    `;
+    return mapPost(rows[0] as Record<string, unknown>);
+  }
   const d1 = await db();
   const row = await d1
     .prepare("INSERT INTO posts (title,slug,excerpt,body,category,tags_json,status,published_at,scheduled_at,reading_minutes,visual,author_name) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) RETURNING *")
@@ -240,6 +284,16 @@ export async function createPost(input: Omit<Post, "id">) {
 
 export async function updatePost(id: number, input: Omit<Post, "id">) {
   if (input.status === "published" || input.status === "scheduled") assertPublicationReady(input);
+  const pg = getPgClient();
+  if (pg) {
+    const rows = await pg`
+      UPDATE posts SET title=${input.title}, slug=${input.slug}, excerpt=${input.excerpt}, body=${input.body}, category=${input.category}, tags_json=${JSON.stringify(input.tags)}, status=${input.status}, published_at=${input.publishedAt || null}, scheduled_at=${input.scheduledAt}, reading_minutes=${input.readingMinutes}, visual=${input.visual}, author_name=${input.authorName || EDITOR_IN_CHIEF.name}, updated_at=NOW()
+      WHERE id=${id} RETURNING *
+    `;
+    if (!rows[0]) throw new Error("수정할 글을 찾지 못했습니다.");
+    await pg`UPDATE posting_queue SET status=${input.status === "published" ? "published" : input.status}, scheduled_at=${input.scheduledAt} WHERE post_id=${id}`;
+    return mapPost(rows[0] as Record<string, unknown>);
+  }
   const d1 = await db();
   const row = await d1
     .prepare("UPDATE posts SET title=?,slug=?,excerpt=?,body=?,category=?,tags_json=?,status=?,published_at=?,scheduled_at=?,reading_minutes=?,visual=?,author_name=?,updated_at=CURRENT_TIMESTAMP WHERE id=? RETURNING *")
