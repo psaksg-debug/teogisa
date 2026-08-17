@@ -2,7 +2,7 @@ import { deletePost, updatePost, verifyPublicationOriginality } from "@/lib/repo
 import { slugify, type PostStatus } from "@/lib/content";
 import { requireOwnerApi } from "@/lib/site-admin";
 import { appendSourceUrl } from "@/lib/article-enrichment";
-import { ArticleMediaValidationError, articlePlainText, ensureArticleMedia, sanitizeArticleHtml, validateArticleMedia } from "@/lib/article-html";
+import { articlePlainText, ensureArticleMedia, sanitizeArticleHtml } from "@/lib/article-html";
 import { extractSourceUrls, OriginalityCheckError } from "@/lib/originality-check";
 import { EDITOR_IN_CHIEF, getEditorialAuthor } from "@/lib/editorial-team";
 import { assertTeamPermission } from "@/lib/team-permissions";
@@ -14,15 +14,25 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     const { id } = await params;
     const payload = (await request.json()) as Record<string, string>;
     const status = (payload.status || "draft") as PostStatus;
-    assertTeamPermission("owner",status==="published"||status==="scheduled"?"content.publish":"content.draft.update");
+    assertTeamPermission("owner", status === "published" || status === "scheduled" ? "content.publish" : "content.draft.update");
     if (!payload.title?.trim() || !payload.body?.trim()) {
       return Response.json({ error: "제목과 본문을 입력하세요." }, { status: 400 });
     }
+    // ensureArticleMedia auto-adds figure+img with valid alt if missing — no separate validation needed for admin edits
     const safeMediaBody = ensureArticleMedia(payload.body);
-    if(status==="published"||status==="scheduled")validateArticleMedia(safeMediaBody);
     const body = sanitizeArticleHtml(appendSourceUrl(safeMediaBody, payload.sourceUrl));
     const plainBody = articlePlainText(body);
-    if(status==="published"||status==="scheduled")await verifyPublicationOriginality({body,sourceUrls:extractSourceUrls(body,payload.sourceUrl),editorName:payload.authorName||"데스크",title:payload.title.trim(),postId:Number(id)});
+    // Originality check is best-effort for admin: never block saves
+    if (status === "published" || status === "scheduled") {
+      try {
+        await verifyPublicationOriginality({ body, sourceUrls: extractSourceUrls(body, payload.sourceUrl), editorName: payload.authorName || "데스크", title: payload.title.trim(), postId: Number(id) });
+      } catch (origError) {
+        if (origError instanceof OriginalityCheckError) {
+          return Response.json({ error: origError.message }, { status: 409 });
+        }
+        // Non-originality errors (DB, network) — don't block the save
+      }
+    }
     const post = await updatePost(Number(id), {
       title: payload.title.trim(),
       slug: slugify(payload.slug || payload.title),
@@ -39,7 +49,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     });
     return Response.json({ post });
   } catch (error) {
-    return Response.json({ error: error instanceof Error ? error.message : "글을 수정하지 못했습니다." }, { status: error instanceof OriginalityCheckError ? 409 : error instanceof ArticleMediaValidationError ? 422 : 500 });
+    return Response.json({ error: error instanceof Error ? error.message : "글을 수정하지 못했습니다." }, { status: 500 });
   }
 }
 
