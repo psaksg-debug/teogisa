@@ -83,7 +83,7 @@ export default function AdminClient({ username }: { username: string }) {
   // 이렇게 하면 일부 API에 문제가 생겨도 글 목록은 정상적으로 표시됩니다.
   async function loadPrimaryData() {
     const postsResponse = await fetch("/api/posts");
-    const postsData = await postsResponse.json();
+    const postsData: any = await postsResponse.json();
     if (postsResponse.ok) {
       setPosts(postsData.posts);
       const requestedPostId = Number(new URLSearchParams(window.location.search).get("post"));
@@ -102,7 +102,7 @@ export default function AdminClient({ username }: { username: string }) {
   async function loadSecondaryData() {
     try {
       const [queueResponse, agentsResponse, promotionsResponse, managementResponse, auditResponse, activityResponse] = await Promise.all([fetch("/api/automation"), fetch("/api/agents"), fetch("/api/promotions"), fetch("/api/management"), fetch("/api/audits"), fetch("/api/activity-plans")]);
-      const [queueData, agentsData, promotionsData, managementData, auditData, activityData] = await Promise.all([queueResponse.json(), agentsResponse.json(), promotionsResponse.json(), managementResponse.json(), auditResponse.json(), activityResponse.json()]);
+      const [queueData, agentsData, promotionsData, managementData, auditData, activityData]: any[] = await Promise.all([queueResponse.json(), agentsResponse.json(), promotionsResponse.json(), managementResponse.json(), auditResponse.json(), activityResponse.json()]);
       if (queueResponse.ok) setQueue(queueData.queue);
       if (agentsResponse.ok) { setAgents(agentsData.agents); setAgentRuns(agentsData.runs); }
       if (promotionsResponse.ok) setPromotions(promotionsData.campaigns);
