@@ -236,7 +236,7 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(agentsData,/health-column/);
   assert.match(repository,/runDueContentAgents/);
   assert.match(repository,/status:"published"/);
-  assert.match(repository,/에이전트가 글을 자동 생성하고 별도 승인 없이 즉시 자동 발행했습니다/);
+  assert.match(repository,/에이전트가 글을 자동 생성하고 즉시 자동 발행 및 검색엔진 색인 요청을 완료했습니다/);
   assert.match(repository,/runSiteManagementAudit/);
   assert.match(repository,/management_issues/);
   assert.match(admin,/사이트 경영관리팀 상황실/);

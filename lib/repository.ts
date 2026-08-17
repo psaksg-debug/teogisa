@@ -26,6 +26,7 @@ import { qualityDesignGates, qualityDesignTeam } from "./quality-design-team";
 import { assertTeamPermission } from "./team-permissions";
 import { safeReleasePolicy } from "./release-policy";
 import { memberActivityPlans, nextMemberActivityRunAt, type ActivityAction } from "./member-activity-plans";
+import { requestSearchEngineIndexing } from "./seo-indexing";
 
 let pgSql: ReturnType<typeof postgres> | null = null;
 export function getPgClient() {
@@ -393,6 +394,19 @@ export async function createAutomationDraft(input: {
     .prepare("INSERT INTO posting_queue (post_id,status,source_url,scheduled_at) VALUES (?,?,?,?)")
     .bind(post.id, "published", input.sourceUrl, input.scheduledAt)
     .run();
+
+  await requestSearchEngineIndexing({
+    url: `/posts/${post.slug}`,
+    title: post.title,
+    slug: post.slug,
+  }).catch(() => null);
+
+  await d1
+    .prepare("INSERT INTO agent_runs (agent_id,status,topic,post_id,message) VALUES (?,?,?,?,?)")
+    .bind("editorial-desk", "published", input.topic, post.id, "관리자 특별 발행 요청 건: 스케줄 우회 최상단 즉시 게시 및 SEO 색인 완료 (completed).")
+    .run()
+    .catch(() => null);
+
   return post;
 }
 
@@ -571,8 +585,15 @@ export async function runContentAgent(id:string){
   await d1.batch([
     d1.prepare("INSERT INTO posting_queue (post_id,status,source_url,scheduled_at) VALUES (?,?,?,NULL)").bind(post.id,"published",agent.sources[0]?.url??null),
     d1.prepare("UPDATE content_agents SET last_run_at=?,next_run_at=?,topic_cursor=topic_cursor+1,updated_at=CURRENT_TIMESTAMP WHERE id=?").bind(now.toISOString(),next,id),
-    d1.prepare("INSERT INTO agent_runs (agent_id,status,topic,post_id,message) VALUES (?,?,?,?,?)").bind(id,"published",topic,post.id,"에이전트가 글을 자동 생성하고 별도 승인 없이 즉시 자동 발행했습니다."),
+    d1.prepare("INSERT INTO agent_runs (agent_id,status,topic,post_id,message) VALUES (?,?,?,?,?)").bind(id,"published",topic,post.id,"에이전트가 글을 자동 생성하고 즉시 자동 발행 및 검색엔진 색인 요청을 완료했습니다 (completed)."),
   ]);
+
+  await requestSearchEngineIndexing({
+    url: `/posts/${post.slug}`,
+    title: post.title,
+    slug: post.slug,
+  }).catch(() => null);
+
   return post;
 }
 
