@@ -97,24 +97,15 @@ export async function handleScheduledAutoPost(env: Env): Promise<void> {
   const resultJson = JSON.parse(aiData.candidates[0].content.parts[0].text);
 
   // 4. Cloudflare D1 Database에 즉시 INSERT (published 상태)
-  const uniqueSlug = `${resultJson.slug}-${Date.now().toString().slice(-4)}`;
+  // 4. Cloudflare D1 Database에 '초안'으로 INSERT하고 '검토 대기열'에 등록
+  const uniqueSlug = `${resultJson.slug}-${Date.now().toString(36)}`;
   const tagsJson = JSON.stringify(resultJson.tags || []);
   const readingTime = resultJson.readingMinutes || 7;
 
-  await env.DB.prepare(`
-    INSERT INTO posts (
-      title,
-      slug,
-      excerpt,
-      body,
-      category,
-      tags_json,
-      status,
-      published_at,
-      reading_minutes,
-      visual,
-      author_name
-    ) VALUES (?, ?, ?, ?, ?, ?, 'published', datetime('now', 'localtime'), ?, 'NEW', ?)
+  const { results } = await env.DB.prepare(`
+    INSERT INTO posts (title, slug, excerpt, body, category, tags_json, status, reading_minutes, visual, author_name)
+    VALUES (?, ?, ?, ?, ?, ?, 'draft', ?, 'REVIEW', ?)
+    RETURNING id
   `).bind(
     resultJson.title,
     uniqueSlug,
@@ -126,5 +117,14 @@ export async function handleScheduledAutoPost(env: Env): Promise<void> {
     targetTopic.author
   ).run();
 
-  console.log(`[Cloudflare AutoPost] 게시 완료: ${resultJson.title} (${uniqueSlug})`);
+  const newPostId = results.length > 0 ? results[0].id : null;
+  if (!newPostId) {
+    throw new Error("자동 포스트 생성 후 ID를 가져오지 못했습니다.");
+  }
+
+  await env.DB.prepare("INSERT INTO posting_queue (post_id, status, source_url) VALUES (?, 'review', ?)")
+    .bind(newPostId, "https://generativelanguage.googleapis.com/")
+    .run();
+
+  console.log(`[Cloudflare AutoPost] 검토 대기 등록: ${resultJson.title} (Post ID: ${newPostId})`);
 }

@@ -12,7 +12,15 @@ export const metadata: Metadata = {
   publisher: SITE_NAME,
   category: "retirement planning",
   robots: { index:true, follow:true, googleBot:{ index:true, follow:true, "max-image-preview":"large", "max-snippet":-1, "max-video-preview":-1 } },
-  icons: { icon: "/brand-mark-v2.png", apple: "/brand-mark-v2.png" },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/brand-mark-v2.png", type: "image/png" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/brand-mark-v2.png",
+  },
   openGraph: {
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
