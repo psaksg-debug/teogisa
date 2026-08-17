@@ -1,11 +1,11 @@
-import { deletePost, updatePost, verifyPublicationOriginality } from "../../../../lib/repository";
-import { slugify, type PostStatus } from "../../../../lib/content";
-import { requireOwnerApi } from "../../../../lib/site-admin";
-import { appendSourceUrl } from "../../../../lib/article-enrichment";
-import { ArticleMediaValidationError, articlePlainText, ensureArticleMedia, sanitizeArticleHtml, validateArticleMedia } from "../../../../lib/article-html";
-import { extractSourceUrls, OriginalityCheckError } from "../../../../lib/originality-check";
-import { EDITOR_IN_CHIEF, getEditorialAuthor } from "../../../../lib/editorial-team";
-import { assertTeamPermission } from "../../../../lib/team-permissions";
+import { deletePost, updatePost, verifyPublicationOriginality } from "@/lib/repository";
+import { slugify, type PostStatus } from "@/lib/content";
+import { requireOwnerApi } from "@/lib/site-admin";
+import { appendSourceUrl } from "@/lib/article-enrichment";
+import { ArticleMediaValidationError, articlePlainText, ensureArticleMedia, sanitizeArticleHtml, validateArticleMedia } from "@/lib/article-html";
+import { extractSourceUrls, OriginalityCheckError } from "@/lib/originality-check";
+import { EDITOR_IN_CHIEF, getEditorialAuthor } from "@/lib/editorial-team";
+import { assertTeamPermission } from "@/lib/team-permissions";
 
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const auth = await requireOwnerApi(request);
