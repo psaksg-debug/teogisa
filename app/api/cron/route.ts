@@ -1,5 +1,6 @@
 import { runScheduledOrganizationActivities, publishDuePosts } from "../../../lib/repository";
 import { getAdminSession } from "../../../lib/site-admin";
+import { ADMIN_ENABLED, disabledSurfaceResponse } from "../../../lib/feature-flags";
 
 export const dynamic = "force-dynamic";
 
@@ -27,6 +28,8 @@ async function authorizeCron(request: Request) {
 }
 
 export async function GET(request: Request) {
+  // 자동화가 꺼져 있으면 실행 경로 자체를 닫는다. CRON_SECRET 없이도 완전히 잠긴다.
+  if (!ADMIN_ENABLED) return disabledSurfaceResponse();
   const auth = await authorizeCron(request);
   if (!auth.ok) {
     return Response.json({ success: false, error: "자동화 실행 권한이 없습니다." }, { status: 401 });

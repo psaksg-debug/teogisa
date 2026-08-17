@@ -1,4 +1,5 @@
 import { headers } from "next/headers";
+import { ADMIN_ENABLED, disabledSurfaceResponse } from "./feature-flags";
 
 let cfEnv: Record<string, any> = {};
 try {
@@ -113,4 +114,4 @@ function isSafeOrigin(request: Request) {
     return true;
   }
 }
-export async function requireOwnerApi(request:Request){if(!isSafeOrigin(request))return{session:null,response:Response.json({error:"잘못된 요청입니다."},{status:403})};const session=await getAdminSession(request);if(session)return{session,response:null};return{session:null,response:Response.json({error:"관리자 로그인이 필요합니다."},{status:401})};}
+export async function requireOwnerApi(request:Request){if(!ADMIN_ENABLED)return{session:null,response:disabledSurfaceResponse()};if(!isSafeOrigin(request))return{session:null,response:Response.json({error:"잘못된 요청입니다."},{status:403})};const session=await getAdminSession(request);if(session)return{session,response:null};return{session:null,response:Response.json({error:"관리자 로그인이 필요합니다."},{status:401})};}

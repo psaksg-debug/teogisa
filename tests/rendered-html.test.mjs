@@ -177,6 +177,31 @@ test("redirects www to the canonical apex domain", async () => {
   assert.match(worker, /Response\.redirect\(url\.toString\(\), 301\)/);
 });
 
+// 관리자 편집실과 자동화는 기본 비활성이다. 공개 사이트는 lib/content.ts의 글로 동작하므로
+// 이 둘이 꺼져 있어도 사이트는 완전하다. 꺼진 상태에서는 DATABASE_URL도 CRON_SECRET도 필요 없다.
+// 실수로 기본값이 켜지면 저장은 성공한 척하고 사라지고 /api/cron이 공개로 열리므로 여기서 고정한다.
+test("keeps the admin editor and automation disabled by default", async () => {
+  const [flags, siteAdmin, cronRoute, sessionRoute, adminPage, loginPage] = await Promise.all([
+    readFile(new URL("../lib/feature-flags.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/site-admin.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/api/cron/route.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/api/admin/session/route.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/admin/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/admin/login/page.tsx", import.meta.url), "utf8"),
+  ]);
+  // 기본값은 반드시 꺼짐이어야 한다. 명시적으로 "1"일 때만 켜진다.
+  assert.match(flags, /ADMIN_ENABLED = process\.env\.ADMIN_ENABLED === "1"/);
+
+  // 쓰기 API 11개는 requireOwnerApi를 통하므로 그 한 지점에서 닫힌다.
+  assert.match(siteAdmin, /if\(!ADMIN_ENABLED\)return\{session:null,response:disabledSurfaceResponse\(\)\}/);
+
+  // requireOwnerApi를 쓰지 않는 경로는 각자 닫아야 한다.
+  assert.match(cronRoute, /if \(!ADMIN_ENABLED\) return disabledSurfaceResponse\(\)/);
+  assert.match(sessionRoute, /if\(!ADMIN_ENABLED\)return disabledSurfaceResponse\(\)/);
+  assert.match(adminPage, /if\(!ADMIN_ENABLED\)notFound\(\)/);
+  assert.match(loginPage, /if\(!ADMIN_ENABLED\)notFound\(\)/);
+});
+
 // Vercel은 vercel.json의 crons를 배포 단계에서 플랜 한도로 검증한다. Hobby 플랜은
 // 프로젝트당 cron 2개, 하루 1회까지만 허용한다. next build는 crons를 읽지 않으므로
 // 시간당 표현식("0 * * * *")을 넣으면 로컬 빌드와 테스트는 전부 통과하고 배포만 실패한다.
