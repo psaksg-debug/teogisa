@@ -274,8 +274,8 @@ export const seedPosts: Post[] = [
   </tbody>
 </table>
 <figure class="article-image">
-  <img src="/article-thumbnails/unemployment-benefit-flow.webp" alt="권고사직, 자발적 퇴사, 계약만료의 실업급여 및 퇴직금 처리 절차 일러스트" width="800" height="450" loading="lazy" decoding="async">
-  <figcaption>퇴사 방식에 따라 이직확인서에 기재되는 고용보험 코드가 달라지며, 이는 실업급여 심사의 핵심 기준이 됩니다. · 퇴.기.사 제작</figcaption>
+  <img src="/article-thumbnails/layoff_illustration.jpg" alt="권고사직을 논의하는 회사 관계자와 근로자 일러스트" width="800" height="800" loading="lazy" decoding="async">
+  <figcaption>권고사직은 회사의 권유와 근로자의 동의로 이루어지며, 실업급여 수급의 중요한 요건이 됩니다. · 퇴.기.사 제작 일러스트</figcaption>
 </figure>
 <h2>2. 권고사직(코드 23): 사직서 문구 한 줄에 실업급여가 날아가는 이유</h2>
 <p>권고사직은 회사가 퇴직을 권유하고 근로자가 이를 수용하여 근로계약을 합의 해지하는 형태입니다. 고용보험법상 ‘비자발적 이직’으로 분류되어 실업급여 수급 요건(피보험 단위기간 180일 이상 충족 시)을 갖추게 됩니다.</p>
@@ -287,6 +287,10 @@ export const seedPosts: Post[] = [
 </div>
 <h3>회사가 권고사직을 꺼리는 이유와 대처법</h3>
 <p>회사가 권고사직 처리를 주저하는 가장 큰 이유는 <strong>고용유지지원금, 청년일자리도약장려금 등 정부지원금 수령에 제한(인위적 감원 제한 규정)</strong>이 걸리기 때문입니다. 만약 회사가 "개인 사정으로 나가되 실업급여는 맞춰주겠다"고 구두 약속을 한다면, 이는 부정수급(허위 신고) 리스크가 있으므로 위로금 협상이나 서면 합의서를 통해 권고사직 사유를 명확히 남겨야 합니다.</p>
+<figure class="article-image">
+  <img src="/article-thumbnails/voluntary_resignation.jpg" alt="자발적 퇴사를 결심하고 짐을 챙겨 나서는 직장인 일러스트" width="800" height="800" loading="lazy" decoding="async">
+  <figcaption>자발적 퇴사는 원칙적으로 실업급여 대상이 아니지만, 예외적인 9가지 사유에 해당하면 수급이 가능합니다. · 퇴.기.사 제작 일러스트</figcaption>
+</figure>
 <h2>3. 자발적 퇴사(코드 11): 내 발로 나와도 실업급여 받는 9가지 예외</h2>
 <p>개인 사정으로 사표를 내는 자발적 퇴사는 원칙적으로 실업급여 대상이 아닙니다. 하지만 고용보험법 시행규칙 제101조 제2항 [별표 2]에 따라, <strong>‘통상적인 근로자라도 이직할 수밖에 없는 정당한 사유’</strong>가 객관적으로 입증되면 자발적 퇴사라도 실업급여를 100% 받을 수 있습니다.</p>
 <h3>실업급여 인정되는 9대 정당한 이직 사유</h3>
@@ -301,6 +305,10 @@ export const seedPosts: Post[] = [
   <li><strong>임신·출산·육아:</strong> 만 8세 이하 또는 초등 2학년 이하 자녀의 육아를 위해 휴직을 신청했으나 사업주가 허용하지 않아 퇴사한 경우.</li>
   <li><strong>정년 도달 및 계약 기간 만료:</strong> 정년에 도달하여 당연 퇴직한 경우.</li>
 </ol>
+<figure class="article-image">
+  <img src="/article-thumbnails/contract_expiration.jpg" alt="근로계약 만료를 알리는 달력과 악수하는 일러스트" width="800" height="800" loading="lazy" decoding="async">
+  <figcaption>계약만료로 인한 퇴사 시, 재계약 거부의 주체가 누구인지에 따라 실업급여 수급 여부가 엇갈립니다. · 퇴.기.사 제작 일러스트</figcaption>
+</figure>
 <h2>4. 계약만료(코드 32): 실업급여를 받지 못하는 결정적 '함정'</h2>
 <p>계약직 근로자가 계약서에 명시된 기간이 종료되어 퇴사할 때는 실업급여 수급이 가능합니다. 하지만 실무에서 많은 분들이 놓치는 <strong>‘재계약 거부 주체’</strong>에 따른 함정이 있습니다.</p>
 <table>
