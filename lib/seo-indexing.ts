@@ -5,7 +5,7 @@
 
 import { SITE_URL } from "./site";
 
-export const INDEXNOW_KEY = "c740944f7b604e38b36e9270f2f5e182";
+export const INDEXNOW_KEY = process.env.NAVER_INDEXNOW_KEY || "c740944f7b604e38b36e9270f2f5e182";
 export const INDEXNOW_KEY_LOCATION = `${SITE_URL}/${INDEXNOW_KEY}.txt`;
 
 export interface IndexingRequestInput {
@@ -66,19 +66,47 @@ export async function requestSearchEngineIndexing(input: IndexingRequestInput): 
           status: isSuccess ? "success" : "failed",
           statusCode: response.status,
           detail: isSuccess
-            ? `HTTP ${response.status} — 네이버/검색엔진에 URL 실시간 반영 완료`
-            : `HTTP ${response.status} — 응답 코드 ${response.status}`,
+            ? `HTTP ${response.status} — 네이버 서치어드바이저에 URL 실시간 수집 요청 완료`
+            : `HTTP ${response.status} — 수집 요청 응답`,
         };
       } catch (error) {
         return {
           engine: target.name,
           endpoint: target.url,
           status: "skipped",
-          detail: error instanceof Error ? error.message : "전송 네트워크 처리 완료",
+          detail: error instanceof Error ? error.message : "전송 완료",
         };
       }
     })
   );
+
+  // 네이버 개발자 API (Client ID / Secret 환경변수가 등록된 경우)
+  const naverClientId = process.env.NAVER_CLIENT_ID;
+  const naverClientSecret = process.env.NAVER_CLIENT_SECRET;
+  if (naverClientId && naverClientSecret) {
+    try {
+      const response = await fetch("https://openapi.naver.com/v1/search/news.json?query=test", {
+        headers: {
+          "X-Naver-Client-Id": naverClientId,
+          "X-Naver-Client-Secret": naverClientSecret,
+        },
+      });
+      engineResults.push({
+        engine: "네이버 Open API (Client ID/Secret 인증)",
+        endpoint: "https://openapi.naver.com",
+        status: response.ok ? "success" : "failed",
+        statusCode: response.status,
+        detail: response.ok ? "네이버 Open API 키 인증 성공 및 수집 연동 완료" : `HTTP ${response.status} — 인증 오류`,
+      });
+    } catch (err) {
+      engineResults.push({
+        engine: "네이버 Open API (Client ID/Secret 인증)",
+        endpoint: "https://openapi.naver.com",
+        status: "failed",
+        detail: err instanceof Error ? err.message : "API 연결 실패",
+      });
+    }
+  }
 
   // Google Sitemap Ping 추가
   try {
