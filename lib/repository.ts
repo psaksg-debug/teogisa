@@ -189,6 +189,103 @@ async function db(options:{initialize?:boolean}={}) {
   return d1;
 }
 
+export type StorageDiagnostics = {
+  backend: "postgres" | "d1" | "memory";
+  persistent: boolean;
+  databaseUrlPresent: boolean;
+  d1BindingPresent: boolean;
+  postsTableReady: boolean;
+  persistedPostCount: number | null;
+  probeError: string | null;
+  message: string;
+  checkedAt: string;
+};
+
+// 관리자 저장이 200을 돌려주고도 글이 사라지는 유일한 남은 경로는
+// 영속 저장소가 붙지 않아 요청 단위 메모리에만 쓰이는 경우다.
+// 이 진단은 그 상태를 화면에서 즉시 볼 수 있게 만든다.
+export async function storageDiagnostics(): Promise<StorageDiagnostics> {
+  const checkedAt = new Date().toISOString();
+  const databaseUrlPresent = Boolean(process.env.DATABASE_URL);
+  const d1BindingPresent = Boolean((env as unknown as { DB?: D1Database }).DB);
+
+  const pg = getPgClient();
+  if (pg) {
+    try {
+      const rows = await pg`SELECT COUNT(*)::int AS count FROM posts`;
+      const persistedPostCount = Number((rows[0] as Record<string, unknown>).count ?? 0);
+      return {
+        backend: "postgres",
+        persistent: true,
+        databaseUrlPresent,
+        d1BindingPresent,
+        postsTableReady: true,
+        persistedPostCount,
+        probeError: null,
+        message: `Supabase PostgreSQL에 연결되어 있습니다. 저장된 글 ${persistedPostCount}건.`,
+        checkedAt,
+      };
+    } catch (error) {
+      const probeError = error instanceof Error ? error.message : String(error);
+      return {
+        backend: "postgres",
+        persistent: false,
+        databaseUrlPresent,
+        d1BindingPresent,
+        postsTableReady: false,
+        persistedPostCount: null,
+        probeError,
+        message: "DATABASE_URL은 있지만 posts 테이블을 읽지 못했습니다. `node scripts/migrate-to-supabase.mjs`로 스키마를 적용하세요.",
+        checkedAt,
+      };
+    }
+  }
+
+  if (d1BindingPresent) {
+    try {
+      const d1 = await db({ initialize: false });
+      const row = await d1.prepare("SELECT COUNT(*) AS count FROM posts").first();
+      const persistedPostCount = Number((row as Record<string, unknown> | null)?.count ?? 0);
+      return {
+        backend: "d1",
+        persistent: true,
+        databaseUrlPresent,
+        d1BindingPresent,
+        postsTableReady: true,
+        persistedPostCount,
+        probeError: null,
+        message: `Cloudflare D1에 연결되어 있습니다. 저장된 글 ${persistedPostCount}건.`,
+        checkedAt,
+      };
+    } catch (error) {
+      const probeError = error instanceof Error ? error.message : String(error);
+      return {
+        backend: "d1",
+        persistent: false,
+        databaseUrlPresent,
+        d1BindingPresent,
+        postsTableReady: false,
+        persistedPostCount: null,
+        probeError,
+        message: "D1 바인딩은 있지만 posts 테이블을 읽지 못했습니다. `drizzle/` 마이그레이션을 적용하세요.",
+        checkedAt,
+      };
+    }
+  }
+
+  return {
+    backend: "memory",
+    persistent: false,
+    databaseUrlPresent,
+    d1BindingPresent,
+    postsTableReady: false,
+    persistedPostCount: null,
+    probeError: null,
+    message: "영속 저장소가 없어 임시 메모리에만 저장됩니다. 저장은 성공해 보이지만 새로고침하면 사라집니다. Vercel 환경변수 DATABASE_URL을 등록하세요.",
+    checkedAt,
+  };
+}
+
 function mapPost(row: Record<string, unknown>): Post {
   return {
     id: Number(row.id),

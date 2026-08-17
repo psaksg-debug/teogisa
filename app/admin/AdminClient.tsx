@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import Link from "next/link";
 import type { Post } from "../../lib/content";
-import type { AgentRun, AuditFinding, AuditRun, ContentAgentState, ManagementIssue, ManagementRun, MemberActivityPlanState, MemberActivityRun, OriginalityCheck, PromotionCampaign, QueueItem } from "../../lib/repository";
+import type { AgentRun, AuditFinding, AuditRun, ContentAgentState, ManagementIssue, ManagementRun, MemberActivityPlanState, MemberActivityRun, OriginalityCheck, PromotionCampaign, QueueItem, StorageDiagnostics } from "../../lib/repository";
 import type { AuditDomain, AuditOfficer } from "../../lib/internal-audit";
 import type { ManagementMember } from "../../lib/management-department";
 import type { OrganizationPolicyRecipient } from "../../lib/organization-policy";
@@ -78,6 +78,7 @@ export default function AdminClient({ username }: { username: string }) {
   const [auditFindings, setAuditFindings] = useState<AuditFinding[]>([]);
   const [activityPlans, setActivityPlans] = useState<MemberActivityPlanState[]>([]);
   const [activityRuns, setActivityRuns] = useState<MemberActivityRun[]>([]);
+  const [storage, setStorage] = useState<StorageDiagnostics | null>(null);
   const [selected, setSelected] = useState<Post | null>(null);
   const [message, setMessage] = useState("편집실을 준비하고 있습니다…");
   const [saving, setSaving] = useState(false);
@@ -112,6 +113,16 @@ export default function AdminClient({ username }: { username: string }) {
       }
     } else {
       setMessage(postsData.error || "콘텐츠 보관함을 불러오지 못했습니다.");
+    }
+  }
+
+  async function loadStorageDiagnostics() {
+    try {
+      const response = await fetch("/api/diagnostics");
+      const data: any = await response.json();
+      if (response.ok) setStorage(data.storage || null);
+    } catch (error) {
+      console.error("저장소 진단을 불러오지 못했습니다:", error);
     }
   }
 
@@ -168,6 +179,7 @@ export default function AdminClient({ username }: { username: string }) {
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
+      loadStorageDiagnostics();
       loadPrimaryData().then(loadSecondaryData);
     });
     return () => cancelAnimationFrame(frame);
@@ -586,6 +598,21 @@ export default function AdminClient({ username }: { username: string }) {
           </button>
         </div>
       </header>
+
+      {storage && (
+        <div className={storage.persistent ? "storage-banner ok" : "storage-banner warn"} role={storage.persistent ? undefined : "alert"}>
+          <strong>
+            {storage.persistent ? "✅ 영속 저장소 연결됨" : "⚠️ 저장한 글이 보존되지 않습니다"}
+            {" · "}
+            {storage.backend === "postgres" ? "Supabase PostgreSQL" : storage.backend === "d1" ? "Cloudflare D1" : "임시 메모리"}
+          </strong>
+          <span>{storage.message}</span>
+          {storage.probeError && <span className="storage-banner-detail">오류: {storage.probeError}</span>}
+          <button className="admin-button secondary" type="button" onClick={loadStorageDiagnostics}>
+            다시 확인
+          </button>
+        </div>
+      )}
 
       <div className="admin-dashboard">
         {/* === [NEW] 1. 서브에이전트 실시간 활동 및 작업 이력 상황실 === */}
