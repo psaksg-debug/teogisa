@@ -343,13 +343,20 @@ export async function updatePost(id: number, input: Omit<Post, "id">) {
   if (input.status === "published" || input.status === "scheduled") assertPublicationReady(input);
   const pg = getPgClient();
   if (pg) {
-    const rows = await pg`
+    let rows = await pg`
       UPDATE posts SET title=${input.title}, slug=${input.slug}, excerpt=${input.excerpt}, body=${input.body}, category=${input.category}, tags_json=${JSON.stringify(input.tags)}, status=${input.status}, published_at=${input.publishedAt || null}, scheduled_at=${input.scheduledAt}, reading_minutes=${input.readingMinutes}, visual=${input.visual}, author_name=${input.authorName || EDITOR_IN_CHIEF.name}, updated_at=NOW()
-      WHERE id=${id} RETURNING *
+      WHERE id=${id} OR slug=${input.slug} RETURNING *
     `;
+    if (!rows[0]) {
+      rows = await pg`
+        INSERT INTO posts (title, slug, excerpt, body, category, tags_json, status, published_at, scheduled_at, reading_minutes, visual, author_name)
+        VALUES (${input.title}, ${input.slug}, ${input.excerpt}, ${input.body}, ${input.category}, ${JSON.stringify(input.tags)}, ${input.status}, ${input.publishedAt || null}, ${input.scheduledAt}, ${input.readingMinutes}, ${input.visual}, ${input.authorName || EDITOR_IN_CHIEF.name})
+        RETURNING *
+      `;
+    }
     if (rows[0]) {
-      await pg`UPDATE posting_queue SET status=${input.status === "published" ? "published" : input.status}, scheduled_at=${input.scheduledAt} WHERE post_id=${id}`;
       const updated = mapPost(rows[0] as Record<string, unknown>);
+      await pg`UPDATE posting_queue SET status=${input.status === "published" ? "published" : input.status}, scheduled_at=${input.scheduledAt} WHERE post_id=${updated.id}`.catch(() => null);
       if (updated.status === "published") {
         await requestSearchEngineIndexing({ url: `/posts/${updated.slug}`, title: updated.title, slug: updated.slug }).catch(() => null);
       }
@@ -358,16 +365,23 @@ export async function updatePost(id: number, input: Omit<Post, "id">) {
   }
   try {
     const d1 = await db();
-    const row = await d1
-      .prepare("UPDATE posts SET title=?,slug=?,excerpt=?,body=?,category=?,tags_json=?,status=?,published_at=?,scheduled_at=?,reading_minutes=?,visual=?,author_name=?,updated_at=CURRENT_TIMESTAMP WHERE id=? RETURNING *")
-      .bind(input.title, input.slug, input.excerpt, input.body, input.category, JSON.stringify(input.tags), input.status, input.publishedAt || null, input.scheduledAt, input.readingMinutes, input.visual, input.authorName || EDITOR_IN_CHIEF.name, id)
+    let row = await d1
+      .prepare("UPDATE posts SET title=?,slug=?,excerpt=?,body=?,category=?,tags_json=?,status=?,published_at=?,scheduled_at=?,reading_minutes=?,visual=?,author_name=?,updated_at=CURRENT_TIMESTAMP WHERE id=? OR slug=? RETURNING *")
+      .bind(input.title, input.slug, input.excerpt, input.body, input.category, JSON.stringify(input.tags), input.status, input.publishedAt || null, input.scheduledAt, input.readingMinutes, input.visual, input.authorName || EDITOR_IN_CHIEF.name, id, input.slug)
       .first();
+    if (!row) {
+      row = await d1
+        .prepare("INSERT INTO posts (title,slug,excerpt,body,category,tags_json,status,published_at,scheduled_at,reading_minutes,visual,author_name) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) RETURNING *")
+        .bind(input.title, input.slug, input.excerpt, input.body, input.category, JSON.stringify(input.tags), input.status, input.publishedAt || null, input.scheduledAt, input.readingMinutes, input.visual, input.authorName || EDITOR_IN_CHIEF.name)
+        .first();
+    }
     if (row) {
+      const updated = mapPost(row as Record<string, unknown>);
       await d1
         .prepare("UPDATE posting_queue SET status=?, scheduled_at=? WHERE post_id=?")
-        .bind(input.status === "published" ? "published" : input.status, input.scheduledAt, id)
-        .run();
-      const updated = mapPost(row as Record<string, unknown>);
+        .bind(input.status === "published" ? "published" : input.status, input.scheduledAt, updated.id)
+        .run()
+        .catch(() => null);
       if (updated.status === "published") {
         await requestSearchEngineIndexing({
           url: `/posts/${updated.slug}`,

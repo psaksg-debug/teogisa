@@ -210,6 +210,12 @@ export default function AdminClient({ username }: { username: string }) {
         headers: { "content-type": "application/json" },
         body: JSON.stringify(payload),
       });
+      if (response.status === 401) {
+        setSaving(false);
+        alert("관리자 세션이 만료되었습니다. 다시 로그인해 주세요.");
+        window.location.href = "/admin/login";
+        return;
+      }
       const data: any = await response.json();
       setSaving(false);
       if (response.ok) {
@@ -217,8 +223,7 @@ export default function AdminClient({ username }: { username: string }) {
         const msg = `‘${data.post.title}’ 글을 성공적으로 ${statusText}했습니다.`;
         setMessage(msg);
         setEditorFeedback({ text: `✅ ${msg}`, type: "success" });
-        setSelected(null);
-        form.reset();
+        if (data.post) setSelected(data.post);
         await loadPrimaryData();
         await loadSecondaryData();
       } else {
@@ -686,7 +691,7 @@ export default function AdminClient({ username }: { username: string }) {
               )}
             </div>
           </div>
-          <form key={selected?.id ?? "new"} onSubmit={savePost}>
+          <form key={selected?.id ?? "new"} onSubmit={savePost} noValidate>
             <div className="field">
               <label htmlFor="title">제목</label>
               <input id="title" name="title" required defaultValue={selected?.title} placeholder="독자가 찾을 구체적인 제목" />
@@ -728,7 +733,7 @@ export default function AdminClient({ username }: { username: string }) {
               <label htmlFor="sourceUrl">
                 공식자료 주소 <span>(선택)</span>
               </label>
-              <input id="sourceUrl" name="sourceUrl" type="url" placeholder="https://www.work24.go.kr/..." />
+              <input id="sourceUrl" name="sourceUrl" type="text" placeholder="https://www.work24.go.kr/..." />
               <small>입력하면 본문 끝에 출처 링크가 추가되고 전용 썸네일과 공개 글의 공식자료 영역에 자동 표시됩니다.</small>
             </div>
             <div className="field">
