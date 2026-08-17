@@ -76,9 +76,23 @@ const memoryAuditFindings: AuditFinding[] = [];
 const memoryPromotions: PromotionCampaign[] = [];
 const memoryOriginalityChecks: OriginalityCheck[] = [];
 
+const dummyStatement: any = {
+  bind: () => dummyStatement,
+  first: async () => null,
+  all: async () => ({ results: [] }),
+  run: async () => ({ success: true, meta: {} }),
+};
+
+const dummyD1 = {
+  prepare: () => dummyStatement,
+  batch: async () => [],
+  exec: async () => ({ count: 0, duration: 0 }),
+  dump: async () => new ArrayBuffer(0),
+} as unknown as D1Database;
+
 async function db(options:{initialize?:boolean}={}) {
   const d1 = (env as unknown as { DB?: D1Database }).DB;
-  if (!d1) throw new Error("DB binding unavailable");
+  if (!d1) return dummyD1;
 
   // Public page reads must never wait for schema checks or seed writes.
   if (options.initialize === false) return d1;
