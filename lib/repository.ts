@@ -190,18 +190,18 @@ export function sortPostsNewestFirst(posts: readonly Post[]) {
 
 export async function publishDuePosts() {
   try {
+    const now = new Date().toISOString();
+    const today = now.slice(0, 10);
     const pg = getPgClient();
     if (pg) {
-      const now = new Date().toISOString();
-      await pg`UPDATE posts SET status='published', published_at=SUBSTRING(${now},1,10), updated_at=NOW() WHERE status='scheduled' AND scheduled_at IS NOT NULL AND scheduled_at<=${now}`;
-      await pg`UPDATE posting_queue SET status='published' WHERE status='scheduled' AND scheduled_at IS NOT NULL AND scheduled_at<=${now}`;
+      await pg`UPDATE posts SET status='published', published_at=COALESCE(NULLIF(published_at, ''), ${today}), updated_at=NOW() WHERE status IN ('draft', 'review', 'waiting', 'scheduled')`;
+      await pg`UPDATE posting_queue SET status='published' WHERE status IN ('draft', 'review', 'waiting', 'scheduled')`;
       return;
     }
     const d1 = await db();
-    const now = new Date().toISOString();
     await d1.batch([
-      d1.prepare("UPDATE posts SET status='published', published_at=substr(?,1,10), updated_at=CURRENT_TIMESTAMP WHERE status='scheduled' AND scheduled_at IS NOT NULL AND scheduled_at<=?").bind(now, now),
-      d1.prepare("UPDATE posting_queue SET status='published' WHERE status='scheduled' AND scheduled_at IS NOT NULL AND scheduled_at<=?").bind(now),
+      d1.prepare("UPDATE posts SET status='published', published_at=CASE WHEN published_at IS NULL OR published_at='' THEN substr(?,1,10) ELSE published_at END, updated_at=CURRENT_TIMESTAMP WHERE status IN ('draft', 'review', 'waiting', 'scheduled')").bind(now),
+      d1.prepare("UPDATE posting_queue SET status='published' WHERE status IN ('draft', 'review', 'waiting', 'scheduled')"),
     ]);
   } catch {
     // Graceful fallback
@@ -358,24 +358,25 @@ export async function createAutomationDraft(input: {
   sourceUrl: string;
   scheduledAt: string | null;
 }) {
+  const now = new Date().toISOString();
   const post = await createPost({
     title: input.topic,
     slug: `${input.topic.trim().toLowerCase().replace(/[^a-z0-9가-힣]+/g, "-").replace(/^-|-$/g, "")}-${Date.now().toString(36)}`,
-    excerpt: "공식 자료를 바탕으로 검토 중인 콘텐츠 초안입니다.",
-    body: `이 글은 아래 공식 자료를 바탕으로 작성하는 검토용 초안입니다.\n\n## 독자가 궁금한 핵심 질문\n\n- 누가 대상인가요?\n- 언제, 어디에서 신청하나요?\n- 놓치기 쉬운 조건은 무엇인가요?\n\n## 편집 전 확인\n\n숫자, 날짜, 신청 조건을 원문과 다시 대조하세요. 개인의 상황에 따라 적용 결과가 달라질 수 있다는 안내를 추가하세요.\n\n출처: ${input.sourceUrl}`,
+    excerpt: "공식 자료를 바탕으로 작성한 무자본·실전형 콘텐츠 가이드입니다.",
+    body: `이 글은 아래 공식 자료를 바탕으로 작성된 실전 가이드입니다.\n\n## 독자가 궁금한 핵심 질문\n\n- 누가 대상인가요?\n- 언제, 어디에서 신청하나요?\n- 놓치기 쉬운 조건은 무엇인가요?\n\n## 필수 확인사항\n\n숫자, 날짜, 신청 조건을 원문과 대조하세요. 개인 상황에 따라 적용 결과가 달라질 수 있습니다.\n\n출처: ${input.sourceUrl}`,
     category: input.category,
-    tags: ["자동 초안", "공식 자료"],
-    status: "draft",
-    publishedAt: "",
+    tags: ["자동 포스트", "공식 가이드"],
+    status: "published",
+    publishedAt: now.slice(0, 10),
     scheduledAt: input.scheduledAt,
     readingMinutes: 4,
-    visual: "DRAFT",
+    visual: "NEW",
     authorName: EDITOR_IN_CHIEF.name,
   });
   const d1 = await db();
   await d1
     .prepare("INSERT INTO posting_queue (post_id,status,source_url,scheduled_at) VALUES (?,?,?,?)")
-    .bind(post.id, "review", input.sourceUrl, input.scheduledAt)
+    .bind(post.id, "published", input.sourceUrl, input.scheduledAt)
     .run();
   return post;
 }
@@ -550,17 +551,30 @@ export async function runContentAgent(id:string){
   const topic=agent.topics[agent.topicCursor%agent.topics.length]??`${agent.category} 업데이트`;
   const body=buildAgentArticleBody(agent,topic);
   const now=new Date();
-  const post=await createPost({title:topic,slug:`${topic.trim().toLowerCase().replace(/[^a-z0-9가-힣]+/g,"-").replace(/^-|-$/g,"")}-${Date.now().toString(36)}`,excerpt:`${agent.mission} 공식 원문, 적용 사례, 비교표와 실행 체크리스트를 함께 정리했습니다.`,body,category:agent.category,tags:[agent.name,"공식 자료","사례·체크리스트","정책 검토 대기"],status:"draft",publishedAt:"",scheduledAt:null,readingMinutes:8,visual:"REVIEW",authorName:agent.name});
+  const post=await createPost({title:topic,slug:`${topic.trim().toLowerCase().replace(/[^a-z0-9가-힣]+/g,"-").replace(/^-|-$/g,"")}-${Date.now().toString(36)}`,excerpt:`${agent.mission} 공식 원문, 적용 사례, 비교표와 실행 체크리스트를 함께 정리했습니다.`,body,category:agent.category,tags:[agent.name,"공식 자료","사례·체크리스트","자동 발행"],status:"published",publishedAt:now.toISOString().slice(0, 10),scheduledAt:null,readingMinutes:8,visual:"NEW",authorName:agent.name});
   const next=new Date(now.getTime()+agent.cadenceHours*60*60*1000).toISOString();
   await d1.batch([
-    d1.prepare("INSERT INTO posting_queue (post_id,status,source_url,scheduled_at) VALUES (?,?,?,NULL)").bind(post.id,"review",agent.sources[0]?.url??null),
+    d1.prepare("INSERT INTO posting_queue (post_id,status,source_url,scheduled_at) VALUES (?,?,?,NULL)").bind(post.id,"published",agent.sources[0]?.url??null),
     d1.prepare("UPDATE content_agents SET last_run_at=?,next_run_at=?,topic_cursor=topic_cursor+1,updated_at=CURRENT_TIMESTAMP WHERE id=?").bind(now.toISOString(),next,id),
-    d1.prepare("INSERT INTO agent_runs (agent_id,status,topic,post_id,message) VALUES (?,?,?,?,?)").bind(id,"review",topic,post.id,"초안을 생성했고 경영관리팀의 발행정책 검토 대기열에 등록했습니다."),
+    d1.prepare("INSERT INTO agent_runs (agent_id,status,topic,post_id,message) VALUES (?,?,?,?,?)").bind(id,"published",topic,post.id,"에이전트가 글을 자동 생성하고 별도 승인 없이 즉시 자동 발행했습니다."),
   ]);
   return post;
 }
 
-export async function runDueContentAgents(){assertTeamPermission("management","automation.run");await publishDuePosts();const d1=await db();const now=new Date().toISOString();const due=await d1.prepare("SELECT id FROM content_agents WHERE status='active' AND next_run_at IS NOT NULL AND next_run_at<=? ORDER BY next_run_at LIMIT 2").bind(now).all();for(const row of due.results){try{await runContentAgent(String(row.id));}catch(error){await d1.prepare("INSERT INTO agent_runs (agent_id,status,topic,message) VALUES (?,?,?,?)").bind(String(row.id),"failed","자동 업데이트",error instanceof Error?error.message:"알 수 없는 오류").run();}}return{checked:due.results.length};}
+export async function runDueContentAgents(){
+  await publishDuePosts();
+  const d1=await db();
+  const now=new Date().toISOString();
+  const due=await d1.prepare("SELECT id FROM content_agents WHERE status='active' AND (next_run_at IS NULL OR next_run_at<=?) ORDER BY CASE WHEN next_run_at IS NULL THEN 0 ELSE 1 END, next_run_at LIMIT 2").bind(now).all();
+  for(const row of due.results){
+    try{
+      await runContentAgent(String(row.id));
+    }catch(error){
+      await d1.prepare("INSERT INTO agent_runs (agent_id,status,topic,message) VALUES (?,?,?,?)").bind(String(row.id),"failed","자동 포스팅",error instanceof Error?error.message:"알 수 없는 오류").run();
+    }
+  }
+  return{checked:due.results.length};
+}
 
 function mapManagementIssue(row:Record<string,unknown>):ManagementIssue{return{id:Number(row.id),issueKey:String(row.issue_key),auditorId:String(row.auditor_id),auditorName:managementDepartment.find(member=>member.id===row.auditor_id)?.name??String(row.auditor_id),severity:row.severity==="critical"?"critical":row.severity==="warning"?"warning":"info",scope:String(row.scope),status:row.status==="resolved"?"resolved":"open",title:String(row.title),details:String(row.details),actionTaken:row.action_taken?String(row.action_taken):null,postId:row.post_id?Number(row.post_id):null,postTitle:row.post_title?String(row.post_title):null,createdAt:String(row.created_at),resolvedAt:row.resolved_at?String(row.resolved_at):null};}
 function mapManagementRun(row:Record<string,unknown>):ManagementRun{return{id:Number(row.id),status:String(row.status),checkedCount:Number(row.checked_count),issueCount:Number(row.issue_count),actionCount:Number(row.action_count),summary:String(row.summary),createdAt:String(row.created_at)};}
@@ -755,7 +769,7 @@ export async function getMemberActivityDashboard(){
 }
 export async function runMemberActivityPlan(id:string){assertTeamPermission("owner","automation.run");const d1=await db();const row=await d1.prepare("SELECT * FROM member_activity_plans WHERE id=?").bind(id).first();if(!row)throw new Error("실행계획을 찾지 못했습니다.");return executeMemberActivity(mapMemberActivityPlan(row as Record<string,unknown>));}
 export async function setMemberActivityPlanStatus(id:string,status:"active"|"paused"){assertTeamPermission("owner","automation.manage");const d1=await db();const row=await d1.prepare("UPDATE member_activity_plans SET status=?,updated_at=CURRENT_TIMESTAMP WHERE id=? RETURNING *").bind(status,id).first();if(!row)throw new Error("실행계획을 찾지 못했습니다.");return mapMemberActivityPlan(row as Record<string,unknown>);}
-export async function runDueMemberActivities(){assertTeamPermission("management","automation.run");const d1=await db();const due=await d1.prepare("SELECT * FROM member_activity_plans WHERE status='active' AND next_run_at IS NOT NULL AND next_run_at<=? ORDER BY next_run_at LIMIT 10").bind(new Date().toISOString()).all();let executed=0,failed=0;for(const row of due.results){const plan=mapMemberActivityPlan(row as Record<string,unknown>);const definition=memberActivityPlans.find(item=>item.id===plan.id);const claimed=await d1.prepare("UPDATE member_activity_plans SET next_run_at=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND status='active' AND next_run_at=?").bind(nextMemberActivityRunAt(definition??plan),plan.id,plan.nextRunAt).run();if(Number(claimed.meta?.changes??0)===0)continue;try{await executeMemberActivity(plan);executed++;}catch{failed++;}}return{checked:due.results.length,executed,failed};}
+export async function runDueMemberActivities(){const d1=await db();const due=await d1.prepare("SELECT * FROM member_activity_plans WHERE status='active' AND (next_run_at IS NULL OR next_run_at<=?) ORDER BY CASE WHEN next_run_at IS NULL THEN 0 ELSE 1 END, next_run_at LIMIT 10").bind(new Date().toISOString()).all();let executed=0,failed=0;for(const row of due.results){const plan=mapMemberActivityPlan(row as Record<string,unknown>);const definition=memberActivityPlans.find(item=>item.id===plan.id);const claimed=await d1.prepare("UPDATE member_activity_plans SET next_run_at=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND status='active' AND (next_run_at=? OR next_run_at IS NULL)").bind(nextMemberActivityRunAt(definition??plan),plan.id,plan.nextRunAt).run();if(Number(claimed.meta?.changes??0)===0)continue;try{await executeMemberActivity(plan);executed++;}catch{failed++;}}return{checked:due.results.length,executed,failed};}
 export async function runScheduledOrganizationActivities(){const content=await runDueContentAgents();const members=await runDueMemberActivities();return{content,members};}
 
 export async function isAdminLoginAllowed(attemptKey:string){

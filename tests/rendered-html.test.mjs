@@ -235,8 +235,8 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(agentsApi,/requireOwnerApi/);
   assert.match(agentsData,/health-column/);
   assert.match(repository,/runDueContentAgents/);
-  assert.match(repository,/status:"draft"/);
-  assert.match(repository,/경영관리팀의 발행정책 검토 대기열에 등록했습니다/);
+  assert.match(repository,/status:"published"/);
+  assert.match(repository,/에이전트가 글을 자동 생성하고 별도 승인 없이 즉시 자동 발행했습니다/);
   assert.match(repository,/runSiteManagementAudit/);
   assert.match(repository,/management_issues/);
   assert.match(admin,/사이트 경영관리팀 상황실/);
