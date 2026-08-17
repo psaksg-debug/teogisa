@@ -342,7 +342,15 @@ export async function updatePost(id: number, input: Omit<Post, "id">) {
     .prepare("UPDATE posting_queue SET status=?, scheduled_at=? WHERE post_id=?")
     .bind(input.status === "published" ? "published" : input.status, input.scheduledAt, id)
     .run();
-  return mapPost(row as Record<string, unknown>);
+  const updated = mapPost(row as Record<string, unknown>);
+  if (updated.status === "published") {
+    await requestSearchEngineIndexing({
+      url: `/posts/${updated.slug}`,
+      title: updated.title,
+      slug: updated.slug,
+    }).catch(() => null);
+  }
+  return updated;
 }
 
 export async function deletePost(id: number) {

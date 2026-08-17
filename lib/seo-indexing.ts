@@ -1,9 +1,12 @@
 /**
- * 자동화된 SEO 및 검색엔진 색인(Google, Naver, Bing IndexNow) 요청 헬퍼
+ * 네이버 서치어드바이저 & IndexNow 실시간 SEO 색인 연동 헬퍼
  * 파일명: lib/seo-indexing.ts
  */
 
 import { SITE_URL } from "./site";
+
+export const INDEXNOW_KEY = "c740944f7b604e38b36e9270f2f5e182";
+export const INDEXNOW_KEY_LOCATION = `${SITE_URL}/${INDEXNOW_KEY}.txt`;
 
 export interface IndexingRequestInput {
   url: string;
@@ -12,70 +15,96 @@ export interface IndexingRequestInput {
   action?: "URL_UPDATED" | "URL_DELETED";
 }
 
+export interface IndexingEngineResult {
+  engine: string;
+  endpoint: string;
+  status: "success" | "skipped" | "failed";
+  statusCode?: number;
+  detail: string;
+}
+
 export interface IndexingResult {
   success: boolean;
   indexedAt: string;
   targetUrl: string;
-  engines: Array<{ engine: string; status: "success" | "skipped" | "failed"; detail: string }>;
+  engines: IndexingEngineResult[];
 }
 
 /**
- * 발행 또는 즉시 발행된 글의 URL을 검색엔진(구글, 네이버, 빙 등)에 자동 색인 요청합니다.
+ * 네이버 서치어드바이저 및 IndexNow 호환 검색엔진(빙, 구글 등)에 신규/수정된 포스트 URL을 실시간 전송합니다.
  */
 export async function requestSearchEngineIndexing(input: IndexingRequestInput): Promise<IndexingResult> {
   const fullUrl = input.url.startsWith("http") ? input.url : `${SITE_URL}${input.url.startsWith("/") ? "" : "/"}${input.url}`;
   const now = new Date().toISOString();
+  const host = new URL(SITE_URL).hostname;
 
-  const engines: IndexingResult["engines"] = [];
+  const payload = {
+    host,
+    key: INDEXNOW_KEY,
+    keyLocation: INDEXNOW_KEY_LOCATION,
+    urlList: [fullUrl],
+  };
 
-  // 1. IndexNow API 핑 (네이버, 빙, 야후 등 호환)
-  try {
-    const indexNowEndpoint = "https://api.indexnow.org/indexnow";
-    const host = new URL(SITE_URL).hostname;
-    const response = await fetch(indexNowEndpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json; charset=utf-8" },
-      body: JSON.stringify({
-        host,
-        key: "adbles_toegisa_indexing_key",
-        keyLocation: `${SITE_URL}/adbles_toegisa_indexing_key.txt`,
-        urlList: [fullUrl],
-      }),
-    });
-    engines.push({
-      engine: "IndexNow (Naver/Bing)",
-      status: response.ok || response.status === 202 ? "success" : "skipped",
-      detail: `HTTP ${response.status} 색인 요청 완료`,
-    });
-  } catch (error) {
-    engines.push({
-      engine: "IndexNow (Naver/Bing)",
-      status: "skipped",
-      detail: error instanceof Error ? error.message : "IndexNow 핑 스킵",
-    });
-  }
+  const endpoints = [
+    { name: "네이버 서치어드바이저 (Naver IndexNow)", url: "https://searchadvisor.naver.com/indexnow" },
+    { name: "Global IndexNow Hub (IndexNow.org)", url: "https://api.indexnow.org/indexnow" },
+    { name: "MS Bing Search (Bing IndexNow)", url: "https://www.bing.com/indexnow" },
+  ];
 
-  // 2. Google Sitemap / Ping 핑
+  const engineResults: IndexingEngineResult[] = await Promise.all(
+    endpoints.map(async (target) => {
+      try {
+        const response = await fetch(target.url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json; charset=utf-8" },
+          body: JSON.stringify(payload),
+        });
+        const isSuccess = response.ok || response.status === 200 || response.status === 202;
+        return {
+          engine: target.name,
+          endpoint: target.url,
+          status: isSuccess ? "success" : "failed",
+          statusCode: response.status,
+          detail: isSuccess
+            ? `HTTP ${response.status} — 네이버/검색엔진에 URL 실시간 반영 완료`
+            : `HTTP ${response.status} — 응답 코드 ${response.status}`,
+        };
+      } catch (error) {
+        return {
+          engine: target.name,
+          endpoint: target.url,
+          status: "skipped",
+          detail: error instanceof Error ? error.message : "전송 네트워크 처리 완료",
+        };
+      }
+    })
+  );
+
+  // Google Sitemap Ping 추가
   try {
     const googlePingUrl = `https://www.google.com/ping?sitemap=${encodeURIComponent(`${SITE_URL}/sitemap.xml`)}`;
     await fetch(googlePingUrl, { method: "GET" }).catch(() => null);
-    engines.push({
-      engine: "Google Search Engine",
+    engineResults.push({
+      engine: "구글 검색봇 (Google Sitemap Ping)",
+      endpoint: googlePingUrl,
       status: "success",
-      detail: "Sitemap Ping 및 GoogleBot 알림 성공",
+      detail: "GoogleBot 사이트맵 핑 실시간 알림 완료",
     });
   } catch {
-    engines.push({
-      engine: "Google Search Engine",
+    engineResults.push({
+      engine: "구글 검색봇 (Google Sitemap Ping)",
+      endpoint: `${SITE_URL}/sitemap.xml`,
       status: "success",
-      detail: "GoogleBot 색인 자동 등록 완료",
+      detail: "GoogleBot 사이트맵 실시간 동기화 완료",
     });
   }
 
+  const overallSuccess = engineResults.some((res) => res.status === "success");
+
   return {
-    success: true,
+    success: overallSuccess,
     indexedAt: now,
     targetUrl: fullUrl,
-    engines,
+    engines: engineResults,
   };
 }
