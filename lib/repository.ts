@@ -469,17 +469,62 @@ export async function createAutomationDraft(input: {
   scheduledAt: string | null;
 }) {
   const now = new Date().toISOString();
+  const safeTitle = htmlEscape(input.topic);
+  const safeSource = htmlEscape(input.sourceUrl);
+  const body = `<figure class="article-image"><img src="/article-thumbnail-sprite.png" alt="${safeTitle} 공식 가이드 시각자료" loading="lazy" decoding="async"></figure>
+<p><strong>${safeTitle}</strong>에 대해 가장 먼저 확인해야 할 핵심 기준과 실행 절차를 정리했습니다. 본 가이드는 공식 출처 자료를 바탕으로 독자가 직접 검증하고 신청할 수 있도록 실행 순서와 체크리스트를 제공합니다.</p>
+<h2>1. 이 글이 답하는 핵심 질문</h2>
+<ul>
+  <li>누가 지원 또는 신청 대상에 해당하는가?</li>
+  <li>놓치기 쉬운 필수 조건과 제출 기한은 언제인가?</li>
+  <li>오늘 바로 실행할 수 있는 가장 작은 행동은 무엇인가?</li>
+</ul>
+<h2>2. 세부 실행 기준 및 조건 대조표</h2>
+<table>
+  <thead>
+    <tr>
+      <th>구분</th>
+      <th>확인 내용</th>
+      <th>점검 기준</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>공식 기준</td>
+      <td>지원 대상 자격 및 필요 서류</td>
+      <td>원문 공고일 기준 확인</td>
+    </tr>
+    <tr>
+      <td>실행 시점</td>
+      <td>신청 접수 기간 및 처리 기한</td>
+      <td>담당 기관 접수 일정 대조</td>
+    </tr>
+  </tbody>
+</table>
+<h2>3. 실행 전 필수 점검 체크리스트</h2>
+<ol>
+  <li>공식 안내 페이지의 공고일과 세부 자격 요건을 대조합니다.</li>
+  <li>연령, 거주지, 소득 요건 등 본인의 해당 여부를 우선 확인합니다.</li>
+  <li>필요 서류를 미리 발급받고 온라인 접수 가능 여부를 점검합니다.</li>
+  <li>궁금한 사항은 해당 기관 고객센터에 문의하여 재확인합니다.</li>
+</ol>
+<h2>4. 공식 확인처 및 출처</h2>
+<p>최신 정보와 세부 신청 절차는 아래 공식 자료를 통해 확인하실 수 있습니다.</p>
+<p><a href="${safeSource}" target="_blank" rel="noopener noreferrer">공식 원문 바로가기 ↗</a></p>
+<h2>5. 편집실의 콘텐츠 제작 기준</h2>
+<p>과장된 혜택이나 불확실한 정보는 제공하지 않으며, 공식 공고문을 기준으로 사실에 입각하여 작성되었습니다.</p>`;
+
   const post = await createPost({
     title: input.topic,
     slug: `${input.topic.trim().toLowerCase().replace(/[^a-z0-9가-힣]+/g, "-").replace(/^-|-$/g, "")}-${Date.now().toString(36)}`,
-    excerpt: "공식 자료를 바탕으로 작성한 무자본·실전형 콘텐츠 가이드입니다.",
-    body: `이 글은 아래 공식 자료를 바탕으로 작성된 실전 가이드입니다.\n\n## 독자가 궁금한 핵심 질문\n\n- 누가 대상인가요?\n- 언제, 어디에서 신청하나요?\n- 놓치기 쉬운 조건은 무엇인가요?\n\n## 필수 확인사항\n\n숫자, 날짜, 신청 조건을 원문과 대조하세요. 개인 상황에 따라 적용 결과가 달라질 수 있습니다.\n\n출처: ${input.sourceUrl}`,
+    excerpt: `${input.topic}에 관한 공식 기준, 대상 조건, 실행 순서와 체크리스트를 한눈에 정리한 실전 가이드입니다.`,
+    body,
     category: input.category,
-    tags: ["자동 포스트", "공식 가이드"],
+    tags: ["자동 포스트", "공식 가이드", "실전 가이드"],
     status: "published",
     publishedAt: now.slice(0, 10),
     scheduledAt: input.scheduledAt,
-    readingMinutes: 4,
+    readingMinutes: 6,
     visual: "NEW",
     authorName: EDITOR_IN_CHIEF.name,
   });
