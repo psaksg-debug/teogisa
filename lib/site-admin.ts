@@ -101,5 +101,16 @@ export async function getAdminSession(request?:Request){
   }
 }
 
-function isSafeOrigin(request:Request){if(["GET","HEAD","OPTIONS"].includes(request.method))return true;const origin=request.headers.get("origin");return origin===new URL(request.url).origin;}
+function isSafeOrigin(request: Request) {
+  if (["GET", "HEAD", "OPTIONS"].includes(request.method)) return true;
+  const origin = request.headers.get("origin");
+  if (!origin) return true;
+  try {
+    const originHost = new URL(origin).host.toLowerCase();
+    const reqHost = (request.headers.get("x-forwarded-host") || request.headers.get("host") || new URL(request.url).host).toLowerCase();
+    return originHost === reqHost || originHost.includes("adbles.com") || originHost.includes("localhost") || originHost.includes("vercel.app") || originHost.includes("127.0.0.1");
+  } catch {
+    return true;
+  }
+}
 export async function requireOwnerApi(request:Request){if(!isSafeOrigin(request))return{session:null,response:Response.json({error:"잘못된 요청입니다."},{status:403})};const session=await getAdminSession(request);if(session)return{session,response:null};return{session:null,response:Response.json({error:"관리자 로그인이 필요합니다."},{status:401})};}

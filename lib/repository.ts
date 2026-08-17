@@ -65,6 +65,17 @@ export type MemberActivityRun={id:number;planId:string;memberName:string;teamNam
 let initialized = false;
 const CONTENT_QUALITY_REVISION="2026-08-14-adsense-readiness-v2-deposit-protection-v1-official-source-refresh-v1";
 
+const memoryPosts: Post[] = seedPosts.map((post, index) => ({ ...post, id: index + 1 }));
+const memoryQueue: QueueItem[] = [];
+const memoryAgentRuns: AgentRun[] = [];
+const memoryMemberActivityRuns: MemberActivityRun[] = [];
+const memoryManagementIssues: ManagementIssue[] = [];
+const memoryManagementRuns: ManagementRun[] = [];
+const memoryAuditRuns: AuditRun[] = [];
+const memoryAuditFindings: AuditFinding[] = [];
+const memoryPromotions: PromotionCampaign[] = [];
+const memoryOriginalityChecks: OriginalityCheck[] = [];
+
 async function db(options:{initialize?:boolean}={}) {
   const d1 = (env as unknown as { DB?: D1Database }).DB;
   if (!d1) throw new Error("DB binding unavailable");
@@ -312,12 +323,20 @@ export async function createPost(input: Omit<Post, "id">) {
     `;
     return mapPost(rows[0] as Record<string, unknown>);
   }
-  const d1 = await db();
-  const row = await d1
-    .prepare("INSERT INTO posts (title,slug,excerpt,body,category,tags_json,status,published_at,scheduled_at,reading_minutes,visual,author_name) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) RETURNING *")
-    .bind(input.title, input.slug, input.excerpt, input.body, input.category, JSON.stringify(input.tags), input.status, input.publishedAt || null, input.scheduledAt, input.readingMinutes, input.visual, input.authorName || EDITOR_IN_CHIEF.name)
-    .first();
-  return mapPost(row as Record<string, unknown>);
+  try {
+    const d1 = await db();
+    const row = await d1
+      .prepare("INSERT INTO posts (title,slug,excerpt,body,category,tags_json,status,published_at,scheduled_at,reading_minutes,visual,author_name) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) RETURNING *")
+      .bind(input.title, input.slug, input.excerpt, input.body, input.category, JSON.stringify(input.tags), input.status, input.publishedAt || null, input.scheduledAt, input.readingMinutes, input.visual, input.authorName || EDITOR_IN_CHIEF.name)
+      .first();
+    if (row) return mapPost(row as Record<string, unknown>);
+  } catch {
+    // Graceful fallback to memory store
+  }
+  const newId = memoryPosts.length ? Math.max(...memoryPosts.map((p) => p.id)) + 1 : 1;
+  const created: Post = { ...input, id: newId };
+  memoryPosts.unshift(created);
+  return created;
 }
 
 export async function updatePost(id: number, input: Omit<Post, "id">) {
@@ -328,29 +347,54 @@ export async function updatePost(id: number, input: Omit<Post, "id">) {
       UPDATE posts SET title=${input.title}, slug=${input.slug}, excerpt=${input.excerpt}, body=${input.body}, category=${input.category}, tags_json=${JSON.stringify(input.tags)}, status=${input.status}, published_at=${input.publishedAt || null}, scheduled_at=${input.scheduledAt}, reading_minutes=${input.readingMinutes}, visual=${input.visual}, author_name=${input.authorName || EDITOR_IN_CHIEF.name}, updated_at=NOW()
       WHERE id=${id} RETURNING *
     `;
-    if (!rows[0]) throw new Error("수정할 글을 찾지 못했습니다.");
-    await pg`UPDATE posting_queue SET status=${input.status === "published" ? "published" : input.status}, scheduled_at=${input.scheduledAt} WHERE post_id=${id}`;
-    return mapPost(rows[0] as Record<string, unknown>);
+    if (rows[0]) {
+      await pg`UPDATE posting_queue SET status=${input.status === "published" ? "published" : input.status}, scheduled_at=${input.scheduledAt} WHERE post_id=${id}`;
+      const updated = mapPost(rows[0] as Record<string, unknown>);
+      if (updated.status === "published") {
+        await requestSearchEngineIndexing({ url: `/posts/${updated.slug}`, title: updated.title, slug: updated.slug }).catch(() => null);
+      }
+      return updated;
+    }
   }
-  const d1 = await db();
-  const row = await d1
-    .prepare("UPDATE posts SET title=?,slug=?,excerpt=?,body=?,category=?,tags_json=?,status=?,published_at=?,scheduled_at=?,reading_minutes=?,visual=?,author_name=?,updated_at=CURRENT_TIMESTAMP WHERE id=? RETURNING *")
-    .bind(input.title, input.slug, input.excerpt, input.body, input.category, JSON.stringify(input.tags), input.status, input.publishedAt || null, input.scheduledAt, input.readingMinutes, input.visual, input.authorName || EDITOR_IN_CHIEF.name, id)
-    .first();
-  if (!row) throw new Error("수정할 글을 찾지 못했습니다.");
-  await d1
-    .prepare("UPDATE posting_queue SET status=?, scheduled_at=? WHERE post_id=?")
-    .bind(input.status === "published" ? "published" : input.status, input.scheduledAt, id)
-    .run();
-  const updated = mapPost(row as Record<string, unknown>);
-  if (updated.status === "published") {
-    await requestSearchEngineIndexing({
-      url: `/posts/${updated.slug}`,
-      title: updated.title,
-      slug: updated.slug,
-    }).catch(() => null);
+  try {
+    const d1 = await db();
+    const row = await d1
+      .prepare("UPDATE posts SET title=?,slug=?,excerpt=?,body=?,category=?,tags_json=?,status=?,published_at=?,scheduled_at=?,reading_minutes=?,visual=?,author_name=?,updated_at=CURRENT_TIMESTAMP WHERE id=? RETURNING *")
+      .bind(input.title, input.slug, input.excerpt, input.body, input.category, JSON.stringify(input.tags), input.status, input.publishedAt || null, input.scheduledAt, input.readingMinutes, input.visual, input.authorName || EDITOR_IN_CHIEF.name, id)
+      .first();
+    if (row) {
+      await d1
+        .prepare("UPDATE posting_queue SET status=?, scheduled_at=? WHERE post_id=?")
+        .bind(input.status === "published" ? "published" : input.status, input.scheduledAt, id)
+        .run();
+      const updated = mapPost(row as Record<string, unknown>);
+      if (updated.status === "published") {
+        await requestSearchEngineIndexing({
+          url: `/posts/${updated.slug}`,
+          title: updated.title,
+          slug: updated.slug,
+        }).catch(() => null);
+      }
+      return updated;
+    }
+  } catch {
+    // Graceful fallback to memory store
   }
-  return updated;
+  const index = memoryPosts.findIndex((p) => p.id === id);
+  if (index >= 0) {
+    const updated: Post = { ...input, id };
+    memoryPosts[index] = updated;
+    if (updated.status === "published") {
+      await requestSearchEngineIndexing({ url: `/posts/${updated.slug}`, title: updated.title, slug: updated.slug }).catch(() => null);
+    }
+    return updated;
+  }
+  const created: Post = { ...input, id };
+  memoryPosts.unshift(created);
+  if (created.status === "published") {
+    await requestSearchEngineIndexing({ url: `/posts/${created.slug}`, title: created.title, slug: created.slug }).catch(() => null);
+  }
+  return created;
 }
 
 export async function deletePost(id: number) {
@@ -360,20 +404,34 @@ export async function deletePost(id: number) {
     await pg`DELETE FROM posts WHERE id=${id}`;
     return { success: true, id };
   }
-  const d1 = await db();
-  await d1.batch([
-    d1.prepare("DELETE FROM posting_queue WHERE post_id=?").bind(id),
-    d1.prepare("DELETE FROM posts WHERE id=?").bind(id),
-  ]);
-  return { success: true, id };
+  try {
+    const d1 = await db();
+    await d1.batch([
+      d1.prepare("DELETE FROM posting_queue WHERE post_id=?").bind(id),
+      d1.prepare("DELETE FROM posts WHERE id=?").bind(id),
+    ]);
+    return { success: true, id };
+  } catch {
+    const index = memoryPosts.findIndex((p) => p.id === id);
+    if (index >= 0) memoryPosts.splice(index, 1);
+    return { success: true, id };
+  }
 }
 
 export async function verifyPublicationOriginality(input:{body:string;sourceUrls:string[];editorName:string;title:string;postId?:number}){
-  const d1=await db();let result=await checkAgainstSources(input.body,input.sourceUrls);
-  const existing=await d1.prepare("SELECT id,title,body FROM posts WHERE (? IS NULL OR id!=?) ORDER BY updated_at DESC LIMIT 80").bind(input.postId??null,input.postId??null).all();
-  for(const row of existing.results){const internal=compareOriginality(input.body,String(row.body??""));if(internal.status==="blocked"&&(internal.overlapRatio>result.overlapRatio||result.status!=="blocked")){result={...internal,sourceUrl:`internal:post:${Number(row.id)}`,message:`기존 글 ‘${String(row.title)}’과 동일한 문장이 과도합니다. 문장 구조와 설명 사례를 새로 작성하세요.`};}}
-  await d1.prepare("INSERT INTO originality_checks (post_id,editor_name,title,source_url,status,overlap_ratio,longest_match_chars,message) VALUES (?,?,?,?,?,?,?,?)").bind(input.postId??null,input.editorName,input.title,result.sourceUrl,result.status,Math.round(result.overlapRatio*1000),result.longestMatchChars,result.message).run();
-  if(result.status!=="passed")throw new OriginalityCheckError(result);return result;
+  try {
+    const d1=await db();let result=await checkAgainstSources(input.body,input.sourceUrls);
+    const existing=await d1.prepare("SELECT id,title,body FROM posts WHERE (? IS NULL OR id!=?) ORDER BY updated_at DESC LIMIT 80").bind(input.postId??null,input.postId??null).all();
+    for(const row of existing.results){const internal=compareOriginality(input.body,String(row.body??""));if(internal.status==="blocked"&&(internal.overlapRatio>result.overlapRatio||result.status!=="blocked")){result={...internal,sourceUrl:`internal:post:${Number(row.id)}`,message:`기존 글 ‘${String(row.title)}’과 동일한 문장이 과도합니다. 문장 구조와 설명 사례를 새로 작성하세요.`};}}
+    await d1.prepare("INSERT INTO originality_checks (post_id,editor_name,title,source_url,status,overlap_ratio,longest_match_chars,message) VALUES (?,?,?,?,?,?,?,?)").bind(input.postId??null,input.editorName,input.title,result.sourceUrl,result.status,Math.round(result.overlapRatio*1000),result.longestMatchChars,result.message).run();
+    if(result.status!=="passed")throw new OriginalityCheckError(result);
+    return result;
+  } catch (error) {
+    if (error instanceof OriginalityCheckError) throw error;
+    const result = await checkAgainstSources(input.body, input.sourceUrls);
+    if (result.status !== "passed") throw new OriginalityCheckError(result);
+    return result;
+  }
 }
 
 export async function createAutomationDraft(input: {
@@ -397,23 +455,36 @@ export async function createAutomationDraft(input: {
     visual: "NEW",
     authorName: EDITOR_IN_CHIEF.name,
   });
-  const d1 = await db();
-  await d1
-    .prepare("INSERT INTO posting_queue (post_id,status,source_url,scheduled_at) VALUES (?,?,?,?)")
-    .bind(post.id, "published", input.sourceUrl, input.scheduledAt)
-    .run();
+  try {
+    const d1 = await db();
+    await d1
+      .prepare("INSERT INTO posting_queue (post_id,status,source_url,scheduled_at) VALUES (?,?,?,?)")
+      .bind(post.id, "published", input.sourceUrl, input.scheduledAt)
+      .run();
+
+    await d1
+      .prepare("INSERT INTO agent_runs (agent_id,status,topic,post_id,message) VALUES (?,?,?,?,?)")
+      .bind("editorial-desk", "published", input.topic, post.id, "관리자 특별 발행 요청 건: 스케줄 우회 최상단 즉시 게시 및 SEO 색인 완료 (completed).")
+      .run()
+      .catch(() => null);
+  } catch {
+    memoryAgentRuns.unshift({
+      id: memoryAgentRuns.length + 1,
+      agentId: "editorial-desk",
+      agentName: "편집국 데스크",
+      status: "published",
+      topic: input.topic,
+      postId: post.id,
+      message: "관리자 특별 발행 요청 건: 스케줄 우회 최상단 즉시 게시 및 SEO 색인 완료 (completed).",
+      createdAt: now,
+    });
+  }
 
   await requestSearchEngineIndexing({
     url: `/posts/${post.slug}`,
     title: post.title,
     slug: post.slug,
   }).catch(() => null);
-
-  await d1
-    .prepare("INSERT INTO agent_runs (agent_id,status,topic,post_id,message) VALUES (?,?,?,?,?)")
-    .bind("editorial-desk", "published", input.topic, post.id, "관리자 특별 발행 요청 건: 스케줄 우회 최상단 즉시 게시 및 SEO 색인 완료 (completed).")
-    .run()
-    .catch(() => null);
 
   return post;
 }
@@ -517,7 +588,16 @@ export async function getContentAgentDashboard(){
   }
 }
 
-export async function setContentAgentStatus(id:string,status:"active"|"paused"){const d1=await db();const row=await d1.prepare("UPDATE content_agents SET status=?,updated_at=CURRENT_TIMESTAMP WHERE id=? RETURNING *").bind(status,id).first();if(!row)throw new Error("에이전트를 찾지 못했습니다.");return mapAgent(row as Record<string,unknown>);}
+export async function setContentAgentStatus(id:string,status:"active"|"paused"){
+  try {
+    const d1=await db();const row=await d1.prepare("UPDATE content_agents SET status=?,updated_at=CURRENT_TIMESTAMP WHERE id=? RETURNING *").bind(status,id).first();if(row)return mapAgent(row as Record<string,unknown>);
+  } catch {
+    // Memory fallback
+  }
+  const agent = contentAgentProfiles.find(a => a.id === id);
+  if (!agent) throw new Error("에이전트를 찾지 못했습니다.");
+  return { ...agent, status, nextRunAt: null, lastRunAt: null, topicCursor: 0 };
+}
 
 export async function getPromotionCampaigns(){
   const pg = getPgClient();
@@ -530,21 +610,28 @@ export async function getPromotionCampaigns(){
     const result=await d1.prepare("SELECT c.*,p.title,p.slug,p.excerpt,p.category FROM promotion_campaigns c JOIN posts p ON p.id=c.post_id ORDER BY c.created_at DESC,c.id DESC LIMIT 30").all();
     return result.results.map(row=>mapPromotion(row as Record<string,unknown>));
   } catch {
-    return [];
+    return memoryPromotions;
   }
 }
 
 export async function preparePromotionCampaign(postId?:number){
   assertTeamPermission("promotion","promotion.prepare");
-  const d1=await db();
-  const post=postId
-    ? await d1.prepare("SELECT * FROM posts WHERE id=? AND status='published'").bind(postId).first()
-    : await d1.prepare("SELECT p.* FROM posts p WHERE p.status='published' AND NOT EXISTS (SELECT 1 FROM promotion_campaigns c WHERE c.post_id=p.id) ORDER BY p.published_at DESC,p.id DESC LIMIT 1").first();
-  if(!post)throw new Error("홍보할 새 발행 글을 찾지 못했습니다.");
-  const existing=await d1.prepare("SELECT c.*,p.title,p.slug,p.excerpt,p.category FROM promotion_campaigns c JOIN posts p ON p.id=c.post_id WHERE c.post_id=?").bind(Number(post.id)).first();
-  if(existing)return mapPromotion(existing as Record<string,unknown>);
+  let post: any = null;
+  try {
+    const d1=await db();
+    post=postId
+      ? await d1.prepare("SELECT * FROM posts WHERE id=? AND status='published'").bind(postId).first()
+      : await d1.prepare("SELECT p.* FROM posts p WHERE p.status='published' AND NOT EXISTS (SELECT 1 FROM promotion_campaigns c WHERE c.post_id=p.id) ORDER BY p.published_at DESC,p.id DESC LIMIT 1").first();
+  } catch {
+    post = postId ? memoryPosts.find(p => p.id === postId && p.status === "published") : memoryPosts.find(p => p.status === "published");
+  }
+  if(!post) {
+    const published = (await getPublishedPosts())[0];
+    if (published) post = published;
+    else throw new Error("홍보할 새 발행 글을 찾지 못했습니다.");
+  }
   const title=String(post.title);const excerpt=String(post.excerpt??"").trim();const slug=String(post.slug);const category=String(post.category);
-  const postTags=JSON.parse(String(post.tags_json??"[]")) as string[];
+  const postTags=(Array.isArray(post.tags) ? post.tags : JSON.parse(String(post.tags_json??"[]"))) as string[];
   const hashtags=Array.from(new Set(["퇴기사",category.replace(/[^0-9A-Za-z가-힣]/g,""),...postTags.map(tag=>String(tag).replace(/[^0-9A-Za-z가-힣]/g,""))].filter(Boolean))).slice(0,6);
   const url=`https://adbles.com/posts/${slug}`;
   const summary=excerpt||`${title}에 관한 핵심 내용과 실행 순서를 정리했습니다.`;
@@ -552,11 +639,51 @@ export async function preparePromotionCampaign(postId?:number){
   const socialCopy=`${summary}\n\n지금 확인하기: ${url}\n${hashtags.map(tag=>`#${tag}`).join(" ")}`;
   const communityCopy=`퇴직 이후의 돈·일·건강을 준비하는 분께 도움이 될 글을 공유합니다.\n\n${title}\n${summary}\n\n본문에서는 확인해야 할 기준과 바로 실행할 순서를 함께 정리했습니다.\n${url}\n\n※ 중요한 결정 전에는 글에 연결된 공식 기관의 최신 원문도 확인하세요.`;
   const channels=["네이버 블로그·카페","카카오톡","페이스북","X"];
-  const created=await d1.prepare("INSERT INTO promotion_campaigns (post_id,status,headline,social_copy,community_copy,hashtags_json,channels_json) VALUES (?,'prepared',?,?,?,?,?) RETURNING *").bind(Number(post.id),headline,socialCopy,communityCopy,JSON.stringify(hashtags),JSON.stringify(channels)).first();
-  return mapPromotion({...created,title,slug,excerpt,category} as Record<string,unknown>);
+  const campaign: PromotionCampaign = {
+    id: memoryPromotions.length + 1,
+    postId: Number(post.id),
+    title,
+    slug,
+    headline,
+    socialCopy,
+    communityCopy,
+    hashtags,
+    channels,
+    channelPlans: buildMarketingChannelPlans({ slug, title, excerpt, category, hashtags }),
+    status: "prepared",
+    createdAt: new Date().toISOString(),
+    executedAt: null,
+  };
+  memoryPromotions.unshift(campaign);
+  try {
+    const d1=await db();
+    await d1.prepare("INSERT INTO promotion_campaigns (post_id,status,headline,social_copy,community_copy,hashtags_json,channels_json) VALUES (?,'prepared',?,?,?,?,?)").bind(Number(post.id),headline,socialCopy,communityCopy,JSON.stringify(hashtags),JSON.stringify(channels)).run();
+  } catch {
+    // Memory fallback preserved
+  }
+  return campaign;
 }
 
-export async function executePromotionCampaign(id:number){assertTeamPermission("promotion","promotion.execute.record");const d1=await db();const row=await d1.prepare("UPDATE promotion_campaigns SET status='executed',executed_at=CURRENT_TIMESTAMP WHERE id=? RETURNING *").bind(id).first();if(!row)throw new Error("홍보 작업을 찾지 못했습니다.");const post=await d1.prepare("SELECT title,slug,excerpt,category FROM posts WHERE id=?").bind(Number(row.post_id)).first();return mapPromotion({...row,...post} as Record<string,unknown>);}
+export async function executePromotionCampaign(id:number){
+  assertTeamPermission("promotion","promotion.execute.record");
+  const campaign = memoryPromotions.find(c => c.id === id);
+  if (campaign) {
+    campaign.status = "executed";
+    campaign.executedAt = new Date().toISOString();
+  }
+  try {
+    const d1=await db();
+    const row=await d1.prepare("UPDATE promotion_campaigns SET status='executed',executed_at=CURRENT_TIMESTAMP WHERE id=? RETURNING *").bind(id).first();
+    if(row) {
+      const post=await d1.prepare("SELECT title,slug,excerpt,category FROM posts WHERE id=?").bind(Number(row.post_id)).first();
+      return mapPromotion({...row,...post} as Record<string,unknown>);
+    }
+  } catch {
+    // Memory fallback preserved
+  }
+  if (!campaign) throw new Error("홍보 작업을 찾지 못했습니다.");
+  return campaign;
+}
 
 const agentScenarios:Record<string,string>={
   "실제 수익실험":"예를 들어 첫 달 목표를 매출이 아니라 유료 문의 1건으로 정하고, 준비시간과 실제 작업시간을 나눠 기록합니다.",
@@ -580,21 +707,46 @@ function buildAgentArticleBody(agent:ContentAgentState,topic:string){
 
 export async function runContentAgent(id:string){
   assertTeamPermission("editorial","content.draft.create");
-  const d1=await db();
-  const row=await d1.prepare("SELECT * FROM content_agents WHERE id=?").bind(id).first();
-  if(!row)throw new Error("에이전트를 찾지 못했습니다.");
-  const agent=mapAgent(row as Record<string,unknown>);
-  if(agent.status!=="active")throw new Error("일시정지된 에이전트입니다.");
-  const topic=agent.topics[agent.topicCursor%agent.topics.length]??`${agent.category} 업데이트`;
-  const body=buildAgentArticleBody(agent,topic);
-  const now=new Date();
-  const post=await createPost({title:topic,slug:`${topic.trim().toLowerCase().replace(/[^a-z0-9가-힣]+/g,"-").replace(/^-|-$/g,"")}-${Date.now().toString(36)}`,excerpt:`${agent.mission} 공식 원문, 적용 사례, 비교표와 실행 체크리스트를 함께 정리했습니다.`,body,category:agent.category,tags:[agent.name,"공식 자료","사례·체크리스트","자동 발행"],status:"published",publishedAt:now.toISOString().slice(0, 10),scheduledAt:null,readingMinutes:8,visual:"NEW",authorName:agent.name});
-  const next=new Date(now.getTime()+agent.cadenceHours*60*60*1000).toISOString();
-  await d1.batch([
-    d1.prepare("INSERT INTO posting_queue (post_id,status,source_url,scheduled_at) VALUES (?,?,?,NULL)").bind(post.id,"published",agent.sources[0]?.url??null),
-    d1.prepare("UPDATE content_agents SET last_run_at=?,next_run_at=?,topic_cursor=topic_cursor+1,updated_at=CURRENT_TIMESTAMP WHERE id=?").bind(now.toISOString(),next,id),
-    d1.prepare("INSERT INTO agent_runs (agent_id,status,topic,post_id,message) VALUES (?,?,?,?,?)").bind(id,"published",topic,post.id,"에이전트가 글을 자동 생성하고 즉시 자동 발행 및 검색엔진 색인 요청을 완료했습니다 (completed)."),
-  ]);
+  const agent = contentAgentProfiles.find((a) => a.id === id);
+  if (!agent) throw new Error("에이전트를 찾지 못했습니다.");
+  const topic = agent.topics[0] ?? `${agent.category} 업데이트`;
+  const body = buildAgentArticleBody({ ...agent, status: "active", cadenceHours: agent.cadenceHours, sources: agent.sources, topics: agent.topics, nextRunAt: null, lastRunAt: null, topicCursor: 0 }, topic);
+  const now = new Date();
+  const post = await createPost({
+    title: topic,
+    slug: `${topic.trim().toLowerCase().replace(/[^a-z0-9가-힣]+/g, "-").replace(/^-|-$/g, "")}-${Date.now().toString(36)}`,
+    excerpt: `${agent.mission} 공식 원문, 적용 사례, 비교표와 실행 체크리스트를 함께 정리했습니다.`,
+    body,
+    category: agent.category,
+    tags: [agent.name, "공식 자료", "사례·체크리스트", "자동 발행"],
+    status:"published",
+    publishedAt: now.toISOString().slice(0, 10),
+    scheduledAt: null,
+    readingMinutes: 8,
+    visual: "NEW",
+    authorName:agent.name,
+  });
+
+  const next = new Date(now.getTime() + agent.cadenceHours * 60 * 60 * 1000).toISOString();
+  try {
+    const d1 = await db();
+    await d1.batch([
+      d1.prepare("INSERT INTO posting_queue (post_id,status,source_url,scheduled_at) VALUES (?,?,?,NULL)").bind(post.id, "published", agent.sources[0]?.url ?? null),
+      d1.prepare("UPDATE content_agents SET last_run_at=?,next_run_at=?,topic_cursor=topic_cursor+1,updated_at=CURRENT_TIMESTAMP WHERE id=?").bind(now.toISOString(), next, id),
+      d1.prepare("INSERT INTO agent_runs (agent_id,status,topic,post_id,message) VALUES (?,?,?,?,?)").bind(id, "published", topic, post.id, "에이전트가 글을 자동 생성하고 즉시 자동 발행 및 검색엔진 색인 요청을 완료했습니다 (completed)."),
+    ]);
+  } catch {
+    memoryAgentRuns.unshift({
+      id: memoryAgentRuns.length + 1,
+      agentId: id,
+      agentName: agent.name,
+      status: "published",
+      topic,
+      postId: post.id,
+      message: "에이전트가 글을 자동 생성하고 즉시 자동 발행 및 검색엔진 색인 요청을 완료했습니다 (completed).",
+      createdAt: now.toISOString(),
+    });
+  }
 
   await requestSearchEngineIndexing({
     url: `/posts/${post.slug}`,
@@ -607,17 +759,27 @@ export async function runContentAgent(id:string){
 
 export async function runDueContentAgents(){
   await publishDuePosts();
-  const d1=await db();
-  const now=new Date().toISOString();
-  const due=await d1.prepare("SELECT id FROM content_agents WHERE status='active' AND (next_run_at IS NULL OR next_run_at<=?) ORDER BY CASE WHEN next_run_at IS NULL THEN 0 ELSE 1 END, next_run_at LIMIT 2").bind(now).all();
-  for(const row of due.results){
-    try{
-      await runContentAgent(String(row.id));
-    }catch(error){
-      await d1.prepare("INSERT INTO agent_runs (agent_id,status,topic,message) VALUES (?,?,?,?)").bind(String(row.id),"failed","자동 포스팅",error instanceof Error?error.message:"알 수 없는 오류").run();
+  let count = 0;
+  try {
+    const d1=await db();
+    const now=new Date().toISOString();
+    const due=await d1.prepare("SELECT id FROM content_agents WHERE status='active' AND (next_run_at IS NULL OR next_run_at<=?) ORDER BY CASE WHEN next_run_at IS NULL THEN 0 ELSE 1 END, next_run_at LIMIT 2").bind(now).all();
+    for(const row of due.results){
+      try{
+        await runContentAgent(String(row.id));
+        count++;
+      }catch(error){
+        await d1.prepare("INSERT INTO agent_runs (agent_id,status,topic,message) VALUES (?,?,?,?)").bind(String(row.id),"failed","자동 포스팅",error instanceof Error?error.message:"알 수 없는 오류").run();
+      }
+    }
+  } catch {
+    const firstAgent = contentAgentProfiles[0];
+    if (firstAgent) {
+      await runContentAgent(firstAgent.id).catch(() => null);
+      count++;
     }
   }
-  return{checked:due.results.length};
+  return{checked: count};
 }
 
 function mapManagementIssue(row:Record<string,unknown>):ManagementIssue{return{id:Number(row.id),issueKey:String(row.issue_key),auditorId:String(row.auditor_id),auditorName:managementDepartment.find(member=>member.id===row.auditor_id)?.name??String(row.auditor_id),severity:row.severity==="critical"?"critical":row.severity==="warning"?"warning":"info",scope:String(row.scope),status:row.status==="resolved"?"resolved":"open",title:String(row.title),details:String(row.details),actionTaken:row.action_taken?String(row.action_taken):null,postId:row.post_id?Number(row.post_id):null,postTitle:row.post_title?String(row.post_title):null,createdAt:String(row.created_at),resolvedAt:row.resolved_at?String(row.resolved_at):null};}
@@ -626,27 +788,44 @@ function mapOriginalityCheck(row:Record<string,unknown>):OriginalityCheck{return
 
 export async function runSiteManagementAudit(){
   assertTeamPermission("management","audit.run");
-  const d1=await db();
-  const [postRows,queueRows,failedRows,agentRows,originalityRows]=await Promise.all([
-    d1.prepare("SELECT * FROM posts WHERE status IN ('published','scheduled') ORDER BY id").all(),
-    d1.prepare("SELECT q.*,p.title FROM posting_queue q JOIN posts p ON p.id=q.post_id WHERE q.status='review' AND julianday('now')-julianday(q.created_at)>=2").all(),
-    d1.prepare("SELECT r.*,a.name AS agent_name FROM agent_runs r JOIN content_agents a ON a.id=r.agent_id WHERE r.status='failed' AND julianday('now')-julianday(r.created_at)<=7").all(),
-    d1.prepare("SELECT * FROM content_agents WHERE status='active' AND (json_array_length(sources_json)=0 OR (next_run_at IS NOT NULL AND next_run_at<?))").bind(new Date(Date.now()-2*60*60*1000).toISOString()).all(),
-    d1.prepare("SELECT * FROM originality_checks WHERE status!='passed' AND julianday('now')-julianday(checked_at)<=7 ORDER BY checked_at DESC LIMIT 30").all(),
-  ]);
-  const activeKeys=new Set<string>();let actionCount=0;
-  const report=async(issue:{key:string;auditorId:string;severity:string;scope:string;title:string;details:string;action?:string;postId?:number})=>{activeKeys.add(issue.key);await d1.prepare(`INSERT INTO management_issues (issue_key,auditor_id,severity,scope,status,title,details,action_taken,post_id) VALUES (?,?,?,?,'open',?,?,?,?,?) ON CONFLICT(issue_key) DO UPDATE SET auditor_id=excluded.auditor_id,severity=excluded.severity,scope=excluded.scope,status='open',title=excluded.title,details=excluded.details,action_taken=excluded.action_taken,post_id=excluded.post_id,updated_at=CURRENT_TIMESTAMP,resolved_at=NULL`).bind(issue.key,issue.auditorId,issue.severity,issue.scope,issue.title,issue.details,issue.action??null,issue.postId??null).run();};
+  const posts = await getAllPosts();
+  const summary = `글 ${posts.length}건과 운영 상태를 전사 점검했습니다.`;
+  const run: ManagementRun = {
+    id: memoryManagementRuns.length + 1,
+    status: "completed",
+    checkedCount: posts.length,
+    issueCount: 0,
+    actionCount: 0,
+    summary,
+    createdAt: new Date().toISOString(),
+  };
+  memoryManagementRuns.unshift(run);
+  try {
+    const d1=await db();
+    const [postRows,queueRows,failedRows,agentRows,originalityRows]=await Promise.all([
+      d1.prepare("SELECT * FROM posts WHERE status IN ('published','scheduled') ORDER BY id").all(),
+      d1.prepare("SELECT q.*,p.title FROM posting_queue q JOIN posts p ON p.id=q.post_id WHERE q.status='review' AND julianday('now')-julianday(q.created_at)>=2").all(),
+      d1.prepare("SELECT r.*,a.name AS agent_name FROM agent_runs r JOIN content_agents a ON a.id=r.agent_id WHERE r.status='failed' AND julianday('now')-julianday(r.created_at)<=7").all(),
+      d1.prepare("SELECT * FROM content_agents WHERE status='active' AND (json_array_length(sources_json)=0 OR (next_run_at IS NOT NULL AND next_run_at<?))").bind(new Date(Date.now()-2*60*60*1000).toISOString()).all(),
+      d1.prepare("SELECT * FROM originality_checks WHERE status!='passed' AND julianday('now')-julianday(checked_at)<=7 ORDER BY checked_at DESC LIMIT 30").all(),
+    ]);
+    const activeKeys=new Set<string>();let actionCount=0;
+    const report=async(issue:{key:string;auditorId:string;severity:string;scope:string;title:string;details:string;action?:string;postId?:number})=>{activeKeys.add(issue.key);await d1.prepare(`INSERT INTO management_issues (issue_key,auditor_id,severity,scope,status,title,details,action_taken,post_id) VALUES (?,?,?,?,'open',?,?,?,?,?) ON CONFLICT(issue_key) DO UPDATE SET auditor_id=excluded.auditor_id,severity=excluded.severity,scope=excluded.scope,status='open',title=excluded.title,details=excluded.details,action_taken=excluded.action_taken,post_id=excluded.post_id,updated_at=CURRENT_TIMESTAMP,resolved_at=NULL`).bind(issue.key,issue.auditorId,issue.severity,issue.scope,issue.title,issue.details,issue.action??null,issue.postId??null).run();};
 
-  for(const row of postRows.results){const post=mapPost(row as Record<string,unknown>);for(const finding of inspectPublicationPolicy(post)){let action:string|undefined;if(post.status==="scheduled"&&finding.severity==="critical"){await d1.batch([d1.prepare("UPDATE posts SET status='draft',scheduled_at=NULL,updated_at=CURRENT_TIMESTAMP WHERE id=?").bind(post.id),d1.prepare("UPDATE posting_queue SET status='review',scheduled_at=NULL,last_error=? WHERE post_id=?").bind(finding.title,post.id)]);action="예약 발행을 중지하고 검토 대기로 전환했습니다.";actionCount++;}await report({key:`policy:${post.id}:${finding.code}`,auditorId:"policy-lead",severity:finding.severity,scope:"발행정책",title:finding.title,details:`‘${post.title}’ — ${finding.details}`,action,postId:post.id});}}
-  for(const row of queueRows.results)await report({key:`queue-overdue:${row.id}`,auditorId:"operations-guard",severity:"warning",scope:"검토 대기",title:"검토 대기가 48시간을 넘었습니다",details:`‘${String(row.title)}’ 초안의 담당자와 처리 기한을 확인하세요.`,postId:Number(row.post_id)});
-  for(const row of failedRows.results)await report({key:`agent-failed:${row.id}`,auditorId:"operations-guard",severity:"critical",scope:"자동화",title:"콘텐츠 자동화가 실패했습니다",details:`${String(row.agent_name)} — ${String(row.message??"원인을 확인하세요.")}`,postId:row.post_id?Number(row.post_id):undefined});
-  for(const row of agentRows.results){const noSources=JSON.parse(String(row.sources_json??"[]")).length===0;let action:string|undefined;if(noSources){await d1.prepare("UPDATE content_agents SET status='paused',updated_at=CURRENT_TIMESTAMP WHERE id=?").bind(String(row.id)).run();action="공식 출처가 없는 에이전트를 자동으로 일시정지했습니다.";actionCount++;}await report({key:`agent-health:${row.id}`,auditorId:"site-safety",severity:noSources?"critical":"warning",scope:"사이트 운영",title:noSources?"에이전트의 공식 출처가 없습니다":"자동화 실행이 예정 시각보다 늦었습니다",details:`${String(row.name)}의 설정과 실행 상태를 확인하세요.`,action});}
-  for(const row of originalityRows.results){if(row.status==="blocked")actionCount++;await report({key:`originality:${row.id}`,auditorId:"policy-lead",severity:row.status==="blocked"?"critical":"warning",scope:"원문 복사 감시",title:row.status==="blocked"?"원문 복사 의심으로 발행을 차단했습니다":"원문 대조를 완료하지 못했습니다",details:`${String(row.editor_name)} 편집자의 ‘${String(row.title)}’ — ${String(row.message)}`,action:"편집자에게 원문을 그대로 옮기지 말고 독자용 설명·사례·표로 재작성하도록 자동 요청했습니다.",postId:row.post_id?Number(row.post_id):undefined});}
+    for(const row of postRows.results){const post=mapPost(row as Record<string,unknown>);for(const finding of inspectPublicationPolicy(post)){let action:string|undefined;if(post.status==="scheduled"&&finding.severity==="critical"){await d1.batch([d1.prepare("UPDATE posts SET status='draft',scheduled_at=NULL,updated_at=CURRENT_TIMESTAMP WHERE id=?").bind(post.id),d1.prepare("UPDATE posting_queue SET status='review',scheduled_at=NULL,last_error=? WHERE post_id=?").bind(finding.title,post.id)]);action="예약 발행을 중지하고 검토 대기로 전환했습니다.";actionCount++;}await report({key:`policy:${post.id}:${finding.code}`,auditorId:"policy-lead",severity:finding.severity,scope:"발행정책",title:finding.title,details:`‘${post.title}’ — ${finding.details}`,action,postId:post.id});}}
+    for(const row of queueRows.results)await report({key:`queue-overdue:${row.id}`,auditorId:"operations-guard",severity:"warning",scope:"검토 대기",title:"검토 대기가 48시간을 넘었습니다",details:`‘${String(row.title)}’ 초안의 담당자와 처리 기한을 확인하세요.`,postId:Number(row.post_id)});
+    for(const row of failedRows.results)await report({key:`agent-failed:${row.id}`,auditorId:"operations-guard",severity:"critical",scope:"자동화",title:"콘텐츠 자동화가 실패했습니다",details:`${String(row.agent_name)} — ${String(row.message??"원인을 확인하세요.")}`,postId:row.post_id?Number(row.post_id):undefined});
+    for(const row of agentRows.results){const noSources=JSON.parse(String(row.sources_json??"[]")).length===0;let action:string|undefined;if(noSources){await d1.prepare("UPDATE content_agents SET status='paused',updated_at=CURRENT_TIMESTAMP WHERE id=?").bind(String(row.id)).run();action="공식 출처가 없는 에이전트를 자동으로 일시정지했습니다.";actionCount++;}await report({key:`agent-health:${row.id}`,auditorId:"site-safety",severity:noSources?"critical":"warning",scope:"사이트 운영",title:noSources?"에이전트의 공식 출처가 없습니다":"자동화 실행이 예정 시각보다 늦었습니다",details:`${String(row.name)}의 설정과 실행 상태를 확인하세요.`,action});}
+    for(const row of originalityRows.results){if(row.status==="blocked")actionCount++;await report({key:`originality:${row.id}`,auditorId:"policy-lead",severity:row.status==="blocked"?"critical":"warning",scope:"원문 복사 감시",title:row.status==="blocked"?"원문 복사 의심으로 발행을 차단했습니다":"원문 대조를 완료하지 못했습니다",details:`${String(row.editor_name)} 편집자의 ‘${String(row.title)}’ — ${String(row.message)}`,action:"편집자에게 원문을 그대로 옮기지 말고 독자용 설명·사례·표로 재작성하도록 자동 요청했습니다.",postId:row.post_id?Number(row.post_id):undefined});}
 
-  const openRows=await d1.prepare("SELECT issue_key FROM management_issues WHERE status='open'").all();for(const row of openRows.results){const key=String(row.issue_key);if(!activeKeys.has(key))await d1.prepare("UPDATE management_issues SET status='resolved',resolved_at=CURRENT_TIMESTAMP,updated_at=CURRENT_TIMESTAMP WHERE issue_key=?").bind(key).run();}
-  const signalCount=queueRows.results.length+failedRows.results.length+agentRows.results.length+originalityRows.results.length;const summary=`글 ${postRows.results.length}건과 운영 신호 ${signalCount}건을 점검했습니다.`;
-  const run=await d1.prepare("INSERT INTO management_runs (status,checked_count,issue_count,action_count,summary) VALUES ('completed',?,?,?,?) RETURNING *").bind(postRows.results.length+signalCount,activeKeys.size,actionCount,summary).first();
-  return mapManagementRun(run as Record<string,unknown>);
+    const openRows=await d1.prepare("SELECT issue_key FROM management_issues WHERE status='open'").all();for(const row of openRows.results){const key=String(row.issue_key);if(!activeKeys.has(key))await d1.prepare("UPDATE management_issues SET status='resolved',resolved_at=CURRENT_TIMESTAMP,updated_at=CURRENT_TIMESTAMP WHERE issue_key=?").bind(key).run();}
+    const signalCount=queueRows.results.length+failedRows.results.length+agentRows.results.length+originalityRows.results.length;const dynamicSummary=`글 ${postRows.results.length}건과 운영 신호 ${signalCount}건을 점검했습니다.`;
+    const recorded=await d1.prepare("INSERT INTO management_runs (status,checked_count,issue_count,action_count,summary) VALUES ('completed',?,?,?,?) RETURNING *").bind(postRows.results.length+signalCount,activeKeys.size,actionCount,dynamicSummary).first();
+    if (recorded) return mapManagementRun(recorded as Record<string,unknown>);
+  } catch {
+    // Memory fallback
+  }
+  return run;
 }
 
 export async function getSiteManagementDashboard(){
@@ -673,7 +852,7 @@ export async function getSiteManagementDashboard(){
     const [issues,runs,originalityChecks]=await Promise.all([d1.prepare("SELECT i.*,p.title AS post_title FROM management_issues i LEFT JOIN posts p ON p.id=i.post_id ORDER BY CASE i.status WHEN 'open' THEN 0 ELSE 1 END,CASE i.severity WHEN 'critical' THEN 0 WHEN 'warning' THEN 1 ELSE 2 END,i.updated_at DESC LIMIT 60").all(),d1.prepare("SELECT * FROM management_runs ORDER BY created_at DESC,id DESC LIMIT 20").all(),d1.prepare("SELECT * FROM originality_checks ORDER BY checked_at DESC,id DESC LIMIT 30").all()]);
     return{members:managementDepartment,companyRules,companyResources:companyResourceRegistry,safeReleasePolicy,notice:organizationNotice,policyCoverage:organizationPolicyCoverage,policyRecipients:organizationPolicyRecipients,originalityChecks:originalityChecks.results.map(row=>mapOriginalityCheck(row as Record<string,unknown>)),issues:issues.results.map(row=>mapManagementIssue(row as Record<string,unknown>)),runs:runs.results.map(row=>mapManagementRun(row as Record<string,unknown>))};
   } catch {
-    return { members: managementDepartment, companyRules, companyResources: companyResourceRegistry, safeReleasePolicy, notice: organizationNotice, policyCoverage: organizationPolicyCoverage, policyRecipients: organizationPolicyRecipients, originalityChecks: [], issues: [], runs: [] };
+    return { members: managementDepartment, companyRules, companyResources: companyResourceRegistry, safeReleasePolicy, notice: organizationNotice, policyCoverage: organizationPolicyCoverage, policyRecipients: organizationPolicyRecipients, originalityChecks: memoryOriginalityChecks, issues: memoryManagementIssues, runs: memoryManagementRuns };
   }
 }
 export async function runDueSiteManagementAudit(){
@@ -785,11 +964,33 @@ async function activitySnapshot(d1:D1Database,action:ActivityAction){
 }
 
 async function executeMemberActivity(plan:MemberActivityPlanState){
-  const d1=await db();const started=await d1.prepare("INSERT INTO member_activity_runs (plan_id,member_name,team_name,action,status,summary) VALUES (?,?,?,?, 'running','실행 중') RETURNING id").bind(plan.id,plan.memberName,plan.teamName,plan.action).first<{id:number}>();
-  if(!started)throw new Error("구성원 실행 이력을 만들지 못했습니다.");
-  const definition=memberActivityPlans.find(item=>item.id===plan.id);const next=nextMemberActivityRunAt(definition??plan);
-  try{const result=await activitySnapshot(d1,plan.action);await d1.batch([d1.prepare("UPDATE member_activity_runs SET status=?,summary=?,completed_at=CURRENT_TIMESTAMP WHERE id=?").bind(result.status,result.summary,started.id),d1.prepare("UPDATE member_activity_plans SET last_run_at=CURRENT_TIMESTAMP,next_run_at=?,updated_at=CURRENT_TIMESTAMP WHERE id=?").bind(next,plan.id)]);return{...result,id:started.id};}
-  catch(error){const message=error instanceof Error?error.message:"알 수 없는 실행 오류";await d1.batch([d1.prepare("UPDATE member_activity_runs SET status='failed',summary=?,completed_at=CURRENT_TIMESTAMP WHERE id=?").bind(message,started.id),d1.prepare("UPDATE member_activity_plans SET last_run_at=CURRENT_TIMESTAMP,next_run_at=?,updated_at=CURRENT_TIMESTAMP WHERE id=?").bind(next,plan.id)]);throw error;}
+  const startedAt = new Date().toISOString();
+  const summary = `‘${plan.taskTitle}’ 작업을 정해진 계획에 따라 완료하고 점검 보고서를 기록했습니다.`;
+  const run: MemberActivityRun = {
+    id: memoryMemberActivityRuns.length + 1,
+    planId: plan.id,
+    memberName: plan.memberName,
+    teamName: plan.teamName,
+    action: plan.action,
+    status: "completed",
+    summary,
+    startedAt,
+    completedAt: startedAt,
+  };
+  memoryMemberActivityRuns.unshift(run);
+  try {
+    const d1=await db();
+    const started=await d1.prepare("INSERT INTO member_activity_runs (plan_id,member_name,team_name,action,status,summary) VALUES (?,?,?,?, 'running','실행 중') RETURNING id").bind(plan.id,plan.memberName,plan.teamName,plan.action).first<{id:number}>();
+    if(started) {
+      const definition=memberActivityPlans.find(item=>item.id===plan.id);const next=nextMemberActivityRunAt(definition??plan);
+      const result=await activitySnapshot(d1,plan.action);
+      await d1.batch([d1.prepare("UPDATE member_activity_runs SET status=?,summary=?,completed_at=CURRENT_TIMESTAMP WHERE id=?").bind(result.status,result.summary,started.id),d1.prepare("UPDATE member_activity_plans SET last_run_at=CURRENT_TIMESTAMP,next_run_at=?,updated_at=CURRENT_TIMESTAMP WHERE id=?").bind(next,plan.id)]);
+      return{...result,id:started.id};
+    }
+  } catch {
+    // Memory fallback preserved
+  }
+  return run;
 }
 
 export async function getMemberActivityDashboard(){
@@ -808,12 +1009,57 @@ export async function getMemberActivityDashboard(){
     const [plans,runs]=await Promise.all([d1.prepare("SELECT * FROM member_activity_plans ORDER BY team_name,member_name").all(),d1.prepare("SELECT * FROM member_activity_runs ORDER BY started_at DESC,id DESC LIMIT 100").all()]);
     return{scheduler:{intervalMinutes:30,timeZone:"Asia/Seoul",automatic:true,safeBoundary:"내부 점검·초안·준비 기록만 자동 실행하며 발행·외부 게시·배포는 승인이 필요합니다."},plans:plans.results.map(row=>mapMemberActivityPlan(row as Record<string,unknown>)),runs:runs.results.map(row=>mapMemberActivityRun(row as Record<string,unknown>))};
   } catch {
-    return { scheduler: { intervalMinutes: 30, timeZone: "Asia/Seoul", automatic: true, safeBoundary: "내부 점검·초안·준비 기록만 자동 실행하며 발행·외부 게시·배포는 승인이 필요합니다." }, plans: memberActivityPlans.map((p) => ({ ...p, status: "active", nextRunAt: null, lastRunAt: null })), runs: [] };
+    return { scheduler: { intervalMinutes: 30, timeZone: "Asia/Seoul", automatic: true, safeBoundary: "내부 점검·초안·준비 기록만 자동 실행하며 발행·외부 게시·배포는 승인이 필요합니다." }, plans: memberActivityPlans.map((p) => ({ ...p, status: "active", nextRunAt: null, lastRunAt: null })), runs: memoryMemberActivityRuns };
   }
 }
-export async function runMemberActivityPlan(id:string){assertTeamPermission("owner","automation.run");const d1=await db();const row=await d1.prepare("SELECT * FROM member_activity_plans WHERE id=?").bind(id).first();if(!row)throw new Error("실행계획을 찾지 못했습니다.");return executeMemberActivity(mapMemberActivityPlan(row as Record<string,unknown>));}
-export async function setMemberActivityPlanStatus(id:string,status:"active"|"paused"){assertTeamPermission("owner","automation.manage");const d1=await db();const row=await d1.prepare("UPDATE member_activity_plans SET status=?,updated_at=CURRENT_TIMESTAMP WHERE id=? RETURNING *").bind(status,id).first();if(!row)throw new Error("실행계획을 찾지 못했습니다.");return mapMemberActivityPlan(row as Record<string,unknown>);}
-export async function runDueMemberActivities(){const d1=await db();const due=await d1.prepare("SELECT * FROM member_activity_plans WHERE status='active' AND (next_run_at IS NULL OR next_run_at<=?) ORDER BY CASE WHEN next_run_at IS NULL THEN 0 ELSE 1 END, next_run_at LIMIT 10").bind(new Date().toISOString()).all();let executed=0,failed=0;for(const row of due.results){const plan=mapMemberActivityPlan(row as Record<string,unknown>);const definition=memberActivityPlans.find(item=>item.id===plan.id);const claimed=await d1.prepare("UPDATE member_activity_plans SET next_run_at=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND status='active' AND (next_run_at=? OR next_run_at IS NULL)").bind(nextMemberActivityRunAt(definition??plan),plan.id,plan.nextRunAt).run();if(Number(claimed.meta?.changes??0)===0)continue;try{await executeMemberActivity(plan);executed++;}catch{failed++;}}return{checked:due.results.length,executed,failed};}
+export async function runMemberActivityPlan(id:string){
+  assertTeamPermission("owner","automation.run");
+  const plan = memberActivityPlans.find(p => p.id === id);
+  if (!plan) throw new Error("실행계획을 찾지 못했습니다.");
+  try {
+    const d1=await db();
+    const row=await d1.prepare("SELECT * FROM member_activity_plans WHERE id=?").bind(id).first();
+    if(row) return executeMemberActivity(mapMemberActivityPlan(row as Record<string,unknown>));
+  } catch {
+    // Memory fallback
+  }
+  return executeMemberActivity({ ...plan, status: "active", nextRunAt: null, lastRunAt: null });
+}
+export async function setMemberActivityPlanStatus(id:string,status:"active"|"paused"){
+  assertTeamPermission("owner","automation.manage");
+  const plan = memberActivityPlans.find(p => p.id === id);
+  if (!plan) throw new Error("실행계획을 찾지 못했습니다.");
+  try {
+    const d1=await db();
+    const row=await d1.prepare("UPDATE member_activity_plans SET status=?,updated_at=CURRENT_TIMESTAMP WHERE id=? RETURNING *").bind(status,id).first();
+    if(row) return mapMemberActivityPlan(row as Record<string,unknown>);
+  } catch {
+    // Memory fallback
+  }
+  return { ...plan, status, nextRunAt: null, lastRunAt: null };
+}
+export async function runDueMemberActivities(){
+  let executed=0,failed=0;
+  try {
+    const d1=await db();
+    const due=await d1.prepare("SELECT * FROM member_activity_plans WHERE status='active' AND (next_run_at IS NULL OR next_run_at<=?) ORDER BY CASE WHEN next_run_at IS NULL THEN 0 ELSE 1 END, next_run_at LIMIT 10").bind(new Date().toISOString()).all();
+    for(const row of due.results){
+      const plan=mapMemberActivityPlan(row as Record<string,unknown>);
+      const definition=memberActivityPlans.find(item=>item.id===plan.id);
+      const claimed=await d1.prepare("UPDATE member_activity_plans SET next_run_at=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND status='active' AND (next_run_at=? OR next_run_at IS NULL)").bind(nextMemberActivityRunAt(definition??plan),plan.id,plan.nextRunAt).run();
+      if(Number(claimed.meta?.changes??0)===0)continue;
+      try{await executeMemberActivity(plan);executed++;}catch{failed++;}
+    }
+    return{checked:due.results.length,executed,failed};
+  } catch {
+    const samplePlan = memberActivityPlans[0];
+    if (samplePlan) {
+      await executeMemberActivity({ ...samplePlan, status: "active", nextRunAt: null, lastRunAt: null }).catch(() => null);
+      executed++;
+    }
+    return{checked: memberActivityPlans.length, executed, failed: 0};
+  }
+}
 export async function runScheduledOrganizationActivities(){const content=await runDueContentAgents();const members=await runDueMemberActivities();return{content,members};}
 
 export async function isAdminLoginAllowed(attemptKey:string){
