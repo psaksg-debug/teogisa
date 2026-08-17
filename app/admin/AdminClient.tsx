@@ -193,6 +193,13 @@ export default function AdminClient({ username }: { username: string }) {
     event.preventDefault();
     const form = event.currentTarget;
     setSaving(true);
+    const visualEditor = form.querySelector<HTMLDivElement>(".visual-editor");
+    const htmlEditor = form.querySelector<HTMLTextAreaElement>(".html-source-editor");
+    const hiddenBody = form.querySelector<HTMLInputElement>("input[name='body']");
+    if (hiddenBody) {
+      if (htmlEditor && htmlEditor.value.trim()) hiddenBody.value = htmlEditor.value;
+      else if (visualEditor && visualEditor.innerHTML.trim()) hiddenBody.value = visualEditor.innerHTML;
+    }
     const payload = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
     if (payload.scheduledAt) payload.scheduledAt = new Date(payload.scheduledAt).toISOString();
     const response = await fetch(selected ? `/api/posts/${selected.id}` : "/api/posts", {
@@ -203,7 +210,8 @@ export default function AdminClient({ username }: { username: string }) {
     const data: any = await response.json();
     setSaving(false);
     if (response.ok) {
-      setMessage(`‘${data.post.title}’ 글을 성공적으로 저장했습니다.`);
+      const statusText = data.post?.status === "published" ? "실시간 즉시 발행" : data.post?.status === "scheduled" ? "예약" : "저장";
+      setMessage(`‘${data.post.title}’ 글을 성공적으로 ${statusText}했습니다.`);
       setSelected(null);
       form.reset();
       await loadPrimaryData();

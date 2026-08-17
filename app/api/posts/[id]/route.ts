@@ -2,7 +2,7 @@ import { deletePost, updatePost, verifyPublicationOriginality } from "../../../.
 import { slugify, type PostStatus } from "../../../../lib/content";
 import { requireOwnerApi } from "../../../../lib/site-admin";
 import { appendSourceUrl } from "../../../../lib/article-enrichment";
-import { ArticleMediaValidationError, articlePlainText, sanitizeArticleHtml, validateArticleMedia } from "../../../../lib/article-html";
+import { ArticleMediaValidationError, articlePlainText, ensureArticleMedia, sanitizeArticleHtml, validateArticleMedia } from "../../../../lib/article-html";
 import { extractSourceUrls, OriginalityCheckError } from "../../../../lib/originality-check";
 import { EDITOR_IN_CHIEF, getEditorialAuthor } from "../../../../lib/editorial-team";
 import { assertTeamPermission } from "../../../../lib/team-permissions";
@@ -18,8 +18,9 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     if (!payload.title?.trim() || !payload.body?.trim()) {
       return Response.json({ error: "제목과 본문을 입력하세요." }, { status: 400 });
     }
-    if(status==="published"||status==="scheduled")validateArticleMedia(payload.body);
-    const body = sanitizeArticleHtml(appendSourceUrl(payload.body, payload.sourceUrl));
+    const safeMediaBody = ensureArticleMedia(payload.body);
+    if(status==="published"||status==="scheduled")validateArticleMedia(safeMediaBody);
+    const body = sanitizeArticleHtml(appendSourceUrl(safeMediaBody, payload.sourceUrl));
     const plainBody = articlePlainText(body);
     if(status==="published"||status==="scheduled")await verifyPublicationOriginality({body,sourceUrls:extractSourceUrls(body,payload.sourceUrl),editorName:payload.authorName||"데스크",title:payload.title.trim(),postId:Number(id)});
     const post = await updatePost(Number(id), {

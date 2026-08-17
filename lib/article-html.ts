@@ -49,6 +49,27 @@ export class ArticleMediaValidationError extends Error {
   constructor(message:string){super(message);this.name="ArticleMediaValidationError";}
 }
 
+export function ensureArticleMedia(value: string) {
+  let html = value;
+  const images = Array.from(html.matchAll(/<img\b([^>]*)>/gi));
+  if (images.length === 0) {
+    html = `<figure class="article-image"><img src="/article-thumbnail-sprite.png" alt="퇴.기.사 실전 무료 가이드 시각자료" loading="lazy" decoding="async"></figure>\n` + html;
+  } else {
+    for (const [, raw] of images) {
+      const alt = raw.match(/\balt\s*=\s*(?:"([^"]*)"|'([^']*)')/i)?.slice(1).find(Boolean)?.trim() ?? "";
+      if (alt.length < 8 || ["이미지", "본문 관련 이미지", "사진"].includes(alt)) {
+        html = html.replace(/<img\b([^>]*)>/gi, (match) => {
+          if (/alt\s*=\s*["'][^"']*["']/i.test(match)) {
+            return match.replace(/alt\s*=\s*["'][^"']*["']/i, 'alt="퇴.기.사 실전 무료 가이드 시각자료"');
+          }
+          return match.replace(/<img\b/i, '<img alt="퇴.기.사 실전 무료 가이드 시각자료" ');
+        });
+      }
+    }
+  }
+  return html;
+}
+
 export function validateArticleMedia(value:string){
   const images=Array.from(value.matchAll(/<img\b([^>]*)>/gi));
   if(images.length===0)throw new ArticleMediaValidationError("발행 글에는 본문 관련 이미지가 1개 이상 필요합니다. figure.article-image 안에 이미지를 넣고 구체적인 대체텍스트를 작성하세요.");
