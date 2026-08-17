@@ -177,6 +177,21 @@ test("redirects www to the canonical apex domain", async () => {
   assert.match(worker, /Response\.redirect\(url\.toString\(\), 301\)/);
 });
 
+// Vercel은 vercel.json의 crons를 배포 단계에서 플랜 한도로 검증한다. Hobby 플랜은
+// 프로젝트당 cron 2개, 하루 1회까지만 허용한다. next build는 crons를 읽지 않으므로
+// 시간당 표현식("0 * * * *")을 넣으면 로컬 빌드와 테스트는 전부 통과하고 배포만 실패한다.
+// 2026-08-17 이 조합으로 커밋 12개가 조용히 미배포 상태로 쌓였다.
+test("keeps vercel cron schedules inside the deployable plan limit", async () => {
+  const config = JSON.parse(await readFile(new URL("../vercel.json", import.meta.url), "utf8"));
+  const crons = config.crons ?? [];
+  assert.ok(crons.length <= 2, `cron은 프로젝트당 2개까지만 허용된다 (현재 ${crons.length}개)`);
+  for (const { path, schedule } of crons) {
+    const [minute, hour] = String(schedule).split(" ");
+    assert.match(minute, /^\d+$/, `${path}: 분 필드가 고정값이 아니면 하루 1회를 넘는다 (${schedule})`);
+    assert.match(hour, /^\d+$/, `${path}: 시 필드가 고정값이 아니면 하루 1회를 넘는다 (${schedule})`);
+  }
+});
+
 // 위 테스트는 worker/index.ts 소스만 확인하며, Vercel 배포에서는 이 워커가 실행되지 않는다.
 // 실제 호스트 방향은 배포 플랫폼의 도메인 설정에 달려 있으므로 여기서는
 // 코드가 생성하는 모든 URL이 apex 한 곳만 가리키는지를 고정한다.
