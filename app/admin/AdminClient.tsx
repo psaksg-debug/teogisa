@@ -263,44 +263,95 @@ export default function AdminClient({ username }: { username: string }) {
     const payload = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
     if (payload.scheduledAt) payload.scheduledAt = new Date(payload.scheduledAt).toISOString();
     setSaving(true);
-    const response = await fetch("/api/automation", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
-    const data: any = await response.json();
-    setSaving(false);
-    if (response.ok) {
-      setMessage(`‘${data.post?.title ?? payload.topic}’ 포스트를 생성하여 즉시 자동 발행했습니다.`);
-      form.reset();
-      await loadPrimaryData();
-      await loadSecondaryData();
-    } else {
-      setMessage(data.error || "자동 포스팅을 처리하지 못했습니다.");
+    try {
+      const response = await fetch("/api/automation", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
+      if (response.status === 401) {
+        setSaving(false);
+        alert("관리자 세션이 만료되었습니다. 다시 로그인해 주세요.");
+        window.location.href = "/admin/login";
+        return;
+      }
+      const data: any = await response.json();
+      setSaving(false);
+      if (response.ok) {
+        const msg = `‘${data.post?.title ?? payload.topic}’ 포스트를 생성하여 즉시 자동 발행했습니다.`;
+        setMessage(msg);
+        alert(`✅ ${msg}`);
+        form.reset();
+        await loadPrimaryData();
+        await loadSecondaryData();
+      } else {
+        const errorMsg = data.error || "자동 포스팅을 처리하지 못했습니다.";
+        setMessage(errorMsg);
+        alert(`실패: ${errorMsg}`);
+      }
+    } catch (error) {
+      setSaving(false);
+      const errorMsg = error instanceof Error ? error.message : "네트워크 오류가 발생했습니다.";
+      setMessage(errorMsg);
+      alert(`오류: ${errorMsg}`);
     }
   }
 
   async function controlAgent(id: string, action: "run" | "status", status?: "active" | "paused") {
     setSaving(true);
-    const response = await fetch("/api/agents", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ id, action, status }) });
-    const data: any = await response.json();
-    setSaving(false);
-    if (response.ok) {
-      setMessage(action === "run" ? `‘${data.post?.title ?? id}’ 포스트를 자동 생성하고 즉시 발행했습니다.` : `에이전트를 ${status === "active" ? "가동" : "일시정지"}했습니다.`);
-      await loadPrimaryData();
-      await loadSecondaryData();
-    } else {
-      setMessage(data.error || "에이전트 실행에 실패했습니다.");
+    try {
+      const response = await fetch("/api/agents", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ id, action, status }) });
+      if (response.status === 401) {
+        setSaving(false);
+        alert("관리자 세션이 만료되었습니다. 다시 로그인해 주세요.");
+        window.location.href = "/admin/login";
+        return;
+      }
+      const data: any = await response.json();
+      setSaving(false);
+      if (response.ok) {
+        const msg = action === "run" ? `‘${data.post?.title ?? id}’ 포스트를 자동 생성하고 즉시 발행했습니다.` : `에이전트를 ${status === "active" ? "가동" : "일시정지"}했습니다.`;
+        setMessage(msg);
+        alert(`✅ ${msg}`);
+        await loadPrimaryData();
+        await loadSecondaryData();
+      } else {
+        const errorMsg = data.error || "에이전트 실행에 실패했습니다.";
+        setMessage(errorMsg);
+        alert(`실패: ${errorMsg}`);
+      }
+    } catch (error) {
+      setSaving(false);
+      const errorMsg = error instanceof Error ? error.message : "네트워크 오류가 발생했습니다.";
+      setMessage(errorMsg);
+      alert(`오류: ${errorMsg}`);
     }
   }
 
   async function controlActivity(id: string, action: "run" | "status", status?: "active" | "paused") {
     setSaving(true);
-    const response = await fetch("/api/activity-plans", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ id, action, status }) });
-    const data: any = await response.json();
-    setSaving(false);
-    if (response.ok) {
-      setMessage(action === "run" ? "구성원 업무를 실행하고 결과를 기록했습니다." : `구성원 계획을 ${status === "active" ? "가동" : "일시정지"}했습니다.`);
-      await loadPrimaryData();
-      await loadSecondaryData();
-    } else {
-      setMessage(data.error || "구성원 실행에 실패했습니다.");
+    try {
+      const response = await fetch("/api/activity-plans", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ id, action, status }) });
+      if (response.status === 401) {
+        setSaving(false);
+        alert("관리자 세션이 만료되었습니다. 다시 로그인해 주세요.");
+        window.location.href = "/admin/login";
+        return;
+      }
+      const data: any = await response.json();
+      setSaving(false);
+      if (response.ok) {
+        const msg = action === "run" ? "구성원 업무를 실행하고 결과를 기록했습니다." : `구성원 계획을 ${status === "active" ? "가동" : "일시정지"}했습니다.`;
+        setMessage(msg);
+        alert(`✅ ${msg}`);
+        await loadPrimaryData();
+        await loadSecondaryData();
+      } else {
+        const errorMsg = data.error || "구성원 실행에 실패했습니다.";
+        setMessage(errorMsg);
+        alert(`실패: ${errorMsg}`);
+      }
+    } catch (error) {
+      setSaving(false);
+      const errorMsg = error instanceof Error ? error.message : "네트워크 오류가 발생했습니다.";
+      setMessage(errorMsg);
+      alert(`오류: ${errorMsg}`);
     }
   }
 
@@ -309,31 +360,60 @@ export default function AdminClient({ username }: { username: string }) {
     setMessage("전 서브에이전트 작업을 24시간 자동화 스케줄에 맞춰 일괄 가동하고 있습니다…");
     try {
       const response = await fetch("/api/cron", { method: "POST" });
+      if (response.status === 401) {
+        setSaving(false);
+        alert("관리자 세션이 만료되었습니다. 다시 로그인해 주세요.");
+        window.location.href = "/admin/login";
+        return;
+      }
       const data: any = await response.json();
       setSaving(false);
       if (response.ok) {
-        setMessage("전 서브에이전트 일괄 가동을 완료하고 최신 작업 이력을 갱신했습니다!");
+        const msg = "전 서브에이전트 일괄 가동을 완료하고 최신 작업 이력을 갱신했습니다!";
+        setMessage(msg);
+        alert(`✅ ${msg}`);
         await loadPrimaryData();
         await loadSecondaryData();
       } else {
-        setMessage(data.error || "서브에이전트 일괄 가동 중 오류가 발생했습니다.");
+        const errorMsg = data.error || "서브에이전트 일괄 가동 중 오류가 발생했습니다.";
+        setMessage(errorMsg);
+        alert(`실패: ${errorMsg}`);
       }
-    } catch {
+    } catch (error) {
       setSaving(false);
-      setMessage("서브에이전트 가동 요청 처리 중 오류가 발생했습니다.");
+      const errorMsg = error instanceof Error ? error.message : "서브에이전트 가동 요청 처리 중 오류가 발생했습니다.";
+      setMessage(errorMsg);
+      alert(`오류: ${errorMsg}`);
     }
   }
 
   async function manageSite(action: "audit" | "resolve", id?: number) {
     setSaving(true);
-    const response = await fetch("/api/management", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action, id }) });
-    const data: any = await response.json();
-    setSaving(false);
-    if (response.ok) {
-      setMessage(action === "audit" ? `전사 점검을 마쳤습니다. 문제 ${data.run?.issueCount ?? 0}건, 즉시 조치 ${data.run?.actionCount ?? 0}건입니다.` : "문제를 조치 완료로 표시했습니다.");
-      await loadSecondaryData();
-    } else {
-      setMessage(data.error || "사이트 관리를 처리하지 못했습니다.");
+    try {
+      const response = await fetch("/api/management", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action, id }) });
+      if (response.status === 401) {
+        setSaving(false);
+        alert("관리자 세션이 만료되었습니다. 다시 로그인해 주세요.");
+        window.location.href = "/admin/login";
+        return;
+      }
+      const data: any = await response.json();
+      setSaving(false);
+      if (response.ok) {
+        const msg = action === "audit" ? `전사 점검을 마쳤습니다. 문제 ${data.run?.issueCount ?? 0}건, 즉시 조치 ${data.run?.actionCount ?? 0}건입니다.` : "문제를 조치 완료로 표시했습니다.";
+        setMessage(msg);
+        alert(`✅ ${msg}`);
+        await loadSecondaryData();
+      } else {
+        const errorMsg = data.error || "사이트 관리를 처리하지 못했습니다.";
+        setMessage(errorMsg);
+        alert(`실패: ${errorMsg}`);
+      }
+    } catch (error) {
+      setSaving(false);
+      const errorMsg = error instanceof Error ? error.message : "네트워크 오류가 발생했습니다.";
+      setMessage(errorMsg);
+      alert(`오류: ${errorMsg}`);
     }
   }
 
@@ -341,14 +421,31 @@ export default function AdminClient({ username }: { username: string }) {
     const resolution = action === "resolve" ? window.prompt("완료한 시정조치와 확인 증거를 입력하세요.", "") ?? "" : "";
     if (action === "resolve" && !resolution.trim()) return;
     setSaving(true);
-    const response = await fetch("/api/audits", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action, id, resolution }) });
-    const data: any = await response.json();
-    setSaving(false);
-    if (response.ok) {
-      setMessage(action === "run" ? `전 프로젝트 감사를 마쳤습니다. 감사의견 ‘${data.run?.overallOpinion ?? "적정"}’, 지적 ${data.run?.findingCount ?? 0}건입니다.` : "시정조치와 완료 증거를 감사 이력에 기록했습니다.");
-      await loadSecondaryData();
-    } else {
-      setMessage(data.error || "감사 작업을 처리하지 못했습니다.");
+    try {
+      const response = await fetch("/api/audits", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action, id, resolution }) });
+      if (response.status === 401) {
+        setSaving(false);
+        alert("관리자 세션이 만료되었습니다. 다시 로그인해 주세요.");
+        window.location.href = "/admin/login";
+        return;
+      }
+      const data: any = await response.json();
+      setSaving(false);
+      if (response.ok) {
+        const msg = action === "run" ? `전 프로젝트 감사를 마쳤습니다. 감사의견 ‘${data.run?.overallOpinion ?? "적정"}’, 지적 ${data.run?.findingCount ?? 0}건입니다.` : "시정조치와 완료 증거를 감사 이력에 기록했습니다.";
+        setMessage(msg);
+        alert(`✅ ${msg}`);
+        await loadSecondaryData();
+      } else {
+        const errorMsg = data.error || "감사 작업을 처리하지 못했습니다.";
+        setMessage(errorMsg);
+        alert(`실패: ${errorMsg}`);
+      }
+    } catch (error) {
+      setSaving(false);
+      const errorMsg = error instanceof Error ? error.message : "네트워크 오류가 발생했습니다.";
+      setMessage(errorMsg);
+      alert(`오류: ${errorMsg}`);
     }
   }
 
@@ -356,18 +453,35 @@ export default function AdminClient({ username }: { username: string }) {
     event.preventDefault();
     const postId = Number(new FormData(event.currentTarget).get("promotionPostId"));
     if (!postId) {
-      setMessage("홍보할 글을 선택하세요.");
+      alert("홍보할 글을 선택하세요.");
       return;
     }
     setSaving(true);
-    const response = await fetch("/api/promotions", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "prepare", postId }) });
-    const data: any = await response.json();
-    setSaving(false);
-    if (response.ok) {
-      setMessage(`‘${data.campaign?.title ?? "선택한 글"}’ 홍보안을 준비했습니다.`);
-      await loadSecondaryData();
-    } else {
-      setMessage(data.error || "홍보안을 준비하지 못했습니다.");
+    try {
+      const response = await fetch("/api/promotions", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "prepare", postId }) });
+      if (response.status === 401) {
+        setSaving(false);
+        alert("관리자 세션이 만료되었습니다. 다시 로그인해 주세요.");
+        window.location.href = "/admin/login";
+        return;
+      }
+      const data: any = await response.json();
+      setSaving(false);
+      if (response.ok) {
+        const msg = `‘${data.campaign?.title ?? "선택한 글"}’ 홍보안을 준비했습니다.`;
+        setMessage(msg);
+        alert(`✅ ${msg}`);
+        await loadSecondaryData();
+      } else {
+        const errorMsg = data.error || "홍보안을 준비하지 못했습니다.";
+        setMessage(errorMsg);
+        alert(`실패: ${errorMsg}`);
+      }
+    } catch (error) {
+      setSaving(false);
+      const errorMsg = error instanceof Error ? error.message : "네트워크 오류가 발생했습니다.";
+      setMessage(errorMsg);
+      alert(`오류: ${errorMsg}`);
     }
   }
 
@@ -791,14 +905,14 @@ export default function AdminClient({ username }: { username: string }) {
             <span className="queue-count">대기 {queue.length}</span>
           </div>
           <p className="panel-help">공식 자료 주소와 주제를 입력하면 24시간 자동화 시스템이 포스팅을 자동 생성하여 사이트에 즉시 발행합니다.</p>
-          <form className="queue-form" onSubmit={createQueueDraft}>
+          <form className="queue-form" onSubmit={createQueueDraft} noValidate>
             <div className="field">
               <label htmlFor="topic">글 주제</label>
               <input id="topic" name="topic" required placeholder="예: 2026년 실업크레딧 신청 방법" />
             </div>
             <div className="field">
               <label htmlFor="sourceUrl">공식 자료 주소</label>
-              <input id="sourceUrl" name="sourceUrl" required type="url" placeholder="https://www.work24.go.kr/..." />
+              <input id="sourceUrl" name="sourceUrl" type="text" placeholder="https://www.work24.go.kr/..." />
             </div>
             <div className="form-row">
               <div className="field">
