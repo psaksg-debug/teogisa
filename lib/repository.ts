@@ -344,6 +344,21 @@ export async function updatePost(id: number, input: Omit<Post, "id">) {
   return mapPost(row as Record<string, unknown>);
 }
 
+export async function deletePost(id: number) {
+  const pg = getPgClient();
+  if (pg) {
+    await pg`DELETE FROM posting_queue WHERE post_id=${id}`;
+    await pg`DELETE FROM posts WHERE id=${id}`;
+    return { success: true, id };
+  }
+  const d1 = await db();
+  await d1.batch([
+    d1.prepare("DELETE FROM posting_queue WHERE post_id=?").bind(id),
+    d1.prepare("DELETE FROM posts WHERE id=?").bind(id),
+  ]);
+  return { success: true, id };
+}
+
 export async function verifyPublicationOriginality(input:{body:string;sourceUrls:string[];editorName:string;title:string;postId?:number}){
   const d1=await db();let result=await checkAgainstSources(input.body,input.sourceUrls);
   const existing=await d1.prepare("SELECT id,title,body FROM posts WHERE (? IS NULL OR id!=?) ORDER BY updated_at DESC LIMIT 80").bind(input.postId??null,input.postId??null).all();

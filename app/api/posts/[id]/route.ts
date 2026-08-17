@@ -1,4 +1,4 @@
-import { updatePost, verifyPublicationOriginality } from "../../../../lib/repository";
+import { deletePost, updatePost, verifyPublicationOriginality } from "../../../../lib/repository";
 import { slugify, type PostStatus } from "../../../../lib/content";
 import { requireOwnerApi } from "../../../../lib/site-admin";
 import { appendSourceUrl } from "../../../../lib/article-enrichment";
@@ -39,5 +39,18 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     return Response.json({ post });
   } catch (error) {
     return Response.json({ error: error instanceof Error ? error.message : "글을 수정하지 못했습니다." }, { status: error instanceof OriginalityCheckError ? 409 : error instanceof ArticleMediaValidationError ? 422 : 500 });
+  }
+}
+
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const auth = await requireOwnerApi(request);
+  if (auth.response) return auth.response;
+  try {
+    const { id } = await params;
+    assertTeamPermission("owner", "content.publish");
+    const result = await deletePost(Number(id));
+    return Response.json(result);
+  } catch (error) {
+    return Response.json({ error: error instanceof Error ? error.message : "글을 삭제하지 못했습니다." }, { status: 500 });
   }
 }
