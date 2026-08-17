@@ -81,6 +81,7 @@ export default function AdminClient({ username }: { username: string }) {
   const [selected, setSelected] = useState<Post | null>(null);
   const [message, setMessage] = useState("편집실을 준비하고 있습니다…");
   const [saving, setSaving] = useState(false);
+  const [editorFeedback, setEditorFeedback] = useState<{ text: string; type: "success" | "error" | "loading" } | null>(null);
   const [comboPick, setComboPick] = useState<Record<string, string>>({});
   const editorPanelRef = useRef<HTMLElement>(null);
 
@@ -193,31 +194,45 @@ export default function AdminClient({ username }: { username: string }) {
     event.preventDefault();
     const form = event.currentTarget;
     setSaving(true);
-    const visualEditor = form.querySelector<HTMLDivElement>(".visual-editor");
-    const htmlEditor = form.querySelector<HTMLTextAreaElement>(".html-source-editor");
-    const hiddenBody = form.querySelector<HTMLInputElement>("input[name='body']");
-    if (hiddenBody) {
-      if (htmlEditor && htmlEditor.value.trim()) hiddenBody.value = htmlEditor.value;
-      else if (visualEditor && visualEditor.innerHTML.trim()) hiddenBody.value = visualEditor.innerHTML;
-    }
-    const payload = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
-    if (payload.scheduledAt) payload.scheduledAt = new Date(payload.scheduledAt).toISOString();
-    const response = await fetch(selected ? `/api/posts/${selected.id}` : "/api/posts", {
-      method: selected ? "PATCH" : "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    const data: any = await response.json();
-    setSaving(false);
-    if (response.ok) {
-      const statusText = data.post?.status === "published" ? "실시간 즉시 발행" : data.post?.status === "scheduled" ? "예약" : "저장";
-      setMessage(`‘${data.post.title}’ 글을 성공적으로 ${statusText}했습니다.`);
-      setSelected(null);
-      form.reset();
-      await loadPrimaryData();
-      await loadSecondaryData();
-    } else {
-      setMessage(data.error || "글을 저장하지 못했습니다.");
+    setEditorFeedback({ text: "저장 및 즉시 발행 처리 중…", type: "loading" });
+    try {
+      const visualEditor = form.querySelector<HTMLDivElement>(".visual-editor");
+      const htmlEditor = form.querySelector<HTMLTextAreaElement>(".html-source-editor");
+      const hiddenBody = form.querySelector<HTMLInputElement>("input[name='body']");
+      if (hiddenBody) {
+        if (htmlEditor && htmlEditor.value.trim()) hiddenBody.value = htmlEditor.value;
+        else if (visualEditor && visualEditor.innerHTML.trim()) hiddenBody.value = visualEditor.innerHTML;
+      }
+      const payload = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
+      if (payload.scheduledAt) payload.scheduledAt = new Date(payload.scheduledAt).toISOString();
+      const response = await fetch(selected ? `/api/posts/${selected.id}` : "/api/posts", {
+        method: selected ? "PATCH" : "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data: any = await response.json();
+      setSaving(false);
+      if (response.ok) {
+        const statusText = data.post?.status === "published" ? "실시간 즉시 발행" : data.post?.status === "scheduled" ? "예약" : "저장";
+        const msg = `‘${data.post.title}’ 글을 성공적으로 ${statusText}했습니다.`;
+        setMessage(msg);
+        setEditorFeedback({ text: `✅ ${msg}`, type: "success" });
+        setSelected(null);
+        form.reset();
+        await loadPrimaryData();
+        await loadSecondaryData();
+      } else {
+        const errorMsg = data.error || "글을 저장하지 못했습니다.";
+        setMessage(errorMsg);
+        setEditorFeedback({ text: `❌ ${errorMsg}`, type: "error" });
+        alert(`저장 실패: ${errorMsg}`);
+      }
+    } catch (error) {
+      setSaving(false);
+      const errorMsg = error instanceof Error ? error.message : "네트워크 오류가 발생했습니다.";
+      setMessage(errorMsg);
+      setEditorFeedback({ text: `❌ ${errorMsg}`, type: "error" });
+      alert(`저장 오류: ${errorMsg}`);
     }
   }
 
@@ -737,9 +752,27 @@ export default function AdminClient({ username }: { username: string }) {
               </div>
             </div>
             <input type="hidden" name="publishedAt" value={selected?.publishedAt || ""} />
-            <button className="admin-button" disabled={saving}>
-              {saving ? "저장 중…" : selected ? "변경사항 저장" : "글 저장"}
-            </button>
+            <div className="form-actions-bar" style={{ display: "flex", alignItems: "center", gap: "12px", marginTop: "16px", flexWrap: "wrap" }}>
+              <button type="submit" className="admin-button" disabled={saving}>
+                {saving ? "저장 중…" : selected ? "변경사항 저장" : "글 저장"}
+              </button>
+              {editorFeedback && (
+                <div
+                  className={`editor-feedback-badge ${editorFeedback.type}`}
+                  style={{
+                    padding: "8px 14px",
+                    borderRadius: "8px",
+                    fontSize: "0.88rem",
+                    fontWeight: 600,
+                    background: editorFeedback.type === "success" ? "#ecfdf5" : editorFeedback.type === "error" ? "#fef2f2" : "#f0f9ff",
+                    color: editorFeedback.type === "success" ? "#065f46" : editorFeedback.type === "error" ? "#991b1b" : "#075985",
+                    border: `1px solid ${editorFeedback.type === "success" ? "#a7f3d0" : editorFeedback.type === "error" ? "#fecaca" : "#bae6fd"}`,
+                  }}
+                >
+                  {editorFeedback.text}
+                </div>
+              )}
+            </div>
           </form>
         </section>
 

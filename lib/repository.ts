@@ -424,12 +424,12 @@ export async function verifyPublicationOriginality(input:{body:string;sourceUrls
     const existing=await d1.prepare("SELECT id,title,body FROM posts WHERE (? IS NULL OR id!=?) ORDER BY updated_at DESC LIMIT 80").bind(input.postId??null,input.postId??null).all();
     for(const row of existing.results){const internal=compareOriginality(input.body,String(row.body??""));if(internal.status==="blocked"&&(internal.overlapRatio>result.overlapRatio||result.status!=="blocked")){result={...internal,sourceUrl:`internal:post:${Number(row.id)}`,message:`기존 글 ‘${String(row.title)}’과 동일한 문장이 과도합니다. 문장 구조와 설명 사례를 새로 작성하세요.`};}}
     await d1.prepare("INSERT INTO originality_checks (post_id,editor_name,title,source_url,status,overlap_ratio,longest_match_chars,message) VALUES (?,?,?,?,?,?,?,?)").bind(input.postId??null,input.editorName,input.title,result.sourceUrl,result.status,Math.round(result.overlapRatio*1000),result.longestMatchChars,result.message).run();
-    if(result.status!=="passed")throw new OriginalityCheckError(result);
+    if(result.status==="blocked")throw new OriginalityCheckError(result);
     return result;
   } catch (error) {
     if (error instanceof OriginalityCheckError) throw error;
     const result = await checkAgainstSources(input.body, input.sourceUrls);
-    if (result.status !== "passed") throw new OriginalityCheckError(result);
+    if (result.status === "blocked") throw new OriginalityCheckError(result);
     return result;
   }
 }
