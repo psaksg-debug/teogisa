@@ -12,6 +12,11 @@ export const metadata: Metadata = {
   publisher: SITE_NAME,
   category: "retirement planning",
   robots: { index:true, follow:true, googleBot:{ index:true, follow:true, "max-image-preview":"large", "max-snippet":-1, "max-video-preview":-1 } },
+  verification: {
+    other: {
+      "naver-site-verification": "afe0ef74210245a649d66c3a595329e9",
+    },
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },

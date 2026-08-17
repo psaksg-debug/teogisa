@@ -433,7 +433,13 @@ export async function createPost(input: Omit<Post, "id">) {
       VALUES (${input.title}, ${input.slug}, ${input.excerpt}, ${input.body}, ${input.category}, ${JSON.stringify(input.tags)}, ${input.status}, ${input.publishedAt || null}, ${input.scheduledAt}, ${input.readingMinutes}, ${input.visual}, ${input.authorName || EDITOR_IN_CHIEF.name})
       RETURNING *
     `;
-    return mapPost(rows[0] as Record<string, unknown>);
+    if (rows[0]) {
+      const created = mapPost(rows[0] as Record<string, unknown>);
+      if (created.status === "published") {
+        await requestSearchEngineIndexing({ url: `/posts/${created.slug}`, title: created.title, slug: created.slug }).catch(() => null);
+      }
+      return created;
+    }
   }
   try {
     const d1 = await db();
@@ -441,13 +447,22 @@ export async function createPost(input: Omit<Post, "id">) {
       .prepare("INSERT INTO posts (title,slug,excerpt,body,category,tags_json,status,published_at,scheduled_at,reading_minutes,visual,author_name) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) RETURNING *")
       .bind(input.title, input.slug, input.excerpt, input.body, input.category, JSON.stringify(input.tags), input.status, input.publishedAt || null, input.scheduledAt, input.readingMinutes, input.visual, input.authorName || EDITOR_IN_CHIEF.name)
       .first();
-    if (row) return mapPost(row as Record<string, unknown>);
+    if (row) {
+      const created = mapPost(row as Record<string, unknown>);
+      if (created.status === "published") {
+        await requestSearchEngineIndexing({ url: `/posts/${created.slug}`, title: created.title, slug: created.slug }).catch(() => null);
+      }
+      return created;
+    }
   } catch {
     // Graceful fallback to memory store
   }
   const newId = memoryPosts.length ? Math.max(...memoryPosts.map((p) => p.id)) + 1 : 1;
   const created: Post = { ...input, id: newId };
   memoryPosts.unshift(created);
+  if (created.status === "published") {
+    await requestSearchEngineIndexing({ url: `/posts/${created.slug}`, title: created.title, slug: created.slug }).catch(() => null);
+  }
   return created;
 }
 

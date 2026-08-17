@@ -572,6 +572,39 @@ export default function AdminClient({ username }: { username: string }) {
   const activeTeam = teamPermissions.find((team) => team.id === pickId("permission", teamPermissions.map((team) => team.id)));
   const activeManager = managementMembers.find((member) => member.id === pickId("manager", managementMembers.map((member) => member.id)));
   const activeOfficer = auditOfficers.find((officer) => officer.id === pickId("officer", auditOfficers.map((officer) => officer.id)));
+  async function triggerSeoIndexing(slug?: string) {
+    setSaving(true);
+    setEditorFeedback({ text: "네이버·구글 색인 요청 전송 중…", type: "loading" });
+    try {
+      const response = await fetch("/api/seo/indexing", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ slug }),
+      });
+      const data: any = await response.json();
+      setSaving(false);
+      if (response.ok) {
+        const engineSummary = (data.engines || [])
+          .map((e: any) => `• ${e.engine}: ${e.status === "success" ? "성공" : e.status} (${e.detail})`)
+          .join("\n");
+        const msg = `네이버 서치어드바이저(IndexNow) 및 구글에 ‘${data.targetUrl}’ 색인 요청 완료!`;
+        setMessage(msg);
+        setEditorFeedback({ text: `✅ ${msg}`, type: "success" });
+        alert(`[실시간 검색엔진 색인 전송 완료]\n\n대상 URL: ${data.targetUrl}\n\n${engineSummary}`);
+      } else {
+        const errorMsg = data.error || "색인 요청 중 오류가 발생했습니다.";
+        setMessage(errorMsg);
+        setEditorFeedback({ text: `❌ ${errorMsg}`, type: "error" });
+        alert(`색인 요청 실패: ${errorMsg}`);
+      }
+    } catch (error) {
+      setSaving(false);
+      const errorMsg = error instanceof Error ? error.message : "네트워크 오류";
+      setEditorFeedback({ text: `❌ ${errorMsg}`, type: "error" });
+      alert(`색인 요청 오류: ${errorMsg}`);
+    }
+  }
+
   const planningMember = contentPlanningTeam.find((member) => member.id === pickId("planning", contentPlanningTeam.map((member) => member.id)));
   const qualityMember = qualityDesignTeam.find((member) => member.id === pickId("quality", qualityDesignTeam.map((member) => member.id)));
   const growthMember = promotionTeam.find((member) => member.id === pickId("growth", promotionTeam.map((member) => member.id)));
@@ -586,6 +619,9 @@ export default function AdminClient({ username }: { username: string }) {
         <div className="admin-actions">
           <button className="admin-button" type="button" disabled={saving} onClick={runAllSubagentsNow}>
             ⚡ 전 서브에이전트 일괄 가동
+          </button>
+          <button className="admin-button secondary" type="button" disabled={saving} onClick={() => triggerSeoIndexing()}>
+            🌐 네이버·구글 색인 전송
           </button>
           <a className="admin-button secondary" href="/api/export">
             전체 백업
@@ -902,6 +938,16 @@ export default function AdminClient({ username }: { username: string }) {
               <button type="submit" className="admin-button" disabled={saving}>
                 {saving ? "저장 중…" : selected ? "변경사항 저장" : "글 저장"}
               </button>
+              {selected && (
+                <button
+                  type="button"
+                  className="admin-button secondary"
+                  disabled={saving}
+                  onClick={() => triggerSeoIndexing(selected.slug)}
+                >
+                  🔍 네이버·구글 색인 요청
+                </button>
+              )}
               {editorFeedback && (
                 <div
                   className={`editor-feedback-badge ${editorFeedback.type}`}
