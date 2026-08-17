@@ -177,6 +177,22 @@ test("redirects www to the canonical apex domain", async () => {
   assert.match(worker, /Response\.redirect\(url\.toString\(\), 301\)/);
 });
 
+// 위 테스트는 worker/index.ts 소스만 확인하며, Vercel 배포에서는 이 워커가 실행되지 않는다.
+// 실제 호스트 방향은 배포 플랫폼의 도메인 설정에 달려 있으므로 여기서는
+// 코드가 생성하는 모든 URL이 apex 한 곳만 가리키는지를 고정한다.
+// 배포 설정이 apex → www로 걸려 있으면 canonical·sitemap·RSS·IndexNow 제출 URL이
+// 전부 리다이렉트되는 주소가 되어 색인이 흔들린다.
+test("keeps every generated URL on one canonical apex host", async () => {
+  const site = await readFile(new URL("../lib/site.ts", import.meta.url), "utf8");
+  assert.match(site, /export const SITE_URL = "https:\/\/adbles\.com"/);
+  assert.doesNotMatch(site, /SITE_URL = "https:\/\/www\./);
+
+  // 앱 레벨에서 www → apex 리다이렉트를 추가하면 배포 설정의 apex → www 리다이렉트와
+  // 맞물려 무한 순환이 된다. next.config.ts는 호스트 리다이렉트를 갖지 않아야 한다.
+  const nextConfig = await readFile(new URL("../next.config.ts", import.meta.url), "utf8");
+  assert.doesNotMatch(nextConfig, /www\.adbles\.com/);
+});
+
 test("serves the Naver verification file at its exact public path", async () => {
   const [worker, verification] = await Promise.all([
     readFile(new URL("../worker/index.ts", import.meta.url), "utf8"),
