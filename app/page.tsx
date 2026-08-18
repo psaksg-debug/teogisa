@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
+export const revalidate = 0;
+
+
 const journeys = [
   { label: "생활비 방어", value: "실업급여·지원금", tone: "blue" },
   { label: "현금흐름 1", value: "재취업·N잡", tone: "teal" },
@@ -149,3 +152,4 @@ export default async function Home() {
     </>
   );
 }
+
