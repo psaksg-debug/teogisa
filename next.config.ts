@@ -1,7 +1,18 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async rewrites() {
+    return [
+      {
+        source: '/feed',
+        destination: '/rss.xml',
+      },
+      {
+        source: '/rss',
+        destination: '/rss.xml',
+      },
+    ];
+  },
 };
 
 export default nextConfig;
