@@ -73,14 +73,24 @@ export default async function Home() {
           </figure>
         </section>
 
-        <section className="recent-posts section-wrap" aria-labelledby="recent-posts-title">
-          <header className="recent-posts-header">
-            <div><p className="eyebrow">LATEST UPDATES</p><h2 id="recent-posts-title">최근 발행 글</h2></div>
+        <section className="latest section-wrap" id="latest" aria-labelledby="recent-posts-title">
+          <div className="section-heading">
+            <div><p className="eyebrow">LATEST UPDATES · 전체 {posts.length}편</p><h2 id="recent-posts-title">최근 발행 글</h2><p className="section-intro">방금 업데이트된 따끈따끈한 최신 정보와 인사이트를 확인하세요.</p></div>
             <a href="/search">모든 글 보기 <span aria-hidden="true">→</span></a>
-          </header>
-          <ol className="recent-title-list">
-            {recentPosts.map(post=><li key={post.slug}><a href={`/posts/${post.slug}`}><span className="recent-post-category">{post.category}</span><strong>{post.title}</strong><span className="recent-post-arrow" aria-hidden="true">→</span></a></li>)}
-          </ol>
+          </div>
+          <div className="post-grid">
+            {posts.slice(0, 3).map((post, index) => (
+              <article className={`post-card post-${index + 1}`} key={post.slug}>
+                <ArticleThumbnail post={post}/>
+                <div className="post-body">
+                  <p className="post-meta">{post.category} · {post.readingMinutes}분</p>
+                  <h3><a href={`/posts/${post.slug}`}>{post.title}</a></h3>
+                  <p>{post.excerpt}</p>
+                  <a className="read-more" href={`/posts/${post.slug}`}>읽어보기 <span aria-hidden="true">↗</span></a>
+                </div>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="home-hubs section-wrap" aria-labelledby="hub-title">
@@ -105,25 +115,6 @@ export default async function Home() {
           ))}
         </section>
 
-        <section className="latest section-wrap" id="latest">
-          <div className="section-heading">
-            <div><p className="eyebrow">지금 많이 필요한 질문 · {posts.length}편</p><h2>오늘 바로 써먹을 수 있는 글</h2><p className="section-intro">읽고 나면 계산할 숫자, 확인할 서류, 오늘 해볼 행동 하나가 남는 글부터 골랐습니다.</p></div>
-            <a href="/search">모든 글 보기 <span aria-hidden="true">→</span></a>
-          </div>
-          <div className="post-grid">
-            {posts.slice(0, 3).map((post, index) => (
-              <article className={`post-card post-${index + 1}`} key={post.slug}>
-                <ArticleThumbnail post={post}/>
-                <div className="post-body">
-                  <p className="post-meta">{index === 0 ? "이번 주 대표 글" : post.category} · {post.readingMinutes}분</p>
-                  <h3><a href={`/posts/${post.slug}`}>{post.title}</a></h3>
-                  <p>{post.excerpt}</p>
-                  <a className="read-more" href={`/posts/${post.slug}`}>읽어보기 <span aria-hidden="true">↗</span></a>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
 
         <section className="tool-promo section-wrap" aria-labelledby="tool-title">
           <div className="tool-promo-copy"><p className="eyebrow">FREE RETIREMENT TOOL</p><h2 id="tool-title">지금 가진 돈으로<br/>몇 개월을 버틸 수 있을까요?</h2><p>보유 자금, 월 필수생활비, 고정 수입 세 가지만 입력하면 재취업과 새 수입원을 준비할 수 있는 시간을 바로 계산합니다. 입력값은 저장하지 않습니다.</p><a className="primary-button" href="/tools/retirement-runway">퇴직생활비 계산기 <span aria-hidden="true">→</span></a></div>
