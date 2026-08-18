@@ -426,6 +426,44 @@ export const seedPosts: Post[] = [
 
 <h2>마치며: 준비된 자에게 퇴직은 기회입니다</h2>
 <p>실업급여는 평생 낸 고용보험료를 바탕으로 한 정당한 권리입니다. 2026년 바뀐 제도를 정확히 이해하고, 서류 하나, 일정 하나 꼼꼼히 챙겨서 재취업을 위한 든든한 도약판으로 삼으시길 바랍니다. 지금 바로 고용24 홈페이지에 접속하여 본인의 예상 수급액과 자격을 확인해 보세요!</p>`, category:"정부지원·실업급여", tags:["실업급여","2026년개정","구직급여","고용보험","이직확인서"], status:"published", publishedAt: new Date().toISOString(), scheduledAt:null, readingMinutes:5, visual:"2026", authorName:"가드" },
+  { id:2002, title:"바이브 코딩 입문 1: 프롬프트 하나로 시작하는 첫 개발", slug:"vibe-coding-basics-1", excerpt:"코딩을 전혀 몰라도 AI와 대화하며 프로그램을 만들 수 있습니다. 바이브 코딩의 개념과 첫 시작 방법을 알아봅니다.", body:`<p>과거에는 프로그래밍을 하려면 복잡한 문법과 영문 명령어를 수개월간 외우고 공부해야 했습니다. 하지만 이제는 일상적인 '대화'만으로도 컴퓨터에게 일을 시키고 프로그램을 만들 수 있는 시대가 왔습니다. 이를 <strong>'바이브 코딩(Vibe Coding)'</strong>이라고 부릅니다.</p>
+
+<h2>바이브 코딩이란?</h2>
+<p>바이브 코딩은 사용자가 구체적인 코드를 직접 작성하는 대신, 인공지능(AI)에게 <strong>'어떤 느낌(Vibe)으로, 무엇을 만들고 싶은지'</strong> 자연어로 설명하고 코드를 생성받는 새로운 개발 방식입니다. 개발에 대한 깊은 지식이 없더라도 문제 해결 능력과 논리적인 생각만 있다면 누구나 자신만의 도구를 만들 수 있습니다.</p>
+
+<h2>무엇부터 시작해야 할까요?</h2>
+<ul>
+<li><strong>자연어의 구체화:</strong> "쇼핑몰 만들어줘"와 같은 막연한 지시보다는, "상단에는 로고가 있고, 중간에는 상품 3개가 나열되며 하단에는 구매 버튼이 있는 쇼핑몰 웹페이지를 만들어줘"처럼 구체적으로 지시하는 연습이 필요합니다.</li>
+<li><strong>도구 선택:</strong> Cursor, ChatGPT, Claude와 같은 대화형 AI 도구를 활용하여 코딩을 시작할 수 있습니다.</li>
+</ul>
+
+<p>바이브 코딩은 완벽한 코드를 한 번에 짜는 것이 아니라, AI가 만들어준 결과물을 보고 다시 대화하며 조금씩 다듬어가는 '핑퐁 게임'과 같습니다. 다음 편에서는 실제로 간단한 웹사이트를 만들어보는 실습을 진행하겠습니다.</p>`, category:"AI 활용", tags:["바이브코딩", "AI활용", "노코드", "프롬프트", "시리즈1"], status:"published", publishedAt: new Date().toISOString(), scheduledAt:null, readingMinutes:3, visual:"VIBE1", authorName:"데스크" },
+  { id:2003, title:"바이브 코딩 입문 2: AI와 소통하는 '핑퐁' 대화법", slug:"vibe-coding-basics-2", excerpt:"바이브 코딩의 핵심은 AI와의 원활한 소통입니다. 코드를 점진적으로 개선해 나가는 효율적인 대화법을 소개합니다.", body:`<p>이전 글에서 바이브 코딩의 기본 개념을 알아보았습니다. 이번에는 AI가 내가 원하는 결과물을 정확히 만들어 내도록 이끄는 <strong>대화의 기술(Prompting)</strong>에 대해 다뤄보겠습니다.</p>
+
+<h2>완벽을 기대하지 말고 '점진적으로'</h2>
+<p>가장 흔한 실수는 한 번의 지시로 완벽한 결과물을 기대하는 것입니다. AI는 뛰어난 보조자지만 당신의 마음을 100% 읽을 수는 없습니다. 따라서 뼈대를 먼저 만들고 디테일을 채워가는 방식이 유리합니다.</p>
+
+<ol>
+<li><strong>1단계 (초안 요청):</strong> "오늘의 할 일을 기록하고 체크할 수 있는 간단한 투두(To-do) 리스트 화면을 HTML과 CSS로 만들어줘."</li>
+<li><strong>2단계 (디자인 수정):</strong> "배경색을 부드러운 파스텔 톤으로 바꾸고, 버튼 모서리를 둥글게 해줘."</li>
+<li><strong>3단계 (기능 추가):</strong> "완료된 항목은 회색으로 변하고 취소선이 그어지게 해줄래?"</li>
+</ol>
+
+<h2>오류가 발생했을 때 대처법</h2>
+<p>코드가 제대로 작동하지 않더라도 당황할 필요가 없습니다. 오류 화면이나 에러 메시지를 복사해서 AI에게 그대로 전달하세요. "이런 에러가 발생했어. 원인이 뭐고 어떻게 수정해야 해?"라고 물어보면, AI 스스로 오류를 분석하고 수정된 코드를 다시 제시해 줍니다.</p>`, category:"AI 활용", tags:["바이브코딩", "AI활용", "프롬프트엔지니어링", "시리즈2"], status:"published", publishedAt: new Date(Date.now() + 60000).toISOString(), scheduledAt:null, readingMinutes:4, visual:"VIBE2", authorName:"데스크" },
+  { id:2004, title:"바이브 코딩 입문 3: 내가 만든 도구 웹에 배포하기", slug:"vibe-coding-basics-3", excerpt:"AI와 함께 만든 결과물을 나만의 컴퓨터를 넘어 전 세계 사람들이 볼 수 있도록 인터넷에 배포하는 방법을 알아봅니다.", body:`<p>바이브 코딩을 통해 멋진 결과물을 만들었다면, 이제 다른 사람들에게 자랑하고 공유할 차례입니다. 내 컴퓨터(로컬)에서만 작동하던 코드를 인터넷 서버에 올려 누구나 접속할 수 있게 하는 과정을 <strong>배포(Deployment)</strong>라고 합니다.</p>
+
+<h2>클라우드 서비스 활용하기</h2>
+<p>과거에는 서버용 컴퓨터를 사고 복잡한 네트워크 설정을 해야 했지만, 지금은 Vercel, Netlify, Cloudflare Pages와 같은 무료 클라우드 호스팅 서비스를 이용해 클릭 몇 번으로 배포할 수 있습니다.</p>
+
+<ul>
+<li><strong>Github 연동:</strong> 내가 만든 코드를 Github라는 저장소에 올립니다. (이 과정 역시 AI에게 "이 코드를 Github에 올리는 법 알려줘"라고 물어보면 친절히 안내해 줍니다.)</li>
+<li><strong>자동 배포:</strong> Vercel과 같은 서비스에 Github 계정을 연결하면, 코드가 업데이트될 때마다 알아서 서버에 반영하고 접속 가능한 주소(URL)를 만들어 줍니다.</li>
+</ul>
+
+<h2>배포 시 주의할 점</h2>
+<p>배포를 할 때는 보안에 유의해야 합니다. 중요한 비밀번호나 API 키 같은 정보가 코드에 그대로 노출된 채로 배포되지 않도록 주의하세요. 바이브 코딩 과정에서 AI에게 "지금 내 코드에 보안상 위험한 부분은 없는지 점검해 줘"라고 요청하는 습관을 들이는 것이 좋습니다.</p>
+<p>이제 여러분은 코딩을 모르더라도 기획력만 있다면 세상에 없던 서비스를 만들어 낼 수 있는 힘을 가지게 되었습니다. 지금 바로 첫 바이브 코딩에 도전해 보세요!</p>`, category:"AI 활용", tags:["바이브코딩", "AI활용", "배포", "Vercel", "시리즈3"], status:"published", publishedAt: new Date(Date.now() + 120000).toISOString(), scheduledAt:null, readingMinutes:5, visual:"VIBE3", authorName:"데스크" },
 ];
 const contentQualityUpgrades:Record<string,Pick<Post,"excerpt"|"body"|"readingMinutes">>={
   "first-30-days-after-retirement":{

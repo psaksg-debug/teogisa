@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getPublishedPosts } from "../lib/repository";
 import { Brand, PortalNav, SiteFooter } from "./components/SiteChrome";
 import { MobileMenu } from "./components/MobileMenu";
+import { HeroCarousel } from "./components/HeroCarousel";
 import { ArticleThumbnail } from "./components/ArticleMedia";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "../lib/site";
 import { toolCatalog } from "../lib/portal";
@@ -67,7 +68,7 @@ export default async function Home() {
             </div>
           </div>
           <figure className="hero-project-visual">
-            <div className="hero-image-window"><img src="/project-hero-v2.jpg" width="1600" height="840" alt="퇴직 후 경험을 새로운 수입으로 연결하는 중년의 작업 장면" fetchPriority="high"/></div>
+            <HeroCarousel />
             <figcaption><span>SECOND INCOME PROJECT</span><strong>경험을 수입으로 바꾸는<br/>두 번째 시작</strong></figcaption>
             <div className="hero-visual-badge" aria-hidden="true"><b>30</b><span>DAY<br/>ACTION</span></div>
           </figure>
