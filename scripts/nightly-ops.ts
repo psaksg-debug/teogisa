@@ -15,16 +15,26 @@ function rotateTheme() {
   console.log("[Nightly Ops] 웹 디자인 테마(색상 팔레트) 순환 적용 중...");
   
   const themes = [
-    { name: "forest", primary: "#2b5c3e", secondary: "#e8f0eb" },
-    { name: "ocean", primary: "#1e3a8a", secondary: "#eff6ff" },
-    { name: "sunset", primary: "#c2410c", secondary: "#fff7ed" }
+    { name: "forest", primary: "#102d3c", secondary: "#2e6573" }, // original
+    { name: "ocean", primary: "#1e3a8a", secondary: "#0369a1" },
+    { name: "sunset", primary: "#7c2d12", secondary: "#b45309" }
   ];
   
   const selectedTheme = themes[Math.floor(Math.random() * themes.length)];
   console.log(`  - 적용된 테마: ${selectedTheme.name} (Primary: ${selectedTheme.primary})`);
   
-  // TODO: tailwind.config.ts 또는 index.css(CSS Variables) 파일 동적 업데이트
-  // 혹은 환경 변수 교체 후 Vercel 재배포 트리거
+  const fs = require('fs');
+  const path = require('path');
+  const cssPath = path.resolve(process.cwd(), 'app/globals.css');
+  try {
+    let css = fs.readFileSync(cssPath, 'utf8');
+    css = css.replace(/--navy:[^;]+;/, `--navy:${selectedTheme.primary};`);
+    css = css.replace(/--teal:[^;]+;/, `--teal:${selectedTheme.secondary};`);
+    fs.writeFileSync(cssPath, css, 'utf8');
+    console.log(`  - globals.css 테마 변수 업데이트 완료`);
+  } catch (error) {
+    console.error(`  - 테마 업데이트 실패:`, error);
+  }
 }
 
 // 3. 홍보 환경 구성

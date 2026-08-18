@@ -2,10 +2,25 @@ import { contentAgentProfiles } from '../lib/content-agents';
 import { execSync } from 'child_process';
 import { resolve } from 'path';
 
-// 1. 유튜브/웹 트렌드 키워드 추출 (예시: API 구현 필요 시 외부 라이브러리 연동)
 async function fetchTrendingKeywords(): Promise<string[]> {
-  console.log("Fetching trending keywords from YouTube/Web...");
-  // 임시 하드코딩된 트렌딩 키워드. 향후 YouTube Data API 연동으로 고도화
+  console.log("Fetching trending keywords from Google Trends...");
+  try {
+    const res = await fetch('https://trends.google.co.kr/trends/trendingsearches/daily/rss?geo=KR');
+    const text = await res.text();
+    const keywords: string[] = [];
+    const matches = text.match(/<title>([^<]+)<\/title>/g);
+    if (matches) {
+      for (const match of matches) {
+        const title = match.replace('<title>', '').replace('</title>', '');
+        if (title !== 'Daily Search Trends') {
+          keywords.push(title);
+        }
+      }
+    }
+    if (keywords.length > 0) return keywords;
+  } catch (e) {
+    console.error("Failed to fetch trends", e);
+  }
   return [
     "퇴직금 계산법 2026", 
     "실업급여 조건 최신판", 
