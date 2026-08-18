@@ -395,186 +395,37 @@ export const seedPosts: Post[] = [
 <blockquote>"그냥 회원가입을 만들어 줘가 아니라, 인증이랑 입력 검증까지 포함해서 안전하게 만들어 줘."<br>"배포하기 전에 AI한테 보안에 문제가 없는지 자동으로 한 번 점검해 줘."</blockquote></li></ul>
 <h2>마치며</h2>
 <p>AI를 활용한 코딩은 엄청난 생산성을 가져다주지만, 개발자가 보안에 대한 기본 개념을 잡고 명시적으로 안전장치를 지시하지 않으면 대형 사고로 이어질 수 있습니다. 프롬프트 딱 한 줄을 덧붙이는 것만으로도 대부분의 사고를 예방할 수 있으니, 바이브 코딩을 하실 때 위 8가지 체크리스트를 꼭 활용해 보시기 바랍니다.</p>`, category:"AI 활용", tags:["AI", "바이브코딩", "보안"], status:"published", publishedAt:"2026-08-18", scheduledAt:null, readingMinutes:5, visual:"NEW", authorName:"데스크" },
-  {
-    id: 1156,
-    title: "[자동화 테스트] 원이(가) 작성한 '중장년 유망 자격증' 분석 리포트",
-    slug: "auto-test-" + Date.now() + "-" + Math.floor(Math.random() * 1000),
-    excerpt: "이 포스팅은 자동화 파이프라인(Orchestrator)의 테스트 런에 의해 생성되었습니다.",
-    body: "<p>이 글은 <strong>원</strong> 에이전트가 <strong>'중장년 유망 자격증'</strong> 키워드를 바탕으로 작성한 테스트용 모의 포스팅입니다.</p><p>실제 운영 시 이 영역에 AI가 작성한 고품질 본문과 3장의 이미지가 삽입됩니다.</p>",
-    category: "실제 수익실험",
-    tags: ["테스트", "자동화", "AI에이전트"],
-    status: "published",
-    publishedAt: new Date().toISOString().split('T')[0],
-    scheduledAt: null,
-    readingMinutes: 3,
-    visual: "NEW",
-    authorName: "원"
-  },
-  {
-    id: 1721,
-    title: "[자동화 테스트] 가드이(가) 작성한 '실업급여 조건 최신판' 분석 리포트",
-    slug: "auto-test-" + Date.now() + "-" + Math.floor(Math.random() * 1000),
-    excerpt: "이 포스팅은 자동화 파이프라인(Orchestrator)의 테스트 런에 의해 생성되었습니다.",
-    body: "<p>이 글은 <strong>가드</strong> 에이전트가 <strong>'실업급여 조건 최신판'</strong> 키워드를 바탕으로 작성한 테스트용 모의 포스팅입니다.</p><p>실제 운영 시 이 영역에 AI가 작성한 고품질 본문과 3장의 이미지가 삽입됩니다.</p>",
-    category: "정부지원·세무",
-    tags: ["테스트", "자동화", "AI에이전트"],
-    status: "published",
-    publishedAt: new Date().toISOString().split('T')[0],
-    scheduledAt: null,
-    readingMinutes: 3,
-    visual: "NEW",
-    authorName: "가드"
-  },
-  {
-    id: 1785,
-    title: "[자동화 테스트] 툴이(가) 작성한 '중장년 유망 자격증' 분석 리포트",
-    slug: "auto-test-" + Date.now() + "-" + Math.floor(Math.random() * 1000),
-    excerpt: "이 포스팅은 자동화 파이프라인(Orchestrator)의 테스트 런에 의해 생성되었습니다.",
-    body: "<p>이 글은 <strong>툴</strong> 에이전트가 <strong>'중장년 유망 자격증'</strong> 키워드를 바탕으로 작성한 테스트용 모의 포스팅입니다.</p><p>실제 운영 시 이 영역에 AI가 작성한 고품질 본문과 3장의 이미지가 삽입됩니다.</p>",
-    category: "유용한 도구",
-    tags: ["테스트", "자동화", "AI에이전트"],
-    status: "published",
-    publishedAt: new Date().toISOString().split('T')[0],
-    scheduledAt: null,
-    readingMinutes: 3,
-    visual: "NEW",
-    authorName: "툴"
-  },
-  {
-    id: 1785,
-    title: "[자동화 테스트] 로컬이(가) 작성한 '실업급여 조건 최신판' 분석 리포트",
-    slug: "auto-test-" + Date.now() + "-" + Math.floor(Math.random() * 1000),
-    excerpt: "이 포스팅은 자동화 파이프라인(Orchestrator)의 테스트 런에 의해 생성되었습니다.",
-    body: "<p>이 글은 <strong>로컬</strong> 에이전트가 <strong>'실업급여 조건 최신판'</strong> 키워드를 바탕으로 작성한 테스트용 모의 포스팅입니다.</p><p>실제 운영 시 이 영역에 AI가 작성한 고품질 본문과 3장의 이미지가 삽입됩니다.</p>",
-    category: "지역 생활정보",
-    tags: ["테스트", "자동화", "AI에이전트"],
-    status: "published",
-    publishedAt: new Date().toISOString().split('T')[0],
-    scheduledAt: null,
-    readingMinutes: 3,
-    visual: "NEW",
-    authorName: "로컬"
-  },
-  {
-    id: 1098,
-    title: "[자동화 테스트] 케어이(가) 작성한 '퇴직금 계산법 2026' 분석 리포트",
-    slug: "auto-test-" + Date.now() + "-" + Math.floor(Math.random() * 1000),
-    excerpt: "이 포스팅은 자동화 파이프라인(Orchestrator)의 테스트 런에 의해 생성되었습니다.",
-    body: "<p>이 글은 <strong>케어</strong> 에이전트가 <strong>'퇴직금 계산법 2026'</strong> 키워드를 바탕으로 작성한 테스트용 모의 포스팅입니다.</p><p>실제 운영 시 이 영역에 AI가 작성한 고품질 본문과 3장의 이미지가 삽입됩니다.</p>",
-    category: "건강·예방",
-    tags: ["테스트", "자동화", "AI에이전트"],
-    status: "published",
-    publishedAt: new Date().toISOString().split('T')[0],
-    scheduledAt: null,
-    readingMinutes: 3,
-    visual: "NEW",
-    authorName: "케어"
-  },
-  {
-    id: 1961,
-    title: "[자동화 테스트] 큐이(가) 작성한 '국민연금 조기수령 장단점' 분석 리포트",
-    slug: "auto-test-" + Date.now() + "-" + Math.floor(Math.random() * 1000),
-    excerpt: "이 포스팅은 자동화 파이프라인(Orchestrator)의 테스트 런에 의해 생성되었습니다.",
-    body: "<p>이 글은 <strong>큐</strong> 에이전트가 <strong>'국민연금 조기수령 장단점'</strong> 키워드를 바탕으로 작성한 테스트용 모의 포스팅입니다.</p><p>실제 운영 시 이 영역에 AI가 작성한 고품질 본문과 3장의 이미지가 삽입됩니다.</p>",
-    category: "영상 큐레이션",
-    tags: ["테스트", "자동화", "AI에이전트"],
-    status: "published",
-    publishedAt: new Date().toISOString().split('T')[0],
-    scheduledAt: null,
-    readingMinutes: 3,
-    visual: "NEW",
-    authorName: "큐"
-  },
-  {
-    id: 1121,
-    title: "[자동화 테스트] 원이(가) 작성한 '실업급여 조건 최신판' 분석 리포트",
-    slug: "auto-test-" + Date.now() + "-" + Math.floor(Math.random() * 1000),
-    excerpt: "이 포스팅은 자동화 파이프라인(Orchestrator)의 테스트 런에 의해 생성되었습니다.",
-    body: "<p>이 글은 <strong>원</strong> 에이전트가 <strong>'실업급여 조건 최신판'</strong> 키워드를 바탕으로 작성한 테스트용 모의 포스팅입니다.</p><p>실제 운영 시 이 영역에 AI가 작성한 고품질 본문과 3장의 이미지가 삽입됩니다.</p>",
-    category: "실제 수익실험",
-    tags: ["테스트", "자동화", "AI에이전트"],
-    status: "published",
-    publishedAt: new Date().toISOString(),
-    scheduledAt: null,
-    readingMinutes: 3,
-    visual: "NEW",
-    authorName: "원"
-  },
-  {
-    id: 1708,
-    title: "[자동화 테스트] 가드이(가) 작성한 '퇴직금 계산법 2026' 분석 리포트",
-    slug: "auto-test-" + Date.now() + "-" + Math.floor(Math.random() * 1000),
-    excerpt: "이 포스팅은 자동화 파이프라인(Orchestrator)의 테스트 런에 의해 생성되었습니다.",
-    body: "<p>이 글은 <strong>가드</strong> 에이전트가 <strong>'퇴직금 계산법 2026'</strong> 키워드를 바탕으로 작성한 테스트용 모의 포스팅입니다.</p><p>실제 운영 시 이 영역에 AI가 작성한 고품질 본문과 3장의 이미지가 삽입됩니다.</p>",
-    category: "정부지원·세무",
-    tags: ["테스트", "자동화", "AI에이전트"],
-    status: "published",
-    publishedAt: new Date().toISOString(),
-    scheduledAt: null,
-    readingMinutes: 3,
-    visual: "NEW",
-    authorName: "가드"
-  },
-  {
-    id: 1876,
-    title: "[자동화 테스트] 툴이(가) 작성한 '퇴직금 계산법 2026' 분석 리포트",
-    slug: "auto-test-" + Date.now() + "-" + Math.floor(Math.random() * 1000),
-    excerpt: "이 포스팅은 자동화 파이프라인(Orchestrator)의 테스트 런에 의해 생성되었습니다.",
-    body: "<p>이 글은 <strong>툴</strong> 에이전트가 <strong>'퇴직금 계산법 2026'</strong> 키워드를 바탕으로 작성한 테스트용 모의 포스팅입니다.</p><p>실제 운영 시 이 영역에 AI가 작성한 고품질 본문과 3장의 이미지가 삽입됩니다.</p>",
-    category: "유용한 도구",
-    tags: ["테스트", "자동화", "AI에이전트"],
-    status: "published",
-    publishedAt: new Date().toISOString(),
-    scheduledAt: null,
-    readingMinutes: 3,
-    visual: "NEW",
-    authorName: "툴"
-  },
-  {
-    id: 1940,
-    title: "[자동화 테스트] 로컬이(가) 작성한 '실업급여 조건 최신판' 분석 리포트",
-    slug: "auto-test-" + Date.now() + "-" + Math.floor(Math.random() * 1000),
-    excerpt: "이 포스팅은 자동화 파이프라인(Orchestrator)의 테스트 런에 의해 생성되었습니다.",
-    body: "<p>이 글은 <strong>로컬</strong> 에이전트가 <strong>'실업급여 조건 최신판'</strong> 키워드를 바탕으로 작성한 테스트용 모의 포스팅입니다.</p><p>실제 운영 시 이 영역에 AI가 작성한 고품질 본문과 3장의 이미지가 삽입됩니다.</p>",
-    category: "지역 생활정보",
-    tags: ["테스트", "자동화", "AI에이전트"],
-    status: "published",
-    publishedAt: new Date().toISOString(),
-    scheduledAt: null,
-    readingMinutes: 3,
-    visual: "NEW",
-    authorName: "로컬"
-  },
-  {
-    id: 1807,
-    title: "[자동화 테스트] 케어이(가) 작성한 '중장년 유망 자격증' 분석 리포트",
-    slug: "auto-test-" + Date.now() + "-" + Math.floor(Math.random() * 1000),
-    excerpt: "이 포스팅은 자동화 파이프라인(Orchestrator)의 테스트 런에 의해 생성되었습니다.",
-    body: "<p>이 글은 <strong>케어</strong> 에이전트가 <strong>'중장년 유망 자격증'</strong> 키워드를 바탕으로 작성한 테스트용 모의 포스팅입니다.</p><p>실제 운영 시 이 영역에 AI가 작성한 고품질 본문과 3장의 이미지가 삽입됩니다.</p>",
-    category: "건강·예방",
-    tags: ["테스트", "자동화", "AI에이전트"],
-    status: "published",
-    publishedAt: new Date().toISOString(),
-    scheduledAt: null,
-    readingMinutes: 3,
-    visual: "NEW",
-    authorName: "케어"
-  },
-  {
-    id: 1818,
-    title: "[자동화 테스트] 큐이(가) 작성한 '퇴직금 계산법 2026' 분석 리포트",
-    slug: "auto-test-" + Date.now() + "-" + Math.floor(Math.random() * 1000),
-    excerpt: "이 포스팅은 자동화 파이프라인(Orchestrator)의 테스트 런에 의해 생성되었습니다.",
-    body: "<p>이 글은 <strong>큐</strong> 에이전트가 <strong>'퇴직금 계산법 2026'</strong> 키워드를 바탕으로 작성한 테스트용 모의 포스팅입니다.</p><p>실제 운영 시 이 영역에 AI가 작성한 고품질 본문과 3장의 이미지가 삽입됩니다.</p>",
-    category: "영상 큐레이션",
-    tags: ["테스트", "자동화", "AI에이전트"],
-    status: "published",
-    publishedAt: new Date().toISOString(),
-    scheduledAt: null,
-    readingMinutes: 3,
-    visual: "NEW",
-    authorName: "큐"
-  },
+  { id:2001, title:"2026년 실업급여 개정 핵심 정리: 퇴직 전 반드시 확인해야 할 3가지", slug:"2026-unemployment-benefits-revision-guide", excerpt:"2026년에 새롭게 개정된 실업급여(구직급여) 제도의 핵심 내용을 정리했습니다. 지급액 변화와 신청 요건을 퇴직 전에 미리 확인하세요.", body:`<p>2026년 실업급여(구직급여) 제도가 새롭게 개정되면서, 퇴직을 앞둔 중장년층이 반드시 알아야 할 변화들이 생겼습니다. 실업급여는 단순히 '쉬면서 받는 돈'이 아니라, 재취업을 준비하는 동안의 든든한 버팀목입니다. 오늘은 <strong>2026년 실업급여 개정의 핵심 포인트 3가지</strong>를 알기 쉽게 정리해 드립니다.</p>
+
+<figure class="article-image"><img src="/article-thumbnails/unemployment_benefits_thumbnail.jpg" alt="실업급여와 재정 지원을 상징하는 일러스트" width="800" height="800" loading="lazy" decoding="async"><figcaption>정확한 정보와 준비가 퇴직 후의 재정적 안정을 결정합니다. · AI 생성 이미지</figcaption></figure>
+
+<h2>1. 지급액과 수급 기간의 변화</h2>
+<p>가장 큰 관심사는 역시 '얼마를, 언제까지 받을 수 있는가'입니다. 2026년 개정안에서는 고용보험 가입 기간과 연령에 따른 수급 기간이 일부 조정되었습니다. 기존의 복잡했던 산정 방식을 단순화하여 수급자의 예측 가능성을 높인 것이 특징입니다. 특히 중장년층의 재취업을 장려하기 위해, 일정 기간 내 조기 재취업 시 지급되는 조기재취업수당의 비율과 조건도 함께 개편되었습니다.</p>
+
+<p>자신의 정확한 예상 수급액을 알기 위해서는 고용보험(고용24) 사이트의 모의계산기를 활용하는 것이 가장 확실합니다. 퇴직 전 3개월간의 평균 임금을 기준으로 산정되므로, 마지막 달의 급여 명세서를 꼭 보관해 두세요.</p>
+
+<figure class="article-image"><img src="/article-images/unemployment_benefits_checklist.jpg" alt="실업급여 신청 체크리스트 일러스트" width="800" height="800" loading="lazy" decoding="async"><figcaption>신청 전 필요한 서류와 요건을 꼼꼼히 체크하세요. · AI 생성 이미지</figcaption></figure>
+
+<h2>2. 강화된 구직활동 인정 기준</h2>
+<p>실업급여를 받는 동안에는 적극적인 구직활동을 증명해야 합니다. 2026년부터는 형식적인 이력서 제출을 방지하고, 실질적인 취업 준비를 돕기 위해 구직활동 인정 기준이 더욱 엄격하고 구체화되었습니다.</p>
+
+<ul>
+<li><strong>맞춤형 취업 지원 프로그램:</strong> 고용복지플러스센터에서 제공하는 연령별/직종별 취업 지원 프로그램 참여가 권장됩니다.</li>
+<li><strong>면접 확인서 의무화:</strong> 일부 직종의 경우, 면접에 참석했다는 명확한 증빙(면접 확인서 등)을 요구하는 빈도가 늘어납니다.</li>
+<li><strong>허위 구직활동 제재:</strong> 입사 의사가 없음에도 면접에 불참하거나 취업을 거절할 경우, 구직급여 지급이 중단될 수 있습니다.</li>
+</ul>
+
+<p>단순히 횟수를 채우기보다는 내일배움카드를 활용한 직업 훈련 등 실질적인 역량 강화에 집중하는 것이 장기적으로 유리합니다.</p>
+
+<h2>3. 퇴직 사유와 이직확인서 처리 기한</h2>
+<p>실업급여는 원칙적으로 '비자발적 퇴사'일 경우에만 지급됩니다. 정년퇴직, 계약기간 만료, 권고사직, 경영상 해고 등이 이에 해당합니다. 스스로 사표를 쓴 자발적 퇴사의 경우 원칙적으로 수급이 불가능하지만, 질병이나 통근 곤란 등 정당한 사유가 인정되면 예외적으로 가능합니다.</p>
+
+<p>여기서 놓치기 쉬운 것이 <strong>'이직확인서'</strong>입니다. 퇴직 후 회사가 고용센터에 이직확인서를 제출해야만 실업급여 산정이 시작됩니다. 2026년 기준, 근로자가 이직확인서 발급을 요청하면 사업주는 법정 기한 내에 의무적으로 처리해야 합니다. 퇴사 시 인사담당자에게 이직확인서 처리 일정을 반드시 확인하고 확답을 받아두세요.</p>
+
+<figure class="article-image"><img src="/article-images/unemployment_benefits_graph.jpg" alt="안정적인 재무 성장을 보여주는 그래프와 다리 일러스트" width="800" height="800" loading="lazy" decoding="async"><figcaption>퇴직은 끝이 아니라 새로운 도약을 위한 다리입니다. · AI 생성 이미지</figcaption></figure>
+
+<h2>마치며: 준비된 자에게 퇴직은 기회입니다</h2>
+<p>실업급여는 평생 낸 고용보험료를 바탕으로 한 정당한 권리입니다. 2026년 바뀐 제도를 정확히 이해하고, 서류 하나, 일정 하나 꼼꼼히 챙겨서 재취업을 위한 든든한 도약판으로 삼으시길 바랍니다. 지금 바로 고용24 홈페이지에 접속하여 본인의 예상 수급액과 자격을 확인해 보세요!</p>`, category:"정부지원·실업급여", tags:["실업급여","2026년개정","구직급여","고용보험","이직확인서"], status:"published", publishedAt: new Date().toISOString(), scheduledAt:null, readingMinutes:5, visual:"2026", authorName:"가드" },
 ];
 const contentQualityUpgrades:Record<string,Pick<Post,"excerpt"|"body"|"readingMinutes">>={
   "first-30-days-after-retirement":{
