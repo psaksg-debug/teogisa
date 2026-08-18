@@ -30,10 +30,15 @@ async function orchestrateContent() {
     console.log(`  - 작성 모듈(generate_post.ts) 호출 중...`);
     
     try {
-      // 실제 콘텐츠 생성 스크립트 호출 (이후 generate_post.ts 에서 LLM 및 DALL-E 호출)
-      // 현재는 테스트를 위해 호출을 시뮬레이션 하거나 간단히 로그만 남깁니다.
+      // 실제 콘텐츠 생성 스크립트 호출
       execSync(`npx tsx scripts/generate_post.ts "${agent.id}" "${targetKeyword}"`, { stdio: 'inherit' });
       console.log(`  - 작업 완료!`);
+      
+      // 배포 시간이 겹치지 않도록 에이전트 사이에 2분(120,000ms) ~ 5분(300,000ms)의 랜덤 딜레이를 줍니다.
+      const delayMs = Math.floor(Math.random() * 180000) + 120000;
+      console.log(`  - 다음 에이전트 작업 전 ${Math.round(delayMs/1000)}초 대기 중...`);
+      await new Promise(resolve => setTimeout(resolve, delayMs));
+      
     } catch (error) {
       console.error(`  - 작업 실패:`, error);
     }

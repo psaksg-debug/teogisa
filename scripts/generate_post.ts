@@ -38,7 +38,7 @@ async function generate() {
     category: "${agent!.category}",
     tags: ["테스트", "자동화", "AI에이전트"],
     status: "published",
-    publishedAt: new Date().toISOString().split('T')[0],
+    publishedAt: new Date().toISOString(),
     scheduledAt: null,
     readingMinutes: 3,
     visual: "NEW",
