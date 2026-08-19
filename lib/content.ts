@@ -464,6 +464,21 @@ export const seedPosts: Post[] = [
 <h2>배포 시 주의할 점</h2>
 <p>배포를 할 때는 보안에 유의해야 합니다. 중요한 비밀번호나 API 키 같은 정보가 코드에 그대로 노출된 채로 배포되지 않도록 주의하세요. 바이브 코딩 과정에서 AI에게 "지금 내 코드에 보안상 위험한 부분은 없는지 점검해 줘"라고 요청하는 습관을 들이는 것이 좋습니다.</p>
 <p>이제 여러분은 코딩을 모르더라도 기획력만 있다면 세상에 없던 서비스를 만들어 낼 수 있는 힘을 가지게 되었습니다. 지금 바로 첫 바이브 코딩에 도전해 보세요!</p>`, category:"AI 활용", tags:["바이브코딩", "AI활용", "배포", "Vercel", "시리즈3"], status:"published", publishedAt: new Date(Date.now() + 120000).toISOString(), scheduledAt:null, readingMinutes:5, visual:"VIBE3", authorName:"데스크" },
+  {
+    id: 1132,
+    title: "[자동화 테스트] 원이(가) 작성한 '404' 분석 리포트",
+    slug: "auto-test-" + Date.now() + "-" + Math.floor(Math.random() * 1000),
+    excerpt: "이 포스팅은 자동화 파이프라인(Orchestrator)의 테스트 런에 의해 생성되었습니다.",
+    body: "<p>이 글은 <strong>원</strong> 에이전트가 <strong>'404'</strong> 키워드를 바탕으로 작성한 테스트용 모의 포스팅입니다.</p><p>실제 운영 시 이 영역에 AI가 작성한 고품질 본문과 3장의 이미지가 삽입됩니다.</p>",
+    category: "실제 수익실험",
+    tags: ["테스트", "자동화", "AI에이전트"],
+    status: "published",
+    publishedAt: new Date().toISOString(),
+    scheduledAt: null,
+    readingMinutes: 3,
+    visual: "NEW",
+    authorName: "원"
+  },
 ];
 const contentQualityUpgrades:Record<string,Pick<Post,"excerpt"|"body"|"readingMinutes">>={
   "first-30-days-after-retirement":{
