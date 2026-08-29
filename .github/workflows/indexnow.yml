@@ -9,6 +9,11 @@ on:
     paths:
       - "lib/content.ts"
   workflow_dispatch:
+    inputs:
+      base:
+        description: "비교 기준 커밋 (비우면 HEAD~1). 과거 글을 다시 제출할 때 씁니다."
+        required: false
+        default: ""
 
 permissions:
   contents: read
@@ -33,7 +38,8 @@ jobs:
         env:
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
         run: |
-          base="${{ github.event.before }}"
+          base="${{ inputs.base }}"
+          if [ -z "$base" ]; then base="${{ github.event.before }}"; fi
           if [ -z "$base" ] || [ "$base" = "0000000000000000000000000000000000000000" ]; then
             base="HEAD~1"
           fi
