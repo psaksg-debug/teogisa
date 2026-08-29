@@ -1,0 +1,41 @@
+name: Scheduled publish
+
+# 예약된 글(status:"scheduled")을 정해진 시각에 발행 상태로 바꾸고 커밋합니다.
+# 푸시되면 Vercel이 자동으로 배포합니다.
+on:
+  schedule:
+    - cron: "0 21 * * *" # 06:00 KST
+    - cron: "0 9 * * *"  # 18:00 KST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scheduled-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Publish due posts
+        run: node scripts/publish-due-posts.mjs
+
+      - name: Commit and push if content changed
+        run: |
+          if git diff --quiet -- lib/content.ts; then
+            echo "발행할 예약 글이 없습니다."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lib/content.ts
+          git commit -m "chore: publish due scheduled posts"
+          git push
