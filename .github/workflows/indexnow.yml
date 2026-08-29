@@ -1,0 +1,40 @@
+name: IndexNow ping
+
+# main에 글이 추가·수정되면 해당 URL만 IndexNow(네이버·Bing·IndexNow.org)에 제출합니다.
+# 참고: GITHUB_TOKEN으로 밀어넣은 푸시는 워크플로를 다시 트리거하지 않으므로,
+# 예약 발행 경로는 scheduled-publish.yml 안에서 직접 같은 스크립트를 호출합니다.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "lib/content.ts"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Ping IndexNow for changed posts
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        run: |
+          base="${{ github.event.before }}"
+          if [ -z "$base" ] || [ "$base" = "0000000000000000000000000000000000000000" ]; then
+            base="HEAD~1"
+          fi
+          node scripts/ping-indexnow.mjs --base "$base" --head "${{ github.sha }}"
