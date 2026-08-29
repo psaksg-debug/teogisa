@@ -9,7 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "npm run build && node --test tests/rendered-html.test.mjs tests/publish-due-posts.test.mjs",
+    "test": "npm run build && node --test tests/rendered-html.test.mjs tests/publish-due-posts.test.mjs tests/ping-indexnow.test.mjs",
     "release:check": "git diff --check && npm test",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "seo:audit": "node scripts/seo-audit.mjs",
