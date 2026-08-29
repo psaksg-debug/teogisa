@@ -233,6 +233,22 @@ test("keeps every generated URL on one canonical apex host", async () => {
   assert.doesNotMatch(nextConfig, /www\.adbles\.com/);
 });
 
+// 한글 지역명을 generateStaticParams에 그대로 넘기면 빌드 산출물의 경로와 런타임
+// 요청 경로가 어긋나 /local/* 전체가 404가 된다(실제로 서울·부산·인천이 그랬다).
+// 파라미터는 인코딩해서 넘기고, 조회할 때 디코딩해서 맞춘다.
+test("keeps regional /local routes reachable with encoded Korean params", async () => {
+  const page = await readFile(new URL("../app/local/[region]/[topic]/page.tsx", import.meta.url), "utf8");
+  assert.match(page, /generateStaticParams\(\)\{return liveKeywordPages\.map\(item=>\(\{region:encodeURIComponent\(item\.region\),topic:encodeURIComponent\(item\.topic\)\}\)\)/);
+  assert.match(page, /function safeDecode/);
+  assert.match(page, /findPage\(region:string,topic:string\)\{const r=safeDecode\(region\);const t=safeDecode\(topic\)/);
+
+  // 경로에는 이미 인코딩된 params를 그대로 써야 한다. 다시 인코딩하면 %25가 붙는다.
+  assert.doesNotMatch(page, /\/local\/\$\{encodeURIComponent\(region\)\}/);
+  // 화면에 보이는 지역명은 디코딩한 값이어야 한다.
+  assert.match(page, /const regionName=safeDecode\(region\)/);
+  assert.doesNotMatch(page, /<h2>\{region\}에서/);
+});
+
 test("serves the Naver verification file at its exact public path", async () => {
   const [worker, verification] = await Promise.all([
     readFile(new URL("../worker/index.ts", import.meta.url), "utf8"),
