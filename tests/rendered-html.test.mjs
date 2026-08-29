@@ -233,20 +233,34 @@ test("keeps every generated URL on one canonical apex host", async () => {
   assert.doesNotMatch(nextConfig, /www\.adbles\.com/);
 });
 
-// 한글 지역명을 generateStaticParams에 그대로 넘기면 빌드 산출물의 경로와 런타임
-// 요청 경로가 어긋나 /local/* 전체가 404가 된다(실제로 서울·부산·인천이 그랬다).
-// 파라미터는 인코딩해서 넘기고, 조회할 때 디코딩해서 맞춘다.
-test("keeps regional /local routes reachable with encoded Korean params", async () => {
-  const page = await readFile(new URL("../app/local/[region]/[topic]/page.tsx", import.meta.url), "utf8");
-  assert.match(page, /generateStaticParams\(\)\{return liveKeywordPages\.map\(item=>\(\{region:encodeURIComponent\(item\.region\),topic:encodeURIComponent\(item\.topic\)\}\)\)/);
-  assert.match(page, /function safeDecode/);
-  assert.match(page, /findPage\(region:string,topic:string\)\{const r=safeDecode\(region\);const t=safeDecode\(topic\)/);
+// /local/* 세그먼트에 한글을 쓰면 빌드 시점과 런타임의 퍼센트 인코딩 단계가
+// 어긋나 라우트 매칭이 실패한다(서울·부산·인천이 실제로 전부 404였다).
+// Vercel 빌드에서는 이중 인코딩까지 겹쳤다. URL은 ASCII slug로만 만든다.
+test("keeps regional /local routes on ASCII slugs", async () => {
+  const [page, portal, lab] = await Promise.all([
+    readFile(new URL("../app/local/[region]/[topic]/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../lib/portal.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/keyword-lab/page.tsx", import.meta.url), "utf8"),
+  ]);
 
-  // 경로에는 이미 인코딩된 params를 그대로 써야 한다. 다시 인코딩하면 %25가 붙는다.
-  assert.doesNotMatch(page, /\/local\/\$\{encodeURIComponent\(region\)\}/);
-  // 화면에 보이는 지역명은 디코딩한 값이어야 한다.
-  assert.match(page, /const regionName=safeDecode\(region\)/);
-  assert.doesNotMatch(page, /<h2>\{region\}에서/);
+  // slug와 topic은 ASCII여야 한다.
+  const entries = [...portal.matchAll(/\{ slug:"([^"]+)", topic:"([^"]+)"/g)];
+  assert.ok(entries.length >= 4, "지역 항목이 있어야 한다");
+  for (const [, slug, topic] of entries) {
+    assert.match(slug, /^[a-z0-9-]+$/, `slug가 ASCII가 아니다: ${slug}`);
+    assert.match(topic, /^[a-z0-9-]+$/, `topic이 ASCII가 아니다: ${topic}`);
+  }
+
+  // 조회도 링크도 slug 기준이어야 한다. 인코딩에 기대면 안 된다.
+  assert.match(page, /generateStaticParams\(\)\{return liveKeywordPages\.map\(item=>\(\{region:item\.slug,topic:item\.topic\}\)\)/);
+  assert.match(page, /liveKeywordPages\.find\(item=>item\.slug===region&&item\.topic===topic\)/);
+  assert.doesNotMatch(page, /encodeURIComponent/);
+  assert.doesNotMatch(page, /decodeURIComponent/);
+  assert.match(lab, /href=\{`\/local\/\$\{page\.slug\}\/\$\{page\.topic\}`\}/);
+  assert.doesNotMatch(lab, /encodeURIComponent\(page\.region\)/);
+
+  // 화면에 보이는 지역명은 데이터의 한글 표시명을 쓴다.
+  assert.match(page, /const regionName=page\.region/);
 });
 
 test("serves the Naver verification file at its exact public path", async () => {

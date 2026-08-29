@@ -72,9 +72,12 @@ export const healthTopics = [
   ["마음건강", "우울감이 지속되거나 일상 기능이 떨어지면 전문기관의 도움을 받습니다.", "https://www.mentalhealth.go.kr/"],
 ] as const;
 
+// URL에 쓰는 slug·topic은 반드시 ASCII로 둔다. 한글을 그대로 쓰면 빌드 시점과
+// 런타임의 퍼센트 인코딩 단계가 어긋나 /local/* 전체가 404가 된다.
+// 화면에 보이는 이름은 region·topicLabel을 쓴다.
 export const liveKeywordPages = [
-  { region:"서울", topic:"중장년-일자리", label:"서울 중장년 일자리 찾기" },
-  { region:"부산", topic:"퇴직-지원금", label:"부산 퇴직자 지원금 확인" },
-  { region:"인천", topic:"온라인-부업", label:"인천에서 시작하는 온라인 부업" },
-  { region:"천안", topic:"중장년-일자리", label:"천안 중장년 일자리 찾기" },
+  { slug:"seoul", topic:"midlife-jobs", region:"서울", topicLabel:"중장년 일자리", label:"서울 중장년 일자리 찾기" },
+  { slug:"busan", topic:"retirement-support", region:"부산", topicLabel:"퇴직 지원금", label:"부산 퇴직자 지원금 확인" },
+  { slug:"incheon", topic:"online-side-job", region:"인천", topicLabel:"온라인 부업", label:"인천에서 시작하는 온라인 부업" },
+  { slug:"cheonan", topic:"midlife-jobs", region:"천안", topicLabel:"중장년 일자리", label:"천안 중장년 일자리 찾기" },
 ] as const;
