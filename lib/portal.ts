@@ -76,4 +76,5 @@ export const liveKeywordPages = [
   { region:"서울", topic:"중장년-일자리", label:"서울 중장년 일자리 찾기" },
   { region:"부산", topic:"퇴직-지원금", label:"부산 퇴직자 지원금 확인" },
   { region:"인천", topic:"온라인-부업", label:"인천에서 시작하는 온라인 부업" },
+  { region:"천안", topic:"중장년-일자리", label:"천안 중장년 일자리 찾기" },
 ] as const;
