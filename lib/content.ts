@@ -425,7 +425,7 @@ export const seedPosts: Post[] = [
 <figure class="article-image"><img src="/article-images/unemployment_benefits_graph.jpg" alt="안정적인 재무 성장을 보여주는 그래프와 다리 일러스트" width="800" height="800" loading="lazy" decoding="async"><figcaption>퇴직은 끝이 아니라 새로운 도약을 위한 다리입니다. · AI 생성 이미지</figcaption></figure>
 
 <h2>마치며: 준비된 자에게 퇴직은 기회입니다</h2>
-<p>실업급여는 평생 낸 고용보험료를 바탕으로 한 정당한 권리입니다. 2026년 바뀐 제도를 정확히 이해하고, 서류 하나, 일정 하나 꼼꼼히 챙겨서 재취업을 위한 든든한 도약판으로 삼으시길 바랍니다. 지금 바로 고용24 홈페이지에 접속하여 본인의 예상 수급액과 자격을 확인해 보세요!</p>`, category:"정부지원·실업급여", tags:["실업급여","2026년개정","구직급여","고용보험","이직확인서"], status:"published", publishedAt: new Date().toISOString(), scheduledAt:null, readingMinutes:5, visual:"2026", authorName:"가드" },
+<p>실업급여는 평생 낸 고용보험료를 바탕으로 한 정당한 권리입니다. 2026년 바뀐 제도를 정확히 이해하고, 서류 하나, 일정 하나 꼼꼼히 챙겨서 재취업을 위한 든든한 도약판으로 삼으시길 바랍니다. 지금 바로 고용24 홈페이지에 접속하여 본인의 예상 수급액과 자격을 확인해 보세요!</p>`, category:"정부지원·실업급여", tags:["실업급여","2026년개정","구직급여","고용보험","이직확인서"], status:"published", publishedAt:"2026-08-18", scheduledAt:null, readingMinutes:5, visual:"2026", authorName:"가드" },
   { id:2002, title:"바이브 코딩 입문 1: 프롬프트 하나로 시작하는 첫 개발", slug:"vibe-coding-basics-1", excerpt:"코딩을 몰라도 AI와 대화하며 도구를 만들 수 있습니다. 바이브 코딩의 개념, 잘 되는 것과 어려운 것의 경계, 첫 지시문에 담을 네 가지를 정리했습니다.", body:`<p>과거에는 프로그래밍을 하려면 복잡한 문법과 영문 명령어를 수개월간 외우고 공부해야 했습니다. 하지만 이제는 일상적인 '대화'만으로도 컴퓨터에게 일을 시키고 프로그램을 만들 수 있는 시대가 왔습니다. 이를 <strong>'바이브 코딩(Vibe Coding)'</strong>이라고 부릅니다.</p>
 
 <h2>바이브 코딩이란?</h2>
@@ -469,7 +469,7 @@ export const seedPosts: Post[] = [
 <h2>다음 편에서는</h2>
 <p>바이브 코딩은 완벽한 코드를 한 번에 짜는 것이 아니라, AI가 만들어준 결과물을 보고 다시 대화하며 조금씩 다듬어가는 '핑퐁 게임'과 같습니다. <a href="/posts/vibe-coding-basics-2">2편</a>에서는 그 대화를 어떻게 이어가야 원하는 결과에 빨리 닿는지 다룹니다. 도구를 아직 못 정했다면 <a href="/posts/vibe-coding-basics-4">4편 도구 선택</a>을 먼저 봐도 됩니다.</p>
 
-<p>이 글은 바이브 코딩의 개념과 시작 방법을 정리한 것으로 특정 도구나 결과를 보장하지 않습니다. AI가 만든 코드는 그대로 신뢰하지 말고 <a href="/posts/vibe-coding-risks-8-things">AI 코딩 시 반드시 알아야 할 8가지 치명적 위험</a>을 함께 확인하시기 바랍니다.</p>`, category:"AI 활용", tags:["바이브코딩", "AI활용", "노코드", "프롬프트", "시리즈1"], status:"published", publishedAt: new Date().toISOString(), scheduledAt:null, readingMinutes:7, visual:"VIBE1", authorName:"데스크" },
+<p>이 글은 바이브 코딩의 개념과 시작 방법을 정리한 것으로 특정 도구나 결과를 보장하지 않습니다. AI가 만든 코드는 그대로 신뢰하지 말고 <a href="/posts/vibe-coding-risks-8-things">AI 코딩 시 반드시 알아야 할 8가지 치명적 위험</a>을 함께 확인하시기 바랍니다.</p>`, category:"AI 활용", tags:["바이브코딩", "AI활용", "노코드", "프롬프트", "시리즈1"], status:"published", publishedAt:"2026-08-18", scheduledAt:null, readingMinutes:7, visual:"VIBE1", authorName:"데스크" },
   { id:2003, title:"바이브 코딩 입문 2: AI와 소통하는 '핑퐁' 대화법", slug:"vibe-coding-basics-2", excerpt:"한 번의 지시로 완벽을 기대하면 실패합니다. 한 번에 하나씩 바꾸는 점진적 대화법, 막연한 지시를 고쳐 쓰는 법, 맥락을 유지하고 되돌리는 요령을 정리했습니다.", body:`<p>이전 글에서 바이브 코딩의 기본 개념을 알아보았습니다. 이번에는 AI가 내가 원하는 결과물을 정확히 만들어 내도록 이끄는 <strong>대화의 기술(Prompting)</strong>에 대해 다뤄보겠습니다.</p>
 
 <h2>완벽을 기대하지 말고 '점진적으로'</h2>
@@ -516,7 +516,7 @@ export const seedPosts: Post[] = [
 <h2>다음 편에서는</h2>
 <p>대화로 원하는 화면을 만들었다면, 이제 그것을 내 컴퓨터 밖으로 꺼낼 차례입니다. <a href="/posts/vibe-coding-basics-3">3편</a>에서 배포를 다룹니다.</p>
 
-<p>이 글은 AI와의 대화 방법을 정리한 것으로 특정 도구의 동작이나 결과를 보장하지 않습니다. 도구마다 화면과 용어가 다르므로 각 서비스의 공식 안내를 함께 확인하시기 바랍니다.</p>`, category:"AI 활용", tags:["바이브코딩", "AI활용", "프롬프트엔지니어링", "시리즈2"], status:"published", publishedAt: new Date(Date.now() + 60000).toISOString(), scheduledAt:null, readingMinutes:7, visual:"VIBE2", authorName:"데스크" },
+<p>이 글은 AI와의 대화 방법을 정리한 것으로 특정 도구의 동작이나 결과를 보장하지 않습니다. 도구마다 화면과 용어가 다르므로 각 서비스의 공식 안내를 함께 확인하시기 바랍니다.</p>`, category:"AI 활용", tags:["바이브코딩", "AI활용", "프롬프트엔지니어링", "시리즈2"], status:"published", publishedAt:"2026-08-18", scheduledAt:null, readingMinutes:7, visual:"VIBE2", authorName:"데스크" },
   { id:2004, title:"바이브 코딩 입문 3: 내가 만든 도구 웹에 배포하기", slug:"vibe-coding-basics-3", excerpt:"내 컴퓨터에서만 돌던 결과물을 인터넷에 올리는 순서. 도구 내장 배포와 Github 연동 배포의 차이, 배포 전 보안 점검 4단계, 비용이 생기는 지점을 정리했습니다.", body:`<p>바이브 코딩을 통해 결과물을 만들었다면, 이제 다른 사람이 볼 수 있게 할 차례입니다. 내 컴퓨터(로컬)에서만 작동하던 코드를 인터넷 서버에 올려 누구나 접속할 수 있게 하는 과정을 <strong>배포(Deployment)</strong>라고 합니다.</p>
 
 <h2>클라우드 서비스 활용하기</h2>
@@ -568,22 +568,7 @@ export const seedPosts: Post[] = [
 <h2>다음 편에서는</h2>
 <p>이제 코딩을 모르더라도 기획력만 있다면 자신만의 도구를 만들어 인터넷에 올릴 수 있게 되었습니다. <a href="/posts/vibe-coding-basics-6">6편</a>에서는 그것을 남이 실제로 쓰게 만드는 방법 — 공개 전 점검표와 첫 사용자 열 명을 찾는 순서를 다룹니다.</p>
 
-<p>이 글은 배포의 일반적인 절차를 정리한 것으로 특정 서비스나 결과를 보장하지 않습니다. 각 호스팅 서비스의 기능·요금·무료 한도는 수시로 바뀌므로 공식 안내를 확인하시기 바랍니다.</p>`, category:"AI 활용", tags:["바이브코딩", "AI활용", "배포", "Vercel", "시리즈3"], status:"published", publishedAt: new Date(Date.now() + 120000).toISOString(), scheduledAt:null, readingMinutes:7, visual:"VIBE3", authorName:"데스크" },
-  {
-    id: 1132,
-    title: "[자동화 테스트] 원이(가) 작성한 '404' 분석 리포트",
-    slug: "auto-test-" + Date.now() + "-" + Math.floor(Math.random() * 1000),
-    excerpt: "이 포스팅은 자동화 파이프라인(Orchestrator)의 테스트 런에 의해 생성되었습니다.",
-    body: "<p>이 글은 <strong>원</strong> 에이전트가 <strong>'404'</strong> 키워드를 바탕으로 작성한 테스트용 모의 포스팅입니다.</p><p>실제 운영 시 이 영역에 AI가 작성한 고품질 본문과 3장의 이미지가 삽입됩니다.</p>",
-    category: "실제 수익실험",
-    tags: ["테스트", "자동화", "AI에이전트"],
-    status: "published",
-    publishedAt: new Date().toISOString(),
-    scheduledAt: null,
-    readingMinutes: 3,
-    visual: "NEW",
-    authorName: "원"
-  },
+<p>이 글은 배포의 일반적인 절차를 정리한 것으로 특정 서비스나 결과를 보장하지 않습니다. 각 호스팅 서비스의 기능·요금·무료 한도는 수시로 바뀌므로 공식 안내를 확인하시기 바랍니다.</p>`, category:"AI 활용", tags:["바이브코딩", "AI활용", "배포", "Vercel", "시리즈3"], status:"published", publishedAt:"2026-08-18", scheduledAt:null, readingMinutes:7, visual:"VIBE3", authorName:"데스크" },
   { id:2101, title:"퇴직 후 건강보험료가 오르는 이유와 임의계속가입 확인 순서", slug:"post-retirement-health-insurance-voluntary-continuation", excerpt:"퇴직하면 지역가입자로 바뀌면서 보험료를 전액 부담하게 됩니다. 임의계속가입과 피부양자 등재를 비교하는 순서와 놓치기 쉬운 신청 기한을 정리했습니다.", body:`<p><strong>퇴직 다음 달에 예상하지 못한 건강보험료 고지서를 받는 일이 흔합니다.</strong> 직장에 다닐 때는 보험료의 절반을 회사가 부담했지만, 퇴직하면 지역가입자로 자격이 바뀌면서 소득뿐 아니라 재산과 자동차까지 반영된 보험료를 본인이 전액 내야 합니다. 소득이 끊긴 시점에 보험료가 오히려 올라가는 상황이 생기는 이유입니다. 부담을 줄이는 장치로 임의계속가입과 피부양자 등재가 있고, 두 가지 모두 신청할 수 있는 기간이 정해져 있습니다.</p>
 
 <h2>퇴직하면 자격이 이렇게 바뀝니다</h2>
