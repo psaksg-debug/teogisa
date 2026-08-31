@@ -263,6 +263,34 @@ test("keeps regional /local routes on ASCII slugs", async () => {
   assert.match(page, /const regionName=page\.region/);
 });
 
+// 바이브 코딩 시리즈는 편 수가 늘어나므로 본문에 목차를 손으로 박아 넣지 않는다.
+// 시리즈 태그(시리즈N)로 순서를 만들고 SeriesNav가 자동으로 렌더한다.
+test("links every vibe coding part through the shared series nav", async () => {
+  const [content, nav, article, css] = await Promise.all([
+    readFile(new URL("../lib/content.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/SeriesNav.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/posts/[slug]/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  ]);
+
+  // 시리즈 편들이 빠짐없이 연속된 번호를 갖는지 확인한다.
+  const parts = [];
+  for (const entry of content.matchAll(/\n {2}\{ id:\d+,[^\n]*?slug:"(vibe-coding-basics-\d+)"[\s\S]*?tags:\[([^\]]*)\]/g)) {
+    const part = entry[2].match(/시리즈(\d+)/);
+    assert.ok(part, `${entry[1]}에 시리즈 태그가 없다`);
+    assert.match(entry[2], /"바이브코딩"/, `${entry[1]}에 바이브코딩 태그가 없다`);
+    parts.push(Number(part[1]));
+  }
+  assert.ok(parts.length >= 7, "시리즈가 7편 이상이어야 한다");
+  assert.deepEqual([...parts].sort((a, b) => a - b), Array.from({ length: parts.length }, (_, i) => i + 1));
+
+  // SeriesNav가 태그로 순서를 만들고 기사 페이지가 실제로 렌더해야 한다.
+  assert.match(nav, /\^시리즈\(\\d\+\)\$/);
+  assert.match(nav, /post\.tags\.includes\(SERIES_TAG\)/);
+  assert.match(article, /<SeriesNav post=\{post\}\/>/);
+  assert.match(css, /\.series-nav\{/);
+});
+
 test("serves the Naver verification file at its exact public path", async () => {
   const [worker, verification] = await Promise.all([
     readFile(new URL("../worker/index.ts", import.meta.url), "utf8"),

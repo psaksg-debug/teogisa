@@ -908,3 +908,16 @@ button:not(:disabled),[role="button"],summary{cursor:pointer}
 .admin-item-delete { color: #c5221f; border: 0; background: transparent; padding: 4px 8px; font-size: 12px; cursor: pointer; border-radius: 4px; margin-left: auto; }
 .admin-item-delete:hover { background: #fce8e6; }
 @media(max-width:900px){ .subagent-log-card { grid-template-columns: 70px 1fr auto; } .subagent-log-card .log-time, .subagent-log-card .log-team { display: none; } }
+
+/* 시리즈 내비게이션: 같은 주제의 글 사이를 순서대로 이동한다 */
+.series-nav{margin:44px 0 0;padding:26px 24px;border:1px solid var(--line);background:#fbfdfc}
+.series-nav h2{margin:6px 0 16px;font:700 19px/1.4 "Noto Serif KR",serif;letter-spacing:-.03em}
+.series-nav ol{margin:0;padding:0;list-style:none;counter-reset:none}
+.series-nav li{display:grid;grid-template-columns:44px minmax(0,1fr);align-items:baseline;gap:10px;padding:9px 0;border-top:1px solid #e7efeb}
+.series-nav li:first-child{border-top:0}
+.series-nav li>span{color:var(--orange);font:800 11px/1.5 ui-monospace,monospace}
+.series-nav li>strong{color:var(--navy);font-weight:750;word-break:keep-all}
+.series-nav li[aria-current="page"]{background:#f1f6f3;margin:0 -10px;padding:9px 10px}
+.series-nav a{color:var(--teal);font-weight:650;word-break:keep-all}
+.series-nav a:hover{text-decoration:underline}
+.series-nav-companion{margin:16px 0 0;padding-top:14px;border-top:1px solid #e7efeb;color:#60747c;font-size:13px}
