@@ -702,3 +702,29 @@ test("썸네일은 해시가 아니라 글 주제로 후보군을 골라 배정�
     assert.ok(ruleCategories.has(category), `"${category}" 카테고리에 맞는 썸네일 규칙이 없습니다.`);
   }
 });
+
+test("발행 정보는 런타임에 계산하지 않고 고정값으로 둔다", async () => {
+  const content = await readFile(new URL("../lib/content.ts", import.meta.url), "utf8");
+
+  // publishedAt에 new Date()를 쓰면 그 글이 영원히 '오늘 발행'이 되어 홈 상단을
+  // 독점하고, 사이트맵 lastmod가 빌드마다 바뀐다. slug에 Date.now()/random을
+  // 쓰면 URL이 매번 달라져 색인도 링크도 불가능해진다. scripts/generate_post.ts가
+  // 정확히 이 모양의 항목을 주입하므로 되살아나면 여기서 잡는다.
+  const seedStart = content.indexOf("export const seedPosts");
+  assert.ok(seedStart !== -1);
+  const seed = content.slice(seedStart);
+  assert.doesNotMatch(seed, /publishedAt:\s*new Date\(/);
+  assert.doesNotMatch(seed, /slug:\s*"[^"]*"\s*\+/);
+  assert.doesNotMatch(seed, /Date\.now\(\)|Math\.random\(\)/);
+
+  // 발행일은 모두 YYYY-MM-DD 문자열이어야 한다.
+  const publishedDates = [...seed.matchAll(/publishedAt:\s*("[^"]*")/g)].map((match) => match[1]);
+  assert.ok(publishedDates.length > 30, `발행일을 ${publishedDates.length}개만 찾았습니다.`);
+  for (const value of publishedDates) {
+    assert.match(value, /^"\d{4}-\d{2}-\d{2}"$/, `발행일 형식이 아닙니다: ${value}`);
+  }
+
+  // 테스트용 모의 글이 공개 상태로 남아 있으면 안 된다.
+  assert.doesNotMatch(seed, /\[자동화 테스트\]/);
+  assert.doesNotMatch(seed, /테스트 런에 의해 생성/);
+});
