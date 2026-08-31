@@ -104,7 +104,16 @@ test("renders the finished Korean content site", async () => {
   assert.match(enrichment, /퇴직 후 건강보험 가입 유형을 확인하는 중장년 부부 일러스트/);
   assert.match(content, /proshot-mobile-id-studio-photo-guide/);
   assert.match(content, /ProShot은 현재 무료로 이용할 수 있습니다/);
-  assert.doesNotMatch(content, /990원|2,000원/);
+  // 옛 유료 요금이 되살아나지 않는지 확인한다. ProShot 항목에만 적용해야 한다 —
+  // 파일 전체에 걸면 "395만 2,000원" 같은 정상적인 금액 표기까지 걸린다.
+  {
+    const start = content.indexOf('slug:"proshot-mobile-id-studio-photo-guide"');
+    assert.ok(start !== -1);
+    const entryStart = content.lastIndexOf("\n  { id:", start);
+    const entryEnd = content.indexOf("\n  { id:", start);
+    const proshotEntry = content.slice(entryStart, entryEnd === -1 ? content.length : entryEnd);
+    assert.doesNotMatch(proshotEntry, /990원|2,000원/);
+  }
   assert.match(content, /ProShot에 업로드하기 전 휴대폰 정면 셀카 예시/);
   assert.match(content, /ProShot으로 생성한 정장 차림의 스튜디오 비즈니스 프로필 사진 예시/);
   assert.match(content, /retirement-pay-irp-five-checks-before-withdrawal/);
