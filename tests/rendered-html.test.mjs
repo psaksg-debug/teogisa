@@ -728,3 +728,35 @@ test("발행 정보는 런타임에 계산하지 않고 고정값으로 둔다",
   assert.doesNotMatch(seed, /\[자동화 테스트\]/);
   assert.doesNotMatch(seed, /테스트 런에 의해 생성/);
 });
+
+test("정보 사이트맵을 별도 제출할 수 있게 노출한다", async () => {
+  const [route, robots, content] = await Promise.all([
+    readFile(new URL("../app/info/sitemap-info.xml/route.ts", import.meta.url), "utf8"),
+    readFile(new URL("../public/robots.txt", import.meta.url), "utf8"),
+    readFile(new URL("../lib/content.ts", import.meta.url), "utf8"),
+  ]);
+
+  // 검색엔진이 스스로 찾을 수 있어야 한다.
+  assert.match(robots, /^Sitemap: https:\/\/adbles\.com\/sitemap\.xml$/m);
+  assert.match(robots, /^Sitemap: https:\/\/adbles\.com\/info\/sitemap-info\.xml$/m);
+
+  // 사이트맵 규격: XML 선언, urlset 네임스페이스, 절대 URL, XML Content-Type.
+  assert.match(route, /<\?xml version="1\.0" encoding="UTF-8"\?>/);
+  assert.match(route, /xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9"/);
+  assert.match(route, /\$\{SITE_URL\}\/posts\/\$\{post\.slug\}/);
+  assert.match(route, /"Content-Type": "application\/xml; charset=utf-8"/);
+
+  // noindex 페이지는 실으면 안 된다. 서치콘솔이 충돌로 잡는다.
+  for (const noindexPath of ["/keyword-lab", "/local/", "/search"]) {
+    assert.ok(!route.includes(`path: "${noindexPath}"`), `${noindexPath}는 noindex라 사이트맵에 넣을 수 없습니다.`);
+  }
+
+  // 대상 카테고리가 실제로 쓰이고 있어야 빈 사이트맵이 되지 않는다.
+  const infoCategories = [...route.matchAll(/^\s+"([^"]+)",$/gm)].map((match) => match[1]);
+  assert.ok(infoCategories.length >= 3, `정보 카테고리를 ${infoCategories.length}개만 찾았습니다.`);
+  const usedCategories = new Set([...content.matchAll(/category:"([^"]+)"/g)].map((match) => match[1]));
+  assert.ok(
+    infoCategories.some((category) => usedCategories.has(category)),
+    `정보 사이트맵 카테고리 ${infoCategories.join(", ")} 중 실제로 쓰이는 것이 없습니다.`,
+  );
+});
