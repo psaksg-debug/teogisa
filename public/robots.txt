@@ -22,3 +22,4 @@ Disallow: /admin
 Disallow: /api/
 
 Sitemap: https://adbles.com/sitemap.xml
+Sitemap: https://adbles.com/info/sitemap-info.xml
