@@ -923,3 +923,18 @@ button:not(:disabled),[role="button"],summary{cursor:pointer}
 .series-nav-companion{margin:16px 0 0;padding-top:14px;border-top:1px solid #e7efeb;color:#60747c;font-size:13px}
 
 .tool-note{margin:14px 0 0;color:#60747c;font-size:12px;line-height:1.7}
+
+/* 히어로 아래 주제 칩: 첫 화면에서 바로 콘텐츠를 탐색하도록 포털형 진입점을 둔다. */
+.hero-explore{max-width:1440px;margin:0 auto;padding:0 7vw 8px;display:flex;align-items:center;gap:18px}
+.hero-explore-label{flex:0 0 auto;margin:0;color:#71868d;font-size:10px;font-weight:800;letter-spacing:.14em}
+.hero-explore ul{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.hero-explore a{display:inline-flex;align-items:center;min-height:38px;padding:0 15px;border:1px solid var(--line);border-radius:20px;color:#41585f;background:#fff;font-size:13px;font-weight:750;white-space:nowrap;transition:color .18s ease,background-color .18s ease,border-color .18s ease}
+.hero-explore a:hover,.hero-explore a:focus-visible{color:#fff;background:var(--navy);border-color:var(--navy)}
+.hero-explore li:first-child a{color:#fff;background:var(--teal);border-color:var(--teal)}
+@media(max-width:900px){.hero-explore{align-items:flex-start;flex-direction:column;gap:10px;padding:0 24px 4px}}
+@media(max-width:600px){.hero-explore{padding:0 0 4px}.hero-explore-label{padding:0 18px}.hero-explore ul{flex-wrap:nowrap;gap:7px;padding:2px 18px 10px;overflow-x:auto;scrollbar-width:none}.hero-explore ul::-webkit-scrollbar{display:none}.hero-explore a{min-height:40px;font-size:12px}}
+/* 배지를 걷어내 캡션 폭이 넓어졌다. 밝은 사진 위에서도 읽히도록 스크림을 키운다. */
+.hero-project-visual figcaption{right:28px}
+.hero-project-visual figcaption strong{display:block;font-size:20px;line-height:1.4;text-wrap:balance}
+.hero-image-window::after{z-index:2;background:linear-gradient(180deg,transparent 42%,rgba(16,45,60,.78))}
+.hero-project-visual figcaption{z-index:3}

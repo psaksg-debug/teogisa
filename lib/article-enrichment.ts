@@ -58,34 +58,103 @@ const slugResources:Record<string,{links?:Array<{label:string;url:string}>;image
   "side-income-tax-records":{links:[{label:"국세청 3.3% 원천징수 종합소득세 안내",url:"https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=238978"},{label:"홈택스 신고·지급명세서 확인",url:"https://www.hometax.go.kr/"}]},
 };
 
-const thumbnailCatalog = [
-  { file: "retirement-checklist.webp", description: "체크 표시가 된 퇴직 준비 체크리스트 일러스트" },
-  { file: "second-career-side-job.webp", description: "노트북으로 재취업과 부업을 준비하는 중장년 일러스트" },
-  { file: "ai-workflow.webp", description: "노트북과 인공지능을 활용하는 중장년 여성 일러스트" },
-  { file: "application-process-timeline.webp", description: "서류와 사람 아이콘으로 구성된 신청 절차 일러스트" },
-  { file: "retirement-pension-life.webp", description: "산과 해를 바라보는 은퇴 부부 일러스트" },
-  { file: "income-tax-calculation.webp", description: "표와 계산기, 원그래프로 구성된 소득·세금 계산 일러스트" },
-  { file: "retirement-asset-growth.webp", description: "집과 새싹, 사다리로 표현한 자산 성장 일러스트" },
-  { file: "three-bucket-budget.webp", description: "주거·생활·보험을 나눈 3칸 예산 일러스트" },
-  { file: "balanced-income-plan.webp", description: "여러 수입원을 균형 있게 쌓는 저울 일러스트" },
-  { file: "content-quality-review.webp", description: "별점 체크리스트를 검토하는 중장년 일러스트" },
+type ThumbnailImage = { file: string; description: string; width: number; height: number };
+
+const thumbnailCatalog: readonly ThumbnailImage[] = [
+  { file: "retirement-checklist.webp", description: "체크 표시가 된 퇴직 준비 체크리스트 일러스트", width: 355, height: 444 },
+  { file: "second-career-side-job.webp", description: "노트북으로 재취업과 부업을 준비하는 중장년 일러스트", width: 355, height: 444 },
+  { file: "ai-workflow.webp", description: "노트북과 인공지능을 활용하는 중장년 여성 일러스트", width: 354, height: 444 },
+  { file: "application-process-timeline.webp", description: "서류와 사람 아이콘으로 구성된 신청 절차 일러스트", width: 355, height: 444 },
+  { file: "retirement-pension-life.webp", description: "산과 해를 바라보는 은퇴 부부 일러스트", width: 355, height: 444 },
+  { file: "income-tax-calculation.webp", description: "표와 계산기, 원그래프로 구성된 소득·세금 계산 일러스트", width: 355, height: 443 },
+  { file: "retirement-asset-growth.webp", description: "집과 새싹, 사다리로 표현한 자산 성장 일러스트", width: 355, height: 443 },
+  { file: "three-bucket-budget.webp", description: "주거·생활·보험을 나눈 3칸 예산 일러스트", width: 354, height: 443 },
+  { file: "balanced-income-plan.webp", description: "여러 수입원을 균형 있게 쌓는 저울 일러스트", width: 355, height: 443 },
+  { file: "content-quality-review.webp", description: "별점 체크리스트를 검토하는 중장년 일러스트", width: 355, height: 443 },
+  { file: "layoff_illustration.jpg", description: "사무실 책상에서 서류를 놓고 상담하는 두 사람 일러스트", width: 1024, height: 1024 },
+  { file: "voluntary_resignation.jpg", description: "짐 상자를 안고 회사 건물을 나서며 해가 뜨는 길을 걷는 사람 일러스트", width: 1024, height: 1024 },
 ] as const;
+
+const thumbnailByFile = new Map(thumbnailCatalog.map((image) => [image.file, image]));
+
+// 썸네일은 "주제로 후보군을 좁히고, 후보군 안에서 해시로 고르는" 2단계로 정한다.
+// 해시만 쓰면 글 내용과 무관한 그림이 붙고, 주제마다 이미지를 하나만 두면
+// 같은 카테고리 글이 전부 같은 썸네일이 된다. 두 문제를 함께 피하기 위한 구조다.
+// 규칙은 위에서부터 먼저 맞는 것이 이긴다. 좁은 주제를 넓은 주제보다 위에 둘 것.
+type ThumbnailRule = { name: string; categories?: readonly string[]; keywords: readonly string[]; pool: readonly string[] };
+
+const thumbnailRules: readonly ThumbnailRule[] = [
+  { name: "ai",
+    categories: ["AI 활용", "유용한 도구"],
+    keywords: ["바이브코딩", "바이브 코딩", "ai활용", "인공지능", "프롬프트", "클로드", "커서", "챗gpt", "코딩", "자동화", "vibe-coding", "claude", "prompt", "ai-"],
+    pool: ["ai-workflow.webp", "content-quality-review.webp", "second-career-side-job.webp"] },
+  { name: "health",
+    categories: ["건강·예방"],
+    keywords: ["건강검진", "예방", "중장년 건강"],
+    pool: ["retirement-pension-life.webp", "retirement-checklist.webp"] },
+  { name: "tax",
+    keywords: ["세금", "소득세", "원천징수", "홈택스", "연말정산", "세무", "tax"],
+    pool: ["income-tax-calculation.webp", "three-bucket-budget.webp"] },
+  { name: "benefit",
+    categories: ["정부지원·실업급여"],
+    keywords: ["실업급여", "구직급여", "실업크레딧", "지원금", "보조금", "국민취업지원", "고용보험", "신청 절차", "unemployment", "benefit", "support"],
+    pool: ["application-process-timeline.webp", "retirement-checklist.webp"] },
+  { name: "insurance",
+    keywords: ["건강보험", "보험료", "피부양자", "임의계속가입", "health-insurance"],
+    pool: ["retirement-pension-life.webp", "income-tax-calculation.webp"] },
+  { name: "pension",
+    categories: ["연금·세금·보험"],
+    keywords: ["연금", "pension"],
+    pool: ["retirement-pension-life.webp", "retirement-asset-growth.webp", "three-bucket-budget.webp"] },
+  { name: "invest",
+    categories: ["투자·재테크"],
+    keywords: ["투자", "재테크", "예금", "예금자보호", "금리", "자산", "invest", "deposit", "asset"],
+    pool: ["retirement-asset-growth.webp", "balanced-income-plan.webp"] },
+  { name: "work",
+    categories: ["재취업·N잡", "실제 수익실험", "지역 생활정보"],
+    keywords: ["재취업", "일자리", "부업", "n잡", "경력", "이직", "면접", "이력서", "경력기술서", "애드센스", "블로그", "수익", "job", "income", "blog"],
+    pool: ["second-career-side-job.webp", "balanced-income-plan.webp", "layoff_illustration.jpg"] },
+  { name: "retire",
+    categories: ["퇴직 준비"],
+    keywords: ["퇴직", "퇴사", "퇴직금", "생활비", "예산", "권고사직", "retirement", "budget", "resignation"],
+    pool: ["retirement-checklist.webp", "three-bucket-budget.webp", "voluntary_resignation.jpg"] },
+];
+
+const fallbackPool = ["balanced-income-plan.webp", "retirement-checklist.webp", "second-career-side-job.webp", "content-quality-review.webp"] as const;
 
 function thumbnailHash(value: string) {
   return [...value].reduce((total, character) => (total * 31 + character.charCodeAt(0)) >>> 0, 0);
 }
 
-export function getThumbnailIndex(post: Pick<Post, "id" | "slug">) {
-  return post.id >= 1 && post.id <= 10 ? post.id - 1 : thumbnailHash(post.slug) % 10;
+type ThumbnailPost = Pick<Post, "slug"> & Partial<Pick<Post, "id" | "category" | "title" | "tags">>;
+
+function matchThumbnailRule(post: ThumbnailPost) {
+  const haystack = [post.slug, post.title ?? "", ...(post.tags ?? [])].join(" ").toLowerCase();
+  return thumbnailRules.find((rule) =>
+    (rule.categories?.includes(post.category ?? "") ?? false) || rule.keywords.some((keyword) => haystack.includes(keyword)));
 }
 
-export function getThumbnailSeo(post: Pick<Post, "id" | "slug" | "title">): ThumbnailSeo {
-  const image = thumbnailCatalog[getThumbnailIndex(post)];
+// 후보군 안에서는 id로 돌려쓴다. 해시로 고르면 연속으로 쓴 시리즈 글이 우연히
+// 같은 장을 뽑는 일이 잦은데, id는 순차로 늘어나므로 이웃한 글끼리 반드시 갈린다.
+function poolOffset(post: ThumbnailPost) {
+  return typeof post.id === "number" ? post.id : thumbnailHash(post.slug);
+}
+
+/** 글의 주제로 후보군을 고르고, 후보군 안에서는 순번대로 돌려쓴다. */
+export function pickThumbnail(post: ThumbnailPost) {
+  const rule = matchThumbnailRule(post);
+  const pool = rule?.pool ?? fallbackPool;
+  const file = pool[poolOffset(post) % pool.length];
+  return { topic: rule?.name ?? "general", image: thumbnailByFile.get(file) ?? thumbnailCatalog[0] };
+}
+
+export function getThumbnailSeo(post: ThumbnailPost & Pick<Post, "title">): ThumbnailSeo {
+  const { image } = pickThumbnail(post);
   return {
     src: `/article-thumbnails/${image.file}`,
     alt: `${post.title} — ${image.description}`,
-    width: 355,
-    height: 444,
+    width: image.width,
+    height: image.height,
   };
 }
 
