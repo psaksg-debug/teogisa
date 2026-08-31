@@ -5,7 +5,6 @@ import { MobileMenu } from "./components/MobileMenu";
 import { HeroCarousel } from "./components/HeroCarousel";
 import { ArticleThumbnail } from "./components/ArticleMedia";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "../lib/site";
-import { toolCatalog } from "../lib/portal";
 
 export const metadata: Metadata = {
   title: "퇴직 후 생활비·지원제도·새 수입 가이드",
@@ -21,6 +20,17 @@ const journeys = [
   { label: "현금흐름 1", value: "재취업·N잡", tone: "teal" },
   { label: "현금흐름 2", value: "콘텐츠·AI", tone: "orange" },
   { label: "자산 만들기", value: "투자·재테크", tone: "navy" },
+];
+
+const exploreChips: Array<[string, string]> = [
+  ["최신 글", "#latest"],
+  ["실업급여·지원금", "/search?category=" + encodeURIComponent("정부지원·실업급여")],
+  ["연금·세금·보험", "/search?category=" + encodeURIComponent("연금·세금·보험")],
+  ["재취업·N잡", "/search?category=" + encodeURIComponent("재취업·N잡")],
+  ["AI 활용", "/search?category=" + encodeURIComponent("AI 활용")],
+  ["투자·재테크", "/search?category=" + encodeURIComponent("투자·재테크")],
+  ["지역별 정보", "/keyword-lab"],
+  ["무료 계산기", "/tools"],
 ];
 
 const categories = [
@@ -58,10 +68,7 @@ export default async function Home() {
           <div className="hero-copy">
             <p className="eyebrow">{SITE_TAGLINE}</p>
             <h1>퇴직 후 막막함을,<br/><em>실행 가능한 계획으로.</em></h1>
-            <p className="hero-lead">내 돈이 몇 달을 버틸지 계산하고, 놓치기 쉬운 지원을 챙기고, 지금까지의 경험으로 새로운 수입을 만드는 순서까지. 오늘 필요한 한 단계부터 시작하세요.</p>
-            <dl className="hero-facts" aria-label="사이트 콘텐츠 현황">
-              <div><dt>발행한 연구노트</dt><dd>{posts.length}편</dd></div><div><dt>30일 워크북</dt><dd>30칸</dd></div><div><dt>사용 가능 도구</dt><dd>{toolCatalog.filter(tool=>tool.status==="사용 가능").length}개</dd></div>
-            </dl>
+            <p className="hero-lead">내 돈이 몇 달을 버틸지 계산하고, 오늘 필요한 한 가지부터 시작하세요.</p>
             <div className="hero-actions">
               <a className="primary-button" href="/tools/retirement-runway">내 준비기간 계산하기 <span aria-hidden="true">→</span></a>
               <a className="text-button" href="/challenge">30일 수입 챌린지</a>
@@ -69,10 +76,18 @@ export default async function Home() {
           </div>
           <figure className="hero-project-visual">
             <HeroCarousel />
-            <figcaption><span>SECOND INCOME PROJECT</span><strong>경험을 수입으로 바꾸는<br/>두 번째 시작</strong></figcaption>
-            <div className="hero-visual-badge" aria-hidden="true"><b>30</b><span>DAY<br/>ACTION</span></div>
+            <figcaption><span>SECOND INCOME PROJECT</span><strong>경험을 수입으로 바꾸는 두 번째 시작</strong></figcaption>
           </figure>
         </section>
+
+        <nav className="hero-explore" aria-label="주제 바로 찾기">
+          <p className="hero-explore-label">바로 찾기</p>
+          <ul>
+            {exploreChips.map(([label, href]) => (
+              <li key={label}><a href={href}>{label}</a></li>
+            ))}
+          </ul>
+        </nav>
 
         <section className="latest section-wrap" id="latest" aria-labelledby="recent-posts-title">
           <div className="section-heading">

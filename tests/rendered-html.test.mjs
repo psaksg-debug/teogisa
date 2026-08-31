@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("renders the finished Korean content site", async () => {
@@ -29,7 +29,8 @@ test("renders the finished Korean content site", async () => {
   assert.match(page, /<HeroCarousel \/>/);
   assert.match(page, /hero-project-visual/);
   assert.match(page, /본문으로 바로가기/);
-  assert.match(page, /hero-facts/);
+  assert.match(page, /hero-explore/);
+  assert.doesNotMatch(page, /hero-facts/);
   assert.match(page, /최근 발행 글/);
   assert.match(page, /posts\.slice\(0, 3\)/);
   assert.match(page, /post-grid/);
@@ -132,6 +133,7 @@ test("renders the finished Korean content site", async () => {
   assert.match(media, /alt=\{image\.alt\}/);
   assert.match(enrichment, /thumbnailCatalog/);
   assert.match(enrichment, /체크 표시가 된 퇴직 준비 체크리스트/);
+  assert.match(enrichment, /pickThumbnail/);
   assert.match(media, /loading=\{variant === "hero" \? "eager" : "lazy"\}/);
   assert.match(css, /object-fit:cover/);
   assert.match(css, /object-fit:contain/);
@@ -657,4 +659,46 @@ test("schedules every member with auditable hourly or daily work", async () => {
   assert.match(migration, /member_activity_runs/);
   assert.match(document, /직원 33명 전원/);
   assert.match(document, /발행, 외부 채널 게시, 운영 배포/);
+});
+
+test("썸네일은 해시가 아니라 글 주제로 후보군을 골라 배정한다", async () => {
+  const [enrichment, content] = await Promise.all([
+    readFile(new URL("../lib/article-enrichment.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/content.ts", import.meta.url), "utf8"),
+  ]);
+
+  // 예전 방식(고정 인덱스 + slug 해시 % 10)으로 되돌아가지 않도록 막는다.
+  assert.doesNotMatch(enrichment, /thumbnailHash\(post\.slug\) % 10/);
+  assert.match(enrichment, /const thumbnailRules/);
+  assert.match(enrichment, /matchThumbnailRule/);
+
+  // 실제 파일 크기를 쓰는지 확인한다. 예전에는 355x444로 고정돼 일부 이미지와 어긋났다.
+  assert.match(enrichment, /width: image\.width/);
+  assert.match(enrichment, /height: image\.height/);
+
+  // 카탈로그의 모든 이미지가 실제로 존재해야 한다.
+  const thumbnailDir = new URL("../public/article-thumbnails/", import.meta.url);
+  const availableFiles = new Set(await readdir(thumbnailDir));
+  const catalogFiles = [...enrichment.matchAll(/\{ file: "([^"]+)"/g)].map((match) => match[1]);
+  assert.ok(catalogFiles.length >= 12, `카탈로그 이미지가 너무 적습니다: ${catalogFiles.length}장`);
+  for (const file of catalogFiles) {
+    assert.ok(availableFiles.has(file), `public/article-thumbnails/${file} 가 없습니다.`);
+  }
+
+  // 후보군은 최소 2장이어야 같은 카테고리 글끼리도 썸네일이 갈린다.
+  const pools = [...enrichment.matchAll(/pool: \[([^\]]+)\]/g)].map((match) =>
+    [...match[1].matchAll(/"([^"]+)"/g)].map((file) => file[1]));
+  assert.ok(pools.length >= 8, `주제 규칙이 너무 적습니다: ${pools.length}개`);
+  for (const pool of pools) {
+    assert.ok(pool.length >= 2, `후보군이 1장뿐입니다: ${pool.join(", ")}`);
+    for (const file of pool) assert.ok(catalogFiles.includes(file), `${file} 는 카탈로그에 없습니다.`);
+  }
+
+  // 실제로 쓰이는 카테고리는 모두 어떤 규칙이든 걸려야 한다.
+  const ruleCategories = new Set([...enrichment.matchAll(/categories: \[([^\]]+)\]/g)]
+    .flatMap((match) => [...match[1].matchAll(/"([^"]+)"/g)].map((name) => name[1])));
+  const usedCategories = new Set([...content.matchAll(/category:"([^"]+)"/g)].map((match) => match[1]));
+  for (const category of usedCategories) {
+    assert.ok(ruleCategories.has(category), `"${category}" 카테고리에 맞는 썸네일 규칙이 없습니다.`);
+  }
 });
