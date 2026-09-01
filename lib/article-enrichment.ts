@@ -168,10 +168,22 @@ export function appendSourceUrl(body: string, sourceUrl?: string) {
   return `${body.trim()}\n\n출처: ${source}`;
 }
 
+function isSelfOperatedUrl(value: string) {
+  try {
+    const host = new URL(value).hostname.replace(/^www\./, "");
+    return host === "adbles.com" || host.endsWith(".adbles.com");
+  } catch {
+    return false;
+  }
+}
+
 export function enrichArticle(post: Post): ArticleEnrichment {
   const text = `${post.title} ${post.body} ${post.tags.join(" ")}`;
   const urls = Array.from(new Set((post.body.match(/https?:\/\/[^\s)<>"']+/g) ?? []).map((url) => refreshOfficialUrl(url.replace(/[.,;]+$/, "")))));
-  const detectedLinks = urls.slice(0, 4).map((url) => {
+  // adbles.com과 그 서브도메인은 우리가 직접 운영하는 사이트다. 제휴 링크가 걸린
+  // 사이트를 "공식자료"로 자동 표시하면 제3자 공식 출처처럼 보인다. 자동 수집에서
+  // 빼고, 필요하면 slugResources에 정확한 이름을 붙여 넣는다. 본문 링크는 그대로 남는다.
+  const detectedLinks = urls.filter((url) => !isSelfOperatedUrl(url)).slice(0, 4).map((url) => {
     try {
       const host = new URL(url).hostname.replace(/^www\./, "");
       return { label: `${host} 공식자료`, url };
