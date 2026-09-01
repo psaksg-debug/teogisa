@@ -1678,6 +1678,94 @@ export const seedPosts: Post[] = [
 <p>사업자등록을 하지 않은 단순 부업이라면 아직 대상이 아닐 수 있습니다. 수입이 이어질지부터 확인하는 것이 먼저입니다. <a href="/posts/midlife-side-job-scorecard">N잡 5가지 점수표</a>로 후보를 가리고, 수입이 생기면 <a href="/posts/side-income-tax-records">기록부터</a> 시작하세요. 사업자등록과 종합소득세 신고 흐름은 <a href="/posts/first-comprehensive-income-tax-after-retirement">퇴직 후 첫 종합소득세</a> 편에 정리해 두었습니다.</p>
 
 <p>이 글은 제도의 구조와 확인 순서를 정리한 것으로 가입 가능 여부나 절세 금액을 알려주지 않습니다. 한도·대상·지급 사유는 개정되므로 가입 전 <a href="https://www.8899.or.kr/" target="_blank" rel="noreferrer">노란우산 공식 홈페이지</a>와 <a href="https://www.sbiz24.kr/" target="_blank" rel="noreferrer">소상공인24</a>에서 현재 기준을 확인하고, 금액이 큰 결정은 세무 전문가와 상담하시기 바랍니다.</p>`, category:"재취업·N잡", tags:["노란우산공제","소상공인 소득공제","압류금지","퇴직 후 창업","사업소득 절세","폐업 공제금"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:8, visual:"노란우산", authorName:"박세온" },
+  { id:2121, title:"퇴직금부터 넣고 시작하면 늦습니다 — 중장년 창업, 계약 전에 볼 지원제도", slug:"midlife-startup-support-programs", excerpt:"정책자금은 지원금이 아니라 대출이고, 사업화 보조금도 절반 이상은 내 돈입니다. 신사업창업사관학교의 16주 점포경영체험, 지자체 중장년 창업 지원, 예비창업자 요건과 확인 순서를 정리했습니다.", body:`<p><strong>퇴직 후 창업에서 가장 흔한 순서 실수는 퇴직금부터 넣고 시작하는 것입니다.</strong> 가게를 계약하고 인테리어를 하고 나서야 지원제도를 알아보면, 이미 대부분의 프로그램에서 대상이 아닙니다. 예비창업자만 받을 수 있는 지원이 적지 않기 때문입니다. <strong>돈을 쓰기 전에 어떤 제도가 있는지부터 확인하세요.</strong></p>
+
+<h2>먼저 오해 두 가지를 걷어냅니다</h2>
+<ul>
+<li><strong>"정책자금 = 나라가 주는 돈"</strong> — 아닙니다. 소상공인 정책자금은 대부분 <strong>낮은 금리로 빌려주는 대출</strong>입니다. 갚아야 하고 심사도 있습니다.</li>
+<li><strong>"사업화 보조금 = 전액 지원"</strong> — 아닙니다. 신사업창업사관학교의 사업화 지원은 <strong>총사업비의 절반 이상을 본인이 부담</strong>하는 조건입니다.</li>
+</ul>
+<p>이 두 가지를 모르고 계획을 세우면 자금 계산이 처음부터 어긋납니다. 지원은 부담을 줄여주는 것이지 없애주는 것이 아닙니다.</p>
+
+<h2>신사업창업사관학교가 가장 구조적입니다</h2>
+<p>성장 가능성이 있는 아이디어로 창업하려는 <strong>소상공인 예비창업자</strong>를 선발해 교육부터 실전까지 묶어서 지원합니다.</p>
+
+<table>
+<thead><tr><th>단계</th><th>내용</th></tr></thead>
+<tbody>
+<tr><th>이론교육</th><td>약 4주</td></tr>
+<tr><th>점포경영체험</th><td>약 16주 — <strong>실제 점포에서 운영을 경험</strong>합니다</td></tr>
+<tr><th>사업화 지원</th><td>상품화 지원 (자부담 50퍼센트 이상 조건)</td></tr>
+<tr><th>수료 후</th><td>정책자금 연계 (수료 후 1년 이내)</td></tr>
+</tbody>
+</table>
+
+<p>16주짜리 점포경영체험이 핵심입니다. <strong>내 돈으로 가게를 열기 전에 "이 일이 나에게 맞는지" 확인할 수 있는 거의 유일한 공적 경로</strong>입니다. 다만 선발 과정이 있고 기간이 길어 그동안의 생활비 계획이 필요합니다.</p>
+
+<h2>지자체 중장년 창업 지원도 따로 있습니다</h2>
+<p>서울시처럼 <strong>40세에서 65세 사이</strong>를 대상으로 하는 지역 연계형 창업 지원사업을 운영하는 곳이 있습니다. 중도퇴직자와 재창업자를 겨냥해 연령 특화 교육과 컨설팅을 붙이는 형태입니다. 전국 공통이 아니므로 <strong>거주 지자체 홈페이지에서 "중장년 창업"으로 검색</strong>해 보세요.</p>
+
+<blockquote>중앙부처와 지자체 창업지원사업은 해마다 초에 통합 공고로 한 번에 나옵니다. 그 목록을 먼저 훑는 것이 개별 검색보다 빠릅니다.</blockquote>
+
+<h2>확인은 이 순서로</h2>
+<ol>
+<li><strong>창업지원사업 통합공고</strong> — 그해 어떤 사업이 있는지 목록으로 봅니다.</li>
+<li><strong>K-Startup, 소상공인24</strong> — 모집 중인 개별 공고와 자격 요건을 확인합니다.</li>
+<li><strong>거주 지자체</strong> — 지역 한정 중장년 프로그램이 있는지 봅니다.</li>
+<li><strong>소상공인지원센터 상담</strong> — 내 아이템이 어느 갈래에 맞는지 물어봅니다.</li>
+</ol>
+
+<h2>계약서에 서명하기 전에 볼 것</h2>
+<ul>
+<li><strong>예비창업자 요건</strong> — 사업자등록을 하면 대상에서 빠지는 사업이 많습니다. 등록 시점을 급하게 정하지 마세요.</li>
+<li><strong>자부담 비율</strong> — 보조금 명목이라도 내 돈이 얼마나 들어가는지 먼저 계산합니다.</li>
+<li><strong>중복 지원 제한</strong> — 여러 사업을 동시에 받지 못하는 경우가 있습니다.</li>
+<li><strong>실패했을 때</strong> — 정책자금은 대출이므로 상환 의무가 남습니다. <a href="/posts/noranwoosan-mutual-aid-guide">노란우산공제</a>처럼 압류가 금지되는 안전망을 함께 준비해 두는 편이 낫습니다.</li>
+</ul>
+
+<p>창업이 유일한 답은 아닙니다. 자금을 크게 넣기 전에 <a href="/posts/midlife-side-job-scorecard">N잡 5가지 점수표</a>로 작게 검증해 보거나, <a href="/posts/midlife-reemployment-certificates-guide">재취업 쪽</a>과 함께 비교해 보시길 권합니다. 생활비 기준선은 <a href="/posts/retirement-minimum-budget-three-buckets">최소생활비 3칸 예산표</a>로 먼저 잡으세요.</p>
+
+<p>이 글은 확인 순서를 정리한 것으로 선정이나 사업 성과를 보장하지 않습니다. 사업별 대상·지원 내용·자부담 비율·모집 일정은 해마다 바뀌므로, 신청 전 <a href="https://www.k-startup.go.kr/" target="_blank" rel="noreferrer">K-Startup</a>, <a href="https://www.sbiz24.kr/" target="_blank" rel="noreferrer">소상공인24</a>, <a href="https://www.bizinfo.go.kr/" target="_blank" rel="noreferrer">기업마당</a>에서 현재 공고를 확인하시기 바랍니다.</p>`, category:"재취업·N잡", tags:["중장년 창업","신사업창업사관학교","소상공인 정책자금","예비창업자","창업지원사업","퇴직 후 창업"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:9, visual:"창업지원", authorName:"데스크" },
+  { id:2122, title:"지하철만 공짜인 줄 알았다면 — 만 65세 교통 혜택, 버스도 30% 돌려받습니다", slug:"senior-65-transport-and-benefits", excerpt:"지하철은 무임이지만 버스는 유료입니다. 2026년 신설된 K-패스 어르신 유형의 30퍼센트 환급, 지역마다 다른 카드 이름과 신청처, 운전면허 반납 지원과 65세 전후로 함께 챙길 제도를 정리했습니다.", body:`<p><strong>만 65세가 되면 지하철이 무료라는 것은 대부분 압니다. 그런데 버스는 유료라는 것, 그리고 2026년부터 그 버스도 일부를 돌려받을 수 있다는 것은 덜 알려져 있습니다.</strong> 카드 이름과 신청처가 지역마다 달라서 "어디서 뭘 신청해야 하는지" 헷갈리는 것도 이유입니다. 한 번에 정리해 두면 매달 나가는 교통비가 달라집니다.</p>
+
+<h2>무료인 것과 아닌 것부터 가릅니다</h2>
+
+<table>
+<thead><tr><th>교통수단</th><th>만 65세 이상</th></tr></thead>
+<tbody>
+<tr><th>지하철·도시철도</th><td><strong>무임</strong> (우대용 교통카드 필요)</td></tr>
+<tr><th>공항철도</th><td>무임 구간이 있습니다 (전 구간 여부는 확인 필요)</td></tr>
+<tr><th>시내버스</th><td><strong>유료</strong> — 여기서 오해가 자주 생깁니다</td></tr>
+</tbody>
+</table>
+
+<p>지하철 무임은 <strong>카드를 발급받아야</strong> 적용됩니다. 나이가 됐다고 자동으로 되지 않습니다. 신분증을 들고 주소지 주민센터에 가면 신청할 수 있습니다.</p>
+
+<h2>2026년부터 버스도 30퍼센트 돌려받습니다</h2>
+<p>K-패스에 <strong>어르신 유형이 신설</strong>되어 버스와 GTX 이용액의 30퍼센트를 환급받을 수 있게 됐습니다. 지하철 무임과 별개로, <strong>그동안 전액 부담하던 버스비의 일부가 돌아오는 것</strong>이 이번 변화의 핵심입니다. 매일 버스를 타는 분이라면 금액 차이가 작지 않습니다.</p>
+<p>K-패스는 별도 신청과 카드 발급이 필요하고, 월 최소 이용 횟수 같은 조건이 있습니다. 우대용 교통카드와는 다른 제도이므로 <strong>둘 다 확인</strong>하세요.</p>
+
+<h2>카드 이름이 지역마다 다릅니다</h2>
+<p>여기서 많이 헤맵니다. 서울은 우대용 교통카드, 경기도는 G-pass처럼 <strong>지역별로 이름과 발급 기관이 다릅니다.</strong> 인터넷에서 본 신청 방법이 내 지역과 다를 수 있으니, 검색할 때 <strong>거주 시·도 이름을 함께</strong> 넣으세요. 무임 적용 범위도 지역에 따라 차이가 있습니다.</p>
+
+<blockquote>다른 지역 이야기를 그대로 믿고 갔다가 헛걸음하는 경우가 많습니다. 주민센터에 전화로 먼저 확인하는 것이 빠릅니다.</blockquote>
+
+<h2>교통 말고도 챙길 것이 있습니다</h2>
+<ul>
+<li><strong>운전면허 반납 지원</strong> — 면허를 반납하면 지역에 따라 교통비 지원이나 지역화폐를 제공합니다. 금액과 조건은 지자체마다 다릅니다.</li>
+<li><strong>국공립 시설 관람</strong> — 고궁·박물관 등 상당수 국공립 시설에서 65세 이상 무료 또는 할인이 적용됩니다.</li>
+<li><strong>지자체 개별 혜택</strong> — 목욕·이용 지원, 경로당 프로그램 등은 지역별로 크게 다릅니다.</li>
+</ul>
+
+<h2>65세 전후로 함께 확인할 것</h2>
+<ol>
+<li><strong>기초연금</strong> — 만 65세 생일이 속한 달의 한 달 전부터 신청할 수 있습니다. 늦으면 소급되지 않으니 <a href="/posts/basic-pension-eligibility-and-reduction">선정기준액과 감액 구조</a>를 미리 보세요.</li>
+<li><strong>노인일자리</strong> — 공익활동형은 기초연금 수급자만 신청할 수 있습니다. <a href="/posts/senior-job-program-2026-application-guide">유형별 자격</a>을 확인하세요.</li>
+<li><strong>국민연금 수령 시기</strong> — <a href="/posts/national-pension-early-vs-deferred">당겨 받을지 미룰지</a>는 되돌릴 수 없는 선택입니다.</li>
+</ol>
+<p>이 셋은 서로 얽혀 있습니다. 따로 알아보면 놓치는 부분이 생기므로 65세가 가까워지면 한 번에 정리해 두는 편이 좋습니다.</p>
+
+<p>이 글은 확인 순서를 정리한 것으로 개인의 지원 대상 여부나 금액을 알려주지 않습니다. 발급 기관·절차·무임 범위·환급 조건은 지역과 시기에 따라 다르므로, 신청 전 주소지 주민센터와 <a href="https://www.gov.kr/" target="_blank" rel="noreferrer">정부24</a>, <a href="https://www.bokjiro.go.kr/" target="_blank" rel="noreferrer">복지로</a>에서 현재 기준을 확인하시기 바랍니다.</p>`, category:"지역 생활정보", tags:["경로우대","65세 교통카드","지하철 무임승차","K-패스 어르신","우대용 교통카드","운전면허 반납"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:8, visual:"65세", authorName:"로컬" },
 ];
 const contentQualityUpgrades:Record<string,Pick<Post,"excerpt"|"body"|"readingMinutes">>={
   "first-30-days-after-retirement":{
