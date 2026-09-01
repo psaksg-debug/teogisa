@@ -1594,6 +1594,90 @@ export const seedPosts: Post[] = [
 <p>퇴직급여가 노후 현금흐름에서 어느 정도 비중인지 보려면 <a href="/posts/national-pension-after-retirement-options">국민연금 선택지</a>, <a href="/posts/basic-pension-eligibility-and-reduction">기초연금</a>과 함께 계산해야 합니다.</p>
 
 <p>이 글은 두 제도의 구조와 확인 순서를 정리한 것으로 개인별 수령액이나 유불리를 알려주지 않으며 특정 운용 성과를 보장하지 않습니다. 전환 가능 여부와 절차는 회사 퇴직연금 규약에 따라 다르므로 인사 담당 부서에 확인하시고, 제도 내용은 <a href="https://www.moel.go.kr/retirementpay.do" target="_blank" rel="noreferrer">고용노동부 퇴직연금제도 안내</a>와 <a href="https://100lifeplan.fss.or.kr/" target="_blank" rel="noreferrer">금융감독원 통합연금포털</a>에서 확인하시기 바랍니다.`, category:"연금·세금·보험", tags:["퇴직연금","DB형 DC형 차이","확정급여형","확정기여형","임금피크제","디폴트옵션"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:9, visual:"DB·DC", authorName:"김연수" },
+  { id:2119, title:"국민연금 5년 당겨 받으면 평생 30% 깎입니다 — 되돌릴 수 없는 선택", slug:"national-pension-early-vs-deferred", excerpt:"조기수령은 1년당 6퍼센트 감액, 연기연금은 1년당 7.2퍼센트 가산. 손익분기점 72세 안팎, 일하면 한 번 더 깎이는 재직자 감액, 기초연금·건강보험에 미치는 영향과 결정 순서를 정리했습니다.", body:`<p><strong>국민연금은 언제부터 받을지 고를 수 있습니다. 그런데 이 선택은 한 번 하면 평생 따라옵니다.</strong> 5년 당겨 받으면 매달 받는 금액이 30퍼센트 깎인 채로 고정되고, 5년 미루면 36퍼센트 늘어난 채로 고정됩니다. 감액률은 나중에 되돌릴 수 없으므로 <strong>"당장 필요한가"만 보고 결정하면 20년 뒤에 후회할 수 있습니다.</strong></p>
+
+<h2>당겨 받기와 미뤄 받기, 숫자로 보면</h2>
+
+<table>
+<thead><tr><th>선택</th><th>1년당</th><th>최대 5년</th></tr></thead>
+<tbody>
+<tr><th>조기노령연금 (당겨 받기)</th><td><strong>6퍼센트 감액</strong></td><td>30퍼센트 감액</td></tr>
+<tr><th>연기연금 (미뤄 받기)</th><td><strong>7.2퍼센트 가산</strong></td><td>36퍼센트 가산</td></tr>
+</tbody>
+</table>
+
+<p>미루는 쪽의 비율이 당기는 쪽보다 큽니다. 예를 들어 원래 월 100만 원을 받을 사람이 5년 당기면 70만 원, 5년 미루면 136만 원이 됩니다. <strong>같은 5년인데 매달 66만 원 차이가 납니다.</strong></p>
+
+<h2>손익분기점은 대략 70대 초반입니다</h2>
+<p>당겨 받으면 금액은 적지만 받는 기간이 깁니다. 그래서 누적 수령액을 비교하면 어느 시점에서 뒤집힙니다. 여러 계산에서 <strong>조기수령과 정상수령의 분기점은 만 72세 안팎</strong>으로 나옵니다. 그 전에 사망하면 당겨 받은 쪽이 총액이 많고, 그 이후까지 살면 정상수령이 많아집니다.</p>
+
+<blockquote>다만 이 숫자는 평균이고 물가상승률과 개인 조건에 따라 달라집니다. 손익분기점 하나만 보고 결정할 문제는 아닙니다.</blockquote>
+
+<h2>일하면서 받으면 또 깎입니다</h2>
+<p>많은 분이 놓치는 부분입니다. 연금을 받으면서 <strong>소득이 있는 업무에 종사</strong>하면 재직자 노령연금 감액이 적용됩니다. 기준은 월평균 소득이 국민연금 전체 가입자의 최근 3년 평균소득(A값)을 넘느냐입니다. 넘으면 초과분에 따라 연금이 줄어듭니다.</p>
+<p>즉 <strong>당겨 받아서 30퍼센트 깎인 금액이, 일을 계속한다는 이유로 한 번 더 깎일 수 있습니다.</strong> 재취업 계획이 있다면 이 부분을 먼저 확인해야 합니다. 이 감액은 수급개시연령 이후 일정 기간에 적용되며 평생 가는 것은 아닙니다.</p>
+
+<h2>연금이 늘면 다른 곳에서 영향이 옵니다</h2>
+<p>연기연금으로 수령액을 키우면 좋기만 한 것은 아닙니다. 연금소득은 다른 제도의 판단 자료로 쓰입니다.</p>
+<ul>
+<li><strong>기초연금</strong> — 국민연금 수령액이 일정 선을 넘으면 연계감액이 적용되고, 연금소득은 소득인정액에도 들어갑니다. <a href="/posts/basic-pension-eligibility-and-reduction">기초연금 감액 구조</a>를 함께 보세요.</li>
+<li><strong>건강보험</strong> — 연금소득은 피부양자 자격과 지역가입자 보험료 산정에 반영될 수 있습니다.</li>
+<li><strong>세금</strong> — 연금소득도 과세 대상입니다.</li>
+</ul>
+
+<h2>결정하기 전에 이 순서로 확인하세요</h2>
+<ol>
+<li><strong>내 수급개시연령</strong> — 출생연도에 따라 다릅니다. 이것부터 확인해야 몇 년을 당기거나 미룰 수 있는지 나옵니다.</li>
+<li><strong>당장의 현금 공백</strong> — 수급개시까지 생활비가 버티는지. <a href="/posts/retirement-minimum-budget-three-buckets">최소생활비 3칸 예산표</a>로 계산해 보세요.</li>
+<li><strong>재취업 계획</strong> — 소득이 생길 예정이면 재직자 감액을 함께 계산합니다.</li>
+<li><strong>다른 수입원</strong> — <a href="/posts/housing-pension-before-you-sign">주택연금</a>이나 <a href="/posts/retirement-pension-db-dc-difference">퇴직연금</a>으로 공백을 메울 수 있는지.</li>
+</ol>
+
+<p><strong>당겨 받기는 "생활비가 지금 없다"는 문제를 푸는 수단이지 유리한 선택지가 아닙니다.</strong> 반대로 미루기도 그 기간을 버틸 다른 수입이 있어야 가능합니다. 순서를 뒤집어, 공백을 메울 방법을 먼저 찾고 그다음에 수령 시기를 정하는 편이 낫습니다.</p>
+
+<p>이 글은 제도의 구조와 확인 순서를 정리한 것으로 개인별 수령액이나 유불리를 알려주지 않습니다. 감액·가산율과 재직자 감액 기준은 개정될 수 있으므로, 본인의 예상 연금액과 수급개시연령은 <a href="https://www.nps.or.kr/" target="_blank" rel="noreferrer">국민연금공단</a>에서 조회하고 <a href="https://csa.nps.or.kr/" target="_blank" rel="noreferrer">중앙노후준비지원센터</a> 상담으로 본인 조건에 맞춰 다시 확인하시기 바랍니다.</p>`, category:"연금·세금·보험", tags:["국민연금 조기수령","연기연금","조기노령연금","재직자 노령연금 감액","국민연금 수령나이","손익분기점"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:9, visual:"조기·연기", authorName:"김연수" },
+  { id:2120, title:"폐업해도 압류되지 않는 돈이 있습니다 — 퇴직 후 사업자의 노란우산공제", slug:"noranwoosan-mutual-aid-guide", excerpt:"공제금이 법으로 압류 금지되는 것이 핵심입니다. 소득이 적을수록 커지는 소득공제 한도(최대 600만 원), 2026년 1,800만 원으로 늘어난 납입 한도, 돈을 받는 사유와 가입 전 확인할 네 가지를 정리했습니다.", body:`<p><strong>퇴직 후 프리랜서로 일하거나 작은 가게를 열면, 퇴직금 같은 안전망이 사라집니다.</strong> 사업이 잘 안 됐을 때 남는 것이 없다는 점이 가장 큰 불안입니다. 노란우산공제는 그 자리를 메우려고 만든 제도이고, <strong>공제금이 법으로 압류가 금지된다</strong>는 점이 다른 저축과 결정적으로 다릅니다.</p>
+
+<h2>소득공제와 압류 금지, 두 가지가 핵심입니다</h2>
+<ul>
+<li><strong>소득공제</strong> — 납입액을 사업소득에서 공제받습니다. 연금저축·IRP 한도와 <strong>별개</strong>라 둘 다 활용할 수 있습니다.</li>
+<li><strong>압류 금지</strong> — 공제금은 법으로 압류가 금지됩니다. 사업이 어려워져도 이 돈은 남습니다.</li>
+</ul>
+<p>두 번째가 이 제도의 존재 이유입니다. 일반 예금이나 보험은 채권자가 가져갈 수 있지만 여기는 다릅니다. <strong>퇴직금을 사업에 넣는 분들이 특히 눈여겨볼 부분입니다.</strong></p>
+
+<h2>공제 한도는 소득이 적을수록 큽니다</h2>
+
+<table>
+<thead><tr><th>사업소득 규모</th><th>소득공제 한도</th></tr></thead>
+<tbody>
+<tr><td>낮은 구간(4천만 원 이하 수준)</td><td><strong>연 600만 원</strong></td></tr>
+<tr><td>중간 구간</td><td>구간별로 차등</td></tr>
+<tr><td>1억 원 초과</td><td><strong>연 200만 원</strong></td></tr>
+</tbody>
+</table>
+
+<p>소득이 많을수록 한도가 줄어드는 구조입니다. 1억 원을 넘으면 600만 원을 납입해도 공제는 200만 원까지만 됩니다. <strong>중간 구간의 정확한 경계와 금액은 개정으로 바뀌므로 가입 전 공식 안내에서 확인하세요.</strong> 소득공제는 낼 세금이 있어야 의미가 있다는 점도 같습니다. 이 구조는 <a href="/posts/irp-pension-savings-tax-credit-guide">연금저축·IRP 세액공제</a> 편에서 정리한 원리와 같습니다.</p>
+
+<h2>2026년에 납입 한도가 커졌습니다</h2>
+<p>연간 납입 한도가 1,200만 원에서 <strong>1,800만 원</strong>으로 확대됐고, 기존의 50개월 추가납입 한도는 폐지됐습니다. 여유가 생겼을 때 더 넣어둘 수 있는 폭이 넓어진 셈입니다. 다만 <strong>납입 한도와 소득공제 한도는 다른 숫자</strong>입니다. 1,800만 원을 넣을 수 있다는 것이 그만큼 공제된다는 뜻은 아닙니다.</p>
+
+<h2>돈은 언제 돌려받나요</h2>
+<p>아무 때나 찾는 예금이 아닙니다. 폐업, 사망, 노령(일정 연령·납입기간 충족), 법인 대표의 퇴임 등 <strong>정해진 사유가 생겼을 때</strong> 공제금으로 지급됩니다. 이 제약이 곧 압류 금지의 근거이기도 합니다.</p>
+
+<blockquote>당장 쓸 돈은 넣지 마세요. 중도에 깨면 그동안 받은 소득공제가 정산되고 이율도 불리하게 적용될 수 있습니다.</blockquote>
+
+<h2>가입 전에 확인할 네 가지</h2>
+<ol>
+<li><strong>가입 대상인지</strong> — 소기업·소상공인 범위에 드는 사업자여야 합니다. 업종별 매출 기준이 있으므로 사업자등록 후 확인하세요.</li>
+<li><strong>내 소득 구간의 공제 한도</strong> — 위 표대로 소득이 높으면 공제 효과가 줄어듭니다.</li>
+<li><strong>월 납입액</strong> — 매달 부담 없는 금액으로 시작하세요. 중도해지가 가장 큰 손실입니다.</li>
+<li><strong>다른 제도와의 순서</strong> — 연금저축·IRP와 한도가 별개이므로 둘 다 쓸 수 있지만, <strong>현금 여력 안에서</strong> 우선순위를 정해야 합니다.</li>
+</ol>
+
+<h2>N잡으로 시작한 경우라면</h2>
+<p>사업자등록을 하지 않은 단순 부업이라면 아직 대상이 아닐 수 있습니다. 수입이 이어질지부터 확인하는 것이 먼저입니다. <a href="/posts/midlife-side-job-scorecard">N잡 5가지 점수표</a>로 후보를 가리고, 수입이 생기면 <a href="/posts/side-income-tax-records">기록부터</a> 시작하세요. 사업자등록과 종합소득세 신고 흐름은 <a href="/posts/first-comprehensive-income-tax-after-retirement">퇴직 후 첫 종합소득세</a> 편에 정리해 두었습니다.</p>
+
+<p>이 글은 제도의 구조와 확인 순서를 정리한 것으로 가입 가능 여부나 절세 금액을 알려주지 않습니다. 한도·대상·지급 사유는 개정되므로 가입 전 <a href="https://www.8899.or.kr/" target="_blank" rel="noreferrer">노란우산 공식 홈페이지</a>와 <a href="https://www.sbiz24.kr/" target="_blank" rel="noreferrer">소상공인24</a>에서 현재 기준을 확인하고, 금액이 큰 결정은 세무 전문가와 상담하시기 바랍니다.</p>`, category:"재취업·N잡", tags:["노란우산공제","소상공인 소득공제","압류금지","퇴직 후 창업","사업소득 절세","폐업 공제금"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:8, visual:"노란우산", authorName:"박세온" },
 ];
 const contentQualityUpgrades:Record<string,Pick<Post,"excerpt"|"body"|"readingMinutes">>={
   "first-30-days-after-retirement":{
