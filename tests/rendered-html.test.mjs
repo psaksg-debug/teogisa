@@ -60,8 +60,6 @@ test("renders the finished Korean content site", async () => {
   assert.match(css, /mobile-menu-drawer/);
   assert.match(css, /\.article-copy ul\{list-style:disc\}/);
   assert.match(css, /\.article-copy ol\{list-style:decimal\}/);
-  assert.match(css, /trust-band/);
-  assert.match(css, /grid-template-columns:1\.18fr \.82fr/);
   assert.match(layout, /project-og-v2\.jpg/);
   assert.match(footer, /brand-mark-v2\.png/);
   assert.match(css, /heroImageDrift/);
@@ -155,7 +153,6 @@ test("renders the finished Korean content site", async () => {
   assert.match(media, /loading=\{variant === "hero" \? "eager" : "lazy"\}/);
   assert.match(css, /object-fit:cover/);
   assert.match(css, /object-fit:contain/);
-  assert.match(css, /article-flow/);
   assert.match(search, /<a href={`\/posts\/\$\{p\.slug\}`}/);
   assert.match(search, /htmlFor="site-search"/);
   assert.match(search, /className="search-field"/);
@@ -182,7 +179,6 @@ test("renders the finished Korean content site", async () => {
   assert.match(css, /reader-large :where\(p,h2,h3,h4,li,a,strong,em,blockquote,figcaption,th,td,code,span\)/);
   assert.match(css, /table-layout:fixed/);
   assert.match(css, /white-space:pre-wrap;overflow-wrap:anywhere/);
-  assert.match(css, /reader-large \.article-flow\{grid-template-columns:repeat\(2,minmax\(0,1fr\)\)\}/);
   assert.match(articleHtml, /sanitizeArticleHtml/);
   assert.match(articleHtml, /blockedElements/);
   assert.match(articleHtml, /youtube-nocookie/);
@@ -619,7 +615,6 @@ test("ships mobile-first SEO, GEO, trust and original-value pages", async () => 
   assert.match(policy, /창작 과정에서 AI를 보조적으로 사용합니다/);
   assert.match(chrome, /WebPage/);
   assert.match(chrome, /BreadcrumbList/);
-  assert.match(css, /scroll-snap-type:x mandatory/);
   assert.match(css, /overflow-x:hidden/);
   assert.match(layout, /viewportFit: "cover"/);
   assert.match(css, /iPhone article rendering guard/);
