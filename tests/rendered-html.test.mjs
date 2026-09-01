@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readdir, readFile } from "node:fs/promises";
+import { access, readdir, readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("renders the finished Korean content site", async () => {
@@ -768,4 +768,24 @@ test("정보 사이트맵을 별도 제출할 수 있게 노출한다", async ()
     infoCategories.some((category) => usedCategories.has(category)),
     `정보 사이트맵 카테고리 ${infoCategories.join(", ")} 중 실제로 쓰이는 것이 없습니다.`,
   );
+});
+
+test("본문의 내부 링크와 이미지가 실제로 존재한다", async () => {
+  const content = await readFile(new URL("../lib/content.ts", import.meta.url), "utf8");
+
+  // 글 본문에서 /posts/... 로 거는 링크는 실제 slug여야 한다. 오타 한 글자면
+  // 독자에게는 404이고, 애드센스 심사에서도 깨진 링크로 잡힌다.
+  const slugs = new Set([...content.matchAll(/slug:"([a-z0-9-]+)"/g)].map((match) => match[1]));
+  const linkedSlugs = new Set([...content.matchAll(/href="\/posts\/([a-z0-9-]+)"/g)].map((match) => match[1]));
+  assert.ok(linkedSlugs.size > 20, `내부 링크를 ${linkedSlugs.size}종만 찾았습니다.`);
+  for (const linked of linkedSlugs) {
+    assert.ok(slugs.has(linked), `/posts/${linked} 는 존재하지 않는 slug입니다.`);
+  }
+
+  // 본문이 참조하는 이미지 파일도 실제로 있어야 한다.
+  const imageRefs = new Set([...content.matchAll(/src="(\/article-(?:images|thumbnails)\/[^"]+)"/g)].map((match) => match[1]));
+  for (const ref of imageRefs) {
+    const file = new URL(`../public${ref}`, import.meta.url);
+    await access(file);
+  }
 });
