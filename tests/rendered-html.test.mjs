@@ -23,19 +23,28 @@ test("renders the finished Korean content site", async () => {
   ]);
   assert.match(layout, /퇴\.기\.사/);
   assert.match(site, /100세시대! 퇴직이 기회가 되는 사람들/);
-  assert.match(page, /퇴직 후 막막함을/);
-  assert.match(page, /내 돈이 몇 달을 버틸지 계산하고/);
+  // 브랜드 소개와 슬로건은 /about으로 옮겼다. 홈에 다시 들어오면 탐색이 밀린다.
+  const about = await readFile(new URL("../app/about/page.tsx", import.meta.url), "utf8");
+  assert.match(about, /퇴직 후 막막함을/);
+  assert.match(about, /내 돈이 몇 달을 버틸지 계산하고/);
+  assert.match(about, /<HeroCarousel \/>/);
+  assert.match(about, /hero-project-visual/);
+  assert.doesNotMatch(page, /퇴직 후 막막함을/);
+  assert.doesNotMatch(page, /<HeroCarousel \/>/);
+  assert.doesNotMatch(page, /className="hero"/);
+
   assert.doesNotMatch(page, /공식 자료 검토/);
-  assert.match(page, /<HeroCarousel \/>/);
-  assert.match(page, /hero-project-visual/);
   assert.match(page, /본문으로 바로가기/);
-  assert.match(page, /hero-explore/);
-  assert.doesNotMatch(page, /hero-facts/);
+  // 홈은 콘텐츠 탐색 화면이다: 주제 이동 → 최신 글 → 주제별 모아보기.
+  assert.match(page, /topic-nav/);
   assert.match(page, /최근 발행 글/);
-  assert.match(page, /posts\.slice\(0, 3\)/);
-  assert.match(page, /post-grid/);
+  assert.match(page, /주제별로 모아보기/);
+  assert.match(page, /posts\.slice\(0, LATEST_COUNT\)/);
+  assert.match(page, /groupByCategory/);
+  assert.match(page, /explore-grid/);
   assert.match(page, /post-meta[^}]+post\.category/);
-  assert.match(css, /\.post-grid \{ display:grid/);
+  assert.match(css, /\.explore-grid\{display:grid/);
+  assert.match(css, /\.category-columns\{display:grid/);
   assert.match(css, /\.post-card \{ min-width:0/);
   assert.match(repository, /sortPostsNewestFirst/);
   assert.match(repository, /publishedAt\.slice\(0, 10\)\.localeCompare\(a\.publishedAt\.slice\(0, 10\)\)/);
@@ -332,7 +341,8 @@ test("ships the challenge, official information, tools, health and agent desks",
     readFile(new URL("../app/admin/AdminClient.tsx",import.meta.url),"utf8"),
     readFile(new URL("../app/sitemap.ts",import.meta.url),"utf8"),
   ]);
-  assert.match(home,/30일 수입 챌린지/);
+  // 홈에서 챌린지로 갈 수 있어야 한다. 문구는 바뀔 수 있으므로 경로로 확인한다.
+  assert.match(home,/"\/challenge"/);
   assert.match(chrome,/portalMenu/);
   assert.match(challenge,/내 경험으로 월 100만원 수입에 도전하기/);
   assert.match(workbook,/30일 실행 워크북/);
