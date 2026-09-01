@@ -809,3 +809,28 @@ test("네이버 사이트 소유확인 코드가 모두 남아 있다", async ()
   // 파일 방식 확인용 파일도 함께 유지한다.
   await access(new URL("../public/naverafe0ef74210245a649d66c3a595329e9.html", import.meta.url));
 });
+
+test("자사 사이트를 안내하는 글은 제휴 관계를 본문 앞부분에서 밝힌다", async () => {
+  const [content, enrichment, disclosure] = await Promise.all([
+    readFile(new URL("../lib/content.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/article-enrichment.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/disclosure/page.tsx", import.meta.url), "utf8"),
+  ]);
+
+  // 공정위 표시·광고 심사지침은 경제적 이해관계를 독자가 판단하기 전에 보이는
+  // 위치에 두라고 한다. 글 끝으로 밀면 위치 요건을 못 맞춘다.
+  const post = content.slice(content.indexOf('slug:"affiliate-info-site-real-case"'));
+  const body = post.slice(post.indexOf("body:`") + 6, post.indexOf("`, category:"));
+  const notice = body.indexOf("애드블스가 직접 만든 자사 사이트");
+  assert.ok(notice >= 0, "자사 운영 고지 문장이 사라졌습니다.");
+  assert.ok(notice < 400, `고지가 본문 ${notice}자 뒤에 있습니다. 첫 문단에 두어야 합니다.`);
+  assert.match(body, /수수료가 발생할 수 있습니다/, "수수료 발생 사실을 밝혀야 합니다.");
+
+  // 자사 도메인을 "공식자료"로 자동 표시하면 제3자 공식 출처처럼 보인다.
+  assert.match(enrichment, /isSelfOperatedUrl/, "자사 도메인 제외 로직이 사라졌습니다.");
+  assert.match(enrichment, /urls\.filter\(\(url\) => !isSelfOperatedUrl\(url\)\)/);
+
+  // 제휴 글을 발행한 뒤에도 "제휴 추천이 없다"고 적어두면 고지가 거짓이 된다.
+  assert.doesNotMatch(disclosure, /별도의 제휴 추천이 없습니다/);
+  assert.match(disclosure, /제휴 링크가 있어/);
+});
