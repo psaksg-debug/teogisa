@@ -18,7 +18,7 @@
 - Authentication: app-owned administrator session in `lib/site-admin.ts` and admin API guards.
 - Content/API boundary: `lib/repository.ts` plus route handlers in `app/api/`.
 - Automation: content agents, member activity plans, posting queue, audit tables, and external Codex heartbeat definitions.
-- Verification: `npm test`, `tests/rendered-html.test.mjs`, `tests/mobile-check.mjs`, `scripts/seo-audit.mjs`.
+- Verification: `npm test`, `tests/rendered-html.test.mjs`, `scripts/seo-audit.mjs`.
 
 ## Reuse/replace matrix
 
