@@ -799,3 +799,18 @@ test("본문의 내부 링크와 이미지가 실제로 존재한다", async () 
     await access(file);
   }
 });
+
+test("네이버 사이트 소유확인 코드가 모두 남아 있다", async () => {
+  const layout = await readFile(new URL("../app/layout.tsx", import.meta.url), "utf8");
+
+  // 서치어드바이저는 www와 non-www를 별개 사이트로 본다. 사이트를 추가할 때마다
+  // 코드가 늘어나므로 배열로 유지해야 한다. 하나를 지우면 그 속성의 확인이 풀린다.
+  const codes = ["afe0ef74210245a649d66c3a595329e9", "203792399c25da8d31e7b2eb66cc132ba531193f"];
+  for (const code of codes) {
+    assert.match(layout, new RegExp(code), `naver-site-verification 코드 ${code} 가 사라졌습니다.`);
+  }
+  assert.match(layout, /"naver-site-verification":\s*\[/, "코드를 배열로 두어야 여러 개가 함께 렌더됩니다.");
+
+  // 파일 방식 확인용 파일도 함께 유지한다.
+  await access(new URL("../public/naverafe0ef74210245a649d66c3a595329e9.html", import.meta.url));
+});

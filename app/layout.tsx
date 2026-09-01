@@ -14,7 +14,13 @@ export const metadata: Metadata = {
   robots: { index:true, follow:true, googleBot:{ index:true, follow:true, "max-image-preview":"large", "max-snippet":-1, "max-video-preview":-1 } },
   verification: {
     other: {
-      "naver-site-verification": "afe0ef74210245a649d66c3a595329e9",
+      // 네이버 서치어드바이저는 www와 non-www를 별개 사이트로 본다.
+      // 사이트를 추가 등록할 때마다 코드가 하나씩 늘어나므로, 기존 코드를
+      // 지우지 말고 배열로 함께 둔다. 지우면 이미 확인된 속성이 풀린다.
+      "naver-site-verification": [
+        "afe0ef74210245a649d66c3a595329e9",
+        "203792399c25da8d31e7b2eb66cc132ba531193f",
+      ],
     },
   },
   icons: {
