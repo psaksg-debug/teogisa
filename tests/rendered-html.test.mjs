@@ -21,8 +21,8 @@ test("renders the finished Korean content site", async () => {
     readFile(new URL("../lib/management-department.ts", import.meta.url), "utf8"),
     readFile(new URL("../lib/repository.ts", import.meta.url), "utf8"),
   ]);
-  assert.match(layout, /퇴\.기\.사/);
-  assert.match(site, /100세시대! 퇴직이 기회가 되는 사람들/);
+  assert.match(layout, /애드블스/);
+  assert.match(site, /퇴직을 기회로 만든 사람들/);
   // 브랜드 소개와 슬로건은 /about으로 옮겼다. 홈에 다시 들어오면 탐색이 밀린다.
   const about = await readFile(new URL("../app/about/page.tsx", import.meta.url), "utf8");
   assert.match(about, /퇴직 후 막막함을/);
@@ -53,10 +53,8 @@ test("renders the finished Korean content site", async () => {
   assert.match(page, /master@adbles\.com/);
   assert.match(page, /MobileMenu/);
   assert.match(mobileMenu, /전체 메뉴 열기/);
-  assert.match(mobileMenu, /월 100만원 챌린지/);
-  assert.match(mobileMenu, /지원금·세무·연금/);
-  assert.match(mobileMenu, /유용한 도구/);
-  assert.match(mobileMenu, /건강·예방/);
+  // 메뉴 항목은 lib/portal.ts 한 곳에서 온다. 여기에 항목을 직접 적으면 다시 따로 놀게 된다.
+  assert.match(mobileMenu, /portalMenu\.map/);
   assert.match(css, /mobile-menu-drawer/);
   assert.match(css, /\.article-copy ul\{list-style:disc\}/);
   assert.match(css, /\.article-copy ol\{list-style:decimal\}/);
@@ -75,7 +73,7 @@ test("renders the finished Korean content site", async () => {
   assert.match(footer, /광고·이용 안내/);
   assert.match(footer, /이용약관/);
   assert.match(footer, /문의·오류 제보/);
-  assert.match(footer, /애드블스가 운영합니다/);
+  assert.match(footer, /adbles\.com은 \{COMPANY_NAME\}가 운영합니다/);
   assert.match(site, /Adbles\.com/);
   assert.match(css, /footer-contact/);
   assert.match(layout, /fonts\.googleapis\.com\/css2/);
@@ -472,7 +470,7 @@ test("전사 감사 조직과 감사영역이 문서화되어 있다", async () 
   assert.match(audit,/강한결/);
   assert.match(audit,/박지안/);
   assert.match(audit,/윤서진/);
-  assert.match(audit,/퇴\.기\.사 전 프로젝트/);
+  assert.match(audit,/애드블스 전 프로젝트/);
   assert.match(charter,/매월 1회 전 영역/);
   assert.match(report,/조건부 적정/);
 });
@@ -605,7 +603,7 @@ test("ships mobile-first SEO, GEO, trust and original-value pages", async () => 
   assert.match(author, /editorialAuthors\.length}명/);
   assert.match(author, /AI 기반 실무자/);
   assert.match(post, /author\.role/);
-  assert.match(post, /퇴\.기\.사 AI 편집자/);
+  assert.match(post, /애드블스 AI 편집자/);
   assert.match(sitemap, /contact/);
   assert.match(sitemap, /terms/);
   assert.match(content, /unemployment-benefit-eight-steps/);
@@ -870,4 +868,51 @@ test("본문 표는 병합 셀을 포함해 행마다 열 수가 맞는다", asy
       assert.equal(width, widths[0], `열 수가 ${widths[0]}인 표에서 ${rowIndex + 1}번째 행만 ${width}칸입니다: ${label}`);
     }
   }
+});
+
+test("상단 메뉴와 홈 카테고리 칩이 한 정의를 함께 쓴다", async () => {
+  const [portal, chrome, mobileMenu, page, layout, site, content] = await Promise.all([
+    readFile(new URL("../lib/portal.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/SiteChrome.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/MobileMenu.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../lib/site.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/content.ts", import.meta.url), "utf8"),
+  ]);
+
+  // 메뉴를 화면마다 따로 적으면 이름이 다시 어긋난다(예전: 상단 "도구모음" ↔ 칩 "유용한 도구").
+  // 상단 메뉴·모바일 메뉴·푸터·홈 칩이 모두 lib/portal.ts 를 통해야 한다.
+  assert.match(chrome, /portalMenu\.map/, "상단 메뉴가 공용 정의를 쓰지 않습니다.");
+  assert.equal((chrome.match(/portalMenu\.map/g) ?? []).length, 2, "푸터 '살펴보기'도 같은 정의를 써야 합니다.");
+  assert.match(mobileMenu, /portalMenu\.map/, "모바일 메뉴가 공용 정의를 쓰지 않습니다.");
+  assert.match(page, /menuCategoryOrder/, "홈 칩 순서가 메뉴 순서를 따르지 않습니다.");
+  assert.match(page, /categoryLabel\(category\)/, "홈 칩이 메뉴와 같은 이름을 쓰지 않습니다.");
+
+  const items = [...portal.matchAll(/\{ label:"([^"]+)", category:"([^"]+)"(?:, href:"([^"]+)")?/g)]
+    .map(([, label, category, href]) => ({ label, category, href }));
+  assert.ok(items.length >= 7, `메뉴 항목을 ${items.length}개만 찾았습니다.`);
+
+  // 도구모음(계산기·업무 도구)과 수익화 실험(수입 기록)은 다른 것이다. 한 항목으로 뭉치면
+  // 도구를 찾는 사람과 수익 사례를 찾는 사람이 같은 페이지로 간다.
+  const tools = items.find((item) => item.label === "도구모음");
+  const income = items.find((item) => item.label === "수익화 실험");
+  assert.ok(tools, "도구모음 항목이 사라졌습니다.");
+  assert.ok(income, "수익화 실험 항목이 사라졌습니다.");
+  assert.notEqual(tools.href, income.href, "도구모음과 수익화 실험이 같은 곳을 가리킵니다.");
+  assert.notEqual(tools.category, income.category);
+
+  // category 값이 실제 글 카테고리와 한 글자라도 다르면 칩의 글 수가 조용히 0이 된다.
+  const usedCategories = new Set([...content.matchAll(/category:"([^"]+)"/g)].map((match) => match[1]));
+  for (const item of items) {
+    assert.ok(usedCategories.has(item.category), `메뉴 "${item.label}"의 카테고리 "${item.category}"를 쓰는 글이 없습니다.`);
+  }
+
+  // 사이트 이름과 검색 키워드.
+  assert.match(site, /SITE_NAME = "애드블스"/);
+  assert.match(site, /SITE_TAGLINE = "퇴직을 기회로 만든 사람들"/);
+  assert.match(site, /SITE_KEYWORDS/);
+  assert.match(site, /"온라인 부업"/);
+  assert.match(site, /"온라인 수익"/);
+  assert.match(layout, /keywords: SITE_KEYWORDS/, "메타 키워드가 문서에 실리지 않습니다.");
 });

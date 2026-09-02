@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   try {
     const body = (await request.json().catch(() => ({}))) as { slug?: string; url?: string };
     let targetUrl = body.url || "";
-    let targetTitle = "퇴.기.사 업데이트";
+    let targetTitle = "애드블스 업데이트";
     let targetSlug = body.slug || "";
 
     if (body.slug) {

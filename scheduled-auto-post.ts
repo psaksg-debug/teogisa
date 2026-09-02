@@ -4,7 +4,7 @@
  * 
  * [역할]
  * Cron Trigger에 의해 주기적으로 실행되며,
- * AI를 호출하여 퇴.기.사 운영 지침에 부합하는 글을 생성한 뒤
+ * AI를 호출하여 애드블스 운영 지침에 부합하는 글을 생성한 뒤
  * Cloudflare D1 데이터베이스의 `posts` 테이블에 직접 INSERT 및 즉시 발행합니다.
  */
 
@@ -47,9 +47,9 @@ export async function handleScheduledAutoPost(env: Env): Promise<void> {
   const dayIndex = Math.floor(Date.now() / (1000 * 60 * 60 * 24)) % TOPICS.length;
   const targetTopic = TOPICS[dayIndex];
 
-  // 2. AI 생성 프롬프트 구성 (퇴.기.사 사규 및 품질 지침 준수)
+  // 2. AI 생성 프롬프트 구성 (애드블스 사규 및 품질 지침 준수)
   const systemInstruction = `
-당신은 '퇴.기.사(100세시대! 퇴직이 기회가 되는 사람들)'의 전문 편집자입니다.
+당신은 '애드블스(100세시대! 퇴직이 기회가 되는 사람들)'의 전문 편집자입니다.
 퇴직자 및 40~60대 독자를 위한 실전형 고품질 글을 작성해야 합니다.
 다음 규칙을 엄격히 준수하여 JSON 형식으로만 응답하세요:
 1. 제목: 간결하고 후킹 있는 핵심 제목

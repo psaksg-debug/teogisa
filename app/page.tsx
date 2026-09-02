@@ -3,10 +3,11 @@ import { getPublishedPosts } from "../lib/repository";
 import { Brand, PortalNav, SiteFooter } from "./components/SiteChrome";
 import { MobileMenu } from "./components/MobileMenu";
 import { ArticleThumbnail } from "./components/ArticleMedia";
+import { categoryAnchor, categoryLabel, menuCategoryOrder } from "../lib/portal";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "../lib/site";
 
 export const metadata: Metadata = {
-  title: "퇴직 후 생활비·지원제도·새 수입 가이드",
+  title: `퇴직 후 생활비·지원제도·새 수입 가이드 | ${SITE_NAME}`,
   description: SITE_DESCRIPTION,
   alternates: { canonical: "/" },
 };
@@ -19,19 +20,9 @@ export const revalidate = 0;
 const LATEST_COUNT = 12;
 const PER_CATEGORY = 4;
 
-/** 왼쪽부터 자주 찾는 순서. 여기 없는 카테고리는 글 수가 많은 순으로 뒤에 붙는다. */
-const categoryOrder = [
-  "정부지원·실업급여",
-  "연금·세금·보험",
-  "재취업·N잡",
-  "퇴직 준비",
-  "AI 활용",
-  "투자·재테크",
-  "건강·예방",
-  "유용한 도구",
-  "지역 생활정보",
-  "실제 수익실험",
-];
+// 칩 순서는 상단 메뉴 순서를 그대로 따른다(lib/portal.ts).
+// 허브 페이지가 없어 메뉴에 못 넣은 카테고리는 글 수가 많은 순으로 뒤에 붙는다.
+const categoryOrder = menuCategoryOrder;
 
 function groupByCategory(posts: Awaited<ReturnType<typeof getPublishedPosts>>) {
   const groups = new Map<string, typeof posts>();
@@ -84,7 +75,7 @@ export default async function Home() {
             <li><a className="topic-nav-all" href="/search">전체 {posts.length}편</a></li>
             {grouped.map(([category, items]) => (
               <li key={category}>
-                <a href={`#cat-${encodeURIComponent(category)}`}>{category} <b>{items.length}</b></a>
+                <a href={`#${categoryAnchor(category)}`}>{categoryLabel(category)} <b>{items.length}</b></a>
               </li>
             ))}
           </ul>
@@ -100,7 +91,7 @@ export default async function Home() {
               <article className="post-card" key={post.slug}>
                 <ArticleThumbnail post={post}/>
                 <div className="post-body">
-                  <p className="post-meta">{post.category} · {post.readingMinutes}분</p>
+                  <p className="post-meta">{categoryLabel(post.category)} · {post.readingMinutes}분</p>
                   <h3><a href={`/posts/${post.slug}`}>{post.title}</a></h3>
                   <p>{post.excerpt}</p>
                 </div>
@@ -113,8 +104,8 @@ export default async function Home() {
           <div className="section-heading"><div><h2 id="category-browse-title">주제별로 모아보기</h2></div></div>
           <div className="category-columns">
             {grouped.map(([category, items]) => (
-              <section className="category-column" id={`cat-${encodeURIComponent(category)}`} key={category}>
-                <h3>{category} <span>{items.length}편</span></h3>
+              <section className="category-column" id={categoryAnchor(category)} key={category}>
+                <h3>{categoryLabel(category)} <span>{items.length}편</span></h3>
                 <ul>
                   {items.slice(0, PER_CATEGORY).map((post) => (
                     <li key={post.slug}><a href={`/posts/${post.slug}`}>{post.title}</a></li>
@@ -122,7 +113,7 @@ export default async function Home() {
                 </ul>
                 {items.length > PER_CATEGORY && (
                   <a className="category-more" href={`/search?category=${encodeURIComponent(category)}`}>
-                    {category} 전체 보기 <span aria-hidden="true">→</span>
+                    {categoryLabel(category)} 전체 보기 <span aria-hidden="true">→</span>
                   </a>
                 )}
               </section>

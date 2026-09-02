@@ -1,5 +1,6 @@
 import type { Post } from "../../lib/content";
 import { enrichArticle, getThumbnailSeo } from "../../lib/article-enrichment";
+import { categoryLabel } from "../../lib/portal";
 
 export function ArticleThumbnail({ post, variant = "card" }: { post: Post; variant?: "card" | "search" | "hero" }) {
   const image = getThumbnailSeo(post);
@@ -13,7 +14,7 @@ export function ArticleThumbnail({ post, variant = "card" }: { post: Post; varia
       decoding="async"
       fetchPriority={variant === "hero" ? "high" : "auto"}
     />
-    <figcaption><span>{post.category}</span><strong>{post.visual}</strong></figcaption>
+    <figcaption><span>{categoryLabel(post.category)}</span><strong>{post.visual}</strong></figcaption>
   </figure>;
 }
 

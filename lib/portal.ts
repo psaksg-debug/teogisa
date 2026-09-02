@@ -1,10 +1,39 @@
-export const portalMenu = [
-  { href: "/challenge", label: "월 100만원 챌린지" },
-  { href: "/official-info", label: "지원금·세무·연금" },
-  { href: "/tools", label: "도구모음" },
-  { href: "/keyword-lab", label: "지역별 생활정보" },
-  { href: "/health", label: "건강·예방" },
+export type PortalMenuItem = {
+  /** 화면에 보이는 이름. 상단 메뉴·홈 칩·모바일 메뉴·푸터가 모두 이 이름을 쓴다. */
+  label: string;
+  /** lib/content.ts 의 글 카테고리 값. 홈 칩의 글 수와 이동 위치를 이 값으로 찾는다. */
+  category: string;
+  /** 주제 허브 페이지. 없으면 홈의 해당 카테고리 구역으로 보낸다. */
+  href?: string;
+  description: string;
+};
+
+// 상단 메뉴와 홈 카테고리 칩이 서로 다른 이름을 쓰던 것을 여기 한 곳으로 모았다.
+// (예전: 상단 "도구모음"·"지역별 생활정보" ↔ 칩 "유용한 도구"·"지역 생활정보")
+// label 과 category 를 따로 두는 이유: 카테고리 값은 편집자 역할명, 콘텐츠 에이전트 설정,
+// 마이그레이션 스크립트, 이미 발행된 글의 바이라인까지 묶여 있어 값을 바꾸면 파급이 크다.
+// 데이터는 그대로 두고 화면에 보이는 이름만 통일한다.
+export const portalMenu: PortalMenuItem[] = [
+  { label:"정부지원·실업급여", category:"정부지원·실업급여", href:"/official-info", description:"실업급여·지원금·직업훈련을 공식 원문으로 확인합니다." },
+  { label:"연금·세금·보험", category:"연금·세금·보험", description:"국민연금, 종합소득세, 건강보험료를 순서대로 정리합니다." },
+  { label:"재취업·N잡", category:"재취업·N잡", description:"경력을 다시 쓰는 방법과 중장년 일자리 경로를 봅니다." },
+  { label:"수익화 실험", category:"실제 수익실험", href:"/challenge", description:"월 100만원 챌린지와 숫자로 공개하는 수익 실험 기록입니다." },
+  { label:"도구모음", category:"유용한 도구", href:"/tools", description:"퇴직금·생활비 계산기와 무료 업무 도구 모음입니다." },
+  { label:"지역 생활정보", category:"지역 생활정보", href:"/keyword-lab", description:"사는 곳에 따라 달라지는 일자리·지원 정보입니다." },
+  { label:"건강·예방", category:"건강·예방", href:"/health", description:"놓치기 쉬운 위험 신호와 공공 건강 정보입니다." },
 ];
+
+/** 홈의 카테고리 구역 id. 칩과 상단 메뉴가 같은 자리를 가리키도록 한 곳에서 만든다. */
+export function categoryAnchor(category:string){ return `cat-${encodeURIComponent(category)}`; }
+
+/** 메뉴 항목의 이동 위치. 허브 페이지가 있으면 그쪽으로, 없으면 홈의 카테고리 구역으로. */
+export function menuHref(item:PortalMenuItem){ return item.href ?? `/#${categoryAnchor(item.category)}`; }
+
+/** 글 카테고리를 메뉴와 같은 이름으로 보여준다. 메뉴에 없는 카테고리는 원래 이름 그대로. */
+export function categoryLabel(category:string){ return portalMenu.find((item)=>item.category===category)?.label ?? category; }
+
+/** 홈 칩과 주제별 목록의 순서. 메뉴에 있는 카테고리가 메뉴 순서대로 먼저 온다. */
+export const menuCategoryOrder = portalMenu.map((item)=>item.category);
 
 export const workbookDays = [
   ["현재 수입·지출 한 장 정리", "최근 3개월 통장과 카드 내역에서 월 최소생활비를 적습니다."],

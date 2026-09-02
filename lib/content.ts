@@ -181,7 +181,7 @@ export const seedPosts: Post[] = [
 <p>이 글의 기준일은 2026년 8월 14일입니다. 개인별 자격과 금액은 자료 반영 시점에 따라 달라질 수 있으므로 국민건강보험공단에서 최종 확인해야 합니다.</p>
 <h2>퇴직하면 선택지가 세 갈래로 나뉩니다</h2>
 <table><thead><tr><th>경로</th><th>먼저 확인할 것</th><th>주의점</th></tr></thead><tbody><tr><td>가족의 직장보험 피부양자</td><td>가족관계·부양·소득·재산 요건</td><td>가족이라고 자동 등록되지 않음</td></tr><tr><td>지역가입자</td><td>세대 소득과 재산을 반영한 예상 보험료</td><td>퇴직 전 본인부담액과 산식이 다름</td></tr><tr><td>임의계속가입자</td><td>직장가입 기간과 신청기한</td><td>지역보험료보다 반드시 싼 것은 아님</td></tr></tbody></table>
-<figure class="article-image"><img src="/article-thumbnails/retirement-pension-life.webp" alt="퇴직 후 건강보험 가입 유형을 확인하는 중장년 부부 일러스트"><figcaption>퇴직 후에는 피부양자·지역가입자·임의계속가입 가운데 가능한 경로와 예상 보험료를 함께 확인해야 합니다. · 퇴.기.사 제작 일러스트</figcaption></figure>
+<figure class="article-image"><img src="/article-thumbnails/retirement-pension-life.webp" alt="퇴직 후 건강보험 가입 유형을 확인하는 중장년 부부 일러스트"><figcaption>퇴직 후에는 피부양자·지역가입자·임의계속가입 가운데 가능한 경로와 예상 보험료를 함께 확인해야 합니다. · 애드블스 제작 일러스트</figcaption></figure>
 <p>피부양자 요건을 충족하지 못하면 일반적으로 지역가입자로 보험료를 내게 됩니다. 임의계속가입은 신청 자격이 있는 퇴직자가 지역보험료와 비교해 선택할 수 있는 특례입니다. 세 경로를 동시에 적용받는 것이 아니라 내 자격에 맞는 경로를 확인하는 과정입니다.</p>
 <h2>1. 피부양자는 가족관계만으로 결정되지 않습니다</h2>
 <p>배우자나 자녀가 직장가입자라고 해서 곧바로 피부양자가 되는 것은 아닙니다. 국민건강보험공단은 가족관계와 부양요건뿐 아니라 소득과 재산요건을 함께 확인합니다. 연금·금융·임대·사업소득 등 소득의 종류와 반영 시점에 따라 판단이 달라질 수 있으므로 인터넷의 단순 기준표만 보고 확정하면 안 됩니다.</p>
@@ -205,7 +205,7 @@ export const seedPosts: Post[] = [
 <p>공식 확인: <a href="https://www.nhis.or.kr/static/alim/paper/oldpaper/202212/sub/18.html" target="_blank" rel="noreferrer">국민건강보험공단 임의계속가입 안내</a> · <a href="https://edi.nhis.or.kr/portal/images/popup/20251204_pop01longdesc.html" target="_blank" rel="noreferrer">2026년도 보험료율 안내</a> · <a href="https://www.nhis.or.kr/" target="_blank" rel="noreferrer">국민건강보험공단</a></p>
 <p><strong>김연수 · 연금·보험 편집자</strong></p>`, category:"연금·세금·보험", tags:["퇴직 건강보험료","지역가입자","피부양자","임의계속가입","2026 건강보험"], status:"published", publishedAt:"2026-08-14", scheduledAt:null, readingMinutes:11, visual:"건보", authorName:"김연수" },
   { id:1001, title:"예금자보호 1억이면 안심일까? 퇴직금 나누기 전 확인할 5가지", slug:"deposit-protection-100-million-retirement-money-checks", excerpt:"원금과 이자를 합쳐 금융회사별 1억원까지 보호되는 기준, 보호되지 않는 상품, 퇴직연금 별도 한도와 분산 예치표를 정리했습니다.", body:`<p><strong>2025년 9월 1일부터 예금보호한도는 금융회사별로 원금과 소정의 이자를 합해 1인당 1억원입니다.</strong> 계좌마다 1억원이 아니며, 같은 금융회사에 여러 예금이 있으면 합산해 계산합니다. 퇴직금을 옮기기 전에는 금리순으로 통장을 만들지 말고 <strong>보호 대상 여부 → 금융회사별 합계 → 만기와 중도해지 조건</strong> 순서로 확인하세요.</p>
-<figure class="article-image"><img src="/article-thumbnails/income-tax-calculation.webp" alt="예금보호한도와 퇴직금 분산 예치를 계산하는 표·계산기 일러스트" width="355" height="444" loading="lazy" decoding="async"><figcaption>보호한도만 보지 말고 금융회사별 원금·예상 이자 합계와 만기일을 함께 적어야 합니다. · 퇴.기.사 제작 일러스트</figcaption></figure>
+<figure class="article-image"><img src="/article-thumbnails/income-tax-calculation.webp" alt="예금보호한도와 퇴직금 분산 예치를 계산하는 표·계산기 일러스트" width="355" height="444" loading="lazy" decoding="async"><figcaption>보호한도만 보지 말고 금융회사별 원금·예상 이자 합계와 만기일을 함께 적어야 합니다. · 애드블스 제작 일러스트</figcaption></figure>
 <h2>1. 가입 화면에서 예금자보호 표시부터 확인합니다</h2>
 <p>금융위원회는 은행·저축은행의 예금뿐 아니라 보험회사의 일부 보험계약, 금융투자회사의 예탁금 등 보호 대상 금융상품에 한도가 적용된다고 안내합니다. 반면 펀드처럼 운용 실적에 따라 손익이 달라지는 상품은 보호 대상이 아닙니다. 상품 이름에 ‘저축’이나 ‘연금’이 들어가도 자동으로 보호된다고 생각하지 말고, 가입 화면과 상품설명서의 예금자보호 여부를 확인하세요.</p>
 <h2>2. 원금만 1억원을 채우지 않습니다</h2>
@@ -245,7 +245,7 @@ export const seedPosts: Post[] = [
 <p>기준일: 2026년 8월 14일. 무료 이용 여부와 기능 확인: <a href="https://proshot.adbles.com/" target="_blank" rel="noreferrer">ProShot 공식 화면</a></p>
 <p><strong>김기준 · 유용한 도구 편집자</strong></p>`, category:"유용한 도구", tags:["ProShot","AI 증명사진","프로필 사진","비즈니스 헤드샷","휴대폰 사진"], status:"published", publishedAt:"2026-08-15", scheduledAt:null, readingMinutes:8, visual:"PHOTO", authorName:"김기준" },
   { id:1003, title:"IRP에 들어온 퇴직금, 해지 버튼을 누르기 전에 볼 5가지", slug:"retirement-pay-irp-five-checks-before-withdrawal", excerpt:"퇴직금이 IRP로 들어온 뒤 일시금과 연금 중 무엇을 선택할지, 과세이연·세율·수수료·생활비를 기준으로 확인합니다.", body:`<p><strong>퇴직금이 개인형퇴직연금(IRP)에 들어왔다고 바로 해지할 필요는 없습니다.</strong> IRP 입금은 세금이 없어진 것이 아니라 퇴직소득세 납부 시점을 뒤로 미룬 상태입니다. 생활비 때문에 일시금이 필요한지, 연금으로 나눠 받을 수 있는지, 계좌 안에 퇴직금 외 개인 납입금이 섞여 있는지를 먼저 확인해야 합니다.</p>
-<figure class="article-image"><img src="/article-thumbnails/application-process-timeline.webp" alt="퇴직금이 IRP에 입금된 뒤 일시금과 연금 수령 절차를 확인하는 서류·일정표 일러스트" width="355" height="444" loading="lazy" decoding="async"><figcaption>IRP는 해지 버튼부터 누르기보다 퇴직금의 출처, 필요한 시점과 수령 방식을 순서대로 확인해야 합니다. · 퇴.기.사 제작 일러스트</figcaption></figure>
+<figure class="article-image"><img src="/article-thumbnails/application-process-timeline.webp" alt="퇴직금이 IRP에 입금된 뒤 일시금과 연금 수령 절차를 확인하는 서류·일정표 일러스트" width="355" height="444" loading="lazy" decoding="async"><figcaption>IRP는 해지 버튼부터 누르기보다 퇴직금의 출처, 필요한 시점과 수령 방식을 순서대로 확인해야 합니다. · 애드블스 제작 일러스트</figcaption></figure>
 <h2>먼저 내 퇴직금이 왜 IRP로 들어왔는지 확인하세요</h2>
 <p>고용노동부 안내에 따르면 2022년 4월 14일부터 사용자는 원칙적으로 근로자가 지정한 IRP 계정에 퇴직급여를 지급해야 합니다. 다만 퇴직 당시 55세 이상이거나 퇴직급여액이 300만원 이하인 경우 등에는 의무이전 예외가 적용될 수 있습니다. 예외에 해당한다고 무조건 일반 통장으로 받아야 하는 것은 아니며, 실제 지급 방식은 회사와 퇴직연금사업자에 확인하세요.</p>
 <h2>IRP 입금은 비과세가 아니라 과세이연입니다</h2>
@@ -281,7 +281,7 @@ export const seedPosts: Post[] = [
 <h2>3. 건강검진 전후 5가지 주의사항</h2>
 <ol><li><strong>검진 8시간 전 금식:</strong> 검사 전날 저녁 9시 이후 금식하며, 수분 섭취도 최소화합니다.</li><li><strong>기저질환 약물 복용 확인:</strong> 고혈압 약은 검진 당일 아침 일찍 소량의 물과 복용하되, 당뇨약/인슐린은 저혈당 예방을 위해 복용을 금합니다.</li><li><strong>추가 선택 검사 꼭 필요한 것만:</strong> 뇌 MRI, PET-CT 등 고가 검사는 증상이나 가족력이 있을 때 전문의 상담 후 선택합니다.</li><li><strong>검진 결과표 이상 소견 재검진:</strong> 2차 검진 대상(고혈압·당뇨 의심) 통보 시 기한 내 지정 병원에서 무료 재검사를 받습니다.</li><li><strong>결과 기록 모바일 통합 관리:</strong> 공단 'The 건강보험' 앱을 통해 과거 검진 이력을 통합 관리하세요.</li></ol>
 <p><strong>케어 · 건강·예방 편집자</strong></p>`, category:"건강·예방", tags:["건강검진","국가건강검진","중장년 건강","건강보험","예방의학"], status:"published", publishedAt:"2026-08-16", scheduledAt:null, readingMinutes:9, visual:"HEALTH", authorName:"케어" },
-  { id:1006, title:"자진퇴사면 실업급여 못 받는다? 인정되는 사유가 따로 있습니다", slug:"voluntary-resignation-unemployment-benefit-conditions", excerpt:"자발적 퇴사는 원칙적으로 실업급여 대상이 아니지만 고용보험법 시행규칙 별표2의 정당한 이직 사유에 해당하면 받을 수 있습니다. 2개월·3시간·30일 같은 인정 기준과 사유별 증빙 서류, 2026년 실제 수령액을 정리했습니다.", body:`<figure class="article-image"><img src="/article-thumbnail-sprite.png" alt="자발적 퇴사 실업급여 정당한 이직 사유와 증빙 서류를 정리한 퇴.기.사 시각자료" loading="lazy" decoding="async"></figure>
+  { id:1006, title:"자진퇴사면 실업급여 못 받는다? 인정되는 사유가 따로 있습니다", slug:"voluntary-resignation-unemployment-benefit-conditions", excerpt:"자발적 퇴사는 원칙적으로 실업급여 대상이 아니지만 고용보험법 시행규칙 별표2의 정당한 이직 사유에 해당하면 받을 수 있습니다. 2개월·3시간·30일 같은 인정 기준과 사유별 증빙 서류, 2026년 실제 수령액을 정리했습니다.", body:`<figure class="article-image"><img src="/article-thumbnail-sprite.png" alt="자발적 퇴사 실업급여 정당한 이직 사유와 증빙 서류를 정리한 애드블스 시각자료" loading="lazy" decoding="async"></figure>
 <p><strong>결론부터 말하면, 자발적 퇴사도 실업급여를 받을 수 있습니다.</strong> 다만 "그만두고 싶어서 그만둔 경우"는 아니고, 「고용보험법 시행규칙」 제101조제2항 별표2가 정한 <strong>정당한 이직 사유</strong>에 해당해야 합니다. 그리고 실무에서 결과를 가르는 것은 사유 자체보다 <strong>그 사유를 서류로 증명할 수 있는지</strong>입니다.</p>
 <p>이 글의 기준일은 2026년 8월 18일이며, 고용노동부·국가법령정보센터·찾기쉬운 생활법령정보의 공개 자료를 근거로 정리했습니다. 개인별 최종 판단은 관할 고용센터가 하므로, 신청 전 확인이 필요합니다.</p>
 <h2>1. 사유보다 먼저 넘어야 하는 4가지 기본 요건</h2>
@@ -405,7 +405,7 @@ export const seedPosts: Post[] = [
 </table>
 <figure class="article-image">
   <img src="/article-thumbnails/layoff_illustration.jpg" alt="권고사직을 논의하는 회사 관계자와 근로자 일러스트" width="800" height="800" loading="lazy" decoding="async">
-  <figcaption>권고사직은 회사의 권유와 근로자의 동의로 이루어지며, 실업급여 수급의 중요한 요건이 됩니다. · 퇴.기.사 제작 일러스트</figcaption>
+  <figcaption>권고사직은 회사의 권유와 근로자의 동의로 이루어지며, 실업급여 수급의 중요한 요건이 됩니다. · 애드블스 제작 일러스트</figcaption>
 </figure>
 <h2>2. 권고사직(코드 23): 사직서 문구 한 줄에 실업급여가 날아가는 이유</h2>
 <p>권고사직은 회사가 퇴직을 권유하고 근로자가 이를 수용하여 근로계약을 합의 해지하는 형태입니다. 고용보험법상 ‘비자발적 이직’으로 분류되어 실업급여 수급 요건(피보험 단위기간 180일 이상 충족 시)을 갖추게 됩니다.</p>
@@ -419,7 +419,7 @@ export const seedPosts: Post[] = [
 <p>회사가 권고사직 처리를 주저하는 가장 큰 이유는 <strong>고용유지지원금, 청년일자리도약장려금 등 정부지원금 수령에 제한(인위적 감원 제한 규정)</strong>이 걸리기 때문입니다. 만약 회사가 "개인 사정으로 나가되 실업급여는 맞춰주겠다"고 구두 약속을 한다면, 이는 부정수급(허위 신고) 리스크가 있으므로 위로금 협상이나 서면 합의서를 통해 권고사직 사유를 명확히 남겨야 합니다.</p>
 <figure class="article-image">
   <img src="/article-thumbnails/voluntary_resignation.jpg" alt="자발적 퇴사를 결심하고 짐을 챙겨 나서는 직장인 일러스트" width="800" height="800" loading="lazy" decoding="async">
-  <figcaption>자발적 퇴사는 원칙적으로 실업급여 대상이 아니지만, 예외적인 9가지 사유에 해당하면 수급이 가능합니다. · 퇴.기.사 제작 일러스트</figcaption>
+  <figcaption>자발적 퇴사는 원칙적으로 실업급여 대상이 아니지만, 예외적인 9가지 사유에 해당하면 수급이 가능합니다. · 애드블스 제작 일러스트</figcaption>
 </figure>
 <h2>3. 자발적 퇴사(코드 11): 내 발로 나와도 실업급여 받는 9가지 예외</h2>
 <p>개인 사정으로 사표를 내는 자발적 퇴사는 원칙적으로 실업급여 대상이 아닙니다. 하지만 고용보험법 시행규칙 제101조 제2항 [별표 2]에 따라, <strong>‘통상적인 근로자라도 이직할 수밖에 없는 정당한 사유’</strong>가 객관적으로 입증되면 자발적 퇴사라도 실업급여를 100% 받을 수 있습니다.</p>
@@ -437,7 +437,7 @@ export const seedPosts: Post[] = [
 </ol>
 <figure class="article-image">
   <img src="/article-thumbnails/contract_expiration.jpg" alt="근로계약 만료를 알리는 달력과 악수하는 일러스트" width="800" height="800" loading="lazy" decoding="async">
-  <figcaption>계약만료로 인한 퇴사 시, 재계약 거부의 주체가 누구인지에 따라 실업급여 수급 여부가 엇갈립니다. · 퇴.기.사 제작 일러스트</figcaption>
+  <figcaption>계약만료로 인한 퇴사 시, 재계약 거부의 주체가 누구인지에 따라 실업급여 수급 여부가 엇갈립니다. · 애드블스 제작 일러스트</figcaption>
 </figure>
 <h2>4. 계약만료(코드 32): 실업급여를 받지 못하는 결정적 '함정'</h2>
 <p>계약직 근로자가 계약서에 명시된 기간이 종료되어 퇴사할 때는 실업급여 수급이 가능합니다. 하지만 실무에서 많은 분들이 놓치는 <strong>‘재계약 거부 주체’</strong>에 따른 함정이 있습니다.</p>
@@ -1353,7 +1353,7 @@ export const seedPosts: Post[] = [
 <p>다른 나라 서버로 접속해 해당 지역 서비스를 이용하는 용도로 쓰는 경우가 있습니다. 이는 서비스 약관을 위반할 수 있고 계정 제재로 이어질 수 있습니다. 이 글은 <strong>공용 와이파이 보안과 개인정보 보호</strong> 목적을 기준으로 썼습니다.</p>
 
 <h2>비교해 보기</h2>
-<p>서비스별 정책과 요금은 자주 바뀌고, 한 곳씩 찾아보면 시간이 많이 듭니다. 퇴.기.사를 운영하는 애드블스가 <a href="https://vpn.adbles.com/" target="_blank" rel="noreferrer">VPN 비교 사이트</a>를 따로 만들어 두었으니 항목별로 견주어 볼 때 활용하세요. 자사가 운영하는 사이트임을 밝혀 둡니다.</p>
+<p>서비스별 정책과 요금은 자주 바뀌고, 한 곳씩 찾아보면 시간이 많이 듭니다. 애드블스가 직접 만든 <a href="https://vpn.adbles.com/" target="_blank" rel="noreferrer">VPN 비교 사이트</a>를 따로 만들어 두었으니 항목별로 견주어 볼 때 활용하세요. 자사가 운영하는 사이트임을 밝혀 둡니다.</p>
 <p>어떤 서비스를 고르든 결제 전에 <strong>공식 홈페이지에서 현재 요금과 자동 갱신 조건</strong>을 직접 확인하시기 바랍니다. 이 글은 선택 기준을 정리한 것으로 특정 서비스를 보증하거나 보안 결과를 담보하지 않습니다.</p>
 
 <p>온라인에서 무엇을 조심해야 하는지 더 보려면 <a href="/posts/vibe-coding-risks-8-things">AI 코딩 시 반드시 알아야 할 8가지 치명적 위험</a>의 비밀키·권한 관리 부분이 도움이 됩니다.</p>`, category:"유용한 도구", tags:["VPN","VPN 추천","공용 와이파이","개인정보 보호","노로그"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:7, visual:"VPN", authorName:"데스크" },
@@ -1766,7 +1766,7 @@ export const seedPosts: Post[] = [
 <p>이 셋은 서로 얽혀 있습니다. 따로 알아보면 놓치는 부분이 생기므로 65세가 가까워지면 한 번에 정리해 두는 편이 좋습니다.</p>
 
 <p>이 글은 확인 순서를 정리한 것으로 개인의 지원 대상 여부나 금액을 알려주지 않습니다. 발급 기관·절차·무임 범위·환급 조건은 지역과 시기에 따라 다르므로, 신청 전 주소지 주민센터와 <a href="https://www.gov.kr/" target="_blank" rel="noreferrer">정부24</a>, <a href="https://www.bokjiro.go.kr/" target="_blank" rel="noreferrer">복지로</a>에서 현재 기준을 확인하시기 바랍니다.</p>`, category:"지역 생활정보", tags:["경로우대","65세 교통카드","지하철 무임승차","K-패스 어르신","우대용 교통카드","운전면허 반납"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:8, visual:"65세", authorName:"로컬" },
-  { id:2123, title:"제휴 링크만 걸면 수익이 날까? 사이트를 하나 열어 구조를 공개합니다", slug:"affiliate-info-site-real-case", excerpt:"제휴 수익이 실제로 발생하는 지점, 공정위 표시 의무와 세금 구분까지. 애드블스가 새로 연 이사 정보 사이트를 예로 시작 시점의 상태를 그대로 공개합니다.", body:`<p><strong>먼저 밝힙니다.</strong> 이 글에 나오는 이사준비백서(isatips.adbles.com)는 퇴.기.사를 운영하는 <strong>애드블스가 직접 만든 자사 사이트</strong>입니다. 그 사이트 안에는 제휴 링크가 있고, 방문자가 그 링크를 거쳐 견적을 신청하면 애드블스에 수수료가 발생할 수 있습니다. 이 고지를 글 맨 앞에 두는 이유는 본문에서 함께 설명합니다.</p>\n
+  { id:2123, title:"제휴 링크만 걸면 수익이 날까? 사이트를 하나 열어 구조를 공개합니다", slug:"affiliate-info-site-real-case", excerpt:"제휴 수익이 실제로 발생하는 지점, 공정위 표시 의무와 세금 구분까지. 애드블스가 새로 연 이사 정보 사이트를 예로 시작 시점의 상태를 그대로 공개합니다.", body:`<p><strong>먼저 밝힙니다.</strong> 이 글에 나오는 이사준비백서(isatips.adbles.com)는 <strong>애드블스가 직접 만든 자사 사이트</strong>입니다. 그 사이트 안에는 제휴 링크가 있고, 방문자가 그 링크를 거쳐 견적을 신청하면 애드블스에 수수료가 발생할 수 있습니다. 이 고지를 글 맨 앞에 두는 이유는 본문에서 함께 설명합니다.</p>\n
 <p>제휴마케팅을 소개하는 글은 대개 "링크만 걸어두면 잠자는 동안에도 돈이 들어온다"로 시작합니다. 구조를 뜯어보면 그 문장에서 생략된 단계가 많습니다. 이 글은 성과 자랑이 아니라 <strong>수익이 발생하는 지점과 그 앞에 필요한 조건</strong>을 순서대로 적은 기록입니다.</p>\n
 <h2>수익은 조회수가 아니라 행동에서 납니다</h2>\n
 <p>광고와 제휴는 돈이 만들어지는 지점이 다릅니다. 이 차이를 모르면 방문자 수만 늘리다가 수익이 붙지 않는 구간에서 지칩니다.</p>\n
@@ -1798,8 +1798,8 @@ export const seedPosts: Post[] = [
 <ol>\n<li><strong>색인까지 시간이 걸립니다.</strong> 사이트를 공개해도 검색 결과에 나타나기까지 기다려야 합니다. 첫 달에 방문자가 거의 없는 것은 정상입니다.</li>\n<li><strong>돈은 안 들어도 시간은 듭니다.</strong> 광고비를 쓰지 않는 대신 조사와 글쓰기에 시간이 들어갑니다. 광고비부터 나가는 방식과의 차이는 <a href="/posts/facebook-ads-side-hustle-reality">페이스북 광고 부업, 수익보다 광고비가 먼저 나갑니다 — 시작 전 7가지</a>에서 비교해 보세요.</li>\n<li><strong>수익원 하나에 몰지 마세요.</strong> 제휴 프로그램은 조건이 바뀌거나 종료될 수 있습니다. <a href="/posts/three-layer-income-plan">퇴직 후 월 300만 원, 부업 하나에 몰아넣으면 위험한 이유</a>의 구조를 함께 보시기 바랍니다.</li>\n<li><strong>만드는 일 자체는 예전보다 쉬워졌습니다.</strong> 다만 공개한 뒤가 진짜 일입니다. 만들어 올리는 과정은 <a href="/posts/vibe-coding-basics-3">바이브 코딩 입문 3: 내 컴퓨터에만 있던 도구, 인터넷에 올리기</a>를 참고하세요.</li>\n</ol>\n
 <blockquote>제휴는 사람을 많이 모으는 일이 아니라, 결정을 앞둔 사람에게 필요한 정보를 제때 놓는 일입니다. 순서를 바꾸면 방문자만 남고 수익은 남지 않습니다.</blockquote>\n
 <h2>직접 보기</h2>\n
-<p>구조를 글로만 읽는 것보다 실제 화면을 보는 편이 빠릅니다. <a href="https://isatips.adbles.com/">이사준비백서</a>에서 주제 구분, 글의 길이, 견적 링크가 놓인 자리를 확인해 보세요. <strong>퇴.기.사를 운영하는 애드블스가 만든 자사 사이트이며, 사이트 내 제휴 링크를 통해 수수료가 발생할 수 있음을 다시 밝힙니다.</strong></p>\n
-<p>퇴.기.사의 광고·제휴 원칙 전체는 <a href="/disclosure">광고·제휴 및 정보 이용 안내</a>에서 볼 수 있습니다.</p>\n
+<p>구조를 글로만 읽는 것보다 실제 화면을 보는 편이 빠릅니다. <a href="https://isatips.adbles.com/">이사준비백서</a>에서 주제 구분, 글의 길이, 견적 링크가 놓인 자리를 확인해 보세요. <strong>애드블스가 직접 만든 자사 사이트이며, 사이트 내 제휴 링크를 통해 수수료가 발생할 수 있음을 다시 밝힙니다.</strong></p>\n
+<p>애드블스의 광고·제휴 원칙 전체는 <a href="/disclosure">광고·제휴 및 정보 이용 안내</a>에서 볼 수 있습니다.</p>\n
 <p>기준일: 2026년 9월 1일. 제휴 프로그램의 수수료 조건과 지급 기준은 운영사 정책에 따라 바뀔 수 있으므로 참여 전 해당 프로그램의 약관을 직접 확인하세요. 이 글은 특정 수익을 보장하지 않습니다.</p>\n
 <p><strong>원 · 수익실험 편집자</strong></p>`, category:"실제 수익실험", tags:["제휴마케팅","온라인 수익화","정보 사이트","부업","경제적 이해관계 표시"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:9, visual:"제휴", authorName:"원" },
 ];

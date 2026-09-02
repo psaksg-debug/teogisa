@@ -613,7 +613,7 @@ export default function AdminClient({ username }: { username: string }) {
     <main className="admin-shell">
       <header className="admin-top">
         <div>
-          <strong>퇴.기.사 · 독립 편집실</strong>
+          <strong>애드블스 · 독립 편집실</strong>
           <span>{username} · 실시간 24시간 자동화 운영 중</span>
         </div>
         <div className="admin-actions">
@@ -665,7 +665,7 @@ export default function AdminClient({ username }: { username: string }) {
             </div>
           </div>
           <p className="panel-help">
-            퇴.기.사 AI 구성원 33명과 분야별 에이전트 6개의 실시간 작업 보고서, 실행 상태, 입출력 및 로그 내역을 통합 조회합니다. 각 항목을 클릭하면 전체 작업 내역과 상세 보고서를 확인할 수 있습니다.
+            애드블스 AI 구성원 33명과 분야별 에이전트 6개의 실시간 작업 보고서, 실행 상태, 입출력 및 로그 내역을 통합 조회합니다. 각 항목을 클릭하면 전체 작업 내역과 상세 보고서를 확인할 수 있습니다.
           </p>
 
           <div className="activity-summary">
@@ -1386,7 +1386,7 @@ export default function AdminClient({ username }: { username: string }) {
               전 프로젝트 감사 실행
             </button>
           </div>
-          <p className="panel-help">{auditScope || "퇴.기.사 전 프로젝트 업무"}를 대상으로 사규·인사·콘텐츠·품질·보안 증거를 점검합니다.</p>
+          <p className="panel-help">{auditScope || "애드블스 전 프로젝트 업무"}를 대상으로 사규·인사·콘텐츠·품질·보안 증거를 점검합니다.</p>
           <div className="audit-summary">
             <div>
               <span>최근 감사의견</span>

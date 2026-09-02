@@ -1,14 +1,15 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "../lib/site";
+import { SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME, SITE_TAGLINE, SITE_URL } from "../lib/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: SITE_NAME, template: `%s | ${SITE_NAME}` },
   description: SITE_DESCRIPTION,
+  keywords: SITE_KEYWORDS,
   alternates: { canonical: "/", types: { "application/rss+xml": `${SITE_URL}/rss.xml` } },
   applicationName: SITE_NAME,
-  creator: "퇴.기.사 편집실",
+  creator: "애드블스 편집실",
   publisher: SITE_NAME,
   category: "retirement planning",
   robots: { index:true, follow:true, googleBot:{ index:true, follow:true, "max-image-preview":"large", "max-snippet":-1, "max-video-preview":-1 } },
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     type: "website",
     locale: "ko_KR",
-    images: [{ url: "/project-og-v2.jpg", width: 1200, height: 630, alt: "퇴.기.사 — 100세시대! 퇴직이 기회가 되는 사람들" }],
+    images: [{ url: "/project-og-v2.jpg", width: 1200, height: 630, alt: `${SITE_NAME} — ${SITE_TAGLINE}` }],
   },
   twitter: { card: "summary_large_image", title: SITE_NAME, description: SITE_DESCRIPTION, images:["/project-og-v2.jpg"] },
 };

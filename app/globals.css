@@ -901,3 +901,11 @@ button:not(:disabled),[role="button"],summary{cursor:pointer}
   .about-statement{grid-template-columns:1fr;gap:34px;margin-bottom:44px;padding-bottom:38px}
   .about-statement .hero-project-visual{width:min(100%,640px);justify-self:center}
 }
+
+/* 상단 메뉴가 5개에서 7개로 늘어 1100px 아래에서는 헤더 폭을 넘는다.
+   그 구간부터는 같은 항목을 담은 햄버거 메뉴가 대신 받는다. */
+@media(max-width:1100px){
+  .site-header{grid-template-columns:1fr auto;padding:0 20px}
+  .site-header .main-nav{display:none}
+  .mobile-menu{display:block;margin-left:auto}
+}

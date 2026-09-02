@@ -1,17 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { menuHref, portalMenu } from "../../lib/portal";
 import { SITE_NAME } from "../../lib/site";
 
+// 상단 메뉴와 같은 항목·같은 순서를 쓴다. 앞뒤의 홈·검색만 여기서 더한다.
 const contentMenu = [
   { href: "/", label: "홈", description: "이번 주 주요 글과 퇴직생활 연구 주제" },
-  { href: "/challenge", label: "월 100만원 챌린지", description: "온라인 수입을 만드는 30일 실천 워크북" },
-  { href: "/official-info", label: "지원금·세무·연금", description: "정부·공공기관 원문으로 확인하는 생활 정보" },
-  { href: "/tools", label: "유용한 도구", description: "퇴직금·생활비 계산과 업무 도구 모음" },
-  { href: "/keyword-lab", label: "지역별 생활정보", description: "사는 곳에 따라 달라지는 일자리·지원 정보" },
-  { href: "/health", label: "건강·예방", description: "질병 증상과 예방법, 공공 건강 정보" },
+  ...portalMenu.map((item) => ({ href: menuHref(item), label: item.label, description: item.description })),
   { href: "/search", label: "전체 글 검색", description: "주제와 키워드로 필요한 글 찾기" },
-] as const;
+];
 
 export function MobileMenu() {
   const [open, setOpen] = useState(false);

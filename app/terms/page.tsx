@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { InnerHeader, SiteFooter } from "../components/SiteChrome";
 
-export const metadata:Metadata={title:"이용약관",description:"퇴.기.사의 콘텐츠, 계산 도구, 외부 링크와 이용 책임에 관한 기본 조건입니다.",alternates:{canonical:"/terms"}};
+export const metadata:Metadata={title:"이용약관",description:"애드블스의 콘텐츠, 계산 도구, 외부 링크와 이용 책임에 관한 기본 조건입니다.",alternates:{canonical:"/terms"}};
 
 export default function Terms(){return <><InnerHeader path="/terms" eyebrow="TERMS OF USE" title="사이트 이용약관" description="시행일: 2026년 8월 14일"/><main className="content-shell article-copy policy-copy">
-  <h2>제공하는 서비스</h2><p>퇴.기.사는 퇴직 준비, 생활비, 지원제도, 새로운 일과 건강에 관한 일반 정보와 브라우저 기반 계산 도구를 제공합니다. 별도 표시가 없는 공개 콘텐츠는 회원가입 없이 이용할 수 있습니다.</p>
+  <h2>제공하는 서비스</h2><p>애드블스는 퇴직 준비, 생활비, 지원제도, 새로운 일과 건강에 관한 일반 정보와 브라우저 기반 계산 도구를 제공합니다. 별도 표시가 없는 공개 콘텐츠는 회원가입 없이 이용할 수 있습니다.</p>
   <h2>정보와 계산 결과의 한계</h2><p>제도, 세금, 금융과 건강 정보는 개인 조건과 시점에 따라 달라질 수 있습니다. 계산 결과는 입력값과 단순화한 가정에 따른 참고값이며 수익, 수급 자격, 세액, 진단 또는 치료 결과를 보장하지 않습니다. 중요한 결정 전에는 담당 기관 또는 자격을 갖춘 전문가에게 확인해야 합니다.</p>
   <h2>외부 링크와 임베드</h2><p>공식기관, YouTube와 참고자료로 연결되는 외부 서비스는 해당 운영자의 약관과 개인정보처리방침이 적용됩니다. 사이트는 출처 확인에 도움이 되는 링크를 제공하지만 외부 페이지의 지속적인 제공이나 내용 전체를 보증하지 않습니다.</p>
   <h2>콘텐츠 이용</h2><p>법령상 허용되는 인용 범위에서 글 제목, 페이지 주소와 출처를 표시해 일부 내용을 인용할 수 있습니다. 콘텐츠 전체를 복제해 다시 게시하거나 자동 수집해 별도 서비스로 제공하는 행위, 사이트 운영을 방해하는 행위는 허용되지 않습니다.</p>

@@ -20,4 +20,4 @@ export const auditDomains:AuditDomain[] = [
   {id:"deployment",name:"변경·검증·배포",owner:"박지안",standard:"검증된 변경만 승인된 범위로 반영하고 원격 DB와 배포 승인을 분리해야 한다.",evidence:["빌드·테스트", "변경기록", "배포 승인·상태"]},
 ];
 
-export const AUDIT_SCOPE = "퇴.기.사 전 프로젝트·전 팀·전 직원·자동화·리소스 업무";
+export const AUDIT_SCOPE = "애드블스 전 프로젝트·전 팀·전 직원·자동화·리소스 업무";

@@ -1,5 +1,5 @@
 import { COMPANY_NAME, COMPANY_URL, SITE_NAME, SITE_TAGLINE, SITE_URL } from "../../lib/site";
-import { portalMenu } from "../../lib/portal";
+import { menuHref, portalMenu } from "../../lib/portal";
 import { MobileMenu } from "./MobileMenu";
 
 export function Brand() {
@@ -7,7 +7,7 @@ export function Brand() {
 }
 
 export function PortalNav({ className="portal-nav" }:{className?:string}){
-  return <nav className={className} aria-label="주요 서비스">{portalMenu.map(item=><a href={item.href} key={item.href}>{item.label}</a>)}</nav>;
+  return <nav className={className} aria-label="주요 서비스">{portalMenu.map(item=><a href={menuHref(item)} key={item.category}>{item.label}</a>)}</nav>;
 }
 
 export function InnerHeader({ eyebrow, title, description, path }:{ eyebrow:string; title:string; description?:string; path?:string }) {
@@ -21,7 +21,7 @@ export function SiteFooter() {
     <div className="footer-grid">
       <section className="footer-intro" aria-labelledby="footer-site-name">
         <Brand/>
-        <h2 id="footer-site-name">100세시대!<br/>퇴직이 기회가 되는 사람들</h2>
+        <h2 id="footer-site-name">퇴직을 기회로<br/>만든 사람들</h2>
         <p>생활비와 제도를 점검하고, 내가 가진 경험으로 새로운 일을 시작할 수 있도록 검증 가능한 정보와 실행 도구를 제공합니다.</p>
         <div className="footer-contact" aria-label="사이트 운영 및 문의 정보">
           <p><span>관리자</span><strong>어썸라이프</strong></p>
@@ -32,11 +32,8 @@ export function SiteFooter() {
       <div className="footer-links">
         <nav aria-label="주요 콘텐츠">
           <strong>살펴보기</strong>
-          <a href="/challenge">월 100만원 챌린지</a>
-          <a href="/official-info">지원금·세무 정보</a>
-          <a href="/keyword-lab">지역별 일자리</a>
-          <a href="/health">건강 정보</a>
-          <a href="/tools">무료 도구</a>
+          {portalMenu.map(item=><a href={menuHref(item)} key={item.category}>{item.label}</a>)}
+          <a href="/search">전체 글 검색</a>
         </nav>
         <nav aria-label="사이트 신뢰 정보">
           <strong>사이트 정보</strong>
@@ -51,7 +48,7 @@ export function SiteFooter() {
       </div>
     </div>
     <div className="footer-bottom">
-      <small>© 2026 {COMPANY_NAME}. All rights reserved. ‘{SITE_NAME}’는 애드블스가 운영합니다.</small>
+      <small>© 2026 {COMPANY_NAME}. All rights reserved. adbles.com은 {COMPANY_NAME}가 운영합니다.</small>
       <p>콘텐츠는 일반적인 정보 제공을 목적으로 하며 개인별 투자·세무·노무·법률·의료 자문을 대신하지 않습니다. 중요한 결정 전에는 글의 기준일과 공식 기관의 최신 원문을 확인하세요.</p>
     </div>
   </footer>;
