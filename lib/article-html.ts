@@ -8,6 +8,9 @@ function safeYoutube(value:string){try{const url=new URL(value);return url.proto
 function attributes(raw:string){const result=new Map<string,string>();const pattern=/([a-zA-Z0-9:-]+)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+))/g;for(const match of raw.matchAll(pattern))result.set(match[1].toLowerCase(),match[2]??match[3]??match[4]??"");return result;}
 function safeClasses(value:string){return value.split(/\s+/).filter((item)=>allowedClasses.has(item)).join(" ");}
 function safeStyle(value:string){return value.split(";").map(item=>item.trim()).filter(item=>/^text-align\s*:\s*(left|center|right|justify)$/i.test(item)).join(";");}
+// 표의 병합 셀은 숫자 colspan/rowspan이 있어야 열이 어긋나지 않는다. 값을 그대로 두면
+// 속성 주입 통로가 되므로 정수만 통과시키고, 본문 표에서 나올 수 없는 큰 값은 자른다.
+function safeCellSpan(value:string){const span=Number(value);return Number.isInteger(span)&&span>=1&&span<=20?String(span):"";}
 const refreshedOfficialUrls=new Map([
   ["https://j.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=238978&mi=40483","https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=238978"],
 ]);
@@ -37,6 +40,11 @@ export function sanitizeArticleHtml(value:string){
       const src=safeYoutube(attrs.get("src")??"");if(!src)return "";
       const title=(attrs.get("title")??"삽입된 YouTube 영상").slice(0,120);
       return `<iframe src="${escapeAttribute(src)}" title="${escapeAttribute(title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen${common}>`;
+    }
+    if(tag==="td"||tag==="th"){
+      const colspan=safeCellSpan(attrs.get("colspan")??"");
+      const rowspan=safeCellSpan(attrs.get("rowspan")??"");
+      return `<${tag}${colspan?` colspan="${colspan}"`:""}${rowspan?` rowspan="${rowspan}"`:""}${common}>`;
     }
     return `<${tag}${common}>`;
   });

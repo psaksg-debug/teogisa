@@ -834,3 +834,40 @@ test("자사 사이트를 안내하는 글은 제휴 관계를 본문 앞부분�
   assert.doesNotMatch(disclosure, /별도의 제휴 추천이 없습니다/);
   assert.match(disclosure, /제휴 링크가 있어/);
 });
+
+test("본문 표는 병합 셀을 포함해 행마다 열 수가 맞는다", async () => {
+  const [content, articleHtml] = await Promise.all([
+    readFile(new URL("../lib/content.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/article-html.ts", import.meta.url), "utf8"),
+  ]);
+
+  // sanitizer는 class·style만 남기므로 colspan/rowspan을 따로 통과시키지 않으면 지워진다.
+  // 지워지면 병합 행만 셀이 모자라 표 마지막 열이 비고 정렬이 어긋난다.
+  assert.match(articleHtml, /tag==="td"\|\|tag==="th"/, "td·th 분기가 사라지면 병합 속성이 지워집니다.");
+  assert.match(articleHtml, /colspan="\$\{colspan\}"/);
+  assert.match(articleHtml, /rowspan="\$\{rowspan\}"/);
+  // 값을 그대로 실으면 속성 주입이 되므로 정수만 통과시켜야 한다.
+  assert.match(articleHtml, /function safeCellSpan\(value:string\)\{const span=Number\(value\);return Number\.isInteger\(span\)/);
+
+  const tables = [...content.matchAll(/<table>[\s\S]*?<\/table>/g)].map((match) => match[0]);
+  assert.ok(tables.length > 20, `본문에서 표를 ${tables.length}개만 찾았습니다.`);
+
+  for (const table of tables) {
+    const rows = [...table.matchAll(/<tr>[\s\S]*?<\/tr>/g)].map((match) => match[0]);
+    const carried = []; // carried[i] = 앞 행의 rowspan이 i번째 행에서 미리 차지하는 열 수
+    const widths = rows.map((row, rowIndex) => {
+      let width = carried[rowIndex] ?? 0;
+      for (const [, , rawAttributes] of row.matchAll(/<(t[hd])\b([^>]*)>/gi)) {
+        const colspan = Number(rawAttributes.match(/\bcolspan\s*=\s*"(\d+)"/i)?.[1] ?? 1);
+        const rowspan = Number(rawAttributes.match(/\browspan\s*=\s*"(\d+)"/i)?.[1] ?? 1);
+        width += colspan;
+        for (let offset = 1; offset < rowspan; offset += 1) carried[rowIndex + offset] = (carried[rowIndex + offset] ?? 0) + colspan;
+      }
+      return width;
+    });
+    const label = table.slice(0, 120).replace(/\s+/g, " ");
+    for (const [rowIndex, width] of widths.entries()) {
+      assert.equal(width, widths[0], `열 수가 ${widths[0]}인 표에서 ${rowIndex + 1}번째 행만 ${width}칸입니다: ${label}`);
+    }
+  }
+});
