@@ -61,16 +61,16 @@ export function ensureArticleMedia(value: string) {
   let html = value;
   const images = Array.from(html.matchAll(/<img\b([^>]*)>/gi));
   if (images.length === 0) {
-    html = `<figure class="article-image"><img src="/article-thumbnail-sprite.png" alt="퇴.기.사 실전 무료 가이드 시각자료" loading="lazy" decoding="async"></figure>\n` + html;
+    html = `<figure class="article-image"><img src="/article-thumbnail-sprite.png" alt="애드블스 실전 무료 가이드 시각자료" loading="lazy" decoding="async"></figure>\n` + html;
   } else {
     for (const [, raw] of images) {
       const alt = raw.match(/\balt\s*=\s*(?:"([^"]*)"|'([^']*)')/i)?.slice(1).find(Boolean)?.trim() ?? "";
       if (alt.length < 8 || ["이미지", "본문 관련 이미지", "사진"].includes(alt)) {
         html = html.replace(/<img\b([^>]*)>/gi, (match) => {
           if (/alt\s*=\s*["'][^"']*["']/i.test(match)) {
-            return match.replace(/alt\s*=\s*["'][^"']*["']/i, 'alt="퇴.기.사 실전 무료 가이드 시각자료"');
+            return match.replace(/alt\s*=\s*["'][^"']*["']/i, 'alt="애드블스 실전 무료 가이드 시각자료"');
           }
-          return match.replace(/<img\b/i, '<img alt="퇴.기.사 실전 무료 가이드 시각자료" ');
+          return match.replace(/<img\b/i, '<img alt="애드블스 실전 무료 가이드 시각자료" ');
         });
       }
     }

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { InnerHeader, SiteFooter } from "../components/SiteChrome";
 
-export const metadata:Metadata={title:"개인정보처리방침",description:"퇴.기.사의 개인정보 처리와 외부 서비스 이용 원칙입니다.",alternates:{canonical:"/privacy"}};
+export const metadata:Metadata={title:"개인정보처리방침",description:"애드블스의 개인정보 처리와 외부 서비스 이용 원칙입니다.",alternates:{canonical:"/privacy"}};
 
 export default function Privacy(){return <><InnerHeader path="/privacy" eyebrow="PRIVACY" title="개인정보처리방침" description="시행일: 2026년 8월 14일"/><main className="content-shell article-copy policy-copy">
-  <h2>운영 주체와 적용 범위</h2><p>퇴.기.사는 애드블스가 운영합니다. 이 방침은 adbles.com에서 제공하는 공개 콘텐츠와 계산 도구에 적용됩니다.</p>
+  <h2>운영 주체와 적용 범위</h2><p>adbles.com은 애드블스가 운영합니다. 이 방침은 adbles.com에서 제공하는 공개 콘텐츠와 계산 도구에 적용됩니다.</p>
   <h2>현재 사이트가 직접 저장하는 정보</h2><p>로그인하지 않고 공개 글을 읽거나 생활비·퇴직금 계산기를 사용하는 과정에서 이름, 이메일 또는 입력한 금액을 사이트 데이터베이스에 저장하지 않습니다. 계산기에 입력한 숫자는 방문자의 브라우저 안에서 처리됩니다.</p>
   <h2>호스팅과 보안 기록</h2><p>사이트 제공과 보안을 위해 호스팅 사업자가 IP 주소, 브라우저·기기 정보, 요청 시각과 오류 기록 등 통상적인 기술 로그를 처리할 수 있습니다. 이러한 정보는 서비스 안정성, 장애 대응과 부정 사용 방지 목적으로 제공자의 정책에 따라 관리됩니다.</p>
   <h2>Google 광고와 쿠키</h2><p>사이트는 Google AdSense 도입과 사이트 심사를 준비하고 있습니다. Google을 포함한 제3자 사업자는 광고 제공과 측정을 위해 방문자의 브라우저에 쿠키를 저장하거나 기존 쿠키를 읽고, 웹 비콘·IP 주소 또는 기타 식별자를 사용할 수 있습니다. Google은 방문자가 이 사이트 또는 다른 사이트를 방문한 기록을 바탕으로 광고를 제공할 수 있습니다.</p>

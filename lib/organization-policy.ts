@@ -12,7 +12,7 @@ export const organizationNotice = {
   title: "전사 사이트 운영·발행정책 준수 공지",
   issuedBy: "강한결 경영관리팀장",
   effectiveDate: "2026-08-14",
-  message: "퇴.기.사 전 구성원은 공식 출처와 독자 안전을 우선하며, 검토되지 않은 콘텐츠나 외부 홍보물을 임의로 공개하지 않습니다.",
+  message: "애드블스 전 구성원은 공식 출처와 독자 안전을 우선하며, 검토되지 않은 콘텐츠나 외부 홍보물을 임의로 공개하지 않습니다.",
   rules: companyRules.coreRules,
 } as const;
 

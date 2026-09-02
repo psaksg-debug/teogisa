@@ -4,13 +4,13 @@ import { InnerHeader, SiteFooter } from "../components/SiteChrome";
 
 export const metadata: Metadata = {
   title: "콘텐츠편집팀 소개",
-  description: `퇴.기.사 콘텐츠편집팀장 데스크와 분야별 편집자 ${editorialAuthors.length}명의 역할과 콘텐츠 책임 범위를 소개합니다.`,
+  description: `애드블스 콘텐츠편집팀장 데스크와 분야별 편집자 ${editorialAuthors.length}명의 역할과 콘텐츠 책임 범위를 소개합니다.`,
   alternates: { canonical: "/author" },
 };
 
 export default function Author() {
   return <>
-    <InnerHeader path="/author" eyebrow="EDITORIAL TEAM" title="퇴.기.사 콘텐츠편집팀" description={`데스크가 발행 기준을 책임지고, 분야별 편집자 ${editorialAuthors.length}명이 공식 원문과 실행 자료를 바탕으로 글을 준비합니다.`} />
+    <InnerHeader path="/author" eyebrow="EDITORIAL TEAM" title="애드블스 콘텐츠편집팀" description={`데스크가 발행 기준을 책임지고, 분야별 편집자 ${editorialAuthors.length}명이 공식 원문과 실행 자료를 바탕으로 글을 준비합니다.`} />
     <main className="content-shell article-copy policy-copy">
       <h2>콘텐츠편집팀장은 ‘{EDITOR_IN_CHIEF.name}’입니다</h2>
       <p>사이트 운영사는 애드블스이며, 콘텐츠편집팀장 · 책임편집자 데스크가 주제 배정, 출처 검증, 발행 승인과 오류 정정을 총괄합니다. 닉네임은 업무 책임을 구분하기 위한 편집실 운영명입니다.</p>
@@ -26,7 +26,7 @@ export default function Author() {
       <h2>오류와 변경사항을 계속 반영합니다</h2>
       <p>공식 제도가 바뀌거나 계산 오류가 확인되면 데스크가 해당 글을 다시 점검합니다. 잘못된 내용이나 끊어진 링크는 <a href="/contact">문의·오류 제보</a>에서 알려주세요.</p>
       <h2>전문가 자문을 대신하지 않습니다</h2>
-      <p>퇴.기.사는 금융상품 판매자, 의료기관, 세무대리인 또는 정부기관이 아닙니다. 제공하는 계산과 사례는 교육과 정보 제공을 위한 참고자료이며 개인 맞춤형 투자·세무·법률·의료 자문이 아닙니다.</p>
+      <p>애드블스는 금융상품 판매자, 의료기관, 세무대리인 또는 정부기관이 아닙니다. 제공하는 계산과 사례는 교육과 정보 제공을 위한 참고자료이며 개인 맞춤형 투자·세무·법률·의료 자문이 아닙니다.</p>
       <p className="editorial-count">콘텐츠편집팀 구성원 {allEditorialAuthors.length}명 · 콘텐츠편집팀장 1명, 분야별 편집자 {editorialAuthors.length}명</p>
     </main>
     <SiteFooter />
