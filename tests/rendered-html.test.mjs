@@ -127,7 +127,7 @@ test("renders the finished Korean content site", async () => {
   assert.match(content, /retirement-pay-irp-five-checks-before-withdrawal[\s\S]*publishedAt:"2026-08-15"/);
   assert.match(content, /proshot-mobile-id-studio-photo-guide[\s\S]*publishedAt:"2026-08-15"/);
   assert.match(content, /퇴직금이 IRP에 입금된 뒤 일시금과 연금 수령 절차를 확인하는 서류·일정표 일러스트/);
-  assert.match(content, /박세온 · 세금·보험 편집자/);
+  assert.match(content, /절세 · 세금·보험 편집자/);
   assert.match(enrichment, /국세청 연금계좌 원천징수세율/);
   assert.match(enrichment, /외교부 온라인 여권사진 검증/);
   assert.match(media, /enrichment\.images/);
@@ -418,11 +418,11 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(editorialTeam, /name: "원"/);
   assert.match(editorialTeam, /name: "가드"/);
   assert.match(editorialTeam, /name: "툴"/);
-  assert.match(editorialTeam, /name: "김기준"/);
+  assert.match(editorialTeam, /name: "픽"/);
   assert.match(editorialTeam, /name: "로컬"/);
   assert.match(editorialTeam, /name: "케어"/);
-  assert.match(editorialTeam, /name: "박여유"/);
-  assert.match(editorialTeam, /name: "서든든"/);
+  assert.match(editorialTeam, /name: "자산"/);
+  assert.match(editorialTeam, /name: "살림"/);
   assert.match(editorialTeam, /name: "큐"/);
   assert.match(repository,/authorName:agent\.name/);
   assert.doesNotMatch(repository,/tags:\[agent\.name,"공식 자료","검토 초안"\]/);
@@ -603,7 +603,7 @@ test("ships mobile-first SEO, GEO, trust and original-value pages", async () => 
   assert.match(terms, /정보와 계산 결과의 한계/);
   assert.match(author, /콘텐츠편집팀장은 ‘/);
   assert.match(author, /editorialAuthors\.length}명/);
-  assert.match(author, /AI 기반 실무자/);
+  assert.match(author, /실존 인물이나 자격 보유자의 이름이 아닙니다/);
   assert.match(post, /author\.role/);
   assert.match(post, /퇴\.기\.사 AI 편집자/);
   assert.match(sitemap, /contact/);
@@ -833,4 +833,43 @@ test("자사 사이트를 안내하는 글은 제휴 관계를 본문 앞부분�
   // 제휴 글을 발행한 뒤에도 "제휴 추천이 없다"고 적어두면 고지가 거짓이 된다.
   assert.doesNotMatch(disclosure, /별도의 제휴 추천이 없습니다/);
   assert.match(disclosure, /제휴 링크가 있어/);
+});
+
+test("편집자 이름은 실존 인물처럼 보이지 않고, 글마다 AI 편집 사실을 밝힌다", async () => {
+  const [team, content, postPage, authorPage, css] = await Promise.all([
+    readFile(new URL("../lib/editorial-team.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/content.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/posts/[slug]/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/author/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  ]);
+
+  // 애드센스 정책은 "콘텐츠 제작자에 대한 정보를 허위로 전달하거나 숨기는" 것을
+  // 막는다. 연금·세금·건강처럼 신뢰가 걸린 주제에서 실존 인물로 읽히는 이름을
+  // 저자로 달면 여기에 걸린다. 성+이름 두 글자 형태를 아예 못 쓰게 막는다.
+  const names = [...team.matchAll(/name: "([^"]+)"/g)].map((match) => match[1]);
+  assert.ok(names.length >= 10, `편집자를 ${names.length}명만 찾았습니다.`);
+  const surnames = "김이박최정강조윤장임한오서신권황안송류전홍";
+  for (const name of names) {
+    assert.ok(
+      !(name.length === 3 && surnames.includes(name[0])),
+      `"${name}" 은 실존 인물 이름으로 읽힙니다. 담당 업무를 가리키는 운영명을 쓰세요.`,
+    );
+  }
+
+  // 글에 붙은 저자가 편집실에 없으면 표기가 어긋난다.
+  const defined = new Set(names);
+  for (const [, used] of content.matchAll(/authorName:"([^"]+)"/g)) {
+    assert.ok(defined.has(used), `authorName "${used}" 이 editorial-team.ts에 없습니다.`);
+  }
+
+  // 고지는 /author 페이지에만 두면 글만 보는 독자에게 닿지 않는다.
+  assert.match(team, /AI_EDITORIAL_NOTICE/);
+  assert.match(postPage, /className="byline-ai"/, "바이라인의 AI 편집 표시가 사라졌습니다.");
+  assert.match(postPage, /AI_EDITORIAL_NOTICE/, "본문 하단 고지가 사라졌습니다.");
+  assert.match(postPage, /authorMetaName\(author\)/, "meta author가 사람 이름처럼 나갑니다.");
+  assert.match(authorPage, /editorial-ai-disclosure/, "/author 상단 고지가 사라졌습니다.");
+  for (const selector of [".byline-ai", ".ai-editorial-notice", ".editorial-ai-disclosure"]) {
+    assert.ok(css.includes(selector), `${selector} 스타일이 없습니다.`);
+  }
 });

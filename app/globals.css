@@ -901,3 +901,11 @@ button:not(:disabled),[role="button"],summary{cursor:pointer}
   .about-statement{grid-template-columns:1fr;gap:34px;margin-bottom:44px;padding-bottom:38px}
   .about-statement .hero-project-visual{width:min(100%,640px);justify-self:center}
 }
+
+/* 저자 표기: 편집자 이름 옆과 본문 끝에 AI 편집 사실을 함께 표시한다.
+   글 화면만 보는 독자가 편집자를 실존 전문가로 오인하지 않게 하는 장치다. */
+.byline-ai{padding:3px 7px;border:1px solid var(--line);border-radius:3px;color:var(--teal);background:var(--mint);font:800 9px "Noto Sans KR",sans-serif;letter-spacing:.02em;text-decoration:none}
+.byline-ai:hover,.byline-ai:focus-visible{border-color:var(--teal)}
+.ai-editorial-notice{margin:38px 0 0;padding:16px 18px;color:#5c757e;background:var(--mist);border-left:3px solid var(--line);font-size:12.5px;line-height:1.75}
+.ai-editorial-notice a{color:var(--teal);text-decoration:underline;text-underline-offset:3px}
+.editorial-ai-disclosure{margin:0 0 8px;padding:16px 18px;color:#385865;background:var(--mint);border-left:4px solid var(--orange);font-size:13.5px;line-height:1.75}
