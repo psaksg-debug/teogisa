@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" role="img" aria-label="근로장려금 반기신청 대상 판정 흐름도">
+  <title>근로장려금 반기신청 대상 판정 흐름도</title>
+  <rect width="880" height="520" fill="#f6f9f7"/>
+  <g font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif">
+
+    <rect x="290" y="24" width="300" height="60" rx="8" fill="#102d3c"/>
+    <text x="440" y="61" text-anchor="middle" font-size="19" font-weight="700" fill="#ffffff">2026년 1~6월 소득 확인</text>
+
+    <path d="M440 84 L440 118" stroke="#2e6573" stroke-width="2"/>
+    <path d="M434 112 L440 122 L446 112 Z" fill="#2e6573"/>
+
+    <rect x="220" y="124" width="440" height="76" rx="8" fill="#eaf2ee" stroke="#2e6573" stroke-width="2"/>
+    <text x="440" y="156" text-anchor="middle" font-size="17" font-weight="700" fill="#102d3c">본인과 배우자의 상반기 소득이</text>
+    <text x="440" y="180" text-anchor="middle" font-size="17" font-weight="700" fill="#102d3c">근로소득뿐입니까?</text>
+
+    <path d="M440 200 L440 224 M180 224 L700 224 M180 224 L180 260 M700 224 L700 260" stroke="#2e6573" stroke-width="2" fill="none"/>
+    <path d="M174 254 L180 264 L186 254 Z" fill="#2e6573"/>
+    <path d="M694 254 L700 264 L706 254 Z" fill="#e67b32"/>
+
+    <rect x="152" y="206" width="56" height="24" rx="4" fill="#f6f9f7"/>
+    <text x="180" y="223" text-anchor="middle" font-size="14" font-weight="700" fill="#2e6573">예</text>
+    <rect x="666" y="206" width="68" height="24" rx="4" fill="#f6f9f7"/>
+    <text x="700" y="223" text-anchor="middle" font-size="14" font-weight="700" fill="#e67b32">아니오</text>
+
+    <rect x="40" y="266" width="280" height="72" rx="8" fill="#ffffff" stroke="#2e6573" stroke-width="2"/>
+    <text x="180" y="296" text-anchor="middle" font-size="15" font-weight="700" fill="#102d3c">근로소득만 있는 가구</text>
+    <text x="180" y="320" text-anchor="middle" font-size="13" fill="#18313c">가구·소득·재산 요건 확인</text>
+
+    <rect x="560" y="266" width="280" height="72" rx="8" fill="#ffffff" stroke="#cddbd6" stroke-width="2"/>
+    <text x="700" y="296" text-anchor="middle" font-size="15" font-weight="700" fill="#102d3c">사업·기타·종교인 소득 포함</text>
+    <text x="700" y="320" text-anchor="middle" font-size="13" fill="#18313c">3.3% 프리랜서 수입도 여기</text>
+
+    <path d="M180 338 L180 368" stroke="#2e6573" stroke-width="2"/>
+    <path d="M174 362 L180 372 L186 362 Z" fill="#2e6573"/>
+    <path d="M700 338 L700 368" stroke="#cddbd6" stroke-width="2"/>
+    <path d="M694 362 L700 372 L706 362 Z" fill="#cddbd6"/>
+
+    <rect x="40" y="374" width="280" height="98" rx="8" fill="#2e6573"/>
+    <text x="180" y="410" text-anchor="middle" font-size="20" font-weight="800" fill="#ffffff">9월 1일 ~ 15일 신청</text>
+    <text x="180" y="438" text-anchor="middle" font-size="14" fill="#d8eee8">상반기분 반기신청 대상</text>
+    <text x="180" y="459" text-anchor="middle" font-size="14" fill="#d8eee8">12월에 산정액의 35% 지급</text>
+
+    <rect x="560" y="374" width="280" height="98" rx="8" fill="#ffffff" stroke="#e67b32" stroke-width="2"/>
+    <text x="700" y="410" text-anchor="middle" font-size="20" font-weight="800" fill="#b45309">반기신청 대상 아님</text>
+    <text x="700" y="438" text-anchor="middle" font-size="14" fill="#18313c">2027년 5월 정기신청으로</text>
+    <text x="700" y="459" text-anchor="middle" font-size="14" fill="#18313c">한 번에 신청합니다</text>
+
+    <text x="440" y="500" text-anchor="middle" font-size="13" fill="#71868d">소득·재산 요건은 어느 쪽이든 따로 확인해야 하며, 최종 판단은 국세청 안내를 따릅니다.</text>
+  </g>
+</svg>

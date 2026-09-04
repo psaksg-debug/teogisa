@@ -49,6 +49,9 @@ const slugResources:Record<string,{links?:Array<{label:string;url:string}>;image
     links:[{label:"원본 영상: 클로드 수익화 방법 5가지",url:"https://www.youtube.com/watch?v=qEVZ7AgB7zI"}],
     video:{title:"클로드로 당장 수익 만드는 확실한 방법 5가지",embedUrl:"https://www.youtube-nocookie.com/embed/qEVZ7AgB7zI",sourceUrl:"https://www.youtube.com/watch?v=qEVZ7AgB7zI",description:"리서치 대행, 디지털 상품, 인스타툰, 미니사이트와 웹게임까지 다섯 가지 AI 수익화 아이디어를 소개한 영상입니다. 본문은 이 아이디어들을 7일 검증 절차와 위험 관리 기준으로 재구성했습니다.",channel:"혼잡스"},
   },
+  "earned-income-tax-credit-semiannual-2026":{
+    links:[{label:"국세청 근로·자녀장려금 심사 및 지급 안내",url:"https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=2453&cntntsId=7784"},{label:"국세청 반기신청 자주 묻는 Q&A",url:"https://call.nts.go.kr/call/qna/selectQnaInfo.do?mi=13042"},{label:"홈택스 근로·자녀장려금 신청",url:"https://hometax.go.kr/"},{label:"정책브리핑 근로장려금 지급 기준 안내",url:"https://www.korea.kr/news/policyNewsView.do?newsId=148963769"}],
+  },
   "unemployment-benefit-eight-steps":{links:[{label:"고용24 실업급여 신청 절차 원문",url:"https://www.work24.go.kr/cm/c/f/1100/selecSystInfo.do?systClId=SC00000254&systId=SI00000411"}]},
   "side-jobs-while-receiving-benefits":{links:[{label:"고용24 실업인정·취업 사실 신고 안내",url:"https://www.work24.go.kr/cm/c/f/1100/selecSystInfo.do?systClId=SC00000254&systId=SI00000411"}]},
   "2026-unemployment-credit-guide":{
@@ -71,6 +74,7 @@ const thumbnailCatalog: readonly ThumbnailImage[] = [
   { file: "three-bucket-budget.webp", description: "주거·생활·보험을 나눈 3칸 예산 일러스트", width: 354, height: 443 },
   { file: "balanced-income-plan.webp", description: "여러 수입원을 균형 있게 쌓는 저울 일러스트", width: 355, height: 443 },
   { file: "content-quality-review.webp", description: "별점 체크리스트를 검토하는 중장년 일러스트", width: 355, height: 443 },
+  { file: "tax-credit-calendar.svg", description: "9월 1~15일이 표시된 근로장려금 반기신청 달력 도표", width: 1200, height: 630 },
   { file: "layoff_illustration.jpg", description: "사무실 책상에서 서류를 놓고 상담하는 두 사람 일러스트", width: 1024, height: 1024 },
   { file: "voluntary_resignation.jpg", description: "짐 상자를 안고 회사 건물을 나서며 해가 뜨는 길을 걷는 사람 일러스트", width: 1024, height: 1024 },
 ] as const;
@@ -84,6 +88,9 @@ const thumbnailByFile = new Map(thumbnailCatalog.map((image) => [image.file, ima
 type ThumbnailRule = { name: string; categories?: readonly string[]; keywords: readonly string[]; pool: readonly string[] };
 
 const thumbnailRules: readonly ThumbnailRule[] = [
+  { name: "credit",
+    keywords: ["근로장려금", "자녀장려금", "장려금", "반기신청", "tax-credit"],
+    pool: ["tax-credit-calendar.svg", "income-tax-calculation.webp"] },
   { name: "ai",
     categories: ["AI 활용", "유용한 도구"],
     keywords: ["바이브코딩", "바이브 코딩", "ai활용", "인공지능", "프롬프트", "클로드", "커서", "챗gpt", "코딩", "자동화", "vibe-coding", "claude", "prompt", "ai-"],
