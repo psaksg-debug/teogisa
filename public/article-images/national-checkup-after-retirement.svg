@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" role="img" aria-label="퇴직 후 건강보험 자격이 지역가입자나 피부양자로 바뀌면 출생연도 끝자리에 따라 국가건강검진 대상 연도가 갈린다는 것을 보여주는 도표">
+  <title>퇴직 후 국가건강검진 대상 구분</title>
+  <rect width="880" height="420" fill="#ffffff"/>
+  <g font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif">
+
+    <rect x="60" y="24" width="340" height="58" rx="8" fill="#f6f9f7" stroke="#cddbd6" stroke-width="2"/>
+    <text x="230" y="49" text-anchor="middle" font-size="14" font-weight="700" fill="#71868d">퇴직 전 · 직장가입자</text>
+    <text x="230" y="71" text-anchor="middle" font-size="14" fill="#18313c">회사가 일정을 챙겨줍니다</text>
+
+    <path d="M400 53 L470 53" stroke="#e67b32" stroke-width="3"/>
+    <path d="M464 47 L476 53 L464 59 Z" fill="#e67b32"/>
+
+    <rect x="480" y="24" width="340" height="58" rx="8" fill="#102d3c"/>
+    <text x="650" y="49" text-anchor="middle" font-size="14" font-weight="700" fill="#a9d3cb">퇴직 후 · 지역가입자 또는 피부양자</text>
+    <text x="650" y="71" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">내가 직접 챙겨야 합니다</text>
+
+    <text x="60" y="122" font-size="16" font-weight="800" fill="#102d3c">퇴직 후 검진 대상이 되는 자격</text>
+
+    <rect x="60" y="136" width="246" height="76" rx="8" fill="#eaf2ee"/>
+    <text x="183" y="166" text-anchor="middle" font-size="15" font-weight="800" fill="#2e6573">지역가입자 세대주</text>
+    <text x="183" y="192" text-anchor="middle" font-size="13" fill="#18313c">나이 제한 없이 대상</text>
+
+    <rect x="317" y="136" width="246" height="76" rx="8" fill="#eaf2ee"/>
+    <text x="440" y="166" text-anchor="middle" font-size="15" font-weight="800" fill="#2e6573">지역가입자 세대원</text>
+    <text x="440" y="192" text-anchor="middle" font-size="13" fill="#18313c">만 20세 이상</text>
+
+    <rect x="574" y="136" width="246" height="76" rx="8" fill="#eaf2ee"/>
+    <text x="697" y="166" text-anchor="middle" font-size="15" font-weight="800" fill="#2e6573">피부양자</text>
+    <text x="697" y="192" text-anchor="middle" font-size="13" fill="#18313c">만 20세 이상</text>
+
+    <path d="M183 212 L183 236 M440 212 L440 236 M697 212 L697 236 M183 236 L697 236 M440 236 L440 260" stroke="#cddbd6" stroke-width="2" fill="none"/>
+    <path d="M434 254 L440 264 L446 254 Z" fill="#2e6573"/>
+
+    <text x="440" y="292" text-anchor="middle" font-size="16" font-weight="800" fill="#102d3c">검진 연도는 태어난 해의 끝자리로 갈립니다</text>
+
+    <rect x="140" y="306" width="280" height="70" rx="8" fill="#2e6573"/>
+    <text x="280" y="336" text-anchor="middle" font-size="17" font-weight="800" fill="#ffffff">짝수 해에 태어났다면</text>
+    <text x="280" y="360" text-anchor="middle" font-size="14" fill="#d8eee8">2026년이 검진 해입니다</text>
+
+    <rect x="460" y="306" width="280" height="70" rx="8" fill="#f6f9f7" stroke="#cddbd6" stroke-width="2"/>
+    <text x="600" y="336" text-anchor="middle" font-size="17" font-weight="800" fill="#102d3c">홀수 해에 태어났다면</text>
+    <text x="600" y="360" text-anchor="middle" font-size="14" fill="#3d5560">2027년을 기다립니다</text>
+
+    <text x="440" y="404" text-anchor="middle" font-size="13" fill="#71868d">본인의 대상 여부와 항목은 국민건강보험공단에서 조회한 결과가 기준입니다.</text>
+  </g>
+</svg>
