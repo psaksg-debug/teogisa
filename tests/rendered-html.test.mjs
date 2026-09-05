@@ -610,7 +610,7 @@ test("ships mobile-first SEO, GEO, trust and original-value pages", async () => 
   assert.match(sitemap, /terms/);
   assert.match(content, /unemployment-benefit-eight-steps/);
   assert.match(content, /월별 장부에는 일곱 칸/);
-  assert.match(content, /90일 동안 매주 같은 숫자를 기록합니다/);
+  assert.match(content, /90일 동안 같은 다섯 숫자만 기록합니다/);
   assert.match(repository, /adsense-readiness-v2/);
   assert.match(policy, /창작 과정에서 AI를 보조적으로 사용합니다/);
   assert.match(chrome, /WebPage/);
