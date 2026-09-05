@@ -909,3 +909,7 @@ button:not(:disabled),[role="button"],summary{cursor:pointer}
 .ai-editorial-notice{margin:38px 0 0;padding:16px 18px;color:#5c757e;background:var(--mist);border-left:3px solid var(--line);font-size:12.5px;line-height:1.75}
 .ai-editorial-notice a{color:var(--teal);text-decoration:underline;text-underline-offset:3px}
 .editorial-ai-disclosure{margin:0 0 8px;padding:16px 18px;color:#385865;background:var(--mint);border-left:4px solid var(--orange);font-size:13.5px;line-height:1.75}
+
+/* 자사 운영 사이트임을 도구 카드에서 바로 알 수 있게 표시한다.
+   자사 서비스를 제3자 추천처럼 보이게 두면 게시자 정보를 잘못 전달하는 것이 된다. */
+.self-operated-note{display:inline-block;margin-top:8px;padding:3px 7px;color:var(--teal);background:var(--mint);border-radius:3px;font:800 10px "Noto Sans KR",sans-serif;font-style:normal;letter-spacing:.02em}
