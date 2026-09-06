@@ -9,6 +9,7 @@ const contentMenu = [
   { href: "/official-info", label: "지원금·세무·연금", description: "정부·공공기관 원문으로 확인하는 생활 정보" },
   { href: "/tools", label: "유용한 도구", description: "퇴직금·생활비 계산과 업무 도구 모음" },
   { href: "/health", label: "건강·예방", description: "질병 증상과 예방법, 공공 건강 정보" },
+  { href: "/site", label: "사이트 모음", description: "애드블스가 만드는 사이트를 도메인별로 한눈에" },
   { href: "/search", label: "전체 글 검색", description: "주제와 키워드로 필요한 글 찾기" },
 ] as const;
 

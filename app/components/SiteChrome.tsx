@@ -21,7 +21,7 @@ export function SiteFooter() {
     <div className="footer-grid">
       <section className="footer-intro" aria-labelledby="footer-site-name">
         <Brand/>
-        <h2 id="footer-site-name">100세시대!<br/>퇴직이 기회가 되는 사람들</h2>
+        <h2 id="footer-site-name">퇴직 이후의 생활을<br/>공식 자료로 확인합니다</h2>
         <p>생활비와 제도를 점검하고, 내가 가진 경험으로 새로운 일을 시작할 수 있도록 검증 가능한 정보와 실행 도구를 제공합니다.</p>
         <div className="footer-contact" aria-label="사이트 운영 및 문의 정보">
           <p><span>관리자</span><strong>어썸라이프</strong></p>
@@ -35,7 +35,7 @@ export function SiteFooter() {
           <a href="/challenge">30일 수입 실험</a>
           <a href="/official-info">지원금·세무 정보</a>
           <a href="/health">건강 정보</a>
-          <a href="/tools">무료 도구</a>
+          <a href="/tools">무료 도구</a><a href="/site">사이트 모음</a>
         </nav>
         <nav aria-label="사이트 신뢰 정보">
           <strong>사이트 정보</strong>

@@ -913,3 +913,25 @@ button:not(:disabled),[role="button"],summary{cursor:pointer}
 /* 자사 운영 사이트임을 도구 카드에서 바로 알 수 있게 표시한다.
    자사 서비스를 제3자 추천처럼 보이게 두면 게시자 정보를 잘못 전달하는 것이 된다. */
 .self-operated-note{display:inline-block;margin-top:8px;padding:3px 7px;color:var(--teal);background:var(--mint);border-radius:3px;font:800 10px "Noto Sans KR",sans-serif;font-style:normal;letter-spacing:.02em}
+
+/* /site 사이트 지도. 그림은 넓은 화면에서, 목록은 모든 화면에서 본체 역할을 한다. */
+.site-map-shell{max-width:1000px}
+.site-map-figure{margin:0 0 48px}
+.site-map-svg{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:3px;background:#fff}
+.site-map-figure figcaption{margin-top:12px;color:#71868d;font-size:12.5px;line-height:1.7}
+.site-node{cursor:pointer}
+.site-node rect{transition:opacity .18s ease}
+.site-node:hover rect,.site-node:focus-visible rect{opacity:.82}
+.site-node:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.site-map-list h2{margin:0 0 24px;color:var(--navy);font-family:"Noto Serif KR",serif;font-size:23px}
+.site-group{margin-bottom:34px}
+.site-group h3{margin:0 0 4px;color:var(--navy);font-size:15px;font-weight:800}
+.site-group-note{margin:0 0 14px;color:#71868d;font-size:12.5px}
+.site-group article{padding:18px 20px;margin-bottom:10px;background:var(--mist);border-left:3px solid var(--teal)}
+.site-group article a{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;text-decoration:none}
+.site-group article a strong{color:var(--navy);font-size:16px}
+.site-group article a span{color:var(--teal);font:12px ui-monospace,SFMono-Regular,Menlo,monospace}
+.site-group article a:hover strong,.site-group article a:focus-visible strong{text-decoration:underline;text-underline-offset:3px}
+.site-group article p{margin:8px 0 0;color:var(--ink);font-size:14px;line-height:1.75}
+.site-ownership{display:inline-block;margin-top:10px;padding:3px 8px;color:var(--teal);background:var(--mint);border-radius:3px;font:800 10.5px "Noto Sans KR",sans-serif;font-style:normal}
+@media(max-width:700px){.site-map-figure{overflow-x:auto;padding-bottom:8px}.site-map-svg{min-width:640px}}

@@ -3,6 +3,7 @@ export const portalMenu = [
   { href: "/official-info", label: "지원금·세무·연금" },
   { href: "/tools", label: "도구모음" },
   { href: "/health", label: "건강·예방" },
+  { href: "/site", label: "사이트 모음" },
 ];
 
 export const workbookDays = [

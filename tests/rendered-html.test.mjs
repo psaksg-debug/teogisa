@@ -21,8 +21,8 @@ test("renders the finished Korean content site", async () => {
     readFile(new URL("../lib/management-department.ts", import.meta.url), "utf8"),
     readFile(new URL("../lib/repository.ts", import.meta.url), "utf8"),
   ]);
-  assert.match(layout, /퇴\.기\.사/);
-  assert.match(site, /100세시대! 퇴직이 기회가 되는 사람들/);
+  assert.match(layout, /퇴직생활연구소/);
+  assert.match(site, /퇴직 이후의 생활을 공식 자료로 확인합니다/);
   // 브랜드 소개와 슬로건은 /about으로 옮겼다. 홈에 다시 들어오면 탐색이 밀린다.
   const about = await readFile(new URL("../app/about/page.tsx", import.meta.url), "utf8");
   assert.match(about, /퇴직 후 막막함을/);
@@ -444,7 +444,7 @@ test("전사 감사 조직과 감사영역이 문서화되어 있다", async () 
   assert.match(audit,/강한결/);
   assert.match(audit,/박지안/);
   assert.match(audit,/윤서진/);
-  assert.match(audit,/퇴\.기\.사 전 프로젝트/);
+  assert.match(audit,/퇴직생활연구소 전 프로젝트/);
   assert.match(charter,/매월 1회 전 영역/);
   assert.match(report,/조건부 적정/);
 });
@@ -577,7 +577,7 @@ test("ships mobile-first SEO, GEO, trust and original-value pages", async () => 
   assert.match(author, /editorialAuthors\.length}명/);
   assert.match(author, /실존 인물이나 자격 보유자의 이름이 아닙니다/);
   assert.match(post, /author\.role/);
-  assert.match(post, /퇴\.기\.사 AI 편집자/);
+  assert.match(post, /퇴직생활연구소 AI 편집자/);
   assert.match(sitemap, /contact/);
   assert.match(sitemap, /terms/);
   assert.match(content, /unemployment-benefit-eight-steps/);

@@ -1,10 +1,10 @@
 /** 편집자 이름은 사람 이름이 아니라 담당 업무를 가리키는 편집실 운영명이다.
  * 실존 인물로 오인될 수 있는 성+이름 형태는 쓰지 않는다. 글 화면과 /author
  * 양쪽에 AI 편집 사실을 함께 표시해 작성 주체를 숨기지 않는다. */
-export const AI_EDITORIAL_NOTICE = "이 글은 퇴.기.사 편집실이 생성형 AI 도구로 초안을 만들고, 공식 출처를 사람이 확인한 뒤 발행했습니다. 편집자 이름은 담당 업무를 가리키는 운영명이며 실존 인물이 아닙니다.";
+export const AI_EDITORIAL_NOTICE = "이 글은 퇴직생활연구소 편집실이 생성형 AI 도구로 초안을 만들고, 공식 출처를 사람이 확인한 뒤 발행했습니다. 편집자 이름은 담당 업무를 가리키는 운영명이며 실존 인물이 아닙니다.";
 
 export function authorMetaName(author: EditorialAuthor) {
-  return `퇴.기.사 편집실 ${author.name} · ${author.role} (AI 편집)`;
+  return `퇴직생활연구소 편집실 ${author.name} · ${author.role} (AI 편집)`;
 }
 
 export type EditorialAuthor = {
