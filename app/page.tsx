@@ -78,6 +78,18 @@ export default async function Home() {
       </header>
 
       <main id="main-content">
+        <aside className="home-value-bar" aria-label="연구소 핵심 안내">
+          <div className="home-value-inner">
+            <span className="home-value-badge">퇴직생활연구소</span>
+            <p className="home-value-text">
+              퇴직 전후 3년, 막막한 생활비·정부지원제도·새 수입을 숫자로 알기 쉽게 정리합니다.
+            </p>
+            <a className="home-value-link" href="/tools/retirement-runway">
+              내 준비기간 계산 <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </aside>
+
         <nav className="topic-nav" aria-label="주제별 글 찾기">
           <ul>
             <li><a className="topic-nav-all" href="/search">전체 {posts.length}편</a></li>

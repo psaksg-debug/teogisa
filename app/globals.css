@@ -825,6 +825,14 @@ button:not(:disabled),[role="button"],summary{cursor:pointer}
    히어로를 /about으로 옮기고 홈은 글을 고르는 화면으로 둔다.
    주제 이동 → 최신 글 → 주제별 모아보기 순서다. */
 
+/* 상단 1줄 가치 제안 바 */
+.home-value-bar{border-bottom:1px solid var(--line);background:linear-gradient(90deg,#f2f7f4 0%,#edf4f0 100%);padding:10px 0}
+.home-value-inner{max-width:1440px;margin:0 auto;padding:0 7vw;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.home-value-badge{flex-shrink:0;display:inline-flex;align-items:center;padding:3px 8px;border-radius:4px;background:#fff;border:1px solid #bfdcd0;color:var(--teal);font-size:11.5px;font-weight:800;letter-spacing:-.01em}
+.home-value-text{margin:0;flex:1;color:var(--navy);font-size:13.5px;font-weight:550;line-height:1.5;word-break:keep-all}
+.home-value-link{flex-shrink:0;display:inline-flex;align-items:center;gap:4px;color:var(--teal);font-size:12.5px;font-weight:700;text-decoration:none;white-space:nowrap;padding:4px 10px;border-radius:4px;background:rgba(255,255,255,.7);border:1px solid rgba(43,107,85,.2);transition:all .15s ease}
+.home-value-link:hover,.home-value-link:focus-visible{background:var(--teal);color:#fff;border-color:var(--teal)}
+
 /* 상단 주제 바. 스크롤해도 붙어 있어 어느 위치에서든 주제를 바꿀 수 있다. */
 /* sticky 위치는 헤더 높이와 맞춰야 한다. 어긋나면 스크롤 시 헤더가 칩을 가린다.
    칩은 줄바꿈 대신 한 줄 가로 스크롤로 둬야 sticky 높이가 커지지 않는다. */
@@ -872,11 +880,16 @@ button:not(:disabled),[role="button"],summary{cursor:pointer}
   .explore-grid,.category-columns{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:900px){
+  .home-value-inner{padding:0 24px}
   .topic-nav{top:88px}
   .topic-nav ul{padding:2px 24px}
   .category-column{scroll-margin-top:172px}
 }
 @media(max-width:700px){
+  .home-value-inner{padding:0 16px;flex-wrap:wrap;gap:8px}
+  .home-value-text{font-size:12.5px;flex-basis:100%;order:2}
+  .home-value-badge{order:1}
+  .home-value-link{order:1;margin-left:auto;font-size:11.5px;padding:3px 8px}
   .explore-grid,.category-columns{grid-template-columns:1fr}
   .explore-grid .post-card{display:grid;grid-template-columns:118px minmax(0,1fr)}
   .explore-grid .thumbnail-card{height:100%;min-height:132px}
