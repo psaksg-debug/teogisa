@@ -2,8 +2,8 @@
   "$schema": "https://adbles.com/schema/affiliate-links-v1.json",
   "version": "2026.09.05-04",
   "build": "a35f977d",
-  "updated": "2026-09-05",
-  "link_count": 55,
+  "updated": "2026-09-07",
+  "link_count": 81,
   "note": "A-Factory 제휴링크 단일 소스. 사람이 읽는 문서는 affiliate-link.md. 코드에서는 이 JSON을 import해서 link_key로 조회한다. 어느 키워드에 어느 링크를 붙일지는 각 링크의 keywords 필드와 isatipsadbles/lib/affiliate-match.ts의 매칭 규칙을 기준으로 한다.",
   "partner_id": "A100702444",
   "links": [
@@ -1124,6 +1124,422 @@
       "collected_at": "2026-09-05",
       "updated": "2026-09-05",
       "issue": "보류: 같은 수요를 텐핑 건당 정액 CPA(이사마켓 20,750원 등)가 이미 받고 있어 중복. 텐핑 승인율이 떨어질 때 교체 후보."
+    },
+    {
+      "key": "hotel-urbanstay-cheonan-yeogi",
+      "category": "accommodation",
+      "label": "천안 어반스테이 (여기어때)",
+      "cta": "천안 어반스테이 여기어때 실시간 가격 조회",
+      "url": "https://3ha.in/r/686503",
+      "network": "3hoursahead.com (여기어때)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 어반스테이"
+      ]
+    },
+    {
+      "key": "hotel-oncity-cheonan-yanolja",
+      "category": "accommodation",
+      "label": "천안 오엔시티 호텔 (야놀자)",
+      "cta": "천안 오엔시티 호텔 야놀자 실시간 가격 조회",
+      "url": "https://3ha.in/r/686504",
+      "network": "3hoursahead.com (야놀자)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 오엔시티 호텔"
+      ]
+    },
+    {
+      "key": "resort-sonobelle-cheonan-yeogi",
+      "category": "accommodation",
+      "label": "소노벨 천안 (여기어때)",
+      "cta": "소노벨 천안 여기어때 실시간 가격 조회",
+      "url": "https://3ha.in/r/686507",
+      "network": "3hoursahead.com (여기어때)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "소노벨 천안"
+      ]
+    },
+    {
+      "key": "resort-sonobelle-cheonan-yanolja",
+      "category": "accommodation",
+      "label": "소노벨 천안 (야놀자)",
+      "cta": "소노벨 천안 야놀자 실시간 가격 조회",
+      "url": "https://3ha.in/r/686537",
+      "network": "3hoursahead.com (야놀자)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "소노벨 천안"
+      ]
+    },
+    {
+      "key": "hotel-mansion-bridge-cheonan-yeogi",
+      "category": "accommodation",
+      "label": "천안 맨션브릿지 호텔 (여기어때)",
+      "cta": "천안 맨션브릿지 호텔 여기어때 실시간 가격 조회",
+      "url": "https://3ha.in/r/686509",
+      "network": "3hoursahead.com (여기어때)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 맨션브릿지 호텔"
+      ]
+    },
+    {
+      "key": "hotel-mansion-bridge-cheonan-yanolja",
+      "category": "accommodation",
+      "label": "천안 맨션브릿지 호텔 (야놀자)",
+      "cta": "천안 맨션브릿지 호텔 야놀자 실시간 가격 조회",
+      "url": "https://3ha.in/r/686539",
+      "network": "3hoursahead.com (야놀자)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 맨션브릿지 호텔"
+      ]
+    },
+    {
+      "key": "hotel-pognan-cheonan-yeogi",
+      "category": "accommodation",
+      "label": "천안 호텔 포그난 (여기어때)",
+      "cta": "천안 호텔 포그난 여기어때 실시간 가격 조회",
+      "url": "https://3ha.in/r/686518",
+      "network": "3hoursahead.com (여기어때)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 호텔 포그난"
+      ]
+    },
+    {
+      "key": "hotel-pognan-cheonan-yanolja",
+      "category": "accommodation",
+      "label": "천안 호텔 포그난 (야놀자)",
+      "cta": "천안 호텔 포그난 야놀자 실시간 가격 조회",
+      "url": "https://3ha.in/r/686540",
+      "network": "3hoursahead.com (야놀자)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 호텔 포그난"
+      ]
+    },
+    {
+      "key": "hotel-rium-cheonan-yeogi",
+      "category": "accommodation",
+      "label": "천안 호텔리움 (여기어때)",
+      "cta": "천안 호텔리움 여기어때 실시간 가격 조회",
+      "url": "https://3ha.in/r/686519",
+      "network": "3hoursahead.com (여기어때)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 호텔리움"
+      ]
+    },
+    {
+      "key": "hotel-dongbaek-cheonan-yeogi",
+      "category": "accommodation",
+      "label": "천안 동백호텔 (여기어때)",
+      "cta": "천안 동백호텔 여기어때 실시간 가격 조회",
+      "url": "https://3ha.in/r/686520",
+      "network": "3hoursahead.com (여기어때)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 동백호텔"
+      ]
+    },
+    {
+      "key": "hotel-nox-cheonan-yeogi",
+      "category": "accommodation",
+      "label": "천안 녹스호텔 (여기어때)",
+      "cta": "천안 녹스호텔 여기어때 실시간 가격 조회",
+      "url": "https://3ha.in/r/686523",
+      "network": "3hoursahead.com (여기어때)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 녹스호텔"
+      ]
+    },
+    {
+      "key": "hotel-yosuguri-cheonan-yeogi",
+      "category": "accommodation",
+      "label": "천안 요수구리 아늑료칸 호텔 (여기어때)",
+      "cta": "천안 요수구리 아늑료칸 호텔 여기어때 실시간 가격 조회",
+      "url": "https://3ha.in/r/686524",
+      "network": "3hoursahead.com (여기어때)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 요수구리 아늑료칸 호텔"
+      ]
+    },
+    {
+      "key": "hotel-yosuguri-cheonan-yanolja",
+      "category": "accommodation",
+      "label": "천안 요수구리 아늑료칸 호텔 (야놀자)",
+      "cta": "천안 요수구리 아늑료칸 호텔 야놀자 실시간 가격 조회",
+      "url": "https://3ha.in/r/686541",
+      "network": "3hoursahead.com (야놀자)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 요수구리 아늑료칸 호텔"
+      ]
+    },
+    {
+      "key": "hotel-view-cheonan-yeogi",
+      "category": "accommodation",
+      "label": "천안 뷰 호텔 (여기어때)",
+      "cta": "천안 뷰 호텔 여기어때 실시간 가격 조회",
+      "url": "https://3ha.in/r/686526",
+      "network": "3hoursahead.com (여기어때)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 뷰 호텔"
+      ]
+    },
+    {
+      "key": "hotel-view-cheonan-yanolja",
+      "category": "accommodation",
+      "label": "천안 뷰 호텔 (야놀자)",
+      "cta": "천안 뷰 호텔 야놀자 실시간 가격 조회",
+      "url": "https://3ha.in/r/686542",
+      "network": "3hoursahead.com (야놀자)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 뷰 호텔"
+      ]
+    },
+    {
+      "key": "hotel-havenue-cheonan-yanolja",
+      "category": "accommodation",
+      "label": "천안 H 에비뉴 호텔 (야놀자)",
+      "cta": "천안 H 에비뉴 호텔 야놀자 실시간 가격 조회",
+      "url": "https://3ha.in/r/686543",
+      "network": "3hoursahead.com (야놀자)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 H 에비뉴 호텔"
+      ]
+    },
+    {
+      "key": "hotel-jtop-cheonan-yeogi",
+      "category": "accommodation",
+      "label": "천안 제이탑 호텔 (여기어때)",
+      "cta": "천안 제이탑 호텔 여기어때 실시간 가격 조회",
+      "url": "https://3ha.in/r/686527",
+      "network": "3hoursahead.com (여기어때)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 제이탑 호텔"
+      ]
+    },
+    {
+      "key": "hotel-justsleep-cheonan-yeogi",
+      "category": "accommodation",
+      "label": "천안 저스트슬립호텔 천안역점 (여기어때)",
+      "cta": "천안 저스트슬립호텔 천안역점 여기어때 실시간 가격 조회",
+      "url": "https://3ha.in/r/686529",
+      "network": "3hoursahead.com (여기어때)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 저스트슬립호텔 천안역점"
+      ]
+    },
+    {
+      "key": "hotel-justsleep-cheonan-yanolja",
+      "category": "accommodation",
+      "label": "천안 저스트슬립호텔 천안역점 (야놀자)",
+      "cta": "천안 저스트슬립호텔 천안역점 야놀자 실시간 가격 조회",
+      "url": "https://3ha.in/r/686544",
+      "network": "3hoursahead.com (야놀자)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 저스트슬립호텔 천안역점"
+      ]
+    },
+    {
+      "key": "hotel-nu-cheonan-yanolja",
+      "category": "accommodation",
+      "label": "천안 NU(엔유) 호텔 (야놀자)",
+      "cta": "천안 NU(엔유) 호텔 야놀자 실시간 가격 조회",
+      "url": "https://3ha.in/r/686545",
+      "network": "3hoursahead.com (야놀자)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 NU(엔유) 호텔"
+      ]
+    },
+    {
+      "key": "hotel-urbant-cheonan-yeogi",
+      "category": "accommodation",
+      "label": "천안 어반트 모텔/온화호텔 (여기어때)",
+      "cta": "천안 어반트 모텔/온화호텔 여기어때 실시간 가격 조회",
+      "url": "https://3ha.in/r/686532",
+      "network": "3hoursahead.com (여기어때)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 어반트 모텔/온화호텔"
+      ]
+    },
+    {
+      "key": "hotel-urbant-cheonan-yanolja",
+      "category": "accommodation",
+      "label": "천안 어반트 모텔/온화호텔 (야놀자)",
+      "cta": "천안 어반트 모텔/온화호텔 야놀자 실시간 가격 조회",
+      "url": "https://3ha.in/r/686548",
+      "network": "3hoursahead.com (야놀자)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 어반트 모텔/온화호텔"
+      ]
+    },
+    {
+      "key": "hotel-hound-buldang-yeogi",
+      "category": "accommodation",
+      "label": "천안 하운드호텔 불당점 (여기어때)",
+      "cta": "천안 하운드호텔 불당점 여기어때 실시간 가격 조회",
+      "url": "https://3ha.in/r/686534",
+      "network": "3hoursahead.com (여기어때)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 하운드호텔 불당점"
+      ]
+    },
+    {
+      "key": "hotel-hound-buldang-yanolja",
+      "category": "accommodation",
+      "label": "천안 하운드호텔 불당점 (야놀자)",
+      "cta": "천안 하운드호텔 불당점 야놀자 실시간 가격 조회",
+      "url": "https://3ha.in/r/686549",
+      "network": "3hoursahead.com (야놀자)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 하운드호텔 불당점"
+      ]
+    },
+    {
+      "key": "hotel-loge-cheonan-yeogi",
+      "category": "accommodation",
+      "label": "천안 아산 로지호텔 (여기어때)",
+      "cta": "천안 아산 로지호텔 여기어때 실시간 가격 조회",
+      "url": "https://3ha.in/r/686535",
+      "network": "3hoursahead.com (여기어때)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 아산 로지호텔"
+      ]
+    },
+    {
+      "key": "hotel-loge-cheonan-yanolja",
+      "category": "accommodation",
+      "label": "천안 아산 로지호텔 (야놀자)",
+      "cta": "천안 아산 로지호텔 야놀자 실시간 가격 조회",
+      "url": "https://3ha.in/r/686550",
+      "network": "3hoursahead.com (야놀자)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 모텔",
+        "천안 아산 로지호텔"
+      ]
     }
   ],
   "slug_map": {
