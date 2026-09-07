@@ -1,9 +1,9 @@
 export const portalMenu = [
-  { href: "/challenge", label: "월 100만원 챌린지" },
+  { href: "/challenge", label: "30일 수입 실험" },
   { href: "/official-info", label: "지원금·세무·연금" },
   { href: "/tools", label: "도구모음" },
-  { href: "/keyword-lab", label: "지역별 생활정보" },
   { href: "/health", label: "건강·예방" },
+  { href: "/site", label: "사이트 모음" },
 ];
 
 export const workbookDays = [
@@ -58,9 +58,9 @@ export const toolCatalog = [
   { href:"/tools/retirement-runway", title:"퇴직생활비 계산기", description:"보유자금과 월 지출·고정수입으로 버틸 수 있는 기간을 계산합니다.", status:"사용 가능" },
   { href:"/tools/severance-pay", title:"퇴직금 간편 계산기", description:"평균임금과 재직일수를 이용해 예상 퇴직금을 계산합니다.", status:"사용 가능" },
   { href:"/tools/image-converter", title:"이미지 변환기", description:"사진을 WebP·JPG·PNG로 바꾸고 용량을 줄이는 도구입니다.", status:"준비 중" },
-  { href:"https://myreceipt.adbles.com/", title:"영수증 정리도우미", description:"영수증 사진을 여러 장 올리면 금액을 합산하고 A4 크기의 정리 PDF로 저장합니다.", status:"사용 가능" },
-  { href:"https://proshot.adbles.com/", title:"ProShot AI 사진 스튜디오", description:"휴대폰 셀카 한 장으로 깔끔한 증명사진·비즈니스 헤드샷·스튜디오 프로필을 무료로 만듭니다.", status:"사용 가능" },
-  { href:"https://vpn.adbles.com/", title:"VPN 비교", description:"공용 와이파이에서 쓸 VPN을 노로그 정책·서버 위치·요금 기준으로 견주어 봅니다.", status:"사용 가능" },
+  { href:"https://myreceipt.adbles.com/", title:"영수증 정리도우미", description:"영수증 사진을 여러 장 올리면 금액을 합산하고 A4 크기의 정리 PDF로 저장합니다.", status:"사용 가능", selfOperated:true },
+  { href:"https://proshot.adbles.com/", title:"ProShot AI 사진 스튜디오", description:"휴대폰 셀카 한 장으로 깔끔한 증명사진·비즈니스 헤드샷·스튜디오 프로필을 무료로 만듭니다.", status:"사용 가능", selfOperated:true },
+  { href:"https://vpn.adbles.com/", title:"VPN 비교", description:"공용 와이파이에서 쓸 VPN을 노로그 정책·서버 위치·요금 기준으로 견주어 봅니다.", status:"사용 가능", selfOperated:true },
   { href:"/tools/thumbnail-maker", title:"블로그 썸네일 만들기", description:"제목과 색상을 선택해 검색용 썸네일을 만듭니다.", status:"준비 중" },
 ] as const;
 
@@ -73,12 +73,4 @@ export const healthTopics = [
   ["마음건강", "우울감이 지속되거나 일상 기능이 떨어지면 전문기관의 도움을 받습니다.", "https://www.mentalhealth.go.kr/"],
 ] as const;
 
-// URL에 쓰는 slug·topic은 반드시 ASCII로 둔다. 한글을 그대로 쓰면 빌드 시점과
-// 런타임의 퍼센트 인코딩 단계가 어긋나 /local/* 전체가 404가 된다.
-// 화면에 보이는 이름은 region·topicLabel을 쓴다.
-export const liveKeywordPages = [
-  { slug:"seoul", topic:"midlife-jobs", region:"서울", topicLabel:"중장년 일자리", label:"서울 중장년 일자리 찾기" },
-  { slug:"busan", topic:"retirement-support", region:"부산", topicLabel:"퇴직 지원금", label:"부산 퇴직자 지원금 확인" },
-  { slug:"incheon", topic:"online-side-job", region:"인천", topicLabel:"온라인 부업", label:"인천에서 시작하는 온라인 부업" },
-  { slug:"cheonan", topic:"midlife-jobs", region:"천안", topicLabel:"중장년 일자리", label:"천안 중장년 일자리 찾기" },
-] as const;
+

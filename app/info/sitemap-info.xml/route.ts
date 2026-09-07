@@ -14,7 +14,7 @@ const INFO_CATEGORIES = new Set([
   "건강·예방",
 ]);
 
-// noindex 페이지는 넣지 않는다. /keyword-lab, /local/*, /search는 robots meta가
+// noindex 페이지는 넣지 않는다. /search는 robots meta가
 // index:false라 사이트맵에 실으면 서치콘솔에서 충돌로 잡힌다.
 const INFO_PAGES = [
   { path: "/official-info", priority: "0.9" },

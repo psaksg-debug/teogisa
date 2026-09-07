@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" role="img" aria-label="재산 합계 구간에 따른 근로장려금 지급 비율">
+  <title>재산 구간별 근로장려금 지급 비율</title>
+  <rect width="880" height="300" fill="#ffffff"/>
+  <g font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif">
+
+    <text x="60" y="42" font-size="15" font-weight="700" fill="#102d3c">가구원 전체 재산 합계 &#183; 부채는 빼지 않습니다</text>
+
+    <rect x="60" y="70" width="431" height="72" fill="#2e6573"/>
+    <rect x="491" y="70" width="177" height="72" fill="#e67b32"/>
+    <rect x="668" y="70" width="152" height="72" fill="#b9c8c4"/>
+
+    <text x="275" y="102" text-anchor="middle" font-size="18" font-weight="800" fill="#ffffff">전액 지급</text>
+    <text x="275" y="126" text-anchor="middle" font-size="13" fill="#d8eee8">산정액 100%</text>
+    <text x="579" y="102" text-anchor="middle" font-size="18" font-weight="800" fill="#ffffff">절반만</text>
+    <text x="579" y="126" text-anchor="middle" font-size="13" fill="#fdece0">산정액 50%</text>
+    <text x="744" y="102" text-anchor="middle" font-size="18" font-weight="800" fill="#102d3c">지급 없음</text>
+    <text x="744" y="126" text-anchor="middle" font-size="13" fill="#3d5560">요건 초과</text>
+
+    <path d="M60 152 L60 166 M491 152 L491 166 M668 152 L668 166 M820 152 L820 166" stroke="#cddbd6" stroke-width="2"/>
+    <path d="M60 159 L820 159" stroke="#cddbd6" stroke-width="1"/>
+
+    <text x="60" y="188" text-anchor="middle" font-size="13" font-weight="700" fill="#18313c">0원</text>
+    <text x="491" y="188" text-anchor="middle" font-size="13" font-weight="700" fill="#18313c">1억 7,000만원</text>
+    <text x="668" y="188" text-anchor="middle" font-size="13" font-weight="700" fill="#18313c">2억 4,000만원</text>
+
+    <rect x="60" y="212" width="760" height="52" rx="6" fill="#f6f9f7"/>
+    <text x="80" y="238" font-size="14" font-weight="700" fill="#102d3c">주택 &#183; 토지 &#183; 건물 &#183; 자동차 &#183; 전세보증금 &#183; 예금 &#183; 주식을 모두 더한 금액입니다.</text>
+    <text x="80" y="256" font-size="13" fill="#3d5560">대출이 있어도 빼주지 않기 때문에, 집 한 채만 있어도 요건을 넘는 경우가 생깁니다.</text>
+  </g>
+</svg>

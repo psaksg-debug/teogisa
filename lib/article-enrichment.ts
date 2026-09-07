@@ -30,7 +30,7 @@ const categoryOfficialLinks:Record<string,Array<{label:string;url:string}>>={
 const slugResources:Record<string,{links?:Array<{label:string;url:string}>;images?:ArticleEnrichment["images"];video?:ArticleEnrichment["video"]}>={
   "retirement-pay-irp-five-checks-before-withdrawal":{
     links:[{label:"고용노동부 IRP 의무이전·예외 안내",url:"https://1350.moel.go.kr/rtmview.do?id=1000255731&page=1&type=ALL"},{label:"고용노동부 퇴직연금제도 안내",url:"https://www.moel.go.kr/retirementpay.do"},{label:"국세청 연금계좌 원천징수세율",url:"https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7888&mi=6609"},{label:"국세청 퇴직소득세·과세이연 안내",url:"https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7880&mi=6444"}],
-    images:[{src:"/article-thumbnails/application-process-timeline.webp",alt:"퇴직금이 IRP에 입금된 뒤 일시금과 연금 수령 절차를 확인하는 서류·일정표 일러스트",caption:"IRP는 해지 버튼부터 누르기보다 퇴직금의 출처, 필요한 시점과 수령 방식을 순서대로 확인해야 합니다. · 퇴.기.사 제작 일러스트",width:355,height:444}],
+    images:[{src:"/article-thumbnails/application-process-timeline.webp",alt:"퇴직금이 IRP에 입금된 뒤 일시금과 연금 수령 절차를 확인하는 서류·일정표 일러스트",caption:"IRP는 해지 버튼부터 누르기보다 퇴직금의 출처, 필요한 시점과 수령 방식을 순서대로 확인해야 합니다. · 퇴직생활연구소 제작 일러스트",width:355,height:444}],
   },
   "proshot-mobile-id-studio-photo-guide":{
     links:[{label:"ProShot AI 사진 스튜디오 바로가기",url:"https://proshot.adbles.com/"},{label:"외교부 여권사진 규격 안내",url:"https://www.passport.go.kr/home/kor/contents.do?menuPos=32"},{label:"외교부 온라인 여권사진 검증",url:"https://passport.go.kr/home/kor/onlinePhotoVerify/index.do?menuPos=33"}],
@@ -38,16 +38,19 @@ const slugResources:Record<string,{links?:Array<{label:string;url:string}>;image
   },
   "deposit-protection-100-million-retirement-money-checks":{
     links:[{label:"금융위원회 예금보호한도 1억원 안내",url:"https://www.fsc.go.kr/edu/news/85225"},{label:"금융위원회 적용 대상·별도 한도 안내",url:"https://www.fsc.go.kr/edu/news/85077"},{label:"예금보험공사 예금자보호 안내",url:"https://www.kdic.or.kr/"}],
-    images:[{src:"/article-thumbnails/income-tax-calculation.webp",alt:"예금보호한도와 퇴직금 분산 예치를 계산하는 표·계산기 일러스트",caption:"보호한도만 보지 말고 금융회사별 원금·예상 이자 합계와 만기일을 함께 적어야 합니다. · 퇴.기.사 제작 일러스트",width:355,height:444}],
+    images:[{src:"/article-thumbnails/income-tax-calculation.webp",alt:"예금보호한도와 퇴직금 분산 예치를 계산하는 표·계산기 일러스트",caption:"보호한도만 보지 말고 금융회사별 원금·예상 이자 합계와 만기일을 함께 적어야 합니다. · 퇴직생활연구소 제작 일러스트",width:355,height:444}],
   },
   "health-insurance-after-retirement-three-checks":{
     links:[{label:"국민건강보험공단 임의계속가입 안내",url:"https://www.nhis.or.kr/static/alim/paper/oldpaper/202212/sub/18.html"},{label:"국민건강보험공단 2026년도 보험료율",url:"https://edi.nhis.or.kr/portal/images/popup/20251204_pop01longdesc.html"}],
-    images:[{src:"/article-thumbnails/retirement-pension-life.webp",alt:"퇴직 후 건강보험 가입 유형을 확인하는 중장년 부부 일러스트",caption:"퇴직 후에는 피부양자·지역가입자·임의계속가입 가운데 가능한 경로와 예상 보험료를 함께 확인해야 합니다. · 퇴.기.사 제작 일러스트",width:355,height:444}],
+    images:[{src:"/article-thumbnails/retirement-pension-life.webp",alt:"퇴직 후 건강보험 가입 유형을 확인하는 중장년 부부 일러스트",caption:"퇴직 후에는 피부양자·지역가입자·임의계속가입 가운데 가능한 경로와 예상 보험료를 함께 확인해야 합니다. · 퇴직생활연구소 제작 일러스트",width:355,height:444}],
     video:{title:"건보료 조정신청과 임의계속가입 제도",embedUrl:"https://www.youtube-nocookie.com/embed/D-5p431l-qY",sourceUrl:"https://www.youtube.com/watch?v=D-5p431l-qY",description:"퇴직 후 임의계속가입의 기본 개념을 설명하는 KBS 참고영상입니다. 2021년 공개 영상이므로 최신 보험료율·자격·기한은 본문에 연결한 국민건강보험공단의 2026년 자료로 다시 확인하세요.",channel:"윤창희의 생존경제_KBS"},
   },
   "ai-first-income-five-methods-seven-day-plan":{
     links:[{label:"원본 영상: 클로드 수익화 방법 5가지",url:"https://www.youtube.com/watch?v=qEVZ7AgB7zI"}],
     video:{title:"클로드로 당장 수익 만드는 확실한 방법 5가지",embedUrl:"https://www.youtube-nocookie.com/embed/qEVZ7AgB7zI",sourceUrl:"https://www.youtube.com/watch?v=qEVZ7AgB7zI",description:"리서치 대행, 디지털 상품, 인스타툰, 미니사이트와 웹게임까지 다섯 가지 AI 수익화 아이디어를 소개한 영상입니다. 본문은 이 아이디어들을 7일 검증 절차와 위험 관리 기준으로 재구성했습니다.",channel:"혼잡스"},
+  },
+  "earned-income-tax-credit-semiannual-2026":{
+    links:[{label:"국세청 근로·자녀장려금 심사 및 지급 안내",url:"https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=2453&cntntsId=7784"},{label:"국세청 반기신청 자주 묻는 Q&A",url:"https://call.nts.go.kr/call/qna/selectQnaInfo.do?mi=13042"},{label:"홈택스 근로·자녀장려금 신청",url:"https://hometax.go.kr/"},{label:"정책브리핑 근로장려금 지급 기준 안내",url:"https://www.korea.kr/news/policyNewsView.do?newsId=148963769"}],
   },
   "unemployment-benefit-eight-steps":{links:[{label:"고용24 실업급여 신청 절차 원문",url:"https://www.work24.go.kr/cm/c/f/1100/selecSystInfo.do?systClId=SC00000254&systId=SI00000411"}]},
   "side-jobs-while-receiving-benefits":{links:[{label:"고용24 실업인정·취업 사실 신고 안내",url:"https://www.work24.go.kr/cm/c/f/1100/selecSystInfo.do?systClId=SC00000254&systId=SI00000411"}]},
@@ -71,6 +74,7 @@ const thumbnailCatalog: readonly ThumbnailImage[] = [
   { file: "three-bucket-budget.webp", description: "주거·생활·보험을 나눈 3칸 예산 일러스트", width: 354, height: 443 },
   { file: "balanced-income-plan.webp", description: "여러 수입원을 균형 있게 쌓는 저울 일러스트", width: 355, height: 443 },
   { file: "content-quality-review.webp", description: "별점 체크리스트를 검토하는 중장년 일러스트", width: 355, height: 443 },
+  { file: "tax-credit-calendar.svg", description: "9월 1~15일이 표시된 근로장려금 반기신청 달력 도표", width: 1200, height: 630 },
   { file: "layoff_illustration.jpg", description: "사무실 책상에서 서류를 놓고 상담하는 두 사람 일러스트", width: 1024, height: 1024 },
   { file: "voluntary_resignation.jpg", description: "짐 상자를 안고 회사 건물을 나서며 해가 뜨는 길을 걷는 사람 일러스트", width: 1024, height: 1024 },
 ] as const;
@@ -84,6 +88,9 @@ const thumbnailByFile = new Map(thumbnailCatalog.map((image) => [image.file, ima
 type ThumbnailRule = { name: string; categories?: readonly string[]; keywords: readonly string[]; pool: readonly string[] };
 
 const thumbnailRules: readonly ThumbnailRule[] = [
+  { name: "credit",
+    keywords: ["근로장려금", "자녀장려금", "장려금", "반기신청", "tax-credit"],
+    pool: ["tax-credit-calendar.svg", "income-tax-calculation.webp"] },
   { name: "ai",
     categories: ["AI 활용", "유용한 도구"],
     keywords: ["바이브코딩", "바이브 코딩", "ai활용", "인공지능", "프롬프트", "클로드", "커서", "챗gpt", "코딩", "자동화", "vibe-coding", "claude", "prompt", "ai-"],

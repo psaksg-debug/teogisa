@@ -181,7 +181,7 @@ export const seedPosts: Post[] = [
 <p>이 글의 기준일은 2026년 8월 14일입니다. 개인별 자격과 금액은 자료 반영 시점에 따라 달라질 수 있으므로 국민건강보험공단에서 최종 확인해야 합니다.</p>
 <h2>퇴직하면 선택지가 세 갈래로 나뉩니다</h2>
 <table><thead><tr><th>경로</th><th>먼저 확인할 것</th><th>주의점</th></tr></thead><tbody><tr><td>가족의 직장보험 피부양자</td><td>가족관계·부양·소득·재산 요건</td><td>가족이라고 자동 등록되지 않음</td></tr><tr><td>지역가입자</td><td>세대 소득과 재산을 반영한 예상 보험료</td><td>퇴직 전 본인부담액과 산식이 다름</td></tr><tr><td>임의계속가입자</td><td>직장가입 기간과 신청기한</td><td>지역보험료보다 반드시 싼 것은 아님</td></tr></tbody></table>
-<figure class="article-image"><img src="/article-thumbnails/retirement-pension-life.webp" alt="퇴직 후 건강보험 가입 유형을 확인하는 중장년 부부 일러스트"><figcaption>퇴직 후에는 피부양자·지역가입자·임의계속가입 가운데 가능한 경로와 예상 보험료를 함께 확인해야 합니다. · 퇴.기.사 제작 일러스트</figcaption></figure>
+<figure class="article-image"><img src="/article-thumbnails/retirement-pension-life.webp" alt="퇴직 후 건강보험 가입 유형을 확인하는 중장년 부부 일러스트"><figcaption>퇴직 후에는 피부양자·지역가입자·임의계속가입 가운데 가능한 경로와 예상 보험료를 함께 확인해야 합니다. · 퇴직생활연구소 제작 일러스트</figcaption></figure>
 <p>피부양자 요건을 충족하지 못하면 일반적으로 지역가입자로 보험료를 내게 됩니다. 임의계속가입은 신청 자격이 있는 퇴직자가 지역보험료와 비교해 선택할 수 있는 특례입니다. 세 경로를 동시에 적용받는 것이 아니라 내 자격에 맞는 경로를 확인하는 과정입니다.</p>
 <h2>1. 피부양자는 가족관계만으로 결정되지 않습니다</h2>
 <p>배우자나 자녀가 직장가입자라고 해서 곧바로 피부양자가 되는 것은 아닙니다. 국민건강보험공단은 가족관계와 부양요건뿐 아니라 소득과 재산요건을 함께 확인합니다. 연금·금융·임대·사업소득 등 소득의 종류와 반영 시점에 따라 판단이 달라질 수 있으므로 인터넷의 단순 기준표만 보고 확정하면 안 됩니다.</p>
@@ -203,9 +203,9 @@ export const seedPosts: Post[] = [
 <table><thead><tr><th>비교 항목</th><th>월 건강보험료</th><th>월 장기요양보험료</th><th>적용기간·기한</th></tr></thead><tbody><tr><td>퇴직 전 본인부담액</td><td>급여명세서 확인</td><td>급여명세서 확인</td><td>퇴직일까지</td></tr><tr><td>예상 지역보험료</td><td>공단 확인</td><td>공단 확인</td><td>자격 변동일부터</td></tr><tr><td>예상 임의계속보험료</td><td>공단 확인</td><td>공단 확인</td><td>최대 36개월·신청기한 확인</td></tr></tbody></table>
 <p>건강보험료는 퇴직 후 고정비를 크게 바꿀 수 있지만, 무조건 피부양자나 임의계속가입이 유리하다고 정해져 있지는 않습니다. 내 자료로 세 경로를 비교하고 기한 안에 선택하는 것이 핵심입니다.</p>
 <p>공식 확인: <a href="https://www.nhis.or.kr/static/alim/paper/oldpaper/202212/sub/18.html" target="_blank" rel="noreferrer">국민건강보험공단 임의계속가입 안내</a> · <a href="https://edi.nhis.or.kr/portal/images/popup/20251204_pop01longdesc.html" target="_blank" rel="noreferrer">2026년도 보험료율 안내</a> · <a href="https://www.nhis.or.kr/" target="_blank" rel="noreferrer">국민건강보험공단</a></p>
-<p><strong>김연수 · 연금·보험 편집자</strong></p>`, category:"연금·세금·보험", tags:["퇴직 건강보험료","지역가입자","피부양자","임의계속가입","2026 건강보험"], status:"published", publishedAt:"2026-08-14", scheduledAt:null, readingMinutes:11, visual:"건보", authorName:"김연수" },
+<p><strong>노후 · 연금·보험 편집자</strong></p>`, category:"연금·세금·보험", tags:["퇴직 건강보험료","지역가입자","피부양자","임의계속가입","2026 건강보험"], status:"published", publishedAt:"2026-08-14", scheduledAt:null, readingMinutes:11, visual:"건보", authorName:"노후" },
   { id:1001, title:"예금자보호 1억이면 안심일까? 퇴직금 나누기 전 확인할 5가지", slug:"deposit-protection-100-million-retirement-money-checks", excerpt:"원금과 이자를 합쳐 금융회사별 1억원까지 보호되는 기준, 보호되지 않는 상품, 퇴직연금 별도 한도와 분산 예치표를 정리했습니다.", body:`<p><strong>2025년 9월 1일부터 예금보호한도는 금융회사별로 원금과 소정의 이자를 합해 1인당 1억원입니다.</strong> 계좌마다 1억원이 아니며, 같은 금융회사에 여러 예금이 있으면 합산해 계산합니다. 퇴직금을 옮기기 전에는 금리순으로 통장을 만들지 말고 <strong>보호 대상 여부 → 금융회사별 합계 → 만기와 중도해지 조건</strong> 순서로 확인하세요.</p>
-<figure class="article-image"><img src="/article-thumbnails/income-tax-calculation.webp" alt="예금보호한도와 퇴직금 분산 예치를 계산하는 표·계산기 일러스트" width="355" height="444" loading="lazy" decoding="async"><figcaption>보호한도만 보지 말고 금융회사별 원금·예상 이자 합계와 만기일을 함께 적어야 합니다. · 퇴.기.사 제작 일러스트</figcaption></figure>
+<figure class="article-image"><img src="/article-thumbnails/income-tax-calculation.webp" alt="예금보호한도와 퇴직금 분산 예치를 계산하는 표·계산기 일러스트" width="355" height="444" loading="lazy" decoding="async"><figcaption>보호한도만 보지 말고 금융회사별 원금·예상 이자 합계와 만기일을 함께 적어야 합니다. · 퇴직생활연구소 제작 일러스트</figcaption></figure>
 <h2>1. 가입 화면에서 예금자보호 표시부터 확인합니다</h2>
 <p>금융위원회는 은행·저축은행의 예금뿐 아니라 보험회사의 일부 보험계약, 금융투자회사의 예탁금 등 보호 대상 금융상품에 한도가 적용된다고 안내합니다. 반면 펀드처럼 운용 실적에 따라 손익이 달라지는 상품은 보호 대상이 아닙니다. 상품 이름에 ‘저축’이나 ‘연금’이 들어가도 자동으로 보호된다고 생각하지 말고, 가입 화면과 상품설명서의 예금자보호 여부를 확인하세요.</p>
 <h2>2. 원금만 1억원을 채우지 않습니다</h2>
@@ -223,7 +223,7 @@ export const seedPosts: Post[] = [
 <ul><li>보호 대상 표시나 금융회사 법인 구분을 확인하지 못한 경우</li><li>우대금리 조건 때문에 불필요한 카드·보험 가입을 요구받는 경우</li><li>중도해지 이율과 만기 전 필요한 생활비를 계산하지 않은 경우</li><li>예금자보호를 원금손실 없는 투자상품이라는 뜻으로 설명하는 경우</li></ul>
 <blockquote>보호한도는 상품을 추천하는 기준이 아니라, 퇴직금을 한 곳에 집중하지 않았는지 확인하는 안전 점검선입니다.</blockquote>
 <p>기준일: 2026년 8월 14일. 공식 확인: <a href="https://www.fsc.go.kr/edu/news/85225" target="_blank" rel="noreferrer">금융위원회 예금보호한도 1억원 안내</a> · <a href="https://www.fsc.go.kr/edu/news/85077" target="_blank" rel="noreferrer">금융위원회 적용 대상·별도 한도 안내</a> · <a href="https://www.kdic.or.kr/" target="_blank" rel="noreferrer">예금보험공사</a></p>
-<p><strong>박여유 · 투자·재테크 편집자</strong></p>`, category:"투자·재테크", tags:["예금자보호","퇴직금","1억원","예금보험공사","분산 예치"], status:"published", publishedAt:"2026-08-14", scheduledAt:null, readingMinutes:10, visual:"1억", authorName:"박여유" },
+<p><strong>자산 · 투자·재테크 편집자</strong></p>`, category:"투자·재테크", tags:["예금자보호","퇴직금","1억원","예금보험공사","분산 예치"], status:"published", publishedAt:"2026-08-14", scheduledAt:null, readingMinutes:10, visual:"1억", authorName:"자산" },
   { id:1002, title:"사진관 안 가고 휴대폰 셀카로 증명사진 만들기 — 무료 ProShot 사용법", slug:"proshot-mobile-id-studio-photo-guide", excerpt:"휴대폰 셀카 한 장으로 증명사진·비즈니스 헤드샷·스튜디오 프로필을 무료로 만드는 순서와 공식 신분증 사용 시 주의점을 정리했습니다.", body:`<p><strong>ProShot은 현재 무료로 이용할 수 있습니다.</strong> 이력서나 업무 프로필 사진이 급할 때 휴대폰 셀카 한 장으로 정장 헤드샷과 스튜디오 프로필을 만들 수 있습니다. 사진을 올리고 원하는 스타일을 고른 뒤 결과를 내려받는 방식입니다. 사진관을 완전히 대신한다기보다, 온라인 이력서·포트폴리오·강사 소개처럼 디지털 프로필이 먼저 필요한 상황에서 부담 없이 시안을 만드는 용도로 활용하세요.</p>
 <p><a class="primary-button" href="https://proshot.adbles.com/" target="_blank" rel="noreferrer">ProShot에서 사진 만들기 <span aria-hidden="true">↗</span></a></p>
 <figure class="article-image"><img src="https://proshot.adbles.com/images/selfie_before.png" alt="ProShot에 업로드하기 전 휴대폰 정면 셀카 예시" width="640" height="640" loading="lazy" decoding="async"><figcaption>정면을 또렷하게 바라본 휴대폰 셀카를 준비합니다. · ProShot 제공 예시 이미지</figcaption></figure>
@@ -243,9 +243,9 @@ export const seedPosts: Post[] = [
 <blockquote>AI 사진의 장점은 빠른 시안 제작입니다. 본인 확인이 필요한 사진은 편리함보다 제출기관의 최신 규격을 먼저 따르세요.</blockquote>
 <p><a class="primary-button" href="https://proshot.adbles.com/" target="_blank" rel="noreferrer">ProShot 바로가기 <span aria-hidden="true">↗</span></a></p>
 <p>기준일: 2026년 8월 14일. 무료 이용 여부와 기능 확인: <a href="https://proshot.adbles.com/" target="_blank" rel="noreferrer">ProShot 공식 화면</a></p>
-<p><strong>김기준 · 유용한 도구 편집자</strong></p>`, category:"유용한 도구", tags:["ProShot","AI 증명사진","프로필 사진","비즈니스 헤드샷","휴대폰 사진"], status:"published", publishedAt:"2026-08-15", scheduledAt:null, readingMinutes:8, visual:"PHOTO", authorName:"김기준" },
+<p><strong>픽 · 유용한 도구 편집자</strong></p>`, category:"유용한 도구", tags:["ProShot","AI 증명사진","프로필 사진","비즈니스 헤드샷","휴대폰 사진"], status:"published", publishedAt:"2026-08-15", scheduledAt:null, readingMinutes:8, visual:"PHOTO", authorName:"픽" },
   { id:1003, title:"IRP에 들어온 퇴직금, 해지 버튼을 누르기 전에 볼 5가지", slug:"retirement-pay-irp-five-checks-before-withdrawal", excerpt:"퇴직금이 IRP로 들어온 뒤 일시금과 연금 중 무엇을 선택할지, 과세이연·세율·수수료·생활비를 기준으로 확인합니다.", body:`<p><strong>퇴직금이 개인형퇴직연금(IRP)에 들어왔다고 바로 해지할 필요는 없습니다.</strong> IRP 입금은 세금이 없어진 것이 아니라 퇴직소득세 납부 시점을 뒤로 미룬 상태입니다. 생활비 때문에 일시금이 필요한지, 연금으로 나눠 받을 수 있는지, 계좌 안에 퇴직금 외 개인 납입금이 섞여 있는지를 먼저 확인해야 합니다.</p>
-<figure class="article-image"><img src="/article-thumbnails/application-process-timeline.webp" alt="퇴직금이 IRP에 입금된 뒤 일시금과 연금 수령 절차를 확인하는 서류·일정표 일러스트" width="355" height="444" loading="lazy" decoding="async"><figcaption>IRP는 해지 버튼부터 누르기보다 퇴직금의 출처, 필요한 시점과 수령 방식을 순서대로 확인해야 합니다. · 퇴.기.사 제작 일러스트</figcaption></figure>
+<figure class="article-image"><img src="/article-thumbnails/application-process-timeline.webp" alt="퇴직금이 IRP에 입금된 뒤 일시금과 연금 수령 절차를 확인하는 서류·일정표 일러스트" width="355" height="444" loading="lazy" decoding="async"><figcaption>IRP는 해지 버튼부터 누르기보다 퇴직금의 출처, 필요한 시점과 수령 방식을 순서대로 확인해야 합니다. · 퇴직생활연구소 제작 일러스트</figcaption></figure>
 <h2>먼저 내 퇴직금이 왜 IRP로 들어왔는지 확인하세요</h2>
 <p>고용노동부 안내에 따르면 2022년 4월 14일부터 사용자는 원칙적으로 근로자가 지정한 IRP 계정에 퇴직급여를 지급해야 합니다. 다만 퇴직 당시 55세 이상이거나 퇴직급여액이 300만원 이하인 경우 등에는 의무이전 예외가 적용될 수 있습니다. 예외에 해당한다고 무조건 일반 통장으로 받아야 하는 것은 아니며, 실제 지급 방식은 회사와 퇴직연금사업자에 확인하세요.</p>
 <h2>IRP 입금은 비과세가 아니라 과세이연입니다</h2>
@@ -262,7 +262,7 @@ export const seedPosts: Post[] = [
 <p>일시금과 연금의 세후 비교표를 받지 못했거나, 계좌 안 자금의 출처를 구분하지 못했거나, 고위험 상품을 이해하지 못한 상태라면 당일 해지를 멈추세요. 반대로 당장 필요한 생활비가 있는데 세금 혜택만 보고 무리하게 연금수령을 고집해서도 안 됩니다. 퇴직금은 세금뿐 아니라 앞으로 버틸 시간을 함께 계산해야 합니다.</p>
 <blockquote>IRP를 유지할지 해지할지는 수익률 전망보다 ‘언제 얼마가 필요한가’와 ‘세후로 얼마를 받는가’를 먼저 비교해 결정하세요.</blockquote>
 <p>기준일: 2026년 8월 14일. 공식 확인: <a href="https://1350.moel.go.kr/rtmview.do?id=1000255731&page=1&type=ALL" target="_blank" rel="noreferrer">고용노동부 IRP 의무이전·예외 안내</a> · <a href="https://www.moel.go.kr/retirementpay.do" target="_blank" rel="noreferrer">고용노동부 퇴직연금제도 안내</a> · <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7888&mi=6609" target="_blank" rel="noreferrer">국세청 연금계좌 원천징수세율</a> · <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7880&mi=6444" target="_blank" rel="noreferrer">국세청 퇴직소득세·과세이연 안내</a></p>
-<p><strong>박세온 · 세금·보험 편집자</strong></p>`, category:"연금·세금·보험", tags:["퇴직금 IRP","개인형퇴직연금","퇴직소득세","과세이연","연금수령"], status:"published", publishedAt:"2026-08-15", scheduledAt:null, readingMinutes:11, visual:"IRP", authorName:"박세온" },
+<p><strong>절세 · 세금·보험 편집자</strong></p>`, category:"연금·세금·보험", tags:["퇴직금 IRP","개인형퇴직연금","퇴직소득세","과세이연","연금수령"], status:"published", publishedAt:"2026-08-15", scheduledAt:null, readingMinutes:11, visual:"IRP", authorName:"절세" },
   { id:1004, title:"페이스북 광고 부업, 수익보다 광고비가 먼저 나갑니다 — 시작 전 7가지", slug:"facebook-ads-side-hustle-reality", excerpt:"페이스북·인스타그램 광고 운영 대행을 소수익 클릭 부업으로 오해하지 않도록, 초기 비용·위험·책임과 14일 검증 순서를 정리했습니다.", body:`<p><strong>페이스북·인스타그램(Meta) 광고 운영은 '클릭으로 돈 버는 부업'이 아닙니다.</strong> 소상공인이나 온라인 쇼핑몰의 광고 계정을 세팅하고 타깃팅·소재·예산을 관리해 주는 <strong>서비스형 마케팅 부업</strong>입니다. 첫 광고비를 쓰기 전 본인의 대행 역량, 광고비 입출금 구조, 과장광고 책임 범위를 반드시 정리해야 합니다.</p>
 <p>이 글의 기준일은 2026년 8월 16일입니다. Meta 광고 정책과 표시광고법 기준을 바탕으로 작성되었습니다.</p>
 <h2>1. 대량 클릭 부업과 광고 운영 대행의 차이</h2>
@@ -281,7 +281,7 @@ export const seedPosts: Post[] = [
 <h2>3. 건강검진 전후 5가지 주의사항</h2>
 <ol><li><strong>검진 8시간 전 금식:</strong> 검사 전날 저녁 9시 이후 금식하며, 수분 섭취도 최소화합니다.</li><li><strong>기저질환 약물 복용 확인:</strong> 고혈압 약은 검진 당일 아침 일찍 소량의 물과 복용하되, 당뇨약/인슐린은 저혈당 예방을 위해 복용을 금합니다.</li><li><strong>추가 선택 검사 꼭 필요한 것만:</strong> 뇌 MRI, PET-CT 등 고가 검사는 증상이나 가족력이 있을 때 전문의 상담 후 선택합니다.</li><li><strong>검진 결과표 이상 소견 재검진:</strong> 2차 검진 대상(고혈압·당뇨 의심) 통보 시 기한 내 지정 병원에서 무료 재검사를 받습니다.</li><li><strong>결과 기록 모바일 통합 관리:</strong> 공단 'The 건강보험' 앱을 통해 과거 검진 이력을 통합 관리하세요.</li></ol>
 <p><strong>케어 · 건강·예방 편집자</strong></p>`, category:"건강·예방", tags:["건강검진","국가건강검진","중장년 건강","건강보험","예방의학"], status:"published", publishedAt:"2026-08-16", scheduledAt:null, readingMinutes:9, visual:"HEALTH", authorName:"케어" },
-  { id:1006, title:"자진퇴사면 실업급여 못 받는다? 인정되는 사유가 따로 있습니다", slug:"voluntary-resignation-unemployment-benefit-conditions", excerpt:"자발적 퇴사는 원칙적으로 실업급여 대상이 아니지만 고용보험법 시행규칙 별표2의 정당한 이직 사유에 해당하면 받을 수 있습니다. 2개월·3시간·30일 같은 인정 기준과 사유별 증빙 서류, 2026년 실제 수령액을 정리했습니다.", body:`<figure class="article-image"><img src="/article-thumbnail-sprite.png" alt="자발적 퇴사 실업급여 정당한 이직 사유와 증빙 서류를 정리한 퇴.기.사 시각자료" loading="lazy" decoding="async"></figure>
+  { id:1006, title:"자진퇴사면 실업급여 못 받는다? 인정되는 사유가 따로 있습니다", slug:"voluntary-resignation-unemployment-benefit-conditions", excerpt:"자발적 퇴사는 원칙적으로 실업급여 대상이 아니지만 고용보험법 시행규칙 별표2의 정당한 이직 사유에 해당하면 받을 수 있습니다. 2개월·3시간·30일 같은 인정 기준과 사유별 증빙 서류, 2026년 실제 수령액을 정리했습니다.", body:`<figure class="article-image"><img src="/article-thumbnail-sprite.png" alt="자발적 퇴사 실업급여 정당한 이직 사유와 증빙 서류를 정리한 퇴직생활연구소 시각자료" loading="lazy" decoding="async"></figure>
 <p><strong>결론부터 말하면, 자발적 퇴사도 실업급여를 받을 수 있습니다.</strong> 다만 "그만두고 싶어서 그만둔 경우"는 아니고, 「고용보험법 시행규칙」 제101조제2항 별표2가 정한 <strong>정당한 이직 사유</strong>에 해당해야 합니다. 그리고 실무에서 결과를 가르는 것은 사유 자체보다 <strong>그 사유를 서류로 증명할 수 있는지</strong>입니다.</p>
 <p>이 글의 기준일은 2026년 8월 18일이며, 고용노동부·국가법령정보센터·찾기쉬운 생활법령정보의 공개 자료를 근거로 정리했습니다. 개인별 최종 판단은 관할 고용센터가 하므로, 신청 전 확인이 필요합니다.</p>
 <h2>1. 사유보다 먼저 넘어야 하는 4가지 기본 요건</h2>
@@ -405,7 +405,7 @@ export const seedPosts: Post[] = [
 </table>
 <figure class="article-image">
   <img src="/article-thumbnails/layoff_illustration.jpg" alt="권고사직을 논의하는 회사 관계자와 근로자 일러스트" width="800" height="800" loading="lazy" decoding="async">
-  <figcaption>권고사직은 회사의 권유와 근로자의 동의로 이루어지며, 실업급여 수급의 중요한 요건이 됩니다. · 퇴.기.사 제작 일러스트</figcaption>
+  <figcaption>권고사직은 회사의 권유와 근로자의 동의로 이루어지며, 실업급여 수급의 중요한 요건이 됩니다. · 퇴직생활연구소 제작 일러스트</figcaption>
 </figure>
 <h2>2. 권고사직(코드 23): 사직서 문구 한 줄에 실업급여가 날아가는 이유</h2>
 <p>권고사직은 회사가 퇴직을 권유하고 근로자가 이를 수용하여 근로계약을 합의 해지하는 형태입니다. 고용보험법상 ‘비자발적 이직’으로 분류되어 실업급여 수급 요건(피보험 단위기간 180일 이상 충족 시)을 갖추게 됩니다.</p>
@@ -419,7 +419,7 @@ export const seedPosts: Post[] = [
 <p>회사가 권고사직 처리를 주저하는 가장 큰 이유는 <strong>고용유지지원금, 청년일자리도약장려금 등 정부지원금 수령에 제한(인위적 감원 제한 규정)</strong>이 걸리기 때문입니다. 만약 회사가 "개인 사정으로 나가되 실업급여는 맞춰주겠다"고 구두 약속을 한다면, 이는 부정수급(허위 신고) 리스크가 있으므로 위로금 협상이나 서면 합의서를 통해 권고사직 사유를 명확히 남겨야 합니다.</p>
 <figure class="article-image">
   <img src="/article-thumbnails/voluntary_resignation.jpg" alt="자발적 퇴사를 결심하고 짐을 챙겨 나서는 직장인 일러스트" width="800" height="800" loading="lazy" decoding="async">
-  <figcaption>자발적 퇴사는 원칙적으로 실업급여 대상이 아니지만, 예외적인 9가지 사유에 해당하면 수급이 가능합니다. · 퇴.기.사 제작 일러스트</figcaption>
+  <figcaption>자발적 퇴사는 원칙적으로 실업급여 대상이 아니지만, 예외적인 9가지 사유에 해당하면 수급이 가능합니다. · 퇴직생활연구소 제작 일러스트</figcaption>
 </figure>
 <h2>3. 자발적 퇴사(코드 11): 내 발로 나와도 실업급여 받는 9가지 예외</h2>
 <p>개인 사정으로 사표를 내는 자발적 퇴사는 원칙적으로 실업급여 대상이 아닙니다. 하지만 고용보험법 시행규칙 제101조 제2항 [별표 2]에 따라, <strong>‘통상적인 근로자라도 이직할 수밖에 없는 정당한 사유’</strong>가 객관적으로 입증되면 자발적 퇴사라도 실업급여를 100% 받을 수 있습니다.</p>
@@ -437,7 +437,7 @@ export const seedPosts: Post[] = [
 </ol>
 <figure class="article-image">
   <img src="/article-thumbnails/contract_expiration.jpg" alt="근로계약 만료를 알리는 달력과 악수하는 일러스트" width="800" height="800" loading="lazy" decoding="async">
-  <figcaption>계약만료로 인한 퇴사 시, 재계약 거부의 주체가 누구인지에 따라 실업급여 수급 여부가 엇갈립니다. · 퇴.기.사 제작 일러스트</figcaption>
+  <figcaption>계약만료로 인한 퇴사 시, 재계약 거부의 주체가 누구인지에 따라 실업급여 수급 여부가 엇갈립니다. · 퇴직생활연구소 제작 일러스트</figcaption>
 </figure>
 <h2>4. 계약만료(코드 32): 실업급여를 받지 못하는 결정적 '함정'</h2>
 <p>계약직 근로자가 계약서에 명시된 기간이 종료되어 퇴사할 때는 실업급여 수급이 가능합니다. 하지만 실무에서 많은 분들이 놓치는 <strong>‘재계약 거부 주체’</strong>에 따른 함정이 있습니다.</p>
@@ -1353,7 +1353,7 @@ export const seedPosts: Post[] = [
 <p>다른 나라 서버로 접속해 해당 지역 서비스를 이용하는 용도로 쓰는 경우가 있습니다. 이는 서비스 약관을 위반할 수 있고 계정 제재로 이어질 수 있습니다. 이 글은 <strong>공용 와이파이 보안과 개인정보 보호</strong> 목적을 기준으로 썼습니다.</p>
 
 <h2>비교해 보기</h2>
-<p>서비스별 정책과 요금은 자주 바뀌고, 한 곳씩 찾아보면 시간이 많이 듭니다. 퇴.기.사를 운영하는 애드블스가 <a href="https://vpn.adbles.com/" target="_blank" rel="noreferrer">VPN 비교 사이트</a>를 따로 만들어 두었으니 항목별로 견주어 볼 때 활용하세요. 자사가 운영하는 사이트임을 밝혀 둡니다.</p>
+<p>서비스별 정책과 요금은 자주 바뀌고, 한 곳씩 찾아보면 시간이 많이 듭니다. 퇴직생활연구소를 운영하는 애드블스가 <a href="https://vpn.adbles.com/" target="_blank" rel="noreferrer">VPN 비교 사이트</a>를 따로 만들어 두었으니 항목별로 견주어 볼 때 활용하세요. 자사가 운영하는 사이트임을 밝혀 둡니다.</p>
 <p>어떤 서비스를 고르든 결제 전에 <strong>공식 홈페이지에서 현재 요금과 자동 갱신 조건</strong>을 직접 확인하시기 바랍니다. 이 글은 선택 기준을 정리한 것으로 특정 서비스를 보증하거나 보안 결과를 담보하지 않습니다.</p>
 
 <p>온라인에서 무엇을 조심해야 하는지 더 보려면 <a href="/posts/vibe-coding-risks-8-things">AI 코딩 시 반드시 알아야 할 8가지 치명적 위험</a>의 비밀키·권한 관리 부분이 도움이 됩니다.</p>`, category:"유용한 도구", tags:["VPN","VPN 추천","공용 와이파이","개인정보 보호","노로그"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:7, visual:"VPN", authorName:"데스크" },
@@ -1403,7 +1403,7 @@ export const seedPosts: Post[] = [
 
 <p>기초연금만으로 생활비가 채워지지 않는다면 다른 수입원과 함께 계산해야 합니다. <a href="/posts/housing-pension-before-you-sign">주택연금 검토 전 확인할 것들</a>과 <a href="/posts/retirement-minimum-budget-three-buckets">퇴직 후 최소생활비 계산법</a>을 함께 보세요. 건강보험료가 함께 부담이라면 <a href="/posts/post-retirement-health-insurance-voluntary-continuation">임의계속가입 확인 순서</a>도 도움이 됩니다.</p>
 
-<p>이 글의 금액과 기준은 2026년 발표 내용을 정리한 것으로, 제도 개편과 물가 반영에 따라 달라집니다. 본인의 수급 가능 여부와 예상 금액은 <a href="https://basicpension.mohw.go.kr/" target="_blank" rel="noreferrer">보건복지부 기초연금 안내</a>의 모의계산과 <a href="https://www.bokjiro.go.kr/" target="_blank" rel="noreferrer">복지로</a>에서 확인하고, 국민연금 연계 부분은 <a href="https://www.nps.or.kr/" target="_blank" rel="noreferrer">국민연금공단</a> 상담으로 다시 확인하시기 바랍니다. 이 글은 수급 여부나 금액을 보장하지 않습니다.</p>`, category:"연금·세금·보험", tags:["기초연금","기초연금 선정기준액","국민연금 연계감액","부부감액","기초연금 신청","소득인정액"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:9, visual:"기초연금", authorName:"김연수" },
+<p>이 글의 금액과 기준은 2026년 발표 내용을 정리한 것으로, 제도 개편과 물가 반영에 따라 달라집니다. 본인의 수급 가능 여부와 예상 금액은 <a href="https://basicpension.mohw.go.kr/" target="_blank" rel="noreferrer">보건복지부 기초연금 안내</a>의 모의계산과 <a href="https://www.bokjiro.go.kr/" target="_blank" rel="noreferrer">복지로</a>에서 확인하고, 국민연금 연계 부분은 <a href="https://www.nps.or.kr/" target="_blank" rel="noreferrer">국민연금공단</a> 상담으로 다시 확인하시기 바랍니다. 이 글은 수급 여부나 금액을 보장하지 않습니다.</p>`, category:"연금·세금·보험", tags:["기초연금","기초연금 선정기준액","국민연금 연계감액","부부감액","기초연금 신청","소득인정액"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:9, visual:"기초연금", authorName:"노후" },
   { id:2115, title:"노인일자리, 기초연금 안 받으면 신청도 못 하나요? 유형부터 갈립니다", slug:"senior-job-program-2026-application-guide", excerpt:"공익활동형·사회서비스형·민간형은 자격과 성격이 다릅니다. 기초연금 수급자만 되는 유형, 네 가지 신청 창구, 전년도 11~12월 모집 시기, 점수제 선발과 다른 급여와의 관계를 정리했습니다.", body:`<p><strong>노인일자리는 이름 때문에 일반 취업 공고처럼 생각하기 쉽지만, 실제로는 유형에 따라 성격이 완전히 다릅니다.</strong> 봉사에 가까운 활동부터 실제 근로계약을 맺는 일까지 섞여 있고, 신청 자격도 유형마다 다릅니다. 어느 유형에 해당하는지부터 정해야 헛걸음을 줄일 수 있습니다.</p>
 
 <h2>세 갈래로 먼저 나눕니다</h2>
@@ -1543,7 +1543,7 @@ export const seedPosts: Post[] = [
 <h2>흩어진 계좌부터 한 번에 확인하세요</h2>
 <p>직장을 여러 번 옮겼다면 본인도 모르는 퇴직연금·연금저축 계좌가 있을 수 있습니다. 금융감독원 통합연금포털에서 가입 내역과 예상 연금액을 한 번에 조회할 수 있습니다. 국민연금까지 함께 계산하려면 <a href="/posts/national-pension-after-retirement-options">퇴직 후 국민연금 선택지 비교</a>와 <a href="/posts/basic-pension-eligibility-and-reduction">기초연금 선정기준액과 감액 구조</a>를 같이 보세요. 연금소득이 늘면 기초연금 소득인정액에도 반영됩니다.</p>
 
-<p>이 글은 제도의 구조와 확인 순서를 정리한 것으로 개인별 세액이나 수익을 알려주지 않습니다. 한도·공제율·감면 구간은 세법 개정으로 바뀌므로 납입과 수령 전에 <a href="https://www.nts.go.kr/" target="_blank" rel="noreferrer">국세청</a> 안내와 <a href="https://www.hometax.go.kr/" target="_blank" rel="noreferrer">홈택스</a>에서 현재 기준을 확인하고, 가입 내역은 <a href="https://100lifeplan.fss.or.kr/" target="_blank" rel="noreferrer">금융감독원 통합연금포털</a>에서 조회하시기 바랍니다. 금액이 큰 결정은 세무 전문가와 상담하시길 권합니다.</p>`, category:"연금·세금·보험", tags:["연금저축","IRP","세액공제","퇴직소득세","ISA 연금계좌 이전","연말정산"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:9, visual:"세액공제", authorName:"박세온" },
+<p>이 글은 제도의 구조와 확인 순서를 정리한 것으로 개인별 세액이나 수익을 알려주지 않습니다. 한도·공제율·감면 구간은 세법 개정으로 바뀌므로 납입과 수령 전에 <a href="https://www.nts.go.kr/" target="_blank" rel="noreferrer">국세청</a> 안내와 <a href="https://www.hometax.go.kr/" target="_blank" rel="noreferrer">홈택스</a>에서 현재 기준을 확인하고, 가입 내역은 <a href="https://100lifeplan.fss.or.kr/" target="_blank" rel="noreferrer">금융감독원 통합연금포털</a>에서 조회하시기 바랍니다. 금액이 큰 결정은 세무 전문가와 상담하시길 권합니다.</p>`, category:"연금·세금·보험", tags:["연금저축","IRP","세액공제","퇴직소득세","ISA 연금계좌 이전","연말정산"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:9, visual:"세액공제", authorName:"절세" },
   { id:2118, title:"퇴직연금이 DB형이라면, 임금피크제 들어가기 전에 확인하세요 — DB·DC 차이", slug:"retirement-pension-db-dc-difference", excerpt:"DB형은 퇴직 직전 임금이, DC형은 매년 쌓인 돈과 운용 결과가 수령액을 정합니다. 계산 방식 비교표, 임금피크제 전 전환 시점, 되돌릴 수 없는 방향, 디폴트옵션과 내 유형 확인 순서를 정리했습니다.", body:`<p><strong>퇴직을 앞두고 "내 퇴직연금이 DB형인지 DC형인지" 모르는 분이 많습니다.</strong> 그런데 이 차이가 실제 수령액을 크게 가릅니다. 특히 임금피크제를 앞두고 있다면 <strong>전환 시점을 놓치는 순간 되돌릴 수 없습니다.</strong> 내 유형부터 확인하고, 남은 선택지가 있는지 따져보세요.</p>
 
 <h2>계산 방식이 근본적으로 다릅니다</h2>
@@ -1593,7 +1593,7 @@ export const seedPosts: Post[] = [
 <p>DB형이든 DC형이든 퇴직하면 퇴직급여는 원칙적으로 IRP 계좌로 이전됩니다. 여기서 바로 해지하면 퇴직소득세를 한 번에 내고 연금 수령 감면도 받지 못합니다. <a href="/posts/retirement-pay-irp-five-checks-before-withdrawal">퇴직금이 IRP에 들어오면 바로 해지해도 될까?</a>에서 인출 전 확인할 다섯 가지를, <a href="/posts/irp-pension-savings-tax-credit-guide">연금저축·IRP 세액공제</a>에서 세금 구조를 정리했습니다.</p>
 <p>퇴직급여가 노후 현금흐름에서 어느 정도 비중인지 보려면 <a href="/posts/national-pension-after-retirement-options">국민연금 선택지</a>, <a href="/posts/basic-pension-eligibility-and-reduction">기초연금</a>과 함께 계산해야 합니다.</p>
 
-<p>이 글은 두 제도의 구조와 확인 순서를 정리한 것으로 개인별 수령액이나 유불리를 알려주지 않으며 특정 운용 성과를 보장하지 않습니다. 전환 가능 여부와 절차는 회사 퇴직연금 규약에 따라 다르므로 인사 담당 부서에 확인하시고, 제도 내용은 <a href="https://www.moel.go.kr/retirementpay.do" target="_blank" rel="noreferrer">고용노동부 퇴직연금제도 안내</a>와 <a href="https://100lifeplan.fss.or.kr/" target="_blank" rel="noreferrer">금융감독원 통합연금포털</a>에서 확인하시기 바랍니다.`, category:"연금·세금·보험", tags:["퇴직연금","DB형 DC형 차이","확정급여형","확정기여형","임금피크제","디폴트옵션"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:9, visual:"DB·DC", authorName:"김연수" },
+<p>이 글은 두 제도의 구조와 확인 순서를 정리한 것으로 개인별 수령액이나 유불리를 알려주지 않으며 특정 운용 성과를 보장하지 않습니다. 전환 가능 여부와 절차는 회사 퇴직연금 규약에 따라 다르므로 인사 담당 부서에 확인하시고, 제도 내용은 <a href="https://www.moel.go.kr/retirementpay.do" target="_blank" rel="noreferrer">고용노동부 퇴직연금제도 안내</a>와 <a href="https://100lifeplan.fss.or.kr/" target="_blank" rel="noreferrer">금융감독원 통합연금포털</a>에서 확인하시기 바랍니다.`, category:"연금·세금·보험", tags:["퇴직연금","DB형 DC형 차이","확정급여형","확정기여형","임금피크제","디폴트옵션"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:9, visual:"DB·DC", authorName:"노후" },
   { id:2119, title:"국민연금 5년 당겨 받으면 평생 30% 깎입니다 — 되돌릴 수 없는 선택", slug:"national-pension-early-vs-deferred", excerpt:"조기수령은 1년당 6퍼센트 감액, 연기연금은 1년당 7.2퍼센트 가산. 손익분기점 72세 안팎, 일하면 한 번 더 깎이는 재직자 감액, 기초연금·건강보험에 미치는 영향과 결정 순서를 정리했습니다.", body:`<p><strong>국민연금은 언제부터 받을지 고를 수 있습니다. 그런데 이 선택은 한 번 하면 평생 따라옵니다.</strong> 5년 당겨 받으면 매달 받는 금액이 30퍼센트 깎인 채로 고정되고, 5년 미루면 36퍼센트 늘어난 채로 고정됩니다. 감액률은 나중에 되돌릴 수 없으므로 <strong>"당장 필요한가"만 보고 결정하면 20년 뒤에 후회할 수 있습니다.</strong></p>
 
 <h2>당겨 받기와 미뤄 받기, 숫자로 보면</h2>
@@ -1635,7 +1635,7 @@ export const seedPosts: Post[] = [
 
 <p><strong>당겨 받기는 "생활비가 지금 없다"는 문제를 푸는 수단이지 유리한 선택지가 아닙니다.</strong> 반대로 미루기도 그 기간을 버틸 다른 수입이 있어야 가능합니다. 순서를 뒤집어, 공백을 메울 방법을 먼저 찾고 그다음에 수령 시기를 정하는 편이 낫습니다.</p>
 
-<p>이 글은 제도의 구조와 확인 순서를 정리한 것으로 개인별 수령액이나 유불리를 알려주지 않습니다. 감액·가산율과 재직자 감액 기준은 개정될 수 있으므로, 본인의 예상 연금액과 수급개시연령은 <a href="https://www.nps.or.kr/" target="_blank" rel="noreferrer">국민연금공단</a>에서 조회하고 <a href="https://csa.nps.or.kr/" target="_blank" rel="noreferrer">중앙노후준비지원센터</a> 상담으로 본인 조건에 맞춰 다시 확인하시기 바랍니다.</p>`, category:"연금·세금·보험", tags:["국민연금 조기수령","연기연금","조기노령연금","재직자 노령연금 감액","국민연금 수령나이","손익분기점"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:9, visual:"조기·연기", authorName:"김연수" },
+<p>이 글은 제도의 구조와 확인 순서를 정리한 것으로 개인별 수령액이나 유불리를 알려주지 않습니다. 감액·가산율과 재직자 감액 기준은 개정될 수 있으므로, 본인의 예상 연금액과 수급개시연령은 <a href="https://www.nps.or.kr/" target="_blank" rel="noreferrer">국민연금공단</a>에서 조회하고 <a href="https://csa.nps.or.kr/" target="_blank" rel="noreferrer">중앙노후준비지원센터</a> 상담으로 본인 조건에 맞춰 다시 확인하시기 바랍니다.</p>`, category:"연금·세금·보험", tags:["국민연금 조기수령","연기연금","조기노령연금","재직자 노령연금 감액","국민연금 수령나이","손익분기점"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:9, visual:"조기·연기", authorName:"노후" },
   { id:2120, title:"폐업해도 압류되지 않는 돈이 있습니다 — 퇴직 후 사업자의 노란우산공제", slug:"noranwoosan-mutual-aid-guide", excerpt:"공제금이 법으로 압류 금지되는 것이 핵심입니다. 소득이 적을수록 커지는 소득공제 한도(최대 600만 원), 2026년 1,800만 원으로 늘어난 납입 한도, 돈을 받는 사유와 가입 전 확인할 네 가지를 정리했습니다.", body:`<p><strong>퇴직 후 프리랜서로 일하거나 작은 가게를 열면, 퇴직금 같은 안전망이 사라집니다.</strong> 사업이 잘 안 됐을 때 남는 것이 없다는 점이 가장 큰 불안입니다. 노란우산공제는 그 자리를 메우려고 만든 제도이고, <strong>공제금이 법으로 압류가 금지된다</strong>는 점이 다른 저축과 결정적으로 다릅니다.</p>
 
 <h2>소득공제와 압류 금지, 두 가지가 핵심입니다</h2>
@@ -1677,7 +1677,7 @@ export const seedPosts: Post[] = [
 <h2>N잡으로 시작한 경우라면</h2>
 <p>사업자등록을 하지 않은 단순 부업이라면 아직 대상이 아닐 수 있습니다. 수입이 이어질지부터 확인하는 것이 먼저입니다. <a href="/posts/midlife-side-job-scorecard">N잡 5가지 점수표</a>로 후보를 가리고, 수입이 생기면 <a href="/posts/side-income-tax-records">기록부터</a> 시작하세요. 사업자등록과 종합소득세 신고 흐름은 <a href="/posts/first-comprehensive-income-tax-after-retirement">퇴직 후 첫 종합소득세</a> 편에 정리해 두었습니다.</p>
 
-<p>이 글은 제도의 구조와 확인 순서를 정리한 것으로 가입 가능 여부나 절세 금액을 알려주지 않습니다. 한도·대상·지급 사유는 개정되므로 가입 전 <a href="https://www.8899.or.kr/" target="_blank" rel="noreferrer">노란우산 공식 홈페이지</a>와 <a href="https://www.sbiz24.kr/" target="_blank" rel="noreferrer">소상공인24</a>에서 현재 기준을 확인하고, 금액이 큰 결정은 세무 전문가와 상담하시기 바랍니다.</p>`, category:"재취업·N잡", tags:["노란우산공제","소상공인 소득공제","압류금지","퇴직 후 창업","사업소득 절세","폐업 공제금"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:8, visual:"노란우산", authorName:"박세온" },
+<p>이 글은 제도의 구조와 확인 순서를 정리한 것으로 가입 가능 여부나 절세 금액을 알려주지 않습니다. 한도·대상·지급 사유는 개정되므로 가입 전 <a href="https://www.8899.or.kr/" target="_blank" rel="noreferrer">노란우산 공식 홈페이지</a>와 <a href="https://www.sbiz24.kr/" target="_blank" rel="noreferrer">소상공인24</a>에서 현재 기준을 확인하고, 금액이 큰 결정은 세무 전문가와 상담하시기 바랍니다.</p>`, category:"재취업·N잡", tags:["노란우산공제","소상공인 소득공제","압류금지","퇴직 후 창업","사업소득 절세","폐업 공제금"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:8, visual:"노란우산", authorName:"절세" },
   { id:2121, title:"퇴직금부터 넣고 시작하면 늦습니다 — 중장년 창업, 계약 전에 볼 지원제도", slug:"midlife-startup-support-programs", excerpt:"정책자금은 지원금이 아니라 대출이고, 사업화 보조금도 절반 이상은 내 돈입니다. 신사업창업사관학교의 16주 점포경영체험, 지자체 중장년 창업 지원, 예비창업자 요건과 확인 순서를 정리했습니다.", body:`<p><strong>퇴직 후 창업에서 가장 흔한 순서 실수는 퇴직금부터 넣고 시작하는 것입니다.</strong> 가게를 계약하고 인테리어를 하고 나서야 지원제도를 알아보면, 이미 대부분의 프로그램에서 대상이 아닙니다. 예비창업자만 받을 수 있는 지원이 적지 않기 때문입니다. <strong>돈을 쓰기 전에 어떤 제도가 있는지부터 확인하세요.</strong></p>
 
 <h2>먼저 오해 두 가지를 걷어냅니다</h2>
@@ -1766,7 +1766,7 @@ export const seedPosts: Post[] = [
 <p>이 셋은 서로 얽혀 있습니다. 따로 알아보면 놓치는 부분이 생기므로 65세가 가까워지면 한 번에 정리해 두는 편이 좋습니다.</p>
 
 <p>이 글은 확인 순서를 정리한 것으로 개인의 지원 대상 여부나 금액을 알려주지 않습니다. 발급 기관·절차·무임 범위·환급 조건은 지역과 시기에 따라 다르므로, 신청 전 주소지 주민센터와 <a href="https://www.gov.kr/" target="_blank" rel="noreferrer">정부24</a>, <a href="https://www.bokjiro.go.kr/" target="_blank" rel="noreferrer">복지로</a>에서 현재 기준을 확인하시기 바랍니다.</p>`, category:"지역 생활정보", tags:["경로우대","65세 교통카드","지하철 무임승차","K-패스 어르신","우대용 교통카드","운전면허 반납"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:8, visual:"65세", authorName:"로컬" },
-  { id:2123, title:"제휴 링크만 걸면 수익이 날까? 사이트를 하나 열어 구조를 공개합니다", slug:"affiliate-info-site-real-case", excerpt:"제휴 수익이 실제로 발생하는 지점, 공정위 표시 의무와 세금 구분까지. 애드블스가 새로 연 이사 정보 사이트를 예로 시작 시점의 상태를 그대로 공개합니다.", body:`<p><strong>먼저 밝힙니다.</strong> 이 글에 나오는 이사준비백서(isatips.adbles.com)는 퇴.기.사를 운영하는 <strong>애드블스가 직접 만든 자사 사이트</strong>입니다. 그 사이트 안에는 제휴 링크가 있고, 방문자가 그 링크를 거쳐 견적을 신청하면 애드블스에 수수료가 발생할 수 있습니다. 이 고지를 글 맨 앞에 두는 이유는 본문에서 함께 설명합니다.</p>\n
+  { id:2123, title:"제휴 링크만 걸면 수익이 날까? 사이트를 하나 열어 구조를 공개합니다", slug:"affiliate-info-site-real-case", excerpt:"제휴 수익이 실제로 발생하는 지점, 공정위 표시 의무와 세금 구분까지. 애드블스가 새로 연 이사 정보 사이트를 예로 시작 시점의 상태를 그대로 공개합니다.", body:`<p><strong>먼저 밝힙니다.</strong> 이 글에 나오는 이사준비백서(isatips.adbles.com)는 퇴직생활연구소를 운영하는 <strong>애드블스가 직접 만든 자사 사이트</strong>입니다. 그 사이트 안에는 제휴 링크가 있고, 방문자가 그 링크를 거쳐 견적을 신청하면 애드블스에 수수료가 발생할 수 있습니다. 이 고지를 글 맨 앞에 두는 이유는 본문에서 함께 설명합니다.</p>\n
 <p>제휴마케팅을 소개하는 글은 대개 "링크만 걸어두면 잠자는 동안에도 돈이 들어온다"로 시작합니다. 구조를 뜯어보면 그 문장에서 생략된 단계가 많습니다. 이 글은 성과 자랑이 아니라 <strong>수익이 발생하는 지점과 그 앞에 필요한 조건</strong>을 순서대로 적은 기록입니다.</p>\n
 <h2>수익은 조회수가 아니라 행동에서 납니다</h2>\n
 <p>광고와 제휴는 돈이 만들어지는 지점이 다릅니다. 이 차이를 모르면 방문자 수만 늘리다가 수익이 붙지 않는 구간에서 지칩니다.</p>\n
@@ -1798,8 +1798,8 @@ export const seedPosts: Post[] = [
 <ol>\n<li><strong>색인까지 시간이 걸립니다.</strong> 사이트를 공개해도 검색 결과에 나타나기까지 기다려야 합니다. 첫 달에 방문자가 거의 없는 것은 정상입니다.</li>\n<li><strong>돈은 안 들어도 시간은 듭니다.</strong> 광고비를 쓰지 않는 대신 조사와 글쓰기에 시간이 들어갑니다. 광고비부터 나가는 방식과의 차이는 <a href="/posts/facebook-ads-side-hustle-reality">페이스북 광고 부업, 수익보다 광고비가 먼저 나갑니다 — 시작 전 7가지</a>에서 비교해 보세요.</li>\n<li><strong>수익원 하나에 몰지 마세요.</strong> 제휴 프로그램은 조건이 바뀌거나 종료될 수 있습니다. <a href="/posts/three-layer-income-plan">퇴직 후 월 300만 원, 부업 하나에 몰아넣으면 위험한 이유</a>의 구조를 함께 보시기 바랍니다.</li>\n<li><strong>만드는 일 자체는 예전보다 쉬워졌습니다.</strong> 다만 공개한 뒤가 진짜 일입니다. 만들어 올리는 과정은 <a href="/posts/vibe-coding-basics-3">바이브 코딩 입문 3: 내 컴퓨터에만 있던 도구, 인터넷에 올리기</a>를 참고하세요.</li>\n</ol>\n
 <blockquote>제휴는 사람을 많이 모으는 일이 아니라, 결정을 앞둔 사람에게 필요한 정보를 제때 놓는 일입니다. 순서를 바꾸면 방문자만 남고 수익은 남지 않습니다.</blockquote>\n
 <h2>직접 보기</h2>\n
-<p>구조를 글로만 읽는 것보다 실제 화면을 보는 편이 빠릅니다. <a href="https://isatips.adbles.com/">이사준비백서</a>에서 주제 구분, 글의 길이, 견적 링크가 놓인 자리를 확인해 보세요. <strong>퇴.기.사를 운영하는 애드블스가 만든 자사 사이트이며, 사이트 내 제휴 링크를 통해 수수료가 발생할 수 있음을 다시 밝힙니다.</strong></p>\n
-<p>퇴.기.사의 광고·제휴 원칙 전체는 <a href="/disclosure">광고·제휴 및 정보 이용 안내</a>에서 볼 수 있습니다.</p>\n
+<p>구조를 글로만 읽는 것보다 실제 화면을 보는 편이 빠릅니다. <a href="https://isatips.adbles.com/">이사준비백서</a>에서 주제 구분, 글의 길이, 견적 링크가 놓인 자리를 확인해 보세요. <strong>퇴직생활연구소를 운영하는 애드블스가 만든 자사 사이트이며, 사이트 내 제휴 링크를 통해 수수료가 발생할 수 있음을 다시 밝힙니다.</strong></p>\n
+<p>퇴직생활연구소의 광고·제휴 원칙 전체는 <a href="/disclosure">광고·제휴 및 정보 이용 안내</a>에서 볼 수 있습니다.</p>\n
 <p>기준일: 2026년 9월 1일. 제휴 프로그램의 수수료 조건과 지급 기준은 운영사 정책에 따라 바뀔 수 있으므로 참여 전 해당 프로그램의 약관을 직접 확인하세요. 이 글은 특정 수익을 보장하지 않습니다.</p>\n
 <p><strong>원 · 수익실험 편집자</strong></p>`, category:"실제 수익실험", tags:["제휴마케팅","온라인 수익화","정보 사이트","부업","경제적 이해관계 표시"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:9, visual:"제휴", authorName:"원" },
   { id:2124, title:"숨찬 걸 나이 탓으로 넘겼다면 — 2026년 국가검진에 폐 기능 검사가 새로 생겼습니다", slug:"2026-national-checkup-lung-function-test", excerpt:"56세·66세부터 받는 폐 기능 검사와, 당화혈색소·이상지질혈증 확진 검사 본인부담 면제. 보건복지부 발표를 기준으로 대상과 확인 순서를 정리했습니다.", body:`<p><strong>폐 기능은 절반 가까이 나빠질 때까지 뚜렷한 증상이 없습니다.</strong> 보건복지부가 밝힌 국내 만성폐쇄성폐질환(COPD) 유병률은 12%인데, 자신이 그 병을 가지고 있다는 사실을 아는 비율은 2.3%에 그칩니다. 계단에서 숨이 차고 아침 기침이 오래가는 것을 나이 탓으로 넘기는 사이 진행되는 병이라는 뜻입니다.</p>\n
@@ -1858,8 +1858,673 @@ export const seedPosts: Post[] = [
 <p>전체 순서는 <a href="/posts/first-30-days-after-retirement">퇴직 후 첫 30일, 새 일자리보다 먼저 정리해야 할 7가지</a>에, 실업급여 준비는 <a href="/posts/unemployment-benefit-eight-steps">실업급여는 퇴사한 날부터가 아닙니다 — 퇴직 전부터 준비하는 8단계</a>에 있습니다. 받은 퇴직금이 얼마나 버티는지 계산해 보려면 <a href="/posts/one-hundred-million-retirement-runway">퇴직금 1억, 월 250만 원 쓰면 3년 4개월입니다 — 이 기간을 늘리는 변수</a>를 참고하세요.</p>\n
 <p>기준일: 2026년 9월 2일. 지급 기한, 지연이자율, IRP 이전 예외 기준은 법령과 고시 개정으로 달라질 수 있습니다. 이 글은 공개된 공식 안내를 정리한 참고자료이며, 개인의 퇴직급여 산정과 분쟁 대응은 관할 고용노동관서나 공인노무사에게 확인하세요.</p>\n
 <p><strong>가드 · 지원금·세무·노무 편집자</strong></p>`, category:"퇴직 준비", tags:["퇴직금","IRP","지연이자","근로자퇴직급여 보장법","고용노동부"], status:"published", publishedAt:"2026-09-02", scheduledAt:null, readingMinutes:8, visual:"14일", authorName:"가드" },
+  { id:2126, title:"3.3% 떼는 일을 했다면 대상이 아닙니다 — 근로장려금 반기신청, 9월 15일 마감", slug:"earned-income-tax-credit-semiannual-2026", excerpt:"상반기에 근로소득만 있었던 가구만 신청할 수 있습니다. 대상 판정 순서, 가구유형별 소득·재산 요건, 12월에 들어오는 35%와 내년 6월 정산·환수까지 한 번에 정리했습니다.", body:`<p><strong>근로장려금 반기신청은 9월 15일에 닫힙니다.</strong> 5월 정기신청과 달리 이번 신청에는 조건이 하나 더 붙습니다. 2026년 1~6월에 <strong>근로소득만</strong> 있어야 하고, 그 판정에는 배우자의 소득까지 함께 들어갑니다. 프리랜서로 3.3%를 떼고 받은 돈이 한 번이라도 있었다면 이번 신청은 대상이 아니고, 내년 5월 정기신청으로 넘어갑니다.</p>
+
+<p>퇴직한 분들이 이 제도에서 가장 많이 헷갈리는 지점이 여기입니다. 퇴직 전 회사에서 받은 급여는 근로소득이라 대상이 될 수 있지만, 퇴직 후 시작한 배달·강의·플랫폼 수입은 대부분 사업소득으로 잡혀 대상에서 빠집니다. 아래 순서대로 한 번만 짚어보면 내가 어느 쪽인지 오늘 안에 판단할 수 있습니다.</p>
+
+<figure class="article-image"><img src="/article-images/eitc-semiannual-eligibility.svg" alt="상반기 소득이 근로소득뿐이면 9월 반기신청, 사업소득이나 기타소득이 섞이면 내년 5월 정기신청으로 갈리는 근로장려금 대상 판정 흐름도"><figcaption>상반기 소득의 종류 하나로 신청 창구가 갈립니다. · 퇴직생활연구소 제작 도표</figcaption></figure>
+
+<h2>반기신청은 근로소득자 전용 창구입니다</h2>
+
+<p>근로장려금 자체는 근로소득자와 사업소득자 모두 받을 수 있습니다. 다만 <strong>1년에 두 번 나눠 받는 반기신청은 근로소득자에게만 열려 있습니다.</strong> 국세청 안내는 반기 동안 근로소득만 있는 거주자를 대상으로 하고, 사업소득·기타소득·종교인소득이 있으면 제외한다고 정해두고 있습니다.</p>
+
+<p>중요한 것은 이 판정에 <strong>배우자의 소득도 포함된다</strong>는 점입니다. 본인은 회사 급여만 받았어도 배우자에게 사업소득이 있으면 그 가구는 반기신청 대상이 아닙니다. 신청 버튼이 눌리는지와 무관하게, 나중에 정산 단계에서 걸러집니다.</p>
+
+<table>
+<thead><tr><th>상반기에 받은 돈</th><th>보통 어떤 소득</th><th>9월 반기신청</th></tr></thead>
+<tbody>
+<tr><th>회사 급여 · 아르바이트 급여</th><td>근로소득</td><td>대상</td></tr>
+<tr><th>3.3% 떼고 받은 용역비</th><td>사업소득</td><td>대상 아님</td></tr>
+<tr><th>배달 · 대리운전 · 플랫폼 수입</th><td>사업소득</td><td>대상 아님</td></tr>
+<tr><th>일회성 강의료 · 원고료</th><td>기타소득</td><td>대상 아님</td></tr>
+<tr><th>퇴직금</th><td>퇴직소득</td><td>소득 요건과 별개(아래 참고)</td></tr>
+</tbody>
+</table>
+
+<p>소득의 이름은 계약서가 아니라 실제 지급 형태로 갈립니다. 통장에 들어온 금액만 보지 말고 지급명세서와 원천징수 내역을 확인하세요. 이 기록을 어떻게 남기는지는 <a href="/posts/side-income-tax-records">N잡 수입 기록 정리</a>에 따로 정리해두었습니다.</p>
+
+<h2>지금 신청하면 12월, 나머지는 내년 6월입니다</h2>
+
+<figure class="article-image"><img src="/article-images/eitc-semiannual-timeline.svg" alt="2026년 9월 상반기분 신청, 12월 35% 지급, 2027년 3월 하반기분 신청, 2027년 6월 정산으로 이어지는 근로장려금 반기신청 일정표"><figcaption>반기신청은 네 개의 날짜로 이루어진 한 세트입니다. · 퇴직생활연구소 제작 도표</figcaption></figure>
+
+<p>반기신청의 구조는 <strong>미리 받고 나중에 맞춰보는</strong> 방식입니다. 9월에 상반기분을 신청하면 12월에 연간 산정액의 35%가 먼저 들어옵니다. 이듬해 3월에 하반기분을 신청하고, 6월에 확정 소득으로 다시 계산해 모자란 만큼 더 주거나 더 준 만큼 돌려받습니다.</p>
+
+<blockquote>12월에 들어온 돈은 확정된 금액이 아니라 추정액입니다. 하반기에 소득이 크게 늘면 그 돈의 일부는 내년 6월에 환수될 수 있습니다.</blockquote>
+
+<p>그래서 반기신청은 <strong>돈이 빨리 필요한 사람에게 유리하고, 하반기 소득이 크게 흔들릴 사람에게는 부담이 될 수 있는</strong> 선택입니다. 상반기에 퇴직해 하반기 소득이 거의 없다면 정산에서 추가 지급을 받을 가능성이 큽니다. 반대로 하반기에 재취업해 급여가 크게 오른다면 환수를 염두에 두고 12월에 들어온 돈을 바로 쓰지 않는 편이 안전합니다.</p>
+
+<p>한 가지 더 기억할 점이 있습니다. 반기신청을 하면 <strong>이듬해 5월 정기신청은 따로 하지 않습니다.</strong> 정산으로 갈음되기 때문입니다. 자녀장려금은 반기로 나눠 신청할 수 없지만, 근로장려금 반기신청을 하면 자녀장려금도 신청한 것으로 보아 정산 때 함께 지급됩니다.</p>
+
+<h2>얼마를 받는지는 가구 유형에서 먼저 갈립니다</h2>
+
+<p>가구 유형은 배우자와 부양가족의 유무로 정해집니다. 아래는 2026년 정기신청 안내에 공개된 기준입니다. 반기분에도 같은 요건 체계가 적용되지만, 금액과 기준연도는 신청 시점의 국세청 안내로 다시 확인하세요.</p>
+
+<table>
+<thead><tr><th>가구 유형</th><th>어떤 경우</th><th>총소득 기준</th><th>최대 지급액</th></tr></thead>
+<tbody>
+<tr><th>단독가구</th><td>배우자·부양자녀·70세 이상 직계존속이 없음</td><td>2,200만원 미만</td><td>165만원</td></tr>
+<tr><th>홑벌이가구</th><td>배우자 또는 부양가족이 있고, 배우자 총급여가 300만원 미만</td><td>3,200만원 미만</td><td>285만원</td></tr>
+<tr><th>맞벌이가구</th><td>배우자 총급여가 300만원 이상</td><td>4,400만원 미만</td><td>330만원</td></tr>
+</tbody>
+</table>
+
+<p>표의 최대 지급액은 말 그대로 상한입니다. 실제 금액은 소득 구간에 따라 계산되고, 소득이 아주 적어도 아주 많아도 금액은 줄어듭니다. 그래서 <strong>기준선 근처에 있으면 일단 신청해보는 편이 낫습니다.</strong> 대상이 아니면 지급되지 않을 뿐, 신청 자체로 불이익이 생기지는 않습니다.</p>
+
+<h2>소득을 통과해도 재산에서 걸리는 경우가 많습니다</h2>
+
+<figure class="article-image"><img src="/article-images/eitc-property-reduction.svg" alt="재산 합계 1억 7,000만원 미만은 전액, 1억 7,000만원 이상 2억 4,000만원 미만은 50%, 2억 4,000만원 이상은 지급 대상에서 제외되는 근로장려금 재산 구간 그래프"><figcaption>부채를 빼주지 않기 때문에 대출이 많아도 재산은 그대로 잡힙니다. · 퇴직생활연구소 제작 도표</figcaption></figure>
+
+<p>탈락 사유로 가장 흔한 것이 재산 요건입니다. 가구원 전체의 재산 합계가 <strong>2억 4,000만원 이상이면 지급 대상에서 빠지고, 1억 7,000만원 이상 2억 4,000만원 미만이면 산정액의 50%만 지급</strong>됩니다.</p>
+
+<p>여기서 말하는 재산에는 주택, 토지, 건물, 자동차, 전세보증금, 예금, 주식이 모두 들어갑니다. 그리고 <strong>대출은 차감하지 않습니다.</strong> 담보대출이 남은 집 한 채만 있어도 재산 합계는 시세 기준으로 잡힌다는 뜻입니다.</p>
+
+<p>퇴직자에게 특히 중요한 대목이 예금입니다. 퇴직금이 통장에 그대로 남아 있으면 그 금액도 재산에 포함될 수 있습니다. 소득은 끊겼는데 재산 요건에서 걸리는 상황이 여기서 나옵니다. 퇴직금을 어디에 두고 있는지 정리해두지 않았다면 <a href="/posts/deposit-protection-100-million-retirement-money-checks">퇴직금 나누기 전 확인할 5가지</a>를 함께 보세요.</p>
+
+<h2>신청 방법은 안내문을 받았는지로 갈립니다</h2>
+
+<p>국세청이 대상으로 추정한 가구에는 안내문(카카오톡·문자·우편)을 보냅니다. 안내문을 받았다면 절차가 매우 짧습니다.</p>
+
+<ol>
+<li><strong>안내문을 받은 경우</strong> — 안내문에 적힌 개별인증번호로 ARS(전화) 또는 손택스 앱에서 몇 분 안에 끝납니다. 화면에 뜬 계좌번호와 연락처가 지금 쓰는 것인지만 확인하세요.</li>
+<li><strong>안내문을 받지 못한 경우</strong> — 대상이 아니라는 뜻이 아닙니다. 홈택스에 로그인해 근로·자녀장려금 신청 메뉴에서 직접 신청할 수 있습니다. 소득 자료가 아직 국세청에 모이지 않아 안내 대상에서 빠지는 경우가 있습니다.</li>
+<li><strong>계좌를 바꿨다면</strong> — 지급 계좌가 해지된 상태면 돈이 들어오지 않고 되돌아갑니다. 퇴직하면서 급여 계좌를 정리한 분이라면 이번에 꼭 확인하세요.</li>
+</ol>
+
+<p>내가 받을 수 있는 다른 지원이 함께 있는지 확인하고 싶다면 <a href="/posts/bojogeum24-government-subsidy-search-guide">보조금24 조회 순서</a>를 같이 돌려보는 것을 권합니다.</p>
+
+<h2>퇴직한 사람이 특히 헷갈리는 네 가지</h2>
+
+<h3>상반기에 퇴사했는데 신청이 되나요</h3>
+<p>상반기에 근로소득이 있었다면 신청 자체는 가능합니다. 퇴직 시점이 아니라 <strong>상반기에 받은 소득의 종류</strong>가 기준입니다. 다만 퇴직 후 사업소득이 생겼다면 그 시점부터는 대상에서 빠집니다.</p>
+
+<h3>실업급여를 받고 있는데 소득으로 잡히나요</h3>
+<p>구직급여는 소득세를 매기지 않는 급여라 근로소득으로 잡히지 않습니다. 다만 총소득 판정에 어떻게 반영되는지는 개인별 자료에 따라 다를 수 있으므로, 신청 화면에 표시되는 소득 자료를 직접 확인하는 편이 정확합니다. 실업급여 자체의 조건은 <a href="/posts/2026-unemployment-benefits-revision-guide">2026 실업급여 상한액·감액 정리</a>에 있습니다.</p>
+
+<h3>퇴직금은 소득에 들어가나요</h3>
+<p>퇴직소득은 근로장려금의 총소득 기준과는 다른 항목으로 다뤄집니다. 문제는 소득이 아니라 <strong>재산</strong>입니다. 퇴직금이 예금으로 남아 있으면 재산 합계에 잡혀 감액 구간이나 탈락 구간으로 넘어갈 수 있습니다.</p>
+
+<h3>대상이 아니라고 나오면 끝인가요</h3>
+<p>반기신청 대상이 아닐 뿐입니다. 2027년 5월 정기신청에서 2026년 소득 전체로 다시 판단하면 되고, 이때는 사업소득이 있어도 신청할 수 있습니다. 근로장려금이 아니라도 <a href="/posts/national-employment-support-program-guide">국민취업지원제도</a>처럼 다른 창구가 열려 있는 경우가 있습니다.</p>
+
+<h2>9월 15일을 놓쳤다면</h2>
+
+<p>반기신청에는 기한 후 신청이 없습니다. 15일이 지나면 이번 상반기분은 신청할 수 없고, <strong>2027년 5월 정기신청에서 2026년 소득 전체로 한 번에 신청</strong>하게 됩니다. 받는 총액이 줄어드는 것은 아니지만, 12월에 미리 받는 35%는 사라집니다.</p>
+
+<p>정기신청 기간(5월 1일~31일)마저 놓치면 그해 11월 30일까지 기한 후 신청을 할 수 있습니다. 다만 이때는 산정액의 95%만 지급되므로 5%는 그대로 손해입니다. 달력에 5월 1일과 9월 1일을 미리 표시해두는 편이 안전합니다.</p>
+
+<h2>오늘 5분이면 끝나는 확인</h2>
+
+<ol>
+<li>상반기에 나와 배우자가 받은 돈이 <strong>전부 근로소득</strong>인지 확인합니다.</li>
+<li>가구원 전체 재산이 <strong>1억 7,000만원과 2억 4,000만원</strong> 중 어느 구간인지 어림잡아봅니다.</li>
+<li>안내문이 왔는지 문자·카카오톡을 검색합니다. 없으면 홈택스에서 직접 신청 화면을 엽니다.</li>
+<li>지급받을 <strong>계좌가 살아 있는지</strong> 확인합니다.</li>
+</ol>
+
+<p>이 글은 제도의 구조와 판단 순서를 정리한 참고자료이며, 개인별 지급 여부와 금액에 대한 세무 자문을 대신하지 않습니다. 소득·재산 요건과 신청 기간은 해마다 바뀌므로 신청 전에는 반드시 국세청과 홈택스의 최신 안내를 확인하시고, 판단이 어려우면 국세상담센터(126)에 문의하세요.</p>
+
+<p>출처: <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=2453&amp;cntntsId=7784">국세청 근로·자녀장려금 심사 및 지급 안내</a></p>`, category:"정부지원·실업급여", tags:["근로장려금","반기신청","국세청","퇴직 후 소득","정부지원"], status:"published", publishedAt:"2026-09-04", scheduledAt:null, readingMinutes:11, visual:"9/15" },
 ];
 const contentQualityUpgrades:Record<string,Pick<Post,"excerpt"|"body"|"readingMinutes">>={
+  "vibe-coding-basics-5":{
+    excerpt:"초보와 익숙한 사람을 가르는 것은 코딩 실력이 아니라 오류를 물어보는 실력입니다. 에러 원문을 그대로 넘겨야 하는 이유, 함께 붙일 네 가지, 같은 자리에서 세 번 막혔을 때 방향을 바꾸는 법을 정리했습니다.",
+    readingMinutes:8,
+    body:`<p><strong>AI에게 &#8220;에러 나는데 왜 그래요?&#8221;라고 물으면 AI도 추측만 합니다.</strong> 화면에 뜬 빨간 글씨는 읽기 싫게 생겼지만, 사실 그 안에 답의 대부분이 들어 있습니다. 요약해서 넘기는 순간 그 정보가 사라집니다.</p>
+
+<p>바이브 코딩에서 진도가 갈리는 지점은 코드를 얼마나 아느냐가 아니라, <strong>막혔을 때 무엇을 넘기느냐</strong>입니다. 넘기는 방식만 바꿔도 같은 문제가 훨씬 빨리 풀립니다.</p>
+
+<figure class="article-image"><img src="/article-images/error-question-4steps.svg" alt="에러를 요약해서 묻는 방식과 에러 원문, 직전에 한 일, 기대한 동작, 환경 네 가지를 함께 주는 방식을 비교한 도표"><figcaption>네 가지를 한 번에 붙이면 대부분 한 번에 잡힙니다. · 퇴직생활연구소 제작 도표</figcaption></figure>
+
+<h2>에러 원문에는 위치가 적혀 있습니다</h2>
+
+<p>에러 메시지가 길고 알아보기 힘든 이유는, 그 안에 <strong>어디서 무엇이 잘못됐는지</strong>가 순서대로 적혀 있기 때문입니다. 파일 이름, 몇 번째 줄, 어떤 값이 없었는지가 들어 있습니다.</p>
+
+<p>&#8220;로그인이 안 돼요&#8221;로 요약하면 AI는 로그인이 안 되는 수십 가지 이유를 하나씩 추측합니다. 원문을 붙이면 그중 하나로 바로 좁혀집니다.</p>
+
+<blockquote>에러 메시지는 읽으라고 있는 것이 아니라 <strong>넘기라고</strong> 있는 것입니다. 이해하지 못해도 됩니다. 통째로 복사해서 붙이세요.</blockquote>
+
+<h2>함께 붙일 네 가지</h2>
+
+<table>
+<thead><tr><th>붙일 것</th><th>왜 필요한가</th></tr></thead>
+<tbody>
+<tr><th>① 에러 원문</th><td>문제의 위치와 종류가 여기 있습니다. 자르지 말고 전부</td></tr>
+<tr><th>② 직전에 한 일</th><td>어제까지 됐다면 그 사이에 바꾼 것이 원인입니다</td></tr>
+<tr><th>③ 기대한 동작</th><td>무엇이 정상인지 모르면 고쳤는지 판단할 수 없습니다</td></tr>
+<tr><th>④ 환경</th><td>어떤 도구로, 어디서 돌렸는지에 따라 해법이 달라집니다</td></tr>
+</tbody>
+</table>
+
+<p>②번이 특히 효과가 큽니다. &#8220;아까까지 잘 됐는데 배포 설정을 바꾸고 나서부터 이렇습니다&#8221;라는 한 줄이 원인 범위를 절반 이하로 줄입니다.</p>
+
+<h2>이렇게 붙이면 됩니다</h2>
+
+<p>형식을 갖출 필요는 없습니다. 네 가지가 들어 있기만 하면 됩니다.</p>
+
+<pre>아래 에러가 납니다. 전체 메시지 그대로 붙입니다.
+
+[여기에 에러 원문 전체]
+
+직전에 한 일: 로그인 화면을 추가하고 배포했습니다. 그 전까지는 정상이었습니다.
+기대한 동작: 아이디와 비밀번호를 넣으면 목록 화면으로 넘어가야 합니다.
+환경: 크롬 브라우저, 배포한 주소에서 발생. 내 컴퓨터에서는 정상입니다.</pre>
+
+<p>마지막 줄처럼 <strong>&#8220;내 컴퓨터에서는 되는데 올리면 안 된다&#8221;</strong>는 정보는 그 자체로 원인을 크게 좁혀줍니다. 대개 환경 설정이나 주소 문제이기 때문입니다.</p>
+
+<h2>세 번 막히면 질문을 멈춥니다</h2>
+
+<p>같은 자리에서 세 번을 물었는데 계속 다른 답이 오면, 질문을 네 번째로 넘길 때가 아니라 <strong>방향을 바꿀 때</strong>입니다.</p>
+
+<ul>
+<li><strong>되돌립니다</strong> — 마지막으로 정상이던 지점으로 돌아갑니다. 고치려고 손댄 것들이 문제를 더 키운 상태일 수 있습니다.</li>
+<li><strong>작게 만들어 확인합니다</strong> — 문제가 나는 부분만 따로 떼어 아주 작은 예제로 만듭니다. 여기서 재현되면 원인이 좁혀지고, 재현이 안 되면 원인은 다른 곳입니다.</li>
+<li><strong>다른 방법으로 우회합니다</strong> — 꼭 그 방식이어야 하는 게 아니라면 다른 방식으로 같은 결과를 냅니다.</li>
+</ul>
+
+<h2>되돌릴 수 있게 해두는 것이 먼저입니다</h2>
+
+<p>위의 &#8220;되돌립니다&#8221;가 성립하려면 돌아갈 지점이 있어야 합니다. 작업을 시작하기 전에 저장 지점을 하나 만들어두는 습관이 질문 실력보다 먼저입니다.</p>
+
+<p>돌아갈 곳이 없으면 막혔을 때 선택지가 &#8220;계속 물어보기&#8221; 하나만 남고, 고치려는 시도가 쌓이면서 원래 문제가 무엇이었는지도 흐려집니다. 이 부분은 <a href="/posts/vibe-coding-risks-8-things">AI가 짜준 코드를 그대로 올리면 생기는 일</a>에서 데이터 손실 위험과 함께 다뤘습니다.</p>
+
+<p>AI와 주고받는 기본 리듬은 <a href="/posts/vibe-coding-basics-2">한 번에 완벽을 시키면 실패합니다</a>에, 만든 것을 실제로 올리는 순서는 <a href="/posts/vibe-coding-basics-3">인터넷에 올리기</a>에 있습니다.</p>
+
+<p>이 글은 초보자가 막혔을 때 쓰는 방법을 정리한 참고자료입니다. 도구와 언어에 따라 에러 메시지의 형태는 다르지만, 원문을 그대로 넘긴다는 원칙은 같습니다.</p>
+
+<p>출처: <a href="https://stackoverflow.com/help/how-to-ask">Stack Overflow · 좋은 질문을 하는 방법</a></p>`,
+  },
+  "midlife-career-description-resume-guide":{
+    excerpt:"경력이 길수록 나열이 되기 쉽습니다. 한 항목을 상황·역할·행동·결과 네 칸으로 쓰는 방법, 지원처에 맞춰 다시 배치하는 순서, 보내기 전 점검 항목을 예시와 함께 정리했습니다.",
+    readingMinutes:9,
+    body:`<p><strong>경력 20년이 서류에서 밀리는 이유는 경력이 부족해서가 아니라, 읽는 사람이 판단할 근거가 없어서입니다.</strong> &#8220;생산관리 업무 총괄&#8221; 같은 문장은 무엇을 맡았는지는 알려주지만 무엇을 했고 어떻게 됐는지는 알려주지 않습니다.</p>
+
+<p>경력기술서는 자서전이 아니라 <strong>지원한 그 자리에 필요한 근거만 모은 문서</strong>입니다. 길이가 아니라 선택이 승부를 가릅니다.</p>
+
+<figure class="article-image"><img src="/article-images/career-description-structure.svg" alt="나열식으로 쓴 경력 문장과 상황, 내 역할, 한 일, 결과 네 칸으로 나눠 고쳐 쓴 문장을 비교한 도표"><figcaption>같은 경력도 네 칸으로 나누면 근거가 됩니다. · 퇴직생활연구소 제작 도표</figcaption></figure>
+
+<h2>왜 경력이 길수록 불리해 보이는가</h2>
+
+<p>오래 일한 사람일수록 맡았던 일이 많습니다. 그래서 다 적게 되고, 다 적으면 이렇게 됩니다.</p>
+
+<ul>
+<li><strong>전부 비슷한 무게로 보입니다</strong> — 중요한 성과와 일상 업무가 같은 크기의 문장으로 나열됩니다.</li>
+<li><strong>주어가 사라집니다</strong> — &#8220;~를 총괄&#8221;, &#8220;~에 참여&#8221;처럼 쓰면 내가 뭘 했는지 알 수 없습니다.</li>
+<li><strong>지원 직무와 상관없는 내용이 앞에 옵니다</strong> — 시간 순으로 쓰면 가장 관련 있는 경험이 뒤로 밀립니다.</li>
+</ul>
+
+<h2>한 항목을 네 칸으로 씁니다</h2>
+
+<p>항목 하나마다 네 가지를 채웁니다. 순서를 지키면 저절로 근거가 있는 문장이 됩니다.</p>
+
+<table>
+<thead><tr><th>칸</th><th>적을 것</th><th>흔한 실수</th></tr></thead>
+<tbody>
+<tr><th>① 상황</th><td>어떤 문제나 조건이 있었는가</td><td>배경 없이 업무명만 씀</td></tr>
+<tr><th>② 내 역할</th><td>팀이 아니라 내가 맡은 부분</td><td>&#8220;우리 팀은&#8221;으로 시작</td></tr>
+<tr><th>③ 한 일</th><td>구체적인 행동 한두 가지</td><td>열 가지를 다 나열</td></tr>
+<tr><th>④ 결과</th><td>숫자나 상태 변화</td><td>비워둠</td></tr>
+</tbody>
+</table>
+
+<p>고치기 전과 후를 비교하면 차이가 분명합니다.</p>
+
+<blockquote>전: &#8220;생산관리 업무 총괄, 품질 개선 및 원가 절감 활동 수행&#8221;<br>후: &#8220;불량률이 높던 라인에서 검사 공정을 맡아, 작업 순서를 바꾸고 점검표를 새로 만들어 불량을 절반으로 줄였습니다&#8221;</blockquote>
+
+<h2>숫자가 없으면 상태 변화로 씁니다</h2>
+
+<p>④번 칸에서 막히는 분이 많습니다. 매출이나 비율 같은 숫자가 기억나지 않거나, 애초에 측정되지 않는 일이었던 경우입니다.</p>
+
+<p>숫자가 없으면 <strong>무엇이 달라졌는지</strong>를 씁니다.</p>
+
+<ul>
+<li>&#8220;매번 사람이 확인하던 일을 서식으로 만들어, 담당자가 바뀌어도 같은 방식으로 처리되게 했습니다&#8221;</li>
+<li>&#8220;민원이 반복되던 항목을 정리해 안내문을 다시 만들었고, 같은 문의가 눈에 띄게 줄었습니다&#8221;</li>
+</ul>
+
+<p>정확하지 않은 숫자를 지어내는 것보다 이쪽이 낫습니다. 면접에서 숫자를 물었을 때 답이 막히면 그 문장 전체의 신뢰가 무너집니다.</p>
+
+<h2>지원처에 맞춰 다시 배치합니다</h2>
+
+<p>항목을 다 만들었으면 지원할 때마다 순서를 바꿉니다. 하나의 경력기술서를 모든 곳에 보내면 어디에서도 맞지 않습니다.</p>
+
+<ol>
+<li><strong>공고를 한 줄씩 뜯습니다</strong> — 자격요건과 우대사항에 적힌 단어를 그대로 적어둡니다.</li>
+<li><strong>내 항목과 짝을 짓습니다</strong> — 공고의 요구와 맞는 항목을 위로 올립니다. 맞는 것이 없으면 그 자리는 지원 우선순위를 낮춥니다.</li>
+<li><strong>안 맞는 항목은 뺍니다</strong> — 지우기 아까워서 남기면 관련 있는 내용이 뒤로 밀립니다.</li>
+<li><strong>공고의 용어를 씁니다</strong> — 같은 일을 회사마다 다르게 부릅니다. 읽는 사람이 쓰는 단어로 맞춥니다.</li>
+</ol>
+
+<p>공고를 여러 개 놓고 순서를 잡는 방법은 <a href="/posts/midlife-reemployment-certificates-guide">자격증부터 따면 늦습니다 — 공고 열 개로 순서 잡기</a>에 더 자세히 있습니다.</p>
+
+<h2>보내기 전 점검 항목</h2>
+
+<ol>
+<li>항목마다 <strong>결과 칸</strong>이 채워져 있는가.</li>
+<li>주어가 &#8220;내가&#8221;인가. &#8220;우리 팀이&#8221;로 시작하는 문장이 남아 있지 않은가.</li>
+<li>맨 위 세 항목이 이 공고와 <strong>가장 관련 있는</strong> 경험인가.</li>
+<li>회사 내부에서만 쓰는 약어나 부서명을 풀어 썼는가.</li>
+<li>한 항목이 세 줄을 넘지 않는가.</li>
+<li>지원처 이름과 직무명이 다른 회사 것으로 남아 있지 않은가.</li>
+</ol>
+
+<p>서류를 넣기 시작하면 수입 계획도 같이 움직입니다. 재취업이 늦어질 때를 대비한 순서는 <a href="/posts/three-layer-income-plan">퇴직 후 수입의 세 층</a>에, 실업급여 대상이 아니라는 답을 들었다면 <a href="/posts/national-employment-support-program-guide">국민취업지원제도</a>를 확인하세요.</p>
+
+<p>이 글은 서류 작성 방법을 정리한 참고자료입니다. 직무와 업종에 따라 요구되는 형식이 다를 수 있으므로, 지원처가 별도 양식을 제시했다면 그 양식을 우선하세요. 중장년 취업 상담과 이력서 첨삭은 고용24와 관할 고용센터에서 받을 수 있습니다.</p>
+
+<p>출처: <a href="https://www.work24.go.kr/">고용24 취업지원 서비스</a></p>`,
+  },
+  "national-employment-support-program-guide":{
+    excerpt:"실업급여 대상이 아니거나 수급이 끝났다면 다음 창구가 있습니다. 1유형과 2유형이 갈리는 기준, 중장년이 해당되는 경로, 신청 순서와 심사 기간, 실업급여와 겹칠 때의 관계를 정리했습니다.",
+    readingMinutes:9,
+    body:`<p><strong>실업급여를 못 받는다는 말은 지원이 끝났다는 뜻이 아닙니다.</strong> 고용보험 가입 기간이 모자라거나, 자영업을 했거나, 수급이 끝난 사람을 위한 별도 제도가 국민취업지원제도입니다. 실업급여와는 재원도 요건도 다른 제도라 한쪽에서 탈락해도 다른 쪽은 열려 있을 수 있습니다.</p>
+
+<p>퇴직한 중장년이 특히 확인할 것은 <strong>내가 1유형인지 2유형인지</strong>입니다. 두 유형은 받는 것이 완전히 다릅니다.</p>
+
+<figure class="article-image"><img src="/article-images/employment-support-type-split.svg" alt="실업급여 대상이 아닐 때 국민취업지원제도 1유형과 2유형으로 갈리는 기준과 중장년이 2유형에 해당한다는 것을 보여주는 도표"><figcaption>유형은 신청자가 고르는 것이 아니라 심사에서 정해집니다. · 퇴직생활연구소 제작 도표</figcaption></figure>
+
+<h2>실업급여와 무엇이 다른가</h2>
+
+<table>
+<thead><tr><th></th><th>실업급여</th><th>국민취업지원제도</th></tr></thead>
+<tbody>
+<tr><th>기반</th><td>고용보험 가입 이력</td><td>소득·재산 요건</td></tr>
+<tr><th>못 받는 대표 사유</th><td>가입 기간 부족, 자진퇴사</td><td>소득·재산 기준 초과</td></tr>
+<tr><th>중심</th><td>현금 지원</td><td>취업 지원 + 유형에 따른 수당</td></tr>
+<tr><th>동시 수급</th><td>받는 동안은 구직촉진수당 없음</td><td>수급이 끝난 뒤 신청이 순서</td></tr>
+</tbody>
+</table>
+
+<p>마지막 줄이 중요합니다. 실업급여를 받고 있다면 지금 신청할 것이 아니라, <strong>수급이 끝나갈 무렵</strong>에 준비하는 것이 순서입니다. 실업급여 자체의 조건은 <a href="/posts/2026-unemployment-benefits-revision-guide">2026 실업급여 상한액·반복수급 감액</a>에 정리해두었습니다.</p>
+
+<h2>1유형과 2유형이 갈리는 기준</h2>
+
+<p><strong>1유형</strong>은 현금 지원인 구직촉진수당이 나옵니다. 그만큼 요건이 좁습니다. 15~69세이면서 중위소득 60% 이하, 재산 기준을 넘지 않아야 하고, 최근 2년 안에 일정 기준 이상의 취업경험이 있어야 합니다(요건심사형).</p>
+
+<p><strong>2유형</strong>은 취업활동비용과 상담·훈련·알선이 중심입니다. 중장년은 대체로 여기에 해당합니다. <strong>35~69세, 중위소득 100% 이하</strong>가 기준선이고, 1유형 요건에서 밀린 경우도 여기로 옵니다.</p>
+
+<blockquote>유형은 신청자가 선택하는 것이 아닙니다. 신청서를 내면 심사에서 정해집니다. 그래서 &#8220;1유형이 안 될 것 같아 신청 안 했다&#8221;는 판단이 가장 아깝습니다.</blockquote>
+
+<p>지원 금액과 세부 요건은 해마다 조정되므로, 신청 전에 고용24에서 그해 기준을 확인하세요.</p>
+
+<h2>신청은 이 순서로 진행됩니다</h2>
+
+<ol>
+<li><strong>신청</strong> — 고용24 온라인 또는 거주지 관할 고용센터 방문. 온라인이 빠릅니다.</li>
+<li><strong>수급자격 심사</strong> — 소득·재산·취업경험을 확인합니다. 통상 1개월 정도 걸립니다.</li>
+<li><strong>취업활동계획 수립</strong> — 담당자와 상담하며 무엇을 할지 정합니다. 이 계획이 이후 지원의 기준이 됩니다.</li>
+<li><strong>구직활동 이행</strong> — 계획대로 활동하고 결과를 보고합니다. 이행하지 않으면 지원이 중단될 수 있습니다.</li>
+<li><strong>사후관리</strong> — 취업 후에도 일정 기간 지원이 이어집니다.</li>
+</ol>
+
+<p>심사에 한 달이 걸린다는 점이 실무에서 중요합니다. 생활비가 당장 급한 상태에서 신청하면 그 한 달을 버틸 방법이 따로 필요합니다.</p>
+
+<h2>중장년이 특히 확인할 세 가지</h2>
+
+<h3>소득은 가구 단위로 봅니다</h3>
+<p>본인 소득이 0원이어도 같은 가구의 소득이 합산됩니다. 배우자나 함께 사는 자녀의 소득 때문에 기준을 넘는 경우가 흔합니다. 신청 전에 가구원 범위부터 확인하세요.</p>
+
+<h3>재산에는 퇴직금이 들어갈 수 있습니다</h3>
+<p>퇴직금이 예금으로 남아 있으면 재산으로 잡힙니다. 소득은 끊겼는데 재산 기준에서 걸리는 상황이 여기서 나옵니다. 퇴직금을 어디에 두고 있는지 정리가 안 됐다면 <a href="/posts/retirement-pay-irp-five-checks-before-withdrawal">IRP 해지 버튼을 누르기 전에 볼 5가지</a>를 먼저 보세요.</p>
+
+<h3>훈련은 유형과 별개로 열려 있습니다</h3>
+<p>국민취업지원제도에서 탈락해도 직업훈련 지원은 다른 경로로 신청할 수 있습니다. 자격증부터 따는 순서가 아니라 공고를 먼저 보는 순서가 낫다는 점은 <a href="/posts/midlife-reemployment-certificates-guide">중장년 재취업, 공고 열 개로 순서 잡기</a>에 적어두었습니다.</p>
+
+<h2>탈락해도 확인할 곳이 남습니다</h2>
+
+<p>소득·재산 기준을 넘어 이 제도에서 탈락하더라도, 지자체 단위 지원이나 다른 취업 프로그램이 있을 수 있습니다. 한 번에 훑어보려면 <a href="/posts/bojogeum24-government-subsidy-search-guide">보조금24 조회 순서</a>가 가장 빠릅니다.</p>
+
+<p>이 글은 제도의 구조와 신청 순서를 정리한 참고자료이며 개인별 수급자격 판단을 대신하지 않습니다. 연령·소득·재산 기준과 지원 금액은 해마다 바뀌므로 신청 전에 고용24와 관할 고용센터에서 최신 기준을 확인하세요.</p>
+
+<p>출처: <a href="https://www.work24.go.kr/ua/z/z/1300/selectEmssRqutIntro.do">고용24 국민취업지원제도 취업지원 신청 안내</a></p>`,
+  },
+  "post-retirement-health-insurance-voluntary-continuation":{
+    excerpt:"퇴직하면 지역가입자로 바뀌면서 보험료를 전액 부담하게 됩니다. 임의계속가입의 자격 요건과 놓치면 되돌릴 수 없는 신청 기한, 피부양자 등재와 비교하는 순서를 법령 기준으로 정리했습니다.",
+    readingMinutes:9,
+    body:`<p><strong>임의계속가입에서 가장 많이 놓치는 것은 제도가 아니라 날짜입니다.</strong> 신청 기한은 퇴직일이 아니라 <strong>첫 지역보험료 납부기한에서 2개월</strong>을 기준으로 닫힙니다. 하루만 넘겨도 신청할 수 없고, 되돌릴 방법이 없습니다.</p>
+
+<p>퇴직하면 아무것도 하지 않아도 직장가입자에서 지역가입자로 자동 전환됩니다. 소득은 끊겼는데 보험료 고지서 금액은 오히려 오르는 경우가 여기서 생깁니다. 지역가입자 보험료는 소득뿐 아니라 재산과 자동차까지 반영해 산정하기 때문입니다.</p>
+
+<figure class="article-image"><img src="/article-images/voluntary-continuation-deadline.svg" alt="퇴직 후 지역가입자 전환, 첫 보험료 고지, 납부기한에서 두 달 뒤 신청 마감, 최대 36개월 적용으로 이어지는 임의계속가입 일정표"><figcaption>신청 기한은 퇴직일이 아니라 첫 고지서를 기준으로 계산됩니다. · 퇴직생활연구소 제작 도표</figcaption></figure>
+
+<h2>먼저 자격이 되는지부터 봅니다</h2>
+
+<p>국민건강보험법 제110조는 임의계속가입 대상을 이렇게 정하고 있습니다. <strong>사용관계가 끝난 날 이전 18개월 동안 통산 1년 이상</strong> 직장가입자 자격을 유지했어야 합니다.</p>
+
+<p>여기서 자주 오해가 생깁니다.</p>
+
+<ul>
+<li><strong>마지막 직장에서 1년</strong>이 아니라 <strong>18개월 안에 합쳐서 1년</strong>입니다. 중간에 이직이 있었어도 합산됩니다.</li>
+<li>짧게 다닌 곳이 여러 곳이어도 통산해서 1년을 넘으면 대상이 됩니다.</li>
+<li>반대로 마지막 직장을 오래 다녔어도, 그 전 18개월 구간 계산에서 1년이 안 되면 대상이 아닙니다.</li>
+</ul>
+
+<h2>기한은 첫 고지서에서 시작합니다</h2>
+
+<p>퇴직하고 한두 달이 지나면 지역가입자 보험료 고지서가 처음 옵니다. 신청 기한은 <strong>그 최초 고지 보험료의 납부기한에서 2개월이 지나기 전까지</strong>입니다.</p>
+
+<p>실무에서 이 기한을 놓치는 경로는 대체로 같습니다.</p>
+
+<ol>
+<li>퇴직하면서 주소나 연락처가 바뀌었는데 갱신을 안 해 고지서를 못 받습니다.</li>
+<li>고지서를 받았지만 금액만 보고 넘깁니다. 신청 기한이 여기서 시작한다는 것을 모릅니다.</li>
+<li>&#8220;재취업하면 어차피 바뀔 텐데&#8221; 하고 미룹니다. 재취업이 늦어지면 기한이 먼저 닫힙니다.</li>
+</ol>
+
+<blockquote>퇴직 직후에 달력에 표시할 것은 퇴직일이 아니라, 첫 고지서를 받은 날입니다.</blockquote>
+
+<h2>신청하면 얼마를 내게 되나</h2>
+
+<p>임의계속 보험료는 <strong>퇴직 전 보수월액보험료가 산정된 최근 12개월의 평균</strong>을 기준으로 계산합니다. 다만 회사가 절반을 내주던 구조는 끝나므로 <strong>전액 본인이 부담</strong>합니다.</p>
+
+<p>그래서 판단 기준은 간단합니다.</p>
+
+<table>
+<thead><tr><th>비교</th><th>판단</th></tr></thead>
+<tbody>
+<tr><th>지역보험료가 임의계속보험료보다 비싸다</th><td>임의계속가입이 유리합니다</td></tr>
+<tr><th>지역보험료가 더 싸다</th><td>신청할 이유가 없습니다</td></tr>
+<tr><th>피부양자로 들어갈 수 있다</th><td>대체로 이쪽이 가장 낫습니다</td></tr>
+</tbody>
+</table>
+
+<p>적용 기간은 퇴직 다음 날부터 <strong>최대 36개월</strong>입니다. 예전 24개월에서 늘어난 기준입니다.</p>
+
+<h2>피부양자 등재를 먼저 확인하세요</h2>
+
+<p>배우자나 자녀가 직장가입자라면 그 밑에 피부양자로 들어가는 방법이 있습니다. 요건을 충족하면 <strong>보험료를 따로 내지 않습니다.</strong> 임의계속가입보다 부담이 작으므로 이쪽을 먼저 확인하는 것이 순서입니다.</p>
+
+<p>다만 소득과 재산 요건이 있고, 퇴직금이 예금으로 남아 있거나 임대소득이 있으면 등재가 안 되는 경우가 있습니다. 자격 판단 순서는 <a href="/posts/health-insurance-after-retirement-three-checks">퇴직 다음 달 건강보험료 고지서 전에 확인할 3가지</a>에 정리해두었습니다.</p>
+
+<h2>신청보다 유지에서 더 자주 무너집니다</h2>
+
+<p>놓치기 쉬운 조건이 하나 더 있습니다. <strong>첫 납부 이후 두 달치 보험료를 내지 않으면 임의계속가입 자격이 사라집니다.</strong> 한 번 잃으면 다시 신청할 수 없습니다.</p>
+
+<p>퇴직 직후에는 수입이 불규칙해 자동이체를 걸어두지 않으면 놓치기 쉽습니다. 신청과 동시에 자동이체까지 걸어두는 편이 안전합니다.</p>
+
+<h2>지역보험료는 왜 오르나</h2>
+
+<p>직장가입자일 때 보험료는 보수를 기준으로 정해지고 회사가 절반을 냅니다. 지역가입자가 되면 두 가지가 동시에 바뀝니다.</p>
+
+<ul>
+<li><strong>회사 부담분이 사라집니다</strong> — 같은 금액이라도 전액을 혼자 냅니다.</li>
+<li><strong>부과 기준이 넓어집니다</strong> — 소득만이 아니라 재산과 자동차까지 반영해 산정합니다.</li>
+</ul>
+
+<p>그래서 소득이 0원이 되어도 보험료가 오히려 오르는 상황이 생깁니다. 집이 있고 차가 있으면 소득이 끊긴 것과 무관하게 부과 점수가 남아 있기 때문입니다. 퇴직금이 예금으로 잡히면 재산 쪽에 더해질 수 있습니다.</p>
+
+<h2>중간에 재취업하면 어떻게 되나</h2>
+
+<p>임의계속가입 중에 재취업해 직장가입자가 되면 임의계속가입 자격은 그 시점에 끝납니다. 남은 기간을 나중에 이어서 쓸 수는 없습니다.</p>
+
+<p>짧은 계약직이나 단기 일자리를 반복할 예정이라면 이 점을 감안해야 합니다. 몇 달 일하고 다시 나오면, 그때는 새로 자격 요건을 따져야 하고 이미 쓴 기간은 돌아오지 않습니다.</p>
+
+<h2>오늘 확인할 네 가지</h2>
+
+<ol>
+<li>퇴직 전 18개월 동안 직장가입자로 <strong>통산 1년</strong>이 되는지 계산합니다.</li>
+<li>첫 지역보험료 고지서를 받았는지, 납부기한이 언제인지 확인합니다. <strong>그 날짜 + 2개월</strong>이 마감입니다.</li>
+<li>피부양자 등재가 가능한지 먼저 알아봅니다.</li>
+<li>지역보험료와 임의계속보험료 예상액을 비교합니다. 공단에 문의하면 두 금액을 알려줍니다.</li>
+</ol>
+
+<p>퇴직 직후 함께 정리할 항목은 <a href="/posts/first-30-days-after-retirement">퇴직 후 첫 30일 체크리스트</a>에, 건강검진처럼 자격이 바뀌며 달라지는 것들은 <a href="/posts/post-retirement-health-checkup-guide">퇴직 후 국가건강검진</a>에 있습니다.</p>
+
+<p>이 글은 법령과 공식 안내를 정리한 참고자료이며 개인별 보험료 산정을 대신하지 않습니다. 실제 금액과 자격 여부는 국민건강보험공단(1577-1000)에서 확인하세요.</p>
+
+<p>출처: <a href="https://easylaw.go.kr/CSP/CnpClsMain.laf?popMenu=ov&amp;csmSeq=1063&amp;ccfNo=2&amp;cciNo=1&amp;cnpClsNo=3">찾기쉬운 생활법령정보 · 실업자의 직장가입자 자격 유지</a></p>`,
+  },
+  "vibe-coding-risks-8-things":{
+    excerpt:"AI가 만든 코드는 대체로 돌아갑니다. 문제는 잘못됐을 때 어디까지 번지느냐입니다. 요금·데이터·권한 세 갈래로 묶은 여덟 가지 사고와, 배포 전에 사람이 정해야 할 한도를 정리했습니다.",
+    readingMinutes:9,
+    body:`<p><strong>AI가 짜준 코드의 문제는 돌아가지 않는 것이 아니라, 대체로 잘 돌아간다는 점입니다.</strong> 화면이 뜨고 버튼이 눌리면 다 된 것처럼 보입니다. 사고는 그다음에 납니다. 결제 한도를 안 걸었거나, 권한을 열어둔 채로 올렸거나, 되돌릴 지점을 안 만들어둔 상태에서요.</p>
+
+<p>흔히 이야기되는 여덟 가지 위험은 서로 다른 사고처럼 보이지만 원인은 세 갈래로 묶입니다. 갈래별로 <strong>배포 전에 사람이 정해야 하는 한 가지</strong>가 있습니다.</p>
+
+<figure class="article-image"><img src="/article-images/ai-code-risk-groups.svg" alt="AI 코드 배포 위험을 돈이 새는 문제, 데이터가 사라지는 문제, 남이 들어오는 문제 세 갈래로 묶고 각각의 예방책을 정리한 도표"><figcaption>여덟 가지 사고의 원인은 세 갈래로 좁혀집니다. · 퇴직생활연구소 제작 도표</figcaption></figure>
+
+<h2>1. 돈이 새는 갈래</h2>
+
+<p>가장 빨리, 가장 조용히 커지는 손실입니다. 코드는 정상 작동하는데 청구서만 늘어납니다.</p>
+
+<ul>
+<li><strong>자동 충전 한도 미설정</strong> — API나 클라우드 서비스는 잔액이 떨어지면 자동으로 결제합니다. 상한을 안 걸면 상한이 없는 것입니다.</li>
+<li><strong>에이전트 증식</strong> — 설정이 잘못되면 AI가 자기 자신을 반복 호출합니다. 밤사이 수천 번 돌 수 있습니다.</li>
+<li><strong>끊기지 않는 루프</strong> — 실패하면 다시 시도하도록 짜인 코드가 실패를 반복하며 계속 호출합니다.</li>
+</ul>
+
+<p><strong>먼저 할 것:</strong> 코드를 쓰기 전에 결제 화면부터 엽니다. 하루 한도와 월 한도, 그리고 초과 시 자동 차단을 켭니다. 알림만 켜두면 자는 동안 소용이 없습니다.</p>
+
+<h2>2. 데이터가 사라지는 갈래</h2>
+
+<p>돈은 다시 벌 수 있지만 지워진 데이터는 대개 못 돌아옵니다.</p>
+
+<ul>
+<li><strong>확인 없이 전부 승인</strong> — 자동 승인 모드를 켜두면 삭제 명령도 함께 승인됩니다. 되돌릴 시간이 없습니다.</li>
+<li><strong>백업이 원본과 같은 곳</strong> — 같은 서버, 같은 계정, 같은 폴더에 있는 백업은 백업이 아닙니다. 원본이 지워질 때 같이 지워집니다.</li>
+<li><strong>되돌릴 지점 없음</strong> — 버전 관리를 안 쓰거나 커밋을 안 해두면 어제 상태로 못 돌아갑니다.</li>
+</ul>
+
+<p><strong>먼저 할 것:</strong> 백업은 <strong>다른 계정, 다른 장소</strong>에 둡니다. 그리고 작업을 시작하기 전에 되돌릴 지점을 하나 만들어둡니다. 이 두 가지만 해두면 나머지 실수는 대부분 복구 가능합니다.</p>
+
+<blockquote>자동 승인은 편의 기능이 아니라 권한 위임입니다. 무엇을 위임했는지 모른 채 켜면 안 됩니다.</blockquote>
+
+<h2>3. 남이 들어오는 갈래</h2>
+
+<p>가장 늦게 발견되고 가장 오래 피해가 남습니다. 내 데이터만이 아니라 서비스를 쓴 사람들의 정보가 걸립니다.</p>
+
+<ul>
+<li><strong>마스터 키를 그대로 사용</strong> — 모든 권한을 가진 키를 앱에서 그대로 쓰면, 그 키가 새는 순간 전부 열립니다.</li>
+<li><strong>접근 제한 미설정</strong> — 데이터베이스에 행 단위 접근 제한을 안 켜면 로그인한 누구나 남의 데이터를 조회할 수 있습니다.</li>
+<li><strong>화면 코드에 비밀키 하드코딩</strong> — 브라우저에서 도는 코드는 누구나 열어볼 수 있습니다. 거기 적힌 키는 공개된 키입니다.</li>
+</ul>
+
+<p><strong>먼저 할 것:</strong> 비밀키는 <strong>서버에만</strong> 둡니다. 화면 쪽에는 공개용 키만 내보내고, 권한은 필요한 만큼만 가진 키를 따로 발급합니다.</p>
+
+<h2>실제로는 이런 모양으로 터집니다</h2>
+
+<p>세 갈래가 추상적으로 들리면 사고는 늘 남의 일처럼 보입니다. 실제 사례는 대체로 이런 형태입니다.</p>
+
+<h3>자는 동안 요금이 쌓입니다</h3>
+<p>테스트로 돌려본 자동화가 실패할 때마다 재시도하도록 짜여 있었고, 실패 원인이 해결되지 않은 채 밤새 반복됩니다. 아침에 확인하면 호출 횟수가 수천 건입니다. 코드는 정상이고 알림도 왔지만, 알림은 자는 사람을 깨우지 못합니다.</p>
+
+<h3>확인 한 번을 건너뛰고 데이터가 사라집니다</h3>
+<p>&#8220;정리해줘&#8221;라는 요청에 AI가 폴더를 통째로 비우는 명령을 제안하고, 자동 승인 모드가 켜져 있어 그대로 실행됩니다. 몇 초면 끝납니다. 그런데 백업이 같은 서버 같은 계정에 있었다면 백업도 같이 사라집니다.</p>
+
+<h3>키 하나로 전부 열립니다</h3>
+<p>개발할 때 편하려고 모든 권한을 가진 키를 화면 코드에 그대로 넣어두고 그대로 배포합니다. 브라우저에서 코드를 열면 누구나 그 키를 볼 수 있고, 그 키로 데이터베이스 전체에 접근할 수 있습니다. 발견되기까지 몇 달이 걸리기도 합니다.</p>
+
+<p>세 사례의 공통점은 <strong>코드가 잘못되지 않았다는 것</strong>입니다. 요청한 대로 정확히 동작했고, 요청에 한도가 없었을 뿐입니다.</p>
+
+<h2>AI에게 물어볼 때 이렇게 덧붙입니다</h2>
+
+<p>AI는 요청한 기능을 만드는 데 최적화돼 있습니다. 요청하지 않은 안전장치는 대체로 넣지 않습니다. 그래서 프롬프트에 조건을 함께 씁니다.</p>
+
+<table>
+<thead><tr><th>대신 이렇게</th><th>왜</th></tr></thead>
+<tbody>
+<tr><th>&#8220;비밀키는 서버 환경변수로 두고 화면 코드에 넣지 마&#8221;</th><td>하드코딩을 미리 차단</td></tr>
+<tr><th>&#8220;삭제나 덮어쓰기 전에 무엇을 지우는지 먼저 보여줘&#8221;</th><td>확인 단계를 강제</td></tr>
+<tr><th>&#8220;실패하면 몇 번까지만 재시도하고 멈추게 해&#8221;</th><td>무한 루프와 요금 폭탄 방지</td></tr>
+<tr><th>&#8220;이 코드에서 권한이 과한 부분을 찾아줘&#8221;</th><td>만든 뒤 스스로 점검하게 함</td></tr>
+</tbody>
+</table>
+
+<h2>배포 전 5분 점검</h2>
+
+<ol>
+<li>결제 한도가 걸려 있는가. 초과 시 차단되는가.</li>
+<li>백업이 원본과 <strong>다른 곳</strong>에 있는가.</li>
+<li>화면 코드에 비밀키가 들어 있지 않은가. 브라우저에서 열어 검색해봅니다.</li>
+<li>남의 데이터가 조회되지 않는가. 계정을 두 개 만들어 서로 안 보이는지 확인합니다.</li>
+<li>어제 상태로 되돌릴 수 있는가.</li>
+</ol>
+
+<p>이 다섯 개는 코딩 실력과 무관합니다. AI가 코드를 만들어도 한도와 권한은 사람이 정하는 영역입니다.</p>
+
+<p>오류가 났을 때 물어보는 방법은 <a href="/posts/vibe-coding-basics-5">오류를 제대로 물어보는 4단계</a>에, 무엇을 정해두지 않으면 AI가 대신 정해버리는지는 <a href="/posts/vibe-coding-basics-7">AI가 말없이 정해버리는 55가지</a>에 정리해두었습니다. 만든 도구를 실제로 올리는 순서는 <a href="/posts/vibe-coding-basics-3">인터넷에 올리기</a>를 보세요.</p>
+
+<p>이 글은 개인이 만든 소규모 서비스를 기준으로 한 참고자료이며 보안 진단이나 전문가 검토를 대신하지 않습니다. 개인정보나 결제를 다루는 서비스라면 공개 전에 전문가 검토를 받으세요.</p>
+
+<p>출처: <a href="https://owasp.org/www-project-top-ten/">OWASP Top 10 웹 애플리케이션 보안 위험</a></p>`,
+  },
+  "facebook-ads-side-hustle-reality":{
+    excerpt:"광고 운영 대행은 클릭 부업이 아니라 내 돈이 먼저 나가는 일입니다. 클릭 부업과의 구조 차이, 시작 전 정해야 할 일곱 가지, 14일 검증 순서를 정리했습니다.",
+    readingMinutes:10,
+    body:`<p><strong>페이스북 광고 부업에서 가장 먼저 움직이는 돈은 수익이 아니라 광고비입니다.</strong> 그리고 그 광고비는 대체로 내 카드에서 먼저 빠져나갑니다. 이 순서를 모르고 시작하면 첫 달에 손실이 확정된 채로 배우게 됩니다.</p>
+
+<p>퇴직 후 부업을 찾다 보면 &#8220;광고만 돌리면 수익이 난다&#8221;는 이야기를 접합니다. 그런데 그 말에는 서로 다른 두 가지가 섞여 있습니다. 하나는 클릭이나 시청으로 소액을 받는 일이고, 다른 하나는 남의 사업을 위해 광고를 집행하는 일입니다. 둘은 위험의 크기가 완전히 다릅니다.</p>
+
+<figure class="article-image"><img src="/article-images/facebook-ads-cash-order.svg" alt="클릭 부업은 시간을 넣고 수익을 받지만 광고 운영 대행은 광고비가 먼저 나가고 정산은 나중에 들어온다는 현금 흐름 차이를 비교한 도표"><figcaption>돈이 나가고 들어오는 순서가 다릅니다. · 퇴직생활연구소 제작 도표</figcaption></figure>
+
+<h2>클릭 부업과 광고 운영 대행은 다른 일입니다</h2>
+
+<p>클릭 부업은 내 돈이 나갈 일이 없습니다. 대신 단가가 매우 낮고, 지속성이 없으며, 상당수는 정상적인 수익 모델이 아닙니다.</p>
+
+<p>광고 운영 대행은 사업입니다. 광고 계정을 만들고, 예산을 넣고, 소재를 만들고, 성과를 분석해 개선합니다. <strong>수익이 날 수 있는 만큼 손실도 날 수 있고, 그 손실은 내가 집행한 광고비로 실현됩니다.</strong></p>
+
+<table>
+<thead><tr><th></th><th>클릭 부업</th><th>광고 운영 대행</th></tr></thead>
+<tbody>
+<tr><th>내 돈</th><td>나가지 않음</td><td>광고비를 먼저 집행</td></tr>
+<tr><th>수익 구조</th><td>건당 소액</td><td>대행 수수료 또는 성과 배분</td></tr>
+<tr><th>실패했을 때</th><td>시간 손실</td><td>광고비 손실이 남음</td></tr>
+<tr><th>필요한 것</th><td>시간</td><td>초기 자금, 계약서, 성과 측정</td></tr>
+</tbody>
+</table>
+
+<h2>시작 전에 정해야 할 일곱 가지</h2>
+
+<p>첫 광고를 켜기 전에 아래 일곱 개를 종이에 적어두세요. 하나라도 비어 있으면 아직 시작할 준비가 안 된 것입니다.</p>
+
+<ol>
+<li><strong>한 달에 잃어도 되는 광고비 상한</strong> — 목표 수익보다 이 숫자를 먼저 정합니다. 이 금액을 넘으면 멈춘다는 선입니다.</li>
+<li><strong>광고비를 누가 내는가</strong> — 광고주 카드로 집행하는지, 내가 먼저 쓰고 청구하는지를 계약 전에 못 박습니다. 여기서 사고가 가장 많이 납니다.</li>
+<li><strong>정산 주기와 방법</strong> — 언제, 어떤 기준으로 얼마를 받는지. 한 달 뒤 정산이 흔하므로 그동안 버틸 현금이 필요합니다.</li>
+<li><strong>성과를 무엇으로 재는가</strong> — 노출인지, 클릭인지, 문의인지, 실제 매출인지. 기준이 없으면 잘했는지 못했는지 다툼이 생깁니다.</li>
+<li><strong>계정 소유권</strong> — 광고 계정과 페이지가 누구 것인지. 내 계정으로 남의 사업을 돌리면 문제가 생겼을 때 책임이 나에게 남습니다.</li>
+<li><strong>광고 정책 위반 시 책임</strong> — 소재가 반려되거나 계정이 정지될 때 누가 책임지는지. 과장 표현이나 금지 업종은 대행자가 걸러야 합니다.</li>
+<li><strong>중단 조건</strong> — 몇 주 동안 어떤 성과가 안 나오면 그만두는지를 미리 씁니다.</li>
+</ol>
+
+<blockquote>계약서 없이 시작한 광고 대행은 성과가 좋아도 정산에서, 성과가 나빠도 책임에서 문제가 생깁니다. 지인 소개일수록 더 그렇습니다.</blockquote>
+
+<h2>14일 검증 순서</h2>
+
+<p>큰돈을 넣기 전에 이 일이 나에게 맞는지부터 확인합니다. 2주면 충분합니다.</p>
+
+<ul>
+<li><strong>1~3일</strong> — 내 것으로 작게 돌려봅니다. 남의 예산이 아니라 내가 정한 소액으로, 광고 관리자 화면과 정책을 몸에 익힙니다.</li>
+<li><strong>4~7일</strong> — 소재를 두세 개로 나눠 반응 차이를 봅니다. 이 단계에서 &#8220;광고를 켜는 일&#8221;과 &#8220;성과를 만드는 일&#8221;이 얼마나 다른지 알게 됩니다.</li>
+<li><strong>8~11일</strong> — 실제 사업자 한 곳과 이야기해봅니다. 계약 없이, 무엇을 원하는지와 얼마를 쓸 수 있는지만 듣습니다.</li>
+<li><strong>12~14일</strong> — 투입 시간과 실제 비용을 합쳐 시간당 얼마인지 계산합니다. 여기서 숫자가 안 나오면 규모를 키워도 대체로 안 나옵니다.</li>
+</ul>
+
+<h2>수입이 생기면 기록이 따라옵니다</h2>
+
+<p>대행 수수료는 대부분 사업소득으로 잡힙니다. 3.3%를 떼고 받든 세금계산서를 발행하든 신고 대상이라는 점은 같습니다. 처음부터 기록 방식을 맞춰두면 나중에 훨씬 편합니다. 정리 방법은 <a href="/posts/side-income-tax-records">N잡 수입, 5월 전에 남겨둘 기록</a>에 적어두었습니다.</p>
+
+<p>실업급여를 받는 중이라면 한 가지가 더 있습니다. 대행 수입이 생긴 날은 금액과 무관하게 신고 대상입니다. 기준은 <a href="/posts/side-jobs-while-receiving-benefits">실업급여 받으면서 일했을 때 신고 기준</a>에서 확인하세요.</p>
+
+<p>부업 자체를 고르는 단계라면 <a href="/posts/midlife-side-job-scorecard">N잡 5가지 점수표</a>로 다른 선택지와 나란히 놓고 보는 편이 낫습니다.</p>
+
+<p>이 글은 광고 대행이라는 일의 구조와 위험을 정리한 참고자료이며 특정 부업을 권유하거나 수익을 보장하지 않습니다. 광고 소재와 업종별 허용 범위는 플랫폼 정책에 따라 달라지고 수시로 바뀌므로 집행 전에 공식 정책을 확인하세요.</p>
+
+<p>출처: <a href="https://transparency.meta.com/ko-kr/policies/ad-standards/">Meta 광고 게재 기준</a></p>`,
+  },
+  "post-retirement-health-checkup-guide":{
+    excerpt:"2026년은 짝수 해에 태어난 사람의 검진 차례입니다. 퇴직 후 바뀌는 자격별 대상 구분, 6대 암검진 나이와 주기, 실제로 내는 돈과 예약이 몰리는 시기를 정리했습니다.",
+    readingMinutes:9,
+    body:`<p><strong>퇴직하면 건강검진 자체가 사라지는 것이 아니라, 챙겨주는 사람이 사라집니다.</strong> 회사에 다닐 때는 총무팀이 대상자 명단을 뽑고 기한을 알려줬습니다. 퇴직 후에는 대상인지 확인하는 일부터 병원을 고르고 예약하는 일까지 전부 본인 몫입니다. 그리고 2026년은 <strong>짝수 해에 태어난 사람</strong>의 차례입니다.</p>
+
+<p>1962년, 1964년, 1970년생처럼 끝자리가 짝수인 해에 태어났다면 올해가 검진 해입니다. 홀수 해 출생이라면 2027년을 기다리면 됩니다.</p>
+
+<figure class="article-image"><img src="/article-images/national-checkup-after-retirement.svg" alt="퇴직 후 지역가입자 세대주와 만 20세 이상 세대원, 피부양자가 국가건강검진 대상이 되고 출생연도 끝자리가 짝수면 2026년이 검진 해라는 것을 보여주는 도표"><figcaption>퇴직하면 검진 주기를 정하는 기준 자체가 바뀝니다. · 퇴직생활연구소 제작 도표</figcaption></figure>
+
+<h2>자격이 바뀌면 검진 주기도 바뀝니다</h2>
+
+<p>가장 많이 놓치는 지점이 여기입니다. 회사에 다닐 때 현장직이나 생산직처럼 <strong>비사무직</strong>이었다면 건강검진을 매년 받았습니다. 퇴직해서 지역가입자나 피부양자가 되면 이 매년 주기가 사라지고 <strong>2년에 한 번</strong>으로 바뀝니다.</p>
+
+<p>"작년에 받았으니 올해도 받겠지" 하고 기다리면 안내가 오지 않습니다. 반대로 사무직이었다면 원래도 2년 주기였으므로 큰 변화를 못 느낄 수 있습니다. 퇴직 후 첫 검진 해를 한 번만 확인해두면 그다음부터는 규칙이 단순합니다.</p>
+
+<table>
+<thead><tr><th>구분</th><th>퇴직 전</th><th>퇴직 후</th></tr></thead>
+<tbody>
+<tr><th>비사무직이었다면</th><td>매년</td><td>2년마다</td></tr>
+<tr><th>사무직이었다면</th><td>2년마다</td><td>2년마다</td></tr>
+<tr><th>안내 주체</th><td>회사가 명단 관리</td><td>본인이 직접 조회</td></tr>
+</tbody>
+</table>
+
+<h2>퇴직 후 검진 대상이 되는 자격</h2>
+
+<p>퇴직하면 건강보험 자격이 지역가입자나 피부양자로 바뀝니다. 두 경우 모두 국가건강검진 대상입니다.</p>
+
+<ul>
+<li><strong>지역가입자 세대주</strong> — 나이 제한 없이 대상입니다.</li>
+<li><strong>지역가입자 세대원</strong> — 만 20세 이상이 대상입니다.</li>
+<li><strong>피부양자</strong> — 배우자나 자녀의 직장보험에 피부양자로 들어갔어도 만 20세 이상이면 대상입니다.</li>
+</ul>
+
+<p>피부양자로 등재된 분들이 "나는 직장가입자가 아니니 대상이 아니겠지"라고 넘어가는 경우가 많은데, 대상입니다. 건강보험료 부담을 줄이는 자격 정리는 <a href="/posts/post-retirement-health-insurance-voluntary-continuation">임의계속가입 확인 순서</a>에 따로 적어두었습니다.</p>
+
+<h2>암검진은 일반검진과 나이·주기가 다릅니다</h2>
+
+<p>일반건강검진과 국가암검진은 같은 해에 함께 받을 수 있지만 대상 기준이 각각 있습니다. 퇴직 연령대에서 특히 챙길 것은 대장암입니다. <strong>만 50세 이상은 매년</strong>이라 2년 주기인 다른 검사와 리듬이 다릅니다.</p>
+
+<table>
+<thead><tr><th>암종</th><th>대상</th><th>주기</th></tr></thead>
+<tbody>
+<tr><th>위암</th><td>만 40세 이상</td><td>2년마다</td></tr>
+<tr><th>대장암</th><td>만 50세 이상</td><td>매년</td></tr>
+<tr><th>간암</th><td>만 40세 이상 고위험군</td><td>6개월마다</td></tr>
+<tr><th>유방암</th><td>만 40세 이상 여성</td><td>2년마다</td></tr>
+<tr><th>자궁경부암</th><td>만 20세 이상 여성</td><td>2년마다</td></tr>
+<tr><th>폐암</th><td>만 54~74세 고위험 흡연자</td><td>2년마다</td></tr>
+</tbody>
+</table>
+
+<p>간암과 폐암은 <strong>고위험군</strong>에만 해당합니다. 간암은 간경변증이나 B형·C형 간염 관련 이력이, 폐암은 일정 기준 이상의 흡연력이 기준입니다. 본인이 고위험군으로 분류되어 있는지는 통보서나 조회 화면에 표시되므로 직접 판단하지 말고 확인하세요.</p>
+
+<p>2026년에는 국가검진에 폐 기능 검사가 새로 들어왔습니다. 해당 내용은 <a href="/posts/2026-national-checkup-lung-function-test">2026년 국가검진 폐 기능 검사</a>에서 따로 다뤘습니다.</p>
+
+<h2>실제로 내는 돈은 얼마인가</h2>
+
+<p>일반건강검진은 <strong>본인부담이 없습니다.</strong> 검진 비용을 공단이 부담합니다.</p>
+
+<p>국가암검진은 암종에 따라 갈립니다.</p>
+
+<ul>
+<li><strong>무료</strong> — 대장암, 자궁경부암</li>
+<li><strong>본인부담 10%</strong> — 위암, 간암, 유방암, 폐암</li>
+<li><strong>전액 무료</strong> — 의료급여수급자, 건강보험료 기준 하위 50%에 해당하는 가입자</li>
+</ul>
+
+<p>퇴직 후 소득이 줄어 건강보험료가 낮아졌다면 하위 50%에 들어가 본인부담 10%마저 사라지는 경우가 있습니다. 통보서에 표시되니 그냥 넘기지 말고 한 번 보세요.</p>
+
+<blockquote>검진 결과에서 이상 소견이 나와 추가 검사를 받는 비용은 별개입니다. 국가검진은 확인의 출발점이지 진료가 아닙니다.</blockquote>
+
+<h2>12월에 몰립니다</h2>
+
+<p>검진 대상자는 연말이 다가올수록 몰립니다. 11~12월에는 원하는 날짜에 자리가 없거나, 대장내시경처럼 사전 준비가 필요한 검사는 몇 주 뒤로 밀리기도 합니다. 대상 연도를 넘기면 그 회차는 사라집니다.</p>
+
+<p>퇴직해서 평일에 시간을 낼 수 있다는 점이 오히려 유리합니다. 직장인이 몰리는 주말과 연말을 피해 <strong>9~10월 평일</strong>에 잡으면 대기 없이 끝나는 경우가 많습니다.</p>
+
+<h2>오늘 5분이면 끝나는 확인</h2>
+
+<ol>
+<li>태어난 해의 끝자리가 <strong>짝수</strong>인지 봅니다. 짝수면 올해가 검진 해입니다.</li>
+<li>국민건강보험공단 홈페이지나 앱에서 <strong>검진 대상 조회</strong>를 눌러 본인 대상 항목을 확인합니다. 일반검진과 암검진이 따로 표시됩니다.</li>
+<li>대상 항목에 <strong>본인부담금</strong>이 어떻게 적혀 있는지 봅니다. 하위 50%면 0원으로 나옵니다.</li>
+<li>집이나 자주 가는 길목의 검진기관을 정해 <strong>평일 오전</strong>으로 예약합니다.</li>
+<li>퇴직하면서 <strong>주소와 연락처</strong>가 바뀌었다면 함께 갱신합니다. 통보서가 옛 주소로 가면 안내를 못 받습니다.</li>
+</ol>
+
+<p>퇴직 직후에 함께 정리할 항목이 더 있다면 <a href="/posts/first-30-days-after-retirement">퇴직 후 첫 30일 체크리스트</a>를 같이 보세요.</p>
+
+<p>이 글은 국가건강검진 제도의 구조를 정리한 참고자료이며 의학적 진단이나 개인별 검진 상담을 대신하지 않습니다. 본인의 대상 여부와 항목, 부담금은 국민건강보험공단 조회 결과가 기준이며, 대상 연령과 주기는 바뀔 수 있으므로 예약 전에 공단 안내(1577-1000)로 다시 확인하세요.</p>
+
+<p>출처: <a href="https://www.nhis.or.kr/nhis/index.do">국민건강보험공단 건강검진 안내</a></p>`,
+  },
   "first-30-days-after-retirement":{
     excerpt:"퇴직 직후 흔들리기 쉬운 현금흐름, 건강보험, 실업급여와 생활 리듬을 30일 일정표로 정리합니다.",
     readingMinutes:9,
@@ -1878,21 +2543,103 @@ const contentQualityUpgrades:Record<string,Pick<Post,"excerpt"|"body"|"readingMi
 <p>월 최소생활비, 사용 가능한 자금, 실업급여·보험 일정, 다음 30일에 시험할 수입원 한 가지를 한 장에 적습니다. 이 네 가지가 정리되면 막연한 불안이 확인 가능한 과제로 바뀝니다.</p>`,
   },
   "side-jobs-while-receiving-benefits":{
-    excerpt:"실업급여 수급 중 단기근로·플랫폼 활동을 시작할 때 기록하고 신고해야 할 항목을 사례와 표로 확인합니다.",
-    readingMinutes:9,
-    body:`<p>실업급여를 받는 동안 부업을 무조건 할 수 없거나, 반대로 소액이면 신고하지 않아도 된다고 단정하면 위험합니다. 중요한 것은 이름이 '부업'인지가 아니라 <strong>실제로 일을 했는지, 소득이 발생했는지, 취업으로 판단될 조건이 있는지</strong>입니다. 계약 형태와 근로시간이 사람마다 다르므로 본인의 상황은 관할 고용센터에서 확인해야 합니다.</p>
-<h2>금액보다 근로 사실을 먼저 기록합니다</h2>
-<p>임금을 아직 받지 않았더라도 일을 제공한 날짜와 시간을 기록하세요. 고용24 안내에서도 실업인정 기간 중 근로 사실을 신고하는 절차를 확인할 수 있습니다. 시작 전에는 <a href="https://www.work24.go.kr/cm/c/f/1100/selecSystInfo.do?systClId=SC00000254&systId=SI00000411">고용24 실업급여 공식 안내</a>를 읽고, 애매한 경우 상담한 날짜와 답변 요지를 남기는 편이 안전합니다.</p>
-<table><thead><tr><th>기록 항목</th><th>예시</th><th>보관 자료</th></tr></thead><tbody><tr><td>일한 날짜·시간</td><td>8월 12일 14:00~17:00</td><td>업무 요청 메시지</td></tr><tr><td>업무 내용</td><td>원고 수정·배송 보조</td><td>계약서·작업 파일</td></tr><tr><td>지급 예정액</td><td>세전 80,000원</td><td>정산 화면·입금내역</td></tr><tr><td>신고·상담</td><td>실업인정일 신고</td><td>상담 날짜와 답변</td></tr></tbody></table>
-<h2>플랫폼 수익도 자동으로 예외가 되지 않습니다</h2>
-<p>배달, 대리운전, 원고료, 강의, 중고거래, 광고수익은 활동 방식이 모두 다릅니다. 개인 물품을 일시적으로 처분한 것과 반복적으로 판매한 사업 활동도 같은 이름으로 묶기 어렵습니다. 앱의 월 정산 화면만 보지 말고 실제 작업일, 작업시간과 계약 상대방을 함께 기록하세요.</p>
-<h2>실업인정일 직전에 정리하지 않습니다</h2>
-<p>작업한 날마다 휴대전화 메모나 표에 한 줄씩 적으면 신고 누락을 줄일 수 있습니다. 입금일만 기준으로 모으면 일한 시점과 돈을 받은 시점이 달라져 기억이 섞일 수 있습니다. 신고 이후에도 계약서와 정산자료는 세금 신고를 위해 보관합니다.</p>
-<h2>상담할 때 질문을 구체적으로 만드세요</h2>
-<ul><li>주당 예상 작업시간과 실제 일하는 장소는 어디인가?</li><li>고용계약인지 건별 용역인지, 반복 계약인지?</li><li>대금 지급일과 실업인정 기간이 어떻게 겹치는가?</li><li>어떤 화면에서 어떤 항목으로 신고하는가?</li></ul>
-<blockquote>이 글은 신고 여부를 대신 판단하지 않습니다. 일을 시작하기 전 활동 조건을 설명하고 관할 고용센터의 답변을 확인하세요.</blockquote>`,
-  },
-  "ai-blog-writing-workflow":{
+    excerpt:"일한 사실을 신고하는 것과 그 일이 취업으로 인정되는 것은 다른 문제입니다. 고용보험법이 정한 네 가지 취업 판정 기준, 신고를 빠뜨렸을 때의 반환·추가징수 배수, 조사 전 자진신고 면제까지 정리했습니다.",
+    readingMinutes:10,
+    body:`<p><strong>실업급여를 받으면서 일을 해도 됩니다. 문제가 되는 것은 일한 사실을 적지 않았을 때입니다.</strong> "얼마 안 되는 돈이라 괜찮겠지" 하고 넘어가는 경우가 많은데, 고용보험법은 금액이 아니라 <strong>신고했는지</strong>를 먼저 봅니다. 하루 세 시간 일하고 5만원을 받았어도 신고 대상이고, 그 일 때문에 구직급여가 깎이는지는 그다음 문제입니다.</p>
+
+<p>이 두 가지를 하나로 붙여서 생각하는 순간 부정수급으로 넘어갑니다. 순서를 나눠서 보겠습니다.</p>
+
+<figure class="article-image"><img src="/article-images/unemployment-work-report-criteria.svg" alt="일한 사실은 금액과 관계없이 신고해야 하고 월 60시간·주 15시간·3개월 계속·구직급여일액이라는 네 기준 중 하나에 해당하면 취업으로 본다는 것을 보여주는 2단계 도표"><figcaption>신고 의무와 취업 판정은 단계가 다릅니다. · 퇴직생활연구소 제작 도표</figcaption></figure>
+
+<h2>1단계: 신고에는 예외가 없습니다</h2>
+
+<p>고용보험법 제47조는 실업인정대상기간에 취업한 경우 <strong>취업한 날 이후 최초의 실업인정일에 제출하는 실업인정신청서에 그 사실을 적어 신고</strong>하도록 정하고 있습니다. 여기에 금액 하한이나 시간 하한은 없습니다.</p>
+
+<p>실무에서 자주 빠뜨리는 경우가 이렇습니다.</p>
+
+<ul>
+<li><strong>임금을 아직 못 받았다</strong> — 일한 사실 자체가 신고 대상입니다. 지급일이 다음 달이어도 마찬가지입니다.</li>
+<li><strong>가족이나 지인의 일을 잠깐 도왔다</strong> — 대가를 받았다면 신고합니다.</li>
+<li><strong>하루짜리 단기 아르바이트였다</strong> — 하루도 신고합니다.</li>
+<li><strong>현금으로 받아 기록이 없다</strong> — 기록이 없는 것과 신고 의무가 없는 것은 다릅니다.</li>
+</ul>
+
+<h2>2단계: 취업으로 볼지는 네 가지로 갈립니다</h2>
+
+<p>신고한 뒤, 그 일이 <strong>취업</strong>에 해당하는지는 고용보험법 시행령 제69조가 정합니다. 아래 중 하나라도 해당하면 취업으로 보고 그 기간에는 구직급여가 지급되지 않습니다.</p>
+
+<table>
+<thead><tr><th>기준</th><th>내용</th></tr></thead>
+<tbody>
+<tr><th>월 60시간</th><td>1개월간의 소정근로시간을 60시간 이상으로 정하고 근로를 제공하는 경우</td></tr>
+<tr><th>주 15시간</th><td>1주간의 소정근로시간을 15시간 이상으로 정하는 경우</td></tr>
+<tr><th>3개월 계속</th><td>3개월 이상 계속하여 근로를 제공하는 경우</td></tr>
+<tr><th>구직급여일액</th><td>그날 받은 금액이 본인의 구직급여일액 이상인 경우</td></tr>
+</tbody>
+</table>
+
+<p>여기서 <strong>소정근로시간</strong>은 실제로 일한 시간이 아니라 일하기로 정한 시간입니다. 주 3일 다섯 시간씩 일하기로 했다면 주 15시간이 되어 취업에 해당할 수 있습니다. 계약서를 쓰지 않았더라도 실제 근무 형태로 판단하므로, 근무일과 시간을 정해두고 반복해서 나갔다면 같은 결과가 나올 수 있습니다.</p>
+
+<blockquote>네 기준에 하나도 걸리지 않아 구직급여가 그대로 나오는 경우에도 신고 의무는 그대로입니다. 신고하고 지급된 것과, 신고하지 않아 지급된 것은 완전히 다릅니다.</blockquote>
+
+<h2>신고를 빠뜨리면 얼마를 돌려주게 되나</h2>
+
+<p>부정수급으로 판단되면 지급 제한, 반환명령, 추가징수가 함께 옵니다. 고용보험법 제62조와 시행규칙 제105조는 추가징수액을 부정행위 횟수로 나눠 정하고 있습니다.</p>
+
+<table>
+<thead><tr><th>부정행위 횟수</th><th>혼자 한 경우</th><th>사업주와 공모한 경우</th></tr></thead>
+<tbody>
+<tr><th>3회 미만</th><td>지급액의 100%</td><td>지급액의 300%</td></tr>
+<tr><th>3회 이상 5회 미만</th><td>지급액의 150%</td><td>지급액의 400%</td></tr>
+<tr><th>5회 이상</th><td>지급액의 200%</td><td>지급액의 500%</td></tr>
+</tbody>
+</table>
+
+<p>추가징수는 <strong>반환금과 별개로 더 내는 돈</strong>입니다. 200만원을 부정하게 받았고 3회 미만이라면 200만원을 반환하고 추가로 200만원을 더 내는 구조입니다. 통보를 받은 날부터 30일 이내에 납부해야 합니다.</p>
+
+<h2>조사 전에 스스로 신고하면 결과가 달라집니다</h2>
+
+<p>가장 중요한 대목입니다. 고용센터의 장이 본인이나 사업장에 대한 조사를 하기 전까지 자진 신고하면, <strong>근로를 제공한 날에 대해 받은 구직급여만 반환</strong>하고 추가징수는 면제됩니다. 이미 받은 전부를 토해내는 것과 그날치만 돌려주는 것은 금액 차이가 큽니다.</p>
+
+<p>면제나 감면이 적용되는 경우는 이렇게 정리됩니다.</p>
+
+<ul>
+<li><strong>추가징수 면제</strong> — 조사 전에 자진신고한 사람, 경감 대상에 해당하는 1회 부정행위, 생계가 현저히 곤란하다고 고용센터의 장이 인정하는 사람</li>
+<li><strong>60% 감면</strong> — 조사에 성실히 협조하고 서면으로 즉시 납부를 확약한 경우</li>
+<li><strong>30% 감면</strong> — 일용근로자로서 신고일수와 실제 근로일수의 차이가 일정 범위 안인 경우</li>
+</ul>
+
+<p>지난달 신고를 빠뜨린 것이 뒤늦게 생각났다면, 다음 실업인정일을 기다리지 말고 관할 고용센터에 먼저 연락하는 편이 유리합니다.</p>
+
+<h2>플랫폼 수입과 프리랜서 일은 어떻게 되나</h2>
+
+<p>배달, 대리운전, 온라인 판매, 강의료처럼 근로계약이 아닌 형태로 번 돈도 신고 대상입니다. 근로계약이 아니면 소정근로시간을 따지기 어렵지만, 그날 받은 금액이 구직급여일액 이상인지와 계속 반복해서 하고 있는지로 판단이 갈립니다. <strong>애매하다는 이유로 빼놓는 것이 가장 위험한 선택입니다.</strong></p>
+
+<p>이런 수입은 나중에 세금 신고에서 다시 등장합니다. 지급명세서가 국세청에 모이기 때문에 기록을 남기는 방식을 처음부터 맞춰두는 편이 편합니다. 정리 방법은 <a href="/posts/side-income-tax-records">N잡 수입, 5월 전에 남겨둘 기록</a>에 적어두었습니다.</p>
+
+<h2>오늘 만들어 둘 기록 한 장</h2>
+
+<p>실업인정일마다 기억에 의존하면 반드시 빠뜨립니다. 일한 날 바로 다섯 칸만 채워두세요.</p>
+
+<table>
+<thead><tr><th>칸</th><th>적을 내용</th></tr></thead>
+<tbody>
+<tr><th>일한 날짜</th><td>실제 근무한 날. 여러 날이면 날짜를 모두 적습니다</td></tr>
+<tr><th>일한 시간</th><td>그날 실제 시간과, 정해져 있었다면 약속한 시간</td></tr>
+<tr><th>받은 금액</th><td>세전 금액. 아직 못 받았으면 예정 금액과 지급 예정일</td></tr>
+<tr><th>일을 준 곳</th><td>사업장명 또는 플랫폼 이름</td></tr>
+<tr><th>계약 형태</th><td>근로계약, 일용, 용역, 플랫폼 정산 중 어디에 가까운지</td></tr>
+</tbody>
+</table>
+
+<p>이 표가 있으면 실업인정 신청 화면에서 고민하는 시간이 사라지고, 나중에 소명을 요구받아도 근거가 됩니다.</p>
+
+<p>실업급여 신청 절차 자체가 아직 정리되지 않았다면 <a href="/posts/unemployment-benefit-eight-steps">퇴직 전부터 준비하는 8단계</a>를, 받을 금액과 기간이 궁금하다면 <a href="/posts/2026-unemployment-benefits-revision-guide">2026 실업급여 상한액·반복수급 감액</a>을 함께 보세요.</p>
+
+<p>이 글은 법령과 공식 안내를 정리한 참고자료이며 개인별 판단을 대신하지 않습니다. 근로 형태와 계약 내용에 따라 결과가 달라질 수 있으므로, 신고 여부가 애매하면 실업인정일 전에 관할 고용센터나 고용노동부 상담센터(1350)에 먼저 확인하세요.</p>
+
+<p>출처: <a href="https://easylaw.go.kr/CSP/CnpClsMain.laf?popMenu=ov&amp;csmSeq=722&amp;ccfNo=2&amp;cciNo=2&amp;cnpClsNo=2">찾기쉬운 생활법령정보 · 실업의 인정</a>, <a href="https://easylaw.go.kr/CSP/CnpClsMain.laf?popMenu=ov&amp;csmSeq=722&amp;ccfNo=5&amp;cciNo=2&amp;cnpClsNo=2">부정수급에 따른 수급액 반환 및 징수</a></p>`,
+  },  "ai-blog-writing-workflow":{
     excerpt:"AI에 글을 맡기는 대신 원문 수집, 구조화, 직접 분석과 검증을 분담해 시간을 줄이는 6단계 편집 실험입니다.",
     readingMinutes:8,
     body:`<p>AI에게 제목 한 줄만 주고 완성 글을 요청하면 빠르지만, 다른 사이트에서도 볼 수 있는 일반론이 나오기 쉽습니다. 실제로 시간을 줄인 지점은 글쓰기 전체가 아니라 <strong>자료를 분류하고 목차 후보를 만드는 단계</strong>였습니다. 최종 판단과 사례, 계산, 출처 확인은 사람이 맡아야 독자가 저장할 이유가 있는 글이 됩니다.</p>
@@ -1961,26 +2708,79 @@ const contentQualityUpgrades:Record<string,Pick<Post,"excerpt"|"body"|"readingMi
 <p>사업소득, 기타소득과 근로소득의 구분은 활동의 반복성, 계약과 지휘관계 등 사실관계에 따라 달라질 수 있습니다. <a href="https://www.hometax.go.kr/">홈택스</a>에서 지급명세서 등 본인 자료를 확인하고, 구분이 애매하거나 금액이 크다면 국세청 상담 또는 세무 전문가에게 문의하세요.</p>`,
   },
   "three-layer-income-plan":{
-    excerpt:"생활비 방어·현재 경험을 파는 소득·시간이 지나며 쌓이는 소득을 나눠 90일 현금흐름 실험을 설계합니다.",
-    readingMinutes:9,
-    body:`<p>퇴직 후 월 300만 원을 한 가지 부업으로 바로 만들겠다는 목표는 실패했을 때 생활비 전체가 흔들릴 수 있습니다. 수입 목표를 <strong>지출을 줄여 방어한 금액, 시간을 투입해 버는 금액, 반복 판매를 시험하는 금액</strong>으로 나누면 각 층의 위험과 필요한 시간을 따로 관리할 수 있습니다.</p>
-<h2>세 층은 성격이 다른 현금흐름입니다</h2>
-<table><thead><tr><th>층</th><th>역할</th><th>예시</th><th>주의점</th></tr></thead><tbody><tr><td>1층</td><td>필요 생활비 방어</td><td>고정비 조정, 받을 수 있는 제도 확인</td><td>수입과 절감을 구분</td></tr><tr><td>2층</td><td>빠른 현금화</td><td>재취업, 프로젝트, 강의, 상담</td><td>시간과 체력 한계</td></tr><tr><td>3층</td><td>반복 가능한 자산 실험</td><td>콘텐츠, 템플릿, 작은 온라인 서비스</td><td>초기 수입을 낙관하지 않기</td></tr></tbody></table>
-<h2>1층은 새로 버는 돈이 아니라 버틸 시간입니다</h2>
-<p>월 고정비를 30만 원 낮췄다면 매출 30만 원과 똑같이 부르지 않습니다. 다만 매달 필요한 현금이 줄어든 만큼 새 일의 검증 기간은 길어집니다. 실업급여나 지원제도도 영구 수입이 아니라 종료일이 있는 완충 장치로 기록하세요.</p>
-<h2>2층은 경력을 작은 결과로 바꿉니다</h2>
-<p>‘20년 경력 상담’보다 ‘한 시간 동안 재고표를 정리하고 다음 발주 목록을 제공’처럼 고객이 받을 결과를 구체적으로 만듭니다. 첫 달에는 높은 매출보다 실제 제안 횟수, 응답, 유료 전환과 투입 시간을 기록합니다.</p>
-<h2>3층은 자동수익이 아니라 반복성 실험입니다</h2>
-<p>블로그, 영상, 전자책과 도구는 공개했다고 바로 수입이 생기지 않습니다. 같은 질문을 여러 고객에게 반복해 설명했다면 체크리스트나 템플릿으로 만들고, 실제로 저장·문의·구매가 일어나는지 확인하세요. 광고비나 고가 장비는 반응이 확인된 뒤 늘립니다.</p>
-<h2>월 300만 원 예시는 목표표일 뿐입니다</h2>
-<p>예를 들어 1층 50만 원, 2층 180만 원, 3층 70만 원으로 적을 수 있지만 누구에게나 맞는 비율은 아닙니다. 첫 3개월에는 3층을 0원으로 잡고 반응만 측정해도 됩니다. 생활비, 체력, 경력과 준비 자금에 따라 비율을 다시 정하세요.</p>
-<h2>90일 동안 매주 같은 숫자를 기록합니다</h2>
-<ol><li>필요 생활비와 실제 지출의 차이</li><li>제안한 고객 수와 응답 수</li><li>총수입, 직접 비용과 투입 시간</li><li>반복 판매 가능한 결과물 수</li><li>다음 주에 중단하거나 줄일 일</li></ol>
-<h2>중단 기준이 있어야 퇴직금을 지킵니다</h2>
-<p>누적 실험비가 정한 상한을 넘거나, 4주 동안 실제 고객 접촉 없이 공부와 준비만 반복하면 방법을 바꿉니다. 선결제 교육, 재고와 임대 계약은 환불·중도해지·추가비용을 먼저 확인하세요. 수익 목표보다 손실 상한을 먼저 적는 것이 퇴직금 보호에 도움이 됩니다.</p>
-<blockquote>한 번에 크게 성공하는 계획보다, 실패해도 다음 실험을 할 자금과 체력을 남기는 계획이 오래 갑니다.</blockquote>`,
-  },
-};
+    excerpt:"월 300만원을 부업 하나로 채우려다 퇴직금이 먼저 마릅니다. 생활비 방어·경험을 파는 소득·쌓이는 소득 세 층으로 나눠 90일 실험을 설계하고, 중단 기준을 먼저 정하는 방법을 정리했습니다.",
+    readingMinutes:10,
+    body:`<p><strong>월 300만원이라는 목표가 막막한 이유는 그 돈을 하나의 일로 벌어야 한다고 생각하기 때문입니다.</strong> 퇴직 후 수입은 금액보다 성격으로 나눠 봐야 합니다. 빨리 효과가 나는 돈과 오래 걸리는 돈은 같은 계획에 넣으면 안 됩니다.</p>
+
+<p>세 층으로 나누면 지금 무엇부터 손대야 하는지가 분명해집니다. 그리고 대부분의 실패는 3층부터 시작해서 1층이 무너지는 순서로 일어납니다.</p>
+
+<figure class="article-image"><img src="/article-images/three-layer-income.svg" alt="퇴직 후 수입을 1층 생활비 방어, 2층 경험을 파는 소득, 3층 쌓이는 소득으로 나누고 아래층일수록 효과가 빠르다는 것을 보여주는 도표"><figcaption>아래층이 버틸 시간을 만들어야 위층을 기다릴 수 있습니다. · 퇴직생활연구소 제작 도표</figcaption></figure>
+
+<h2>1층 · 버는 돈이 아니라 버틸 시간을 만듭니다</h2>
+
+<p>가장 먼저 손대야 하는 층인데 가장 자주 건너뜁니다. 새로 버는 일이 아니라서 성취감이 없기 때문입니다. 하지만 <strong>매달 나가는 돈을 30만원 줄이면 월 30만원을 새로 버는 것과 현금흐름 효과가 같습니다.</strong> 그것도 실패 위험 없이, 이번 달부터.</p>
+
+<p>1층에서 확인할 것은 세 가지입니다.</p>
+
+<ul>
+<li><strong>고정비</strong> — 통신비, 보험료, 구독, 차량 유지비를 한 줄씩 적고 지금 생활에 맞는지 봅니다. 회사 다닐 때 기준으로 세팅된 항목이 그대로 남아 있는 경우가 많습니다.</li>
+<li><strong>받을 수 있는 지원</strong> — 실업급여, 건강보험 임의계속가입, 각종 지원금은 신청 기한이 지나면 사라집니다. <a href="/posts/bojogeum24-government-subsidy-search-guide">보조금24 조회 순서</a>로 한 번에 훑어보세요.</li>
+<li><strong>최소생활비</strong> — 내가 한 달에 최소 얼마가 필요한지 모르면 어떤 부업이 충분한지도 판단할 수 없습니다. <a href="/posts/retirement-minimum-budget-three-buckets">3칸으로 나누는 방법</a>이 가장 빠릅니다.</li>
+</ul>
+
+<blockquote>1층은 수입 계획이 아니라 시간 계획입니다. 여기서 버는 시간이 2층과 3층이 자리 잡을 기간을 결정합니다.</blockquote>
+
+<h2>2층 · 지금 가진 경험을 작은 결과로 바꿉니다</h2>
+
+<p>재취업, 프로젝트, 강의, 상담처럼 <strong>내 시간을 넣으면 비교적 빨리 현금이 되는 일</strong>입니다. 단가가 높을 수 있고 몇 주 안에 첫 수입이 나올 수도 있습니다.</p>
+
+<p>다만 2층에는 분명한 한계가 있습니다. 시간을 넣지 않으면 그 순간 수입이 멈춥니다. 그래서 2층 수입만 보고 장기 계획을 세우면, 몸이 아프거나 일이 끊긴 달에 계획 전체가 흔들립니다. 2층은 <strong>3층을 만들 시간을 사는 수단</strong>으로 보는 편이 정확합니다.</p>
+
+<p>2층을 고를 때는 예상 월수익이 아니라 다른 기준을 봐야 합니다. 판단 기준은 <a href="/posts/midlife-side-job-scorecard">5가지 점수표</a>에 정리해두었습니다.</p>
+
+<h2>3층 · 쌓이는 대신 처음에는 거의 0원입니다</h2>
+
+<p>검색되는 콘텐츠, 디지털 자료, 자동화된 서비스, 장기 자산이 여기 들어갑니다. 시간이 지나며 조금씩 쌓이고, 자리를 잡으면 투입 시간 대비 수입이 좋아집니다.</p>
+
+<p>문제는 <strong>초기 몇 달간 수입이 사실상 없다는 점</strong>입니다. 이 기간을 견디지 못하고 3층을 그만두거나, 반대로 3층에 퇴직금을 크게 넣었다가 1층이 무너집니다. 3층은 자동수익이 아니라 <strong>반복성 실험</strong>으로 보는 것이 안전합니다.</p>
+
+<h2>90일 동안 같은 다섯 숫자만 기록합니다</h2>
+
+<p>계획보다 중요한 것은 기록입니다. 매주 같은 요일에 다섯 칸만 채웁니다.</p>
+
+<table>
+<thead><tr><th>기록할 것</th><th>왜 필요한가</th></tr></thead>
+<tbody>
+<tr><th>필요 생활비와 실제 지출의 차이</th><td>1층이 실제로 효과를 내는지 확인</td></tr>
+<tr><th>제안한 건수와 응답 건수</th><td>2층이 시장에서 통하는지 확인</td></tr>
+<tr><th>총수입, 직접 비용, 투입 시간</th><td>시간당 실제 수익 계산</td></tr>
+<tr><th>반복 판매 가능한 결과물 수</th><td>3층이 쌓이고 있는지 확인</td></tr>
+<tr><th>다음 주에 줄이거나 중단할 일</th><td>손실을 키우지 않기 위해</td></tr>
+</tbody>
+</table>
+
+<p>세 번째 줄이 특히 중요합니다. 총수입만 보면 잘되는 것처럼 보이는 일도 비용과 시간을 나눠보면 최저임금에 못 미치는 경우가 흔합니다.</p>
+
+<h2>목표 수익보다 손실 상한을 먼저 적습니다</h2>
+
+<p>월 300만원이라는 숫자는 목표표일 뿐 계획이 아닙니다. 계획으로 만들려면 반대편 숫자가 필요합니다.</p>
+
+<ol>
+<li><strong>누적 실험비 상한</strong> — 이 금액을 넘으면 방법을 바꿉니다. 퇴직금 전체가 아니라 잃어도 생활이 흔들리지 않는 금액으로 정합니다.</li>
+<li><strong>시간 상한</strong> — 4주 동안 실제 고객 접촉 없이 공부와 준비만 반복하고 있다면 방향이 잘못된 것입니다.</li>
+<li><strong>계약 전 확인</strong> — 선결제 교육, 재고 매입, 임대 계약은 환불·중도해지·추가비용 조건을 먼저 확인합니다. <a href="/posts/midlife-startup-support-programs">중장년 창업, 계약 전에 볼 지원제도</a>도 함께 보세요.</li>
+</ol>
+
+<blockquote>한 번에 크게 성공하는 계획보다, 실패해도 다음 실험을 할 자금과 체력이 남는 계획이 오래 갑니다.</blockquote>
+
+<h2>순서를 지키는 것이 전부입니다</h2>
+
+<p>세 층을 동시에 시작할 필요는 없습니다. 1층으로 버틸 시간을 확보하고, 2층으로 현금흐름을 만들고, 그 사이에 3층을 조금씩 쌓는 순서면 충분합니다. 실패하는 경우는 대부분 순서를 뒤집었을 때 생깁니다.</p>
+
+<p>이 글은 현금흐름을 설계하는 일반적인 방법을 정리한 참고자료이며 개인별 재무 자문을 대신하지 않습니다. 노후 준비 진단과 상담은 국민연금공단 중앙노후준비지원센터에서 무료로 받을 수 있습니다.</p>
+
+<p>출처: <a href="https://csa.nps.or.kr/">국민연금공단 중앙노후준비지원센터</a></p>`,
+  },};
 
 for(const post of seedPosts){const upgrade=contentQualityUpgrades[post.slug];if(upgrade)Object.assign(post,upgrade);}
 

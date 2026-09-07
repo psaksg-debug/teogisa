@@ -72,6 +72,7 @@ function gitDiff(base, head) {
 async function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes("--dry-run");
+  const sendAll = args.includes("--all");
   const argValue = (name) => { const i = args.indexOf(name); return i === -1 ? null : args[i + 1]; };
 
   const key = process.env.INDEXNOW_KEY || process.env.NAVER_INDEXNOW_KEY || "c740944f7b604e38b36e9270f2f5e182";
@@ -83,10 +84,10 @@ async function main() {
   const head = argValue("--head") || "HEAD";
   const source = await readFile(CONTENT_PATH, "utf8");
   const published = publishedSlugs(source);
-  const changed = extractChangedSlugs(gitDiff(base, head)).filter((slug) => published.has(slug));
+  const changed = sendAll ? [...published] : extractChangedSlugs(gitDiff(base, head)).filter((slug) => published.has(slug));
 
   if (changed.length === 0) {
-    console.log(`${base}..${head} 구간에 새로 발행된 글이 없습니다. 제출을 건너뜁니다.`);
+    console.log(sendAll ? "발행된 글이 없습니다." : `${base}..${head} 구간에 새로 발행된 글이 없습니다. 제출을 건너뜁니다.`);
     return;
   }
 

@@ -819,7 +819,7 @@ export async function preparePromotionCampaign(postId?:number){
   }
   const title=String(post.title);const excerpt=String(post.excerpt??"").trim();const slug=String(post.slug);const category=String(post.category);
   const postTags=(Array.isArray(post.tags) ? post.tags : JSON.parse(String(post.tags_json??"[]"))) as string[];
-  const hashtags=Array.from(new Set(["퇴기사",category.replace(/[^0-9A-Za-z가-힣]/g,""),...postTags.map(tag=>String(tag).replace(/[^0-9A-Za-z가-힣]/g,""))].filter(Boolean))).slice(0,6);
+  const hashtags=Array.from(new Set(["퇴직생활연구소",category.replace(/[^0-9A-Za-z가-힣]/g,""),...postTags.map(tag=>String(tag).replace(/[^0-9A-Za-z가-힣]/g,""))].filter(Boolean))).slice(0,6);
   const url=`https://adbles.com/posts/${slug}`;
   const summary=excerpt||`${title}에 관한 핵심 내용과 실행 순서를 정리했습니다.`;
   const headline=`${title} | ${SITE_NAME}`;

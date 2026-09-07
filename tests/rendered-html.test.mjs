@@ -21,8 +21,8 @@ test("renders the finished Korean content site", async () => {
     readFile(new URL("../lib/management-department.ts", import.meta.url), "utf8"),
     readFile(new URL("../lib/repository.ts", import.meta.url), "utf8"),
   ]);
-  assert.match(layout, /퇴\.기\.사/);
-  assert.match(site, /100세시대! 퇴직이 기회가 되는 사람들/);
+  assert.match(layout, /퇴직생활연구소/);
+  assert.match(site, /퇴직 이후의 생활을 공식 자료로 확인합니다/);
   // 브랜드 소개와 슬로건은 /about으로 옮겼다. 홈에 다시 들어오면 탐색이 밀린다.
   const about = await readFile(new URL("../app/about/page.tsx", import.meta.url), "utf8");
   assert.match(about, /퇴직 후 막막함을/);
@@ -53,7 +53,7 @@ test("renders the finished Korean content site", async () => {
   assert.match(page, /master@adbles\.com/);
   assert.match(page, /MobileMenu/);
   assert.match(mobileMenu, /전체 메뉴 열기/);
-  assert.match(mobileMenu, /월 100만원 챌린지/);
+  assert.match(mobileMenu, /30일 수입 실험/);
   assert.match(mobileMenu, /지원금·세무·연금/);
   assert.match(mobileMenu, /유용한 도구/);
   assert.match(mobileMenu, /건강·예방/);
@@ -127,7 +127,7 @@ test("renders the finished Korean content site", async () => {
   assert.match(content, /retirement-pay-irp-five-checks-before-withdrawal[\s\S]*publishedAt:"2026-08-15"/);
   assert.match(content, /proshot-mobile-id-studio-photo-guide[\s\S]*publishedAt:"2026-08-15"/);
   assert.match(content, /퇴직금이 IRP에 입금된 뒤 일시금과 연금 수령 절차를 확인하는 서류·일정표 일러스트/);
-  assert.match(content, /박세온 · 세금·보험 편집자/);
+  assert.match(content, /절세 · 세금·보험 편집자/);
   assert.match(enrichment, /국세청 연금계좌 원천징수세율/);
   assert.match(enrichment, /외교부 온라인 여권사진 검증/);
   assert.match(media, /enrichment\.images/);
@@ -249,38 +249,6 @@ test("keeps every generated URL on one canonical apex host", async () => {
   assert.doesNotMatch(nextConfig, /www\.adbles\.com/);
 });
 
-// /local/* 세그먼트에 한글을 쓰면 빌드 시점과 런타임의 퍼센트 인코딩 단계가
-// 어긋나 라우트 매칭이 실패한다(서울·부산·인천이 실제로 전부 404였다).
-// Vercel 빌드에서는 이중 인코딩까지 겹쳤다. URL은 ASCII slug로만 만든다.
-test("keeps regional /local routes on ASCII slugs", async () => {
-  const [page, portal, lab] = await Promise.all([
-    readFile(new URL("../app/local/[region]/[topic]/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../lib/portal.ts", import.meta.url), "utf8"),
-    readFile(new URL("../app/keyword-lab/page.tsx", import.meta.url), "utf8"),
-  ]);
-
-  // slug와 topic은 ASCII여야 한다.
-  const entries = [...portal.matchAll(/\{ slug:"([^"]+)", topic:"([^"]+)"/g)];
-  assert.ok(entries.length >= 4, "지역 항목이 있어야 한다");
-  for (const [, slug, topic] of entries) {
-    assert.match(slug, /^[a-z0-9-]+$/, `slug가 ASCII가 아니다: ${slug}`);
-    assert.match(topic, /^[a-z0-9-]+$/, `topic이 ASCII가 아니다: ${topic}`);
-  }
-
-  // 조회도 링크도 slug 기준이어야 한다. 인코딩에 기대면 안 된다.
-  assert.match(page, /generateStaticParams\(\)\{return liveKeywordPages\.map\(item=>\(\{region:item\.slug,topic:item\.topic\}\)\)/);
-  assert.match(page, /liveKeywordPages\.find\(item=>item\.slug===region&&item\.topic===topic\)/);
-  assert.doesNotMatch(page, /encodeURIComponent/);
-  assert.doesNotMatch(page, /decodeURIComponent/);
-  assert.match(lab, /href=\{`\/local\/\$\{page\.slug\}\/\$\{page\.topic\}`\}/);
-  assert.doesNotMatch(lab, /encodeURIComponent\(page\.region\)/);
-
-  // 화면에 보이는 지역명은 데이터의 한글 표시명을 쓴다.
-  assert.match(page, /const regionName=page\.region/);
-});
-
-// 바이브 코딩 시리즈는 편 수가 늘어나므로 본문에 목차를 손으로 박아 넣지 않는다.
-// 시리즈 태그(시리즈N)로 순서를 만들고 SeriesNav가 자동으로 렌더한다.
 test("links every vibe coding part through the shared series nav", async () => {
   const [content, nav, article, css] = await Promise.all([
     readFile(new URL("../lib/content.ts", import.meta.url), "utf8"),
@@ -319,7 +287,7 @@ test("serves the Naver verification file at its exact public path", async () => 
 });
 
 test("ships the challenge, official information, tools, health and agent desks", async()=>{
-  const [home,chrome,challenge,workbook,official,portal,tools,severance,health,keyword,localPage,agentsApi,agentsData,repository,admin,sitemap]=await Promise.all([
+  const [home,chrome,challenge,workbook,official,portal,tools,severance,health,agentsApi,agentsData,repository,admin,sitemap]=await Promise.all([
     readFile(new URL("../app/page.tsx",import.meta.url),"utf8"),
     readFile(new URL("../app/components/SiteChrome.tsx",import.meta.url),"utf8"),
     readFile(new URL("../app/challenge/page.tsx",import.meta.url),"utf8"),
@@ -329,8 +297,6 @@ test("ships the challenge, official information, tools, health and agent desks",
     readFile(new URL("../app/tools/page.tsx",import.meta.url),"utf8"),
     readFile(new URL("../app/tools/severance-pay/SeveranceCalculator.tsx",import.meta.url),"utf8"),
     readFile(new URL("../app/health/page.tsx",import.meta.url),"utf8"),
-    readFile(new URL("../app/keyword-lab/page.tsx",import.meta.url),"utf8"),
-    readFile(new URL("../app/local/[region]/[topic]/page.tsx",import.meta.url),"utf8"),
     readFile(new URL("../app/api/agents/route.ts",import.meta.url),"utf8"),
     readFile(new URL("../lib/content-agents.ts",import.meta.url),"utf8"),
     readFile(new URL("../lib/repository.ts",import.meta.url),"utf8"),
@@ -340,7 +306,8 @@ test("ships the challenge, official information, tools, health and agent desks",
   // 홈에서 챌린지로 갈 수 있어야 한다. 문구는 바뀔 수 있으므로 경로로 확인한다.
   assert.match(home,/"\/challenge"/);
   assert.match(chrome,/portalMenu/);
-  assert.match(challenge,/내 경험으로 월 100만원 수입에 도전하기/);
+  assert.match(challenge,/내 경험으로 첫 제안까지 가보는 30일/);
+  assert.match(challenge,/수익을 약속하지 않습니다/);
   assert.match(workbook,/30일 실행 워크북/);
   assert.match(workbook,/localStorage/);
   assert.match(official,/officialSections/);
@@ -355,14 +322,19 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(tools,/PDF 다운로드/);
   assert.match(tools,/휴대폰 셀카를 무료로 깔끔한 프로필 사진으로/);
   assert.match(tools,/무료로 ProShot 이용하기/);
+  // 자사 사이트를 제3자 추천처럼 보이게 두면 게시자 정보를 잘못 전달하는 것이 된다.
+  assert.match(portal,/selfOperated:true/);
+  assert.equal((portal.match(/selfOperated:true/g)||[]).length, (portal.match(/href:"https:\/\/[a-z]+\.adbles\.com\//g)||[]).length,
+    "adbles.com 자사 도구 항목마다 selfOperated 표시가 있어야 합니다.");
+  assert.match(tools,/selfOperated/);
+  assert.equal((tools.match(/애드블스가 직접 만든 도구입니다/g)||[]).length, 2);
+  assert.match(tools,/애드블스가 만든 비교 사이트입니다/);
   assert.match(severance,/예상 퇴직금/);
   assert.match(health,/youtube-nocookie\.com/);
   assert.match(health,/갑작스러운 위험 신호는 119/);
   assert.match(health,/이번 달 건강 점검/);
-  assert.match(keyword,/우리 동네에서 시작할 수 있는 일과 지원/);
-  assert.match(keyword,/index:false/);
-  assert.match(localPage,/전화하기 전에 준비하면 좋은 질문/);
-  assert.match(localPage,/index:false/);
+  // 지역 페이지(/keyword-lab, /local/*)는 템플릿만 같고 지역명만 바뀌는 구조라 제거했다.
+  // 애드센스는 이런 페이지를 가치가 낮은 콘텐츠로 본다. 되살리지 않도록 여기서 막는다.
   assert.match(agentsApi,/requireOwnerApi/);
   assert.match(agentsData,/health-column/);
   assert.match(repository,/runDueContentAgents/);
@@ -393,7 +365,7 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(companyRules,/리소스 관리/);
   assert.match(companyRules,/companyResourceRegistry/);
   assert.match(companyRules,/100세 시대, 퇴직이 끝이 아니라 새로운 기회/);
-  assert.match(companyRules,/월 100만원 수입 실험/);
+  assert.match(companyRules,/새 일과 수입 실험/);
   assert.match(companyRules,/정보보다 다음 행동/);
   assert.match(admin,/전사 사규 · 시행 중/);
   assert.match(admin,/MVP 6대 경영목표 보기/);
@@ -418,11 +390,11 @@ test("ships the challenge, official information, tools, health and agent desks",
   assert.match(editorialTeam, /name: "원"/);
   assert.match(editorialTeam, /name: "가드"/);
   assert.match(editorialTeam, /name: "툴"/);
-  assert.match(editorialTeam, /name: "김기준"/);
+  assert.match(editorialTeam, /name: "픽"/);
   assert.match(editorialTeam, /name: "로컬"/);
   assert.match(editorialTeam, /name: "케어"/);
-  assert.match(editorialTeam, /name: "박여유"/);
-  assert.match(editorialTeam, /name: "서든든"/);
+  assert.match(editorialTeam, /name: "자산"/);
+  assert.match(editorialTeam, /name: "살림"/);
   assert.match(editorialTeam, /name: "큐"/);
   assert.match(repository,/authorName:agent\.name/);
   assert.doesNotMatch(repository,/tags:\[agent\.name,"공식 자료","검토 초안"\]/);
@@ -472,7 +444,7 @@ test("전사 감사 조직과 감사영역이 문서화되어 있다", async () 
   assert.match(audit,/강한결/);
   assert.match(audit,/박지안/);
   assert.match(audit,/윤서진/);
-  assert.match(audit,/퇴\.기\.사 전 프로젝트/);
+  assert.match(audit,/퇴직생활연구소 전 프로젝트/);
   assert.match(charter,/매월 1회 전 영역/);
   assert.match(report,/조건부 적정/);
 });
@@ -603,14 +575,14 @@ test("ships mobile-first SEO, GEO, trust and original-value pages", async () => 
   assert.match(terms, /정보와 계산 결과의 한계/);
   assert.match(author, /콘텐츠편집팀장은 ‘/);
   assert.match(author, /editorialAuthors\.length}명/);
-  assert.match(author, /AI 기반 실무자/);
+  assert.match(author, /실존 인물이나 자격 보유자의 이름이 아닙니다/);
   assert.match(post, /author\.role/);
-  assert.match(post, /퇴\.기\.사 AI 편집자/);
+  assert.match(post, /퇴직생활연구소 AI 편집자/);
   assert.match(sitemap, /contact/);
   assert.match(sitemap, /terms/);
   assert.match(content, /unemployment-benefit-eight-steps/);
   assert.match(content, /월별 장부에는 일곱 칸/);
-  assert.match(content, /90일 동안 매주 같은 숫자를 기록합니다/);
+  assert.match(content, /90일 동안 같은 다섯 숫자만 기록합니다/);
   assert.match(repository, /adsense-readiness-v2/);
   assert.match(policy, /창작 과정에서 AI를 보조적으로 사용합니다/);
   assert.match(chrome, /WebPage/);
@@ -761,7 +733,7 @@ test("정보 사이트맵을 별도 제출할 수 있게 노출한다", async ()
   assert.match(route, /"Content-Type": "application\/xml; charset=utf-8"/);
 
   // noindex 페이지는 실으면 안 된다. 서치콘솔이 충돌로 잡는다.
-  for (const noindexPath of ["/keyword-lab", "/local/", "/search"]) {
+  for (const noindexPath of ["/search"]) {
     assert.ok(!route.includes(`path: "${noindexPath}"`), `${noindexPath}는 noindex라 사이트맵에 넣을 수 없습니다.`);
   }
 
@@ -833,4 +805,74 @@ test("자사 사이트를 안내하는 글은 제휴 관계를 본문 앞부분�
   // 제휴 글을 발행한 뒤에도 "제휴 추천이 없다"고 적어두면 고지가 거짓이 된다.
   assert.doesNotMatch(disclosure, /별도의 제휴 추천이 없습니다/);
   assert.match(disclosure, /제휴 링크가 있어/);
+});
+
+test("편집자 이름은 실존 인물처럼 보이지 않고, 글마다 AI 편집 사실을 밝힌다", async () => {
+  const [team, content, postPage, authorPage, css] = await Promise.all([
+    readFile(new URL("../lib/editorial-team.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/content.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/posts/[slug]/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/author/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  ]);
+
+  // 애드센스 정책은 "콘텐츠 제작자에 대한 정보를 허위로 전달하거나 숨기는" 것을
+  // 막는다. 연금·세금·건강처럼 신뢰가 걸린 주제에서 실존 인물로 읽히는 이름을
+  // 저자로 달면 여기에 걸린다. 성+이름 두 글자 형태를 아예 못 쓰게 막는다.
+  const names = [...team.matchAll(/name: "([^"]+)"/g)].map((match) => match[1]);
+  assert.ok(names.length >= 10, `편집자를 ${names.length}명만 찾았습니다.`);
+  const surnames = "김이박최정강조윤장임한오서신권황안송류전홍";
+  for (const name of names) {
+    assert.ok(
+      !(name.length === 3 && surnames.includes(name[0])),
+      `"${name}" 은 실존 인물 이름으로 읽힙니다. 담당 업무를 가리키는 운영명을 쓰세요.`,
+    );
+  }
+
+  // 글에 붙은 저자가 편집실에 없으면 표기가 어긋난다.
+  const defined = new Set(names);
+  for (const [, used] of content.matchAll(/authorName:"([^"]+)"/g)) {
+    assert.ok(defined.has(used), `authorName "${used}" 이 editorial-team.ts에 없습니다.`);
+  }
+
+  // 고지는 /author 페이지에만 두면 글만 보는 독자에게 닿지 않는다.
+  assert.match(team, /AI_EDITORIAL_NOTICE/);
+  assert.match(postPage, /className="byline-ai"/, "바이라인의 AI 편집 표시가 사라졌습니다.");
+  assert.match(postPage, /AI_EDITORIAL_NOTICE/, "본문 하단 고지가 사라졌습니다.");
+  assert.match(postPage, /authorMetaName\(author\)/, "meta author가 사람 이름처럼 나갑니다.");
+  assert.match(authorPage, /editorial-ai-disclosure/, "/author 상단 고지가 사라졌습니다.");
+  for (const selector of [".byline-ai", ".ai-editorial-notice", ".editorial-ai-disclosure"]) {
+    assert.ok(css.includes(selector), `${selector} 스타일이 없습니다.`);
+  }
+});
+
+test("수익 금액을 약속하거나 지역명만 바꾼 페이지를 두지 않는다", async () => {
+  // 애드센스 정책은 "'단기 고수익' 비법" 형태의 주장과, 게시자 콘텐츠가 없거나
+  // 가치가 별로 없는 화면을 금지한다. adbles.com은 이 두 가지로 정책 위반 판정을
+  // 받은 적이 있다. 같은 모양이 다시 들어오면 여기서 잡는다.
+  const [portal, chrome, mobileMenu, challenge, home] = await Promise.all([
+    readFile(new URL("../lib/portal.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/SiteChrome.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/MobileMenu.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/challenge/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+  ]);
+
+  // 내비게이션과 챌린지 페이지에 구체적인 수입 금액을 걸지 않는다.
+  // 전역 메뉴에 있으면 심사자가 어느 페이지를 열어도 보인다.
+  const moneyPromise = /월 ?\d[\d,]* ?만 ?원[^<"]{0,12}(수입|벌|버는|만들기|달성|보장|가능)/;
+  for (const [name, source] of [["portal", portal], ["SiteChrome", chrome], ["MobileMenu", mobileMenu], ["challenge", challenge], ["home", home]]) {
+    assert.doesNotMatch(source, moneyPromise, `${name}에 수입 금액을 약속하는 문구가 있습니다.`);
+  }
+  // 결과가 사람마다 다르다는 고지는 남아 있어야 한다.
+  assert.match(challenge, /수익을 약속하지 않습니다/);
+
+  // 템플릿만 같고 지역명만 바뀌는 페이지는 다시 만들지 않는다.
+  for (const dir of ["../app/keyword-lab", "../app/local"]) {
+    await assert.rejects(access(new URL(dir, import.meta.url)), `${dir} 가 되살아났습니다.`);
+  }
+  assert.doesNotMatch(portal, /liveKeywordPages/, "지역 페이지 목록이 되살아났습니다.");
+  for (const [name, source] of [["SiteChrome", chrome], ["MobileMenu", mobileMenu], ["home", home], ["portal", portal]]) {
+    assert.doesNotMatch(source, /\/keyword-lab/, `${name}에 삭제된 /keyword-lab 링크가 남아 있습니다.`);
+  }
 });

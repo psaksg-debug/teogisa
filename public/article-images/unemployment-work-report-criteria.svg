@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" role="img" aria-label="일한 사실은 무조건 신고하고, 취업으로 볼지는 네 가지 기준으로 갈린다는 것을 보여주는 도표">
+  <title>실업인정 신고 의무와 취업 판정 기준</title>
+  <rect width="880" height="440" fill="#f6f9f7"/>
+  <g font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif">
+
+    <rect x="330" y="20" width="220" height="52" rx="8" fill="#102d3c"/>
+    <text x="440" y="53" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">일을 한 날이 있다</text>
+
+    <path d="M440 72 L440 100" stroke="#2e6573" stroke-width="2"/>
+    <path d="M434 94 L440 104 L446 94 Z" fill="#2e6573"/>
+
+    <rect x="60" y="106" width="760" height="70" rx="8" fill="#2e6573"/>
+    <text x="88" y="137" font-size="17" font-weight="800" fill="#ffffff">1단계 · 신고는 예외 없음</text>
+    <text x="88" y="161" font-size="14" fill="#d8eee8">금액이 얼마든, 몇 시간이든, 돈을 아직 못 받았어도 실업인정 신청서에 적습니다. (고용보험법 제47조)</text>
+
+    <path d="M440 176 L440 204" stroke="#2e6573" stroke-width="2"/>
+    <path d="M434 198 L440 208 L446 198 Z" fill="#2e6573"/>
+
+    <text x="88" y="230" font-size="17" font-weight="800" fill="#102d3c">2단계 · 그 일을 &#8216;취업&#8217;으로 볼지는 아래 기준으로 갈립니다</text>
+
+    <rect x="60" y="244" width="184" height="92" rx="8" fill="#ffffff" stroke="#cddbd6" stroke-width="2"/>
+    <text x="152" y="278" text-anchor="middle" font-size="24" font-weight="800" fill="#2e6573">60시간</text>
+    <text x="152" y="304" text-anchor="middle" font-size="13" fill="#18313c">1개월 소정근로시간이</text>
+    <text x="152" y="323" text-anchor="middle" font-size="13" fill="#18313c">이 이상인 경우</text>
+
+    <rect x="256" y="244" width="184" height="92" rx="8" fill="#ffffff" stroke="#cddbd6" stroke-width="2"/>
+    <text x="348" y="278" text-anchor="middle" font-size="24" font-weight="800" fill="#2e6573">15시간</text>
+    <text x="348" y="304" text-anchor="middle" font-size="13" fill="#18313c">1주 소정근로시간이</text>
+    <text x="348" y="323" text-anchor="middle" font-size="13" fill="#18313c">이 이상인 경우</text>
+
+    <rect x="452" y="244" width="184" height="92" rx="8" fill="#ffffff" stroke="#cddbd6" stroke-width="2"/>
+    <text x="544" y="278" text-anchor="middle" font-size="24" font-weight="800" fill="#2e6573">3개월</text>
+    <text x="544" y="304" text-anchor="middle" font-size="13" fill="#18313c">이 이상 계속해서</text>
+    <text x="544" y="323" text-anchor="middle" font-size="13" fill="#18313c">근로를 제공한 경우</text>
+
+    <rect x="648" y="244" width="184" height="92" rx="8" fill="#ffffff" stroke="#cddbd6" stroke-width="2"/>
+    <text x="740" y="278" text-anchor="middle" font-size="20" font-weight="800" fill="#2e6573">구직급여일액</text>
+    <text x="740" y="304" text-anchor="middle" font-size="13" fill="#18313c">그날 받은 돈이</text>
+    <text x="740" y="323" text-anchor="middle" font-size="13" fill="#18313c">이 이상인 경우</text>
+
+    <rect x="60" y="354" width="376" height="62" rx="8" fill="#fff7f0" stroke="#e67b32" stroke-width="2"/>
+    <text x="248" y="380" text-anchor="middle" font-size="15" font-weight="800" fill="#b45309">하나라도 해당하면 &#8216;취업&#8217;</text>
+    <text x="248" y="402" text-anchor="middle" font-size="13" fill="#18313c">그 기간의 구직급여는 지급되지 않습니다</text>
+
+    <rect x="452" y="354" width="380" height="62" rx="8" fill="#eaf2ee" stroke="#2e6573" stroke-width="2"/>
+    <text x="642" y="380" text-anchor="middle" font-size="15" font-weight="800" fill="#2e6573">전부 아니어도 신고는 합니다</text>
+    <text x="642" y="402" text-anchor="middle" font-size="13" fill="#18313c">신고를 빠뜨리면 반환·추가징수 대상이 됩니다</text>
+  </g>
+</svg>

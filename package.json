@@ -13,7 +13,12 @@
     "release:check": "git diff --check && npm test",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "seo:audit": "node scripts/seo-audit.mjs",
-    "db:generate": "drizzle-kit generate"
+    "db:generate": "drizzle-kit generate",
+    "sync:affiliate": "node scripts/sync-affiliate-links.mjs",
+    "indexnow": "node scripts/ping-indexnow.mjs --all",
+    "indexnow:recent": "node scripts/ping-indexnow.mjs",
+    "prebuild": "npm run sync:affiliate",
+    "predev": "npm run sync:affiliate"
   },
   "dependencies": {
     "drizzle-orm": "0.45.2",

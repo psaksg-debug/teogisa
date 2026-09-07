@@ -54,7 +54,6 @@ const situationHubs = [
   { href: "/challenge", label: "새 수입", title: "내 경험으로 첫 수입 만들기", body: "막연한 부업 찾기를 멈추고, 하루 한 가지 행동으로 가능성을 시험합니다." },
   { href: "/official-info", label: "놓친 혜택", title: "내가 받을 수 있는 제도 찾기", body: "지원금·실업급여·연금·세금 정보를 상황별로 찾아갈 수 있습니다." },
   { href: "/tools", label: "무료 계산", title: "숫자로 불안 줄이기", body: "퇴직생활비와 예상 퇴직금을 직접 계산해 다음 선택의 기준을 만듭니다." },
-  { href: "/keyword-lab", label: "우리 지역", title: "가까운 기회부터 찾기", body: "사는 곳에 따라 달라지는 일자리와 지원 정보를 지역별로 찾아봅니다." },
   { href: "/health", label: "건강", title: "오래 일하기 위한 몸 챙기기", body: "놓치기 쉬운 위험 신호와 생활 속 예방 행동을 쉽게 확인합니다." },
 ];
 
@@ -79,6 +78,18 @@ export default async function Home() {
       </header>
 
       <main id="main-content">
+        <aside className="home-value-bar" aria-label="연구소 핵심 안내">
+          <div className="home-value-inner">
+            <span className="home-value-badge">퇴직생활연구소</span>
+            <p className="home-value-text">
+              퇴직 전후 3년, 막막한 생활비·정부지원제도·새 수입을 숫자로 알기 쉽게 정리합니다.
+            </p>
+            <a className="home-value-link" href="/tools/retirement-runway">
+              내 준비기간 계산 <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </aside>
+
         <nav className="topic-nav" aria-label="주제별 글 찾기">
           <ul>
             <li><a className="topic-nav-all" href="/search">전체 {posts.length}편</a></li>
