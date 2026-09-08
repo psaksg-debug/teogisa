@@ -38,7 +38,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       slug: slugify(payload.slug || payload.title),
       excerpt: payload.excerpt?.trim() || plainBody.slice(0, 120),
       body,
-      category: payload.category || "퇴직 준비",
+      category: payload.category || "퇴직금·노후 생활비",
       tags: (payload.tags || "").split(",").map((tag) => tag.trim()).filter(Boolean),
       status,
       publishedAt: status === "published" ? (payload.publishedAt || new Date().toISOString().slice(0, 10)) : "",

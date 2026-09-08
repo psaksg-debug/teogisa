@@ -3,7 +3,7 @@ import { access, readdir, readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("renders the finished Korean content site", async () => {
-  const [page, layout, search, article, media, enrichment, content, footer, mobileMenu, site, css, richEditor, articleHtml, readerTools, management, repository] = await Promise.all([
+  const [page, layout, search, article, media, enrichment, content, footer, mobileMenu, site, css, richEditor, articleHtml, readerTools, management, repository, portalMenuSource] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/search/page.tsx", import.meta.url), "utf8"),
@@ -20,6 +20,7 @@ test("renders the finished Korean content site", async () => {
     readFile(new URL("../app/posts/[slug]/ArticleReaderTools.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/management-department.ts", import.meta.url), "utf8"),
     readFile(new URL("../lib/repository.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/portal.ts", import.meta.url), "utf8"),
   ]);
   assert.match(layout, /퇴직생활연구소/);
   assert.match(site, /퇴직 이후의 생활을 공식 자료로 확인합니다/);
@@ -53,10 +54,14 @@ test("renders the finished Korean content site", async () => {
   assert.match(page, /master@adbles\.com/);
   assert.match(page, /MobileMenu/);
   assert.match(mobileMenu, /전체 메뉴 열기/);
-  assert.match(mobileMenu, /30일 수입 실험/);
-  assert.match(mobileMenu, /지원금·세무·연금/);
-  assert.match(mobileMenu, /유용한 도구/);
-  assert.match(mobileMenu, /건강·예방/);
+  // 메뉴 라벨은 검색되는 중형 키워드로 두고, 상단·모바일·푸터가 같은 문구를 쓴다.
+  // 한 페이지를 세 이름으로 부르면 앵커텍스트가 흩어진다.
+  for (const label of ["퇴직금 계산기", "실업급여·국민연금", "퇴직 후 부업", "건강검진·질병예방"]) {
+    assert.ok(portalMenuSource.includes(label), `portalMenu에 ${label}가 없다`);
+    assert.ok(mobileMenu.includes(label), `모바일 메뉴에 ${label}가 없다`);
+    assert.ok(footer.includes(label), `푸터 살펴보기에 ${label}가 없다`);
+  }
+  assert.doesNotMatch(portalMenuSource, /label: "도구모음"/);
   assert.match(css, /mobile-menu-drawer/);
   assert.match(css, /\.article-copy ul\{list-style:disc\}/);
   assert.match(css, /\.article-copy ol\{list-style:decimal\}/);
@@ -306,7 +311,7 @@ test("ships the challenge, official information, tools, health and agent desks",
   // 홈에서 챌린지로 갈 수 있어야 한다. 문구는 바뀔 수 있으므로 경로로 확인한다.
   assert.match(home,/"\/challenge"/);
   assert.match(chrome,/portalMenu/);
-  assert.match(challenge,/내 경험으로 첫 제안까지 가보는 30일/);
+  assert.match(challenge,/퇴직 후 부업, 내 경험으로 첫 제안까지 30일/);
   assert.match(challenge,/수익을 약속하지 않습니다/);
   assert.match(workbook,/30일 실행 워크북/);
   assert.match(workbook,/localStorage/);
@@ -860,9 +865,17 @@ test("수익 금액을 약속하거나 지역명만 바꾼 페이지를 두지 �
 
   // 내비게이션과 챌린지 페이지에 구체적인 수입 금액을 걸지 않는다.
   // 전역 메뉴에 있으면 심사자가 어느 페이지를 열어도 보인다.
-  const moneyPromise = /월 ?\d[\d,]* ?만 ?원[^<"]{0,12}(수입|벌|버는|만들기|달성|보장|가능)/;
+  //
+  // 기간과 금액이 붙은 형태를 그 자체로 막는다. 예전에는 금액 뒤 12자 안에
+  // "수입·벌다·만들기" 같은 말이 와야 걸리게 두어, 워크북 목차의 "월 100만원을
+  // 주 단위로 쪼개기"와 "월 100만원 조합표"가 테스트를 통과한 채 라이브에 남았다.
+  // 지출·자금 쪽 숫자("월 부족액 250만 원", "자금 6,000만 원")는 기간 바로 뒤에
+  // 금액이 오지 않으므로 걸리지 않는다.
+  const moneyPromise = /(월|주|하루)\s?(수입|수익|매출|목표)?\s?\d[\d,]*\s?만\s?원/;
+  const moneyClaim = /\d[\d,]*\s?만\s?원[^<"]{0,12}(수입|벌|버는|만들기|달성|보장|가능)/;
   for (const [name, source] of [["portal", portal], ["SiteChrome", chrome], ["MobileMenu", mobileMenu], ["challenge", challenge], ["home", home]]) {
-    assert.doesNotMatch(source, moneyPromise, `${name}에 수입 금액을 약속하는 문구가 있습니다.`);
+    assert.doesNotMatch(source, moneyPromise, `${name}에 기간별 수입 금액을 제시하는 문구가 있습니다.`);
+    assert.doesNotMatch(source, moneyClaim, `${name}에 수입 금액을 약속하는 문구가 있습니다.`);
   }
   // 결과가 사람마다 다르다는 고지는 남아 있어야 한다.
   assert.match(challenge, /수익을 약속하지 않습니다/);

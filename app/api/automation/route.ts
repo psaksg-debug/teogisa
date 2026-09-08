@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     }
     const post = await createAutomationDraft({
       topic: payload.topic.trim(),
-      category: payload.category || "정부지원·실업급여",
+      category: payload.category || "실업급여",
       sourceUrl: payload.sourceUrl.trim(),
       scheduledAt: payload.scheduledAt || null,
     });

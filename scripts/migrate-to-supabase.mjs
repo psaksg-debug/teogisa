@@ -219,17 +219,15 @@ async function migrate() {
     console.log("✅ Tables created. Seeding initial categories and posts...");
 
     const categories = [
-      { name: "퇴직 준비", slug: "퇴직 준비", description: "숫자로 흔들리지 않는 퇴직 준비", sortOrder: 1 },
-      { name: "정부지원·실업급여", slug: "정부지원·실업급여", description: "놓치기 쉬운 지원 제도와 신청법", sortOrder: 2 },
-      { name: "재취업·N잡", slug: "재취업·N잡", description: "경험을 소득으로 바꾸는 소자본 부업", sortOrder: 3 },
-      { name: "블로그·애드센스", slug: "블로그·애드센스", description: "콘텐츠가 소득이 되는 블로그 운영", sortOrder: 4 },
-      { name: "AI 활용", slug: "AI 활용", description: "생산성을 극대화하는 AI 도구 실전", sortOrder: 5 },
-      { name: "온라인 부업", slug: "온라인 부업", description: "작게 검증하는 온라인 부업 파이프라인", sortOrder: 6 },
-      { name: "투자·재테크", slug: "투자·재테크", description: "퇴직 자산 방어 및 장기 투자", sortOrder: 7 },
-      { name: "실제 수익실험", slug: "실제 수익실험", description: "숫자와 기록으로 밝히는 수익 실험", sortOrder: 8 },
-      { name: "유용한 도구", slug: "유용한 도구", description: "퇴직 생활과 업무를 돕는 도구 모음", sortOrder: 9 },
-      { name: "건강·예방", slug: "건강·예방", description: "오래 일하기 위한 건강 관리", sortOrder: 10 },
-      { name: "지역 생활정보", slug: "지역 생활정보", description: "지역별 일자리 및 지원금 정보", sortOrder: 11 },
+      { name: "퇴직금·노후 생활비", slug: "퇴직금·노후 생활비", description: "퇴직금과 노후 생활비를 숫자로 정리", sortOrder: 1 },
+      { name: "실업급여", slug: "실업급여", description: "실업급여 자격·신청 절차와 수급 중 주의사항", sortOrder: 2 },
+      { name: "국민연금·퇴직연금", slug: "국민연금·퇴직연금", description: "국민연금·퇴직연금·연금저축의 선택과 순서", sortOrder: 3 },
+      { name: "건강보험료·건강검진", slug: "건강보험료·건강검진", description: "퇴직 후 건강보험료와 국가건강검진", sortOrder: 4 },
+      { name: "정부지원금·세금", slug: "정부지원금·세금", description: "놓치기 쉬운 지원금과 퇴직 후 세금 신고", sortOrder: 5 },
+      { name: "퇴직 후 부업·N잡", slug: "퇴직 후 부업·N잡", description: "경험을 소득으로 바꾸는 소자본 부업", sortOrder: 6 },
+      { name: "중장년 재취업·창업", slug: "중장년 재취업·창업", description: "중장년 재취업과 창업 전 확인할 제도", sortOrder: 7 },
+      { name: "AI 활용·바이브코딩", slug: "AI 활용·바이브코딩", description: "AI 도구와 바이브코딩 실전", sortOrder: 8 },
+      { name: "무료 도구 활용법", slug: "무료 도구 활용법", description: "가입 없이 쓰는 생활·업무 도구 사용법", sortOrder: 9 },
     ];
 
     for (const cat of categories) {
