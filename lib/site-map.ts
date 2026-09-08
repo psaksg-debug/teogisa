@@ -3,6 +3,12 @@
 //
 // 주소를 적기 전에 반드시 실제로 열리는지 확인한다. 준비 중인 도메인을 미리
 // 올려두면 방문자에게는 깨진 링크가 되고, 광고 심사에서도 문제가 된다.
+//
+//   for h in adbles.com isatips.adbles.com ... ; do curl -sI -o /dev/null -w "%{http_code}\n" https://$h/; done
+//
+// 2026-09-08 확인: 여기 있는 주소는 전부 200. 수리위키에 있던 목록을 이쪽으로
+// 합치면서 battery.suriwiki.com(응답 없음)은 실제 주소인 batterycall.kr로,
+// japantravel.adbles.com(403)은 이전한 japan.noluga.com으로 바로잡았다.
 export type SiteNode = {
   id: string;
   name: string;
@@ -66,6 +72,26 @@ export const siteNodes: readonly SiteNode[] = [
     group: "tool",
     summary: "공용 와이파이에서 쓸 VPN 고르기",
     detail: "노로그 정책과 독립 감사 여부, 서버 위치, 자동 갱신 요금을 기준으로 견주어 봅니다. 제휴 링크가 포함될 수 있습니다.",
+    ownership: "자사 운영",
+  },
+  {
+    id: "batterycall",
+    name: "바로배터리",
+    domain: "batterycall.kr",
+    href: "https://batterycall.kr/",
+    group: "content",
+    summary: "출장 배터리 교체를 차종·지역별로",
+    detail: "시동이 안 걸릴 때 차를 세워 둔 자리로 부르는 출장 교체 안내입니다. 차종별 배터리 규격과 지역별 비용을 정리합니다.",
+    ownership: "자사 운영",
+  },
+  {
+    id: "japantravel",
+    name: "일본여행 준비",
+    domain: "japan.noluga.com",
+    href: "https://japan.noluga.com/",
+    group: "content",
+    summary: "일본여행 준비물과 도시별 정보",
+    detail: "준비물 체크리스트부터 도쿄·오사카·후쿠오카의 교통, 관광지 예약, eSIM과 환전까지 출발 전에 확인할 것을 순서대로 정리합니다.",
     ownership: "자사 운영",
   },
   {
