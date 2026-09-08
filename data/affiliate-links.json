@@ -1540,9 +1540,31 @@
         "천안 모텔",
         "천안 아산 로지호텔"
       ]
+    },
+    {
+      "key": "hotel-sonobelle-cheonan-agoda",
+      "category": "accommodation",
+      "label": "소노벨 천안 (아고다)",
+      "cta": "소노벨 천안 아고다 실시간 가격 조회",
+      "url": "https://3ha.in/r/687229",
+      "network": "3hoursahead.com (아고다)",
+      "status": "active",
+      "updated": "2026-09-07",
+      "keywords": [
+        "천안 숙소",
+        "천안 호텔",
+        "천안 리조트",
+        "소노벨 천안",
+        "아고다 천안"
+      ]
     }
   ],
   "slug_map": {
+    "entrance-door-lock-replacement-guide": "repair-soomgo-doorlock",
+    "washbasin-replacement-drain-repair-guide": "repair-soomgo-plumbing",
+    "bathroom-tile-grout-repair-guide": "repair-ohouse-grout",
+    "bathroom-silicone-replacement-guide": "repair-ohouse-silicone",
+    "window-screen-frame-replacement-guide": "repair-soomgo-screen-door",
     "moving-preparation-checklist": "move-compare-2",
     "moving-company-quote-comparison": "move-compare-2",
     "moving-day-checklist": "move-compare-2",
@@ -1587,6 +1609,38 @@
       "keywords": "이 링크를 붙일 키워드 배열",
       "collected_at": "수집일"
     }
+  },
+  "threads": {
+    "api": "threads-graph-api",
+    "note": "Threads API 자격증명. 사이트 빌드나 공개 리포지토리로 복사할 때는 threads 블록을 반드시 제외하고 복사한다. 키는 절대 커밋 금지.",
+    "env": {
+      "app_id": "THREADS_APP_ID",
+      "app_secret": "THREADS_APP_SECRET",
+      "access_token": "THREADS_ACCESS_TOKEN",
+      "user_id": "THREADS_USER_ID"
+    },
+    "locations": [
+      "이 파일 (A-factory/affiliate-links.json) — 원본",
+      "dev/Agent/threads/.env (git-ignored, chmod 600)",
+      "Cloudflare Workers 환경변수/Secret (wrangler secret put THREADS_ACCESS_TOKEN)"
+    ],
+    "rules": [
+      "키와 토큰은 Git에 커밋하지 않는다 (.gitignore 준수).",
+      "장기 토큰(60일) 유효기간 만료 전 갱신 (threads/scripts/get-long-lived-token.js) 필요.",
+      "발행은 2단계 준수: 컨테이너 생성(POST /threads) -> 발행(POST /threads_publish).",
+      "Cloudflare Workers 배포본은 wrangler secret 사용 (.env는 로컬 전용)."
+    ],
+    "guide": "https://developers.facebook.com/docs/threads",
+    "status": "pending_credentials",
+    "permissions": [
+      "threads_basic",
+      "threads_content_publish"
+    ],
+    "app_id": "",
+    "app_secret": "",
+    "user_id": "",
+    "access_token": "",
+    "token_expires_at": ""
   },
   "topic_map": {
     "_note": "repair-keyword-*/regional-repair-* 슬러그 끝의 토픽 id → 링크. 규칙 구현은 isatipsadbles/lib/affiliate-match.ts.",
