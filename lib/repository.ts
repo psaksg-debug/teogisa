@@ -399,7 +399,10 @@ const legacyPostSlugAliases:Record<string,string>={
 
 function findSeedPost(slug:string){
   const seedSlug=legacyPostSlugAliases[slug]??slug;
-  return seedPosts.find((post)=>post.slug.normalize("NFC")===seedSlug)??null;
+  const found=seedPosts.find((post)=>post.slug.normalize("NFC")===seedSlug)??null;
+  // 예약·초안 글은 주소를 직접 입력해도 열리지 않아야 한다. 목록·사이트맵은 이미
+  // published만 내보내므로, 이 폴백만 열려 있으면 예약 발행이 무의미해진다.
+  return found&&found.status==="published"?found:null;
 }
 
 export async function getPost(slug: string) {
