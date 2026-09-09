@@ -1,7 +1,10 @@
 name: Scheduled publish
 
-# 예약된 글(status:"scheduled")을 정해진 시각에 발행 상태로 바꾸고 커밋합니다.
-# 푸시되면 Vercel이 자동으로 배포합니다.
+# 예약된 글(status:"scheduled")을 정해진 시각에 발행 상태로 바꾸고 커밋한 뒤,
+# 프로덕션에 직접 배포합니다.
+#
+# main 커밋만으로는 adbles.com에 반영되지 않습니다. 도메인이 붙은 Vercel 프로젝트가
+# 이 저장소와 Git 연동되어 있지 않아, 발행 커밋 뒤에 이 워크플로가 직접 배포합니다.
 on:
   schedule:
     - cron: "0 21 * * *" # 06:00 KST
@@ -43,10 +46,29 @@ jobs:
           git push
           echo "published=true" >> "$GITHUB_OUTPUT"
 
-      # GITHUB_TOKEN 푸시는 indexnow.yml을 트리거하지 않으므로 여기서 직접 호출한다.
-      # 실제로 발행 커밋이 생겼을 때만 제출한다 (같은 URL 반복 제출 방지).
-      - name: Ping IndexNow for newly published posts
+      # 색인 제출보다 먼저 배포해야 한다. 크롤러가 왔을 때 글이 이미 살아 있어야 한다.
+      # VERCEL_TOKEN이 없으면 배포를 건너뛰고, 색인 제출도 하지 않는다 — 없는 글을
+      # 제출하면 크롤러가 404를 보고 재방문을 미룬다.
+      - name: Deploy to production
+        id: deploy
         if: steps.commit.outputs.published == 'true'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "::warning::VERCEL_TOKEN이 없어 배포를 건너뜁니다. 발행 상태만 커밋되었습니다."
+            echo "deployed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          npx --yes vercel@latest deploy --prod --yes --token "$VERCEL_TOKEN"
+          echo "deployed=true" >> "$GITHUB_OUTPUT"
+
+      # GITHUB_TOKEN 푸시는 indexnow.yml을 트리거하지 않으므로 여기서 직접 호출한다.
+      # 실제로 발행 커밋이 생겼고 배포까지 끝났을 때만 제출한다 (같은 URL 반복 제출 방지).
+      - name: Ping IndexNow for newly published posts
+        if: steps.deploy.outputs.deployed == 'true'
         continue-on-error: true
         env:
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
