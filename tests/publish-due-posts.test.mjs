@@ -38,7 +38,7 @@ test("publishEntry는 예약 항목을 발행 상태로 바꾼다", () => {
   const range = findEntryRange(result.source, "scheduled-post");
   const entry = result.source.slice(range.start, range.end);
   assert.match(entry, /status:"published"/);
-  assert.match(entry, new RegExp(`publishedAt:"${now.toISOString()}"`));
+  assert.match(entry, new RegExp(`publishedAt:"${now.toISOString().slice(0, 10)}"`));
   assert.match(entry, /scheduledAt:null/);
 
   // 다른 항목은 그대로여야 합니다.

@@ -61,7 +61,7 @@ export function publishEntry(source, slug, now = new Date()) {
   let updated = replaceLastMatch(entry, STATUS_SCHEDULED, (m) => `status:${m[1]}"published"`);
   if (updated === null) return { changed: false, source, reason: "not-scheduled" };
 
-  const publishedAt = now.toISOString();
+  const publishedAt = now.toISOString().slice(0, 10);
   const withPublishedAt = replaceLastMatch(updated, PUBLISHED_AT, (m) => `publishedAt:${m[1]}"${publishedAt}"`);
   if (withPublishedAt !== null) updated = withPublishedAt;
 
