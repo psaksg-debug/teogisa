@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { InnerHeader, SiteFooter } from "../components/SiteChrome";
 import { ArticleThumbnail } from "../components/ArticleMedia";
 import { healthTopics } from "../../lib/portal";
@@ -42,34 +43,89 @@ export default async function Health() {
         </aside>
 
         {healthPosts.length > 0 && (
-          <section className="health-articles" aria-labelledby="health-articles-title" style={{ marginTop: "36px", marginBottom: "44px" }}>
-            <div className="section-heading" style={{ marginBottom: "22px", display: "flex", alignItems: "flex-end", justifyContent: "space-between" }}>
+          <section
+            className="health-articles"
+            aria-labelledby="health-articles-title"
+            style={{ marginTop: "36px", marginBottom: "44px" }}
+          >
+            <div
+              className="section-heading"
+              style={{
+                marginBottom: "22px",
+                display: "flex",
+                alignItems: "flex-end",
+                justifyContent: "space-between",
+              }}
+            >
               <div>
-                <p className="eyebrow" style={{ color: "var(--teal)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "6px" }}>
+                <p
+                  className="eyebrow"
+                  style={{
+                    color: "var(--teal)",
+                    fontSize: "11px",
+                    fontWeight: 800,
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
+                    marginBottom: "6px",
+                  }}
+                >
                   퇴직생활연구소 건강 가이드
                 </p>
-                <h2 id="health-articles-title" style={{ margin: 0, fontSize: "24px", color: "var(--navy)", fontFamily: "\"Noto Serif KR\",serif" }}>
+                <h2
+                  id="health-articles-title"
+                  style={{
+                    margin: 0,
+                    fontSize: "24px",
+                    color: "var(--navy)",
+                    fontFamily: "\"Noto Serif KR\",serif",
+                  }}
+                >
                   퇴직 후 건강검진·건강보험 필독 글
                 </h2>
               </div>
-              <a href="/search?q=건강" style={{ color: "var(--teal)", fontSize: "12px", fontWeight: 800 }}>
+              <Link
+                href="/search?q=건강"
+                style={{
+                  color: "var(--teal)",
+                  fontSize: "12px",
+                  fontWeight: 800,
+                }}
+              >
                 관련 글 전체 보기 ↗
-              </a>
+              </Link>
             </div>
             <div className="explore-grid">
               {healthPosts.map((post) => (
-                <article className="post-card" key={post.slug}>
+                <Link
+                  href={`/posts/${post.slug}`}
+                  className="post-card"
+                  key={post.slug}
+                  style={{
+                    textDecoration: "none",
+                    color: "inherit",
+                    display: "flex",
+                    cursor: "pointer",
+                  }}
+                >
                   <ArticleThumbnail post={post} />
                   <div className="post-body">
                     <p className="post-meta">
                       {post.category} · {post.readingMinutes}분
                     </p>
-                    <h3>
-                      <a href={`/posts/${post.slug}`}>{post.title}</a>
+                    <h3
+                      style={{
+                        margin: "8px 0 0",
+                        fontSize: "18px",
+                        lineHeight: "1.45",
+                        wordBreak: "keep-all",
+                        color: "var(--navy)",
+                      }}
+                    >
+                      {post.title}
                     </h3>
                     <p>{post.excerpt}</p>
                   </div>
-                </article>
+                </Link>
               ))}
             </div>
           </section>
