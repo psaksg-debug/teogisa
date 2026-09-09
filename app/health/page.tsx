@@ -1,6 +1,166 @@
 import type { Metadata } from "next";
 import { InnerHeader, SiteFooter } from "../components/SiteChrome";
+import { ArticleThumbnail } from "../components/ArticleMedia";
 import { healthTopics } from "../../lib/portal";
+import { getPublishedPosts } from "../../lib/repository";
 
-export const metadata:Metadata={title:"퇴직 후 건강검진·질병예방",description:"회사 검진이 끊긴 뒤의 국가건강검진 대상·주기와 질병별 증상·예방법을 공공기관 자료로 확인합니다.",alternates:{canonical:"/health"}};
-export default function Health(){return <><InnerHeader path="/health" eyebrow="HEALTH & PREVENTION" title="퇴직 후 건강검진, 스스로 챙겨야 합니다" description="회사 검진이 끊긴 뒤 받아야 할 국가건강검진과 생활 습관, 놓치면 안 되는 위험 신호를 쉬운 말로 정리합니다."/><main className="content-shell portal-shell"><aside className="medical-alert" role="note"><strong>갑작스러운 위험 신호는 119가 먼저입니다.</strong><p>흉통·호흡곤란·마비·언어장애·의식저하·심한 출혈이 갑자기 생기면 정보를 더 찾기보다 즉시 119 또는 응급실의 도움을 받으세요.</p></aside><section className="health-plan" aria-labelledby="health-plan-title"><p className="eyebrow">이번 달 건강 점검</p><h2 id="health-plan-title">일주일에 하나씩만 확인해 보세요.</h2><ol><li><span>1주차</span><strong>최근 검진 결과 꺼내기</strong><p>혈압·혈당·콜레스테롤 수치와 재검 권고가 있는지 봅니다.</p></li><li><span>2주차</span><strong>복용약 한 장에 적기</strong><p>약 이름, 복용 시간과 처방 병원을 정리해 진료 때 보여줍니다.</p></li><li><span>3주차</span><strong>걷기와 수면 기록하기</strong><p>완벽한 목표보다 현재 평균을 7일 동안 기록합니다.</p></li><li><span>4주차</span><strong>미뤄둔 진료 예약하기</strong><p>지속되는 통증과 이상 수치를 메모해 의료진에게 설명합니다.</p></li></ol></section><section className="health-grid" aria-label="질병별 건강 정보">{healthTopics.map(([title,description,url])=><article key={title}><span>증상·예방</span><h2>{title}</h2><p>{description}</p><a href={url} target="_blank" rel="noreferrer">질병 정보 자세히 보기 ↗</a></article>)}</section><section className="health-feature"><div><p className="eyebrow">함께 보는 공식 영상</p><h2>글보다 영상이 편할 때</h2><p>질병관리청 공식 채널에서 간염의 종류와 예방 방법을 설명한 영상입니다. 영상은 이해를 돕는 자료이며 진단과 치료는 의료진과 상의하세요.</p><a href="https://www.youtube.com/watch?v=vX2nQeSuoFE" target="_blank" rel="noreferrer">YouTube에서 영상 보기 ↗</a></div><div className="embedded-video"><iframe src="https://www.youtube-nocookie.com/embed/vX2nQeSuoFE" title="질병관리청 간염 예방 공식 영상" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen/></div></section><section className="event-card"><div><span>가볍게 움직이는 계기</span><h2>2026 건강도시 스탬프투어</h2><p>여러 지역의 건강도시를 걸으며 참여하는 체험 행사입니다. 일정과 참여 조건은 보건복지부 안내에서 확인하세요.</p></div><a href="https://www.mohw.go.kr/gallery.es?act=view&b_list=12&bid=0015&cg_code=&keyField=&list_no=380090&mid=a10314000000&nPage=1&orderby=&vlist_no_npage=3" target="_blank" rel="noreferrer">행사 안내 보기 ↗</a></section></main><SiteFooter/></>}
+export const metadata: Metadata = {
+  title: "퇴직 후 건강검진·질병예방",
+  description: "회사 검진이 끊긴 뒤의 국가건강검진 대상·주기와 질병별 증상·예방법을 공공기관 자료로 확인합니다.",
+  alternates: { canonical: "/health" },
+};
+
+export const revalidate = 0;
+
+export default async function Health() {
+  const allPosts = await getPublishedPosts();
+  const healthPosts = allPosts.filter(
+    (post) =>
+      post.category === "건강보험료·건강검진" ||
+      post.tags.some((tag) =>
+        ["건강", "건강검진", "건강보험", "검진", "의료", "병원"].includes(tag)
+      ) ||
+      post.title.includes("건강") ||
+      post.title.includes("검진")
+  );
+
+  return (
+    <>
+      <InnerHeader
+        path="/health"
+        eyebrow="HEALTH & PREVENTION"
+        title="퇴직 후 건강검진, 스스로 챙겨야 합니다"
+        description="회사 검진이 끊긴 뒤 받아야 할 국가건강검진과 생활 습관, 놓치면 안 되는 위험 신호를 쉬운 말로 정리합니다."
+      />
+      <main className="content-shell portal-shell">
+        <aside className="medical-alert" role="note">
+          <strong>갑작스러운 위험 신호는 119가 먼저입니다.</strong>
+          <p>
+            흉통·호흡곤란·마비·언어장애·의식저하·심한 출혈이 갑자기 생기면
+            정보를 더 찾기보다 즉시 119 또는 응급실의 도움을 받으세요.
+          </p>
+        </aside>
+
+        {healthPosts.length > 0 && (
+          <section className="health-articles" aria-labelledby="health-articles-title" style={{ marginTop: "36px", marginBottom: "44px" }}>
+            <div className="section-heading" style={{ marginBottom: "22px", display: "flex", alignItems: "flex-end", justifyContent: "space-between" }}>
+              <div>
+                <p className="eyebrow" style={{ color: "var(--teal)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "6px" }}>
+                  퇴직생활연구소 건강 가이드
+                </p>
+                <h2 id="health-articles-title" style={{ margin: 0, fontSize: "24px", color: "var(--navy)", fontFamily: "\"Noto Serif KR\",serif" }}>
+                  퇴직 후 건강검진·건강보험 필독 글
+                </h2>
+              </div>
+              <a href="/search?q=건강" style={{ color: "var(--teal)", fontSize: "12px", fontWeight: 800 }}>
+                관련 글 전체 보기 ↗
+              </a>
+            </div>
+            <div className="explore-grid">
+              {healthPosts.map((post) => (
+                <article className="post-card" key={post.slug}>
+                  <ArticleThumbnail post={post} />
+                  <div className="post-body">
+                    <p className="post-meta">
+                      {post.category} · {post.readingMinutes}분
+                    </p>
+                    <h3>
+                      <a href={`/posts/${post.slug}`}>{post.title}</a>
+                    </h3>
+                    <p>{post.excerpt}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <section className="health-plan" aria-labelledby="health-plan-title">
+          <p className="eyebrow">이번 달 건강 점검</p>
+          <h2 id="health-plan-title">일주일에 하나씩만 확인해 보세요.</h2>
+          <ol>
+            <li>
+              <span>1주차</span>
+              <strong>최근 검진 결과 꺼내기</strong>
+              <p>혈압·혈당·콜레스테롤 수치와 재검 권고가 있는지 봅니다.</p>
+            </li>
+            <li>
+              <span>2주차</span>
+              <strong>복용약 한 장에 적기</strong>
+              <p>약 이름, 복용 시간과 처방 병원을 정리해 진료 때 보여줍니다.</p>
+            </li>
+            <li>
+              <span>3주차</span>
+              <strong>걷기와 수면 기록하기</strong>
+              <p>완벽한 목표보다 현재 평균을 7일 동안 기록합니다.</p>
+            </li>
+            <li>
+              <span>4주차</span>
+              <strong>미뤄둔 진료 예약하기</strong>
+              <p>지속되는 통증과 이상 수치를 메모해 의료진에게 설명합니다.</p>
+            </li>
+          </ol>
+        </section>
+
+        <section className="health-grid" aria-label="질병별 건강 정보">
+          {healthTopics.map(([title, description, url]) => (
+            <article key={title}>
+              <span>증상·예방</span>
+              <h2>{title}</h2>
+              <p>{description}</p>
+              <a href={url} target="_blank" rel="noreferrer">
+                질병 정보 자세히 보기 ↗
+              </a>
+            </article>
+          ))}
+        </section>
+
+        <section className="health-feature">
+          <div>
+            <p className="eyebrow">함께 보는 공식 영상</p>
+            <h2>글보다 영상이 편할 때</h2>
+            <p>
+              질병관리청 공식 채널에서 간염의 종류와 예방 방법을 설명한 영상입니다.
+              영상은 이해를 돕는 자료이며 진단과 치료는 의료진과 상의하세요.
+            </p>
+            <a
+              href="https://www.youtube.com/watch?v=vX2nQeSuoFE"
+              target="_blank"
+              rel="noreferrer"
+            >
+              YouTube에서 영상 보기 ↗
+            </a>
+          </div>
+          <div className="embedded-video">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/vX2nQeSuoFE"
+              title="질병관리청 간염 예방 공식 영상"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </section>
+
+        <section className="event-card">
+          <div>
+            <span>가볍게 움직이는 계기</span>
+            <h2>2026 건강도시 스탬프투어</h2>
+            <p>
+              여러 지역의 건강도시를 걸으며 참여하는 체험 행사입니다. 일정과 참여
+              조건은 보건복지부 안내에서 확인하세요.
+            </p>
+          </div>
+          <a
+            href="https://www.mohw.go.kr/gallery.es?act=view&b_list=12&bid=0015&cg_code=&keyField=&list_no=380090&mid=a10314000000&nPage=1&orderby=&vlist_no_npage=3"
+            target="_blank"
+            rel="noreferrer"
+          >
+            행사 안내 보기 ↗
+          </a>
+        </section>
+      </main>
+      <SiteFooter />
+    </>
+  );
+}
