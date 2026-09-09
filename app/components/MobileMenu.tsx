@@ -3,12 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import { SITE_NAME } from "../../lib/site";
 
+// 라벨은 lib/portal.ts의 portalMenu와 반드시 같은 문구를 쓴다. 같은 페이지를 상단 메뉴와
+// 모바일 메뉴에서 다르게 부르면 검색엔진이 읽는 앵커텍스트가 둘로 쪼개진다.
 const contentMenu = [
   { href: "/", label: "홈", description: "이번 주 주요 글과 퇴직생활 연구 주제" },
-  { href: "/challenge", label: "30일 수입 실험", description: "내 경험으로 팔 수 있는 것을 찾아보는 30일 워크북" },
-  { href: "/official-info", label: "지원금·세무·연금", description: "정부·공공기관 원문으로 확인하는 생활 정보" },
-  { href: "/tools", label: "유용한 도구", description: "퇴직금·생활비 계산과 업무 도구 모음" },
-  { href: "/health", label: "건강·예방", description: "질병 증상과 예방법, 공공 건강 정보" },
+  { href: "/tools", label: "퇴직금 계산기", description: "퇴직금과 퇴직 후 생활비를 가입 없이 바로 계산합니다" },
+  { href: "/official-info", label: "실업급여·국민연금", description: "실업급여·국민연금·건강보험을 공식 창구에서 확인합니다" },
+  { href: "/challenge", label: "퇴직 후 부업", description: "내 경험으로 첫 제안까지 가보는 30일 워크북" },
+  { href: "/health", label: "건강검진·질병예방", description: "국가건강검진 대상·주기와 놓치기 쉬운 위험 신호" },
   { href: "/site", label: "사이트 모음", description: "애드블스가 만드는 사이트를 도메인별로 한눈에" },
   { href: "/search", label: "전체 글 검색", description: "주제와 키워드로 필요한 글 찾기" },
 ] as const;

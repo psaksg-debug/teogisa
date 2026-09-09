@@ -8,10 +8,10 @@ export const dynamic = "force-dynamic";
 // 카테고리 기준은 /official-info의 officialSections(지원금·일자리 / 세무·신고 /
 // 연금·퇴직 / 건강·보험)와 맞춘다.
 const INFO_CATEGORIES = new Set([
-  "정부지원·실업급여",
-  "정부지원·세무",
-  "연금·세금·보험",
-  "건강·예방",
+  "실업급여",
+  "정부지원금·세금",
+  "국민연금·퇴직연금",
+  "건강보험료·건강검진",
 ]);
 
 // noindex 페이지는 넣지 않는다. /search는 robots meta가

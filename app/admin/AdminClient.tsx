@@ -16,7 +16,7 @@ import { teamPermissions } from "../../lib/team-permissions";
 import { safeReleasePolicy } from "../../lib/release-policy";
 import RichTextEditor from "./RichTextEditor";
 
-const categories = ["퇴직 준비", "정부지원·실업급여", "정부지원·세무", "재취업·N잡", "블로그·애드센스", "AI 활용", "온라인 부업", "투자·재테크", "실제 수익실험", "유용한 도구", "지역 생활정보", "건강·예방", "영상 큐레이션"];
+const categories = ["퇴직금·노후 생활비", "실업급여", "국민연금·퇴직연금", "건강보험료·건강검진", "정부지원금·세금", "퇴직 후 부업·N잡", "중장년 재취업·창업", "AI 활용·바이브코딩", "무료 도구 활용법"];
 
 function datetimeLocal(value: string | null) {
   if (!value) return "";

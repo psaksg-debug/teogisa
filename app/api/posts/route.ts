@@ -42,7 +42,7 @@ export async function POST(request: Request) {
       slug: slugify(p.slug || p.title),
       excerpt: p.excerpt?.trim() || plainBody.slice(0, 120),
       body,
-      category: p.category || "퇴직 준비",
+      category: p.category || "퇴직금·노후 생활비",
       tags: (p.tags || "").split(",").map(x => x.trim()).filter(Boolean),
       status,
       publishedAt: status === "published" ? new Date().toISOString().slice(0, 10) : "",

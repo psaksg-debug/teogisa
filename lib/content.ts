@@ -2,13 +2,13 @@ export type PostStatus = "draft" | "scheduled" | "published";
 export type Post = { id:number; title:string; slug:string; excerpt:string; body:string; category:string; tags:string[]; status:PostStatus; publishedAt:string; scheduledAt:string | null; readingMinutes:number; visual:string; authorName?:string; };
 
 export const seedPosts: Post[] = [
-  { id:1, title:"퇴직 후 첫 30일, 새 일자리보다 먼저 정리해야 할 7가지", slug:"first-30-days-after-retirement", excerpt:"통장, 보험, 실업급여부터 생활 리듬까지. 불안을 줄이는 첫 달 체크리스트입니다.", body:"퇴직 직후에는 새로운 일을 급하게 찾기보다, 지금 가진 시간과 돈을 정확히 파악하는 일이 먼저입니다.\n\n첫째, 고정지출을 생존·유지·선택의 세 단계로 나눕니다. 둘째, 퇴직금과 비상금을 생활비 계좌와 분리합니다. 셋째, 실업급여 신청 가능 여부와 일정을 확인합니다.\n\n## 1. 한 달 생활비를 다시 계산하세요\n\n회사에 다닐 때의 지출과 퇴직 후 지출은 다릅니다. 교통비와 점심값은 줄지만 건강보험료처럼 새로 체감되는 비용이 생깁니다. 최근 3개월 카드와 이체 내역을 기준으로 최소 생활비를 계산하세요.\n\n## 2. 중요한 날짜를 달력에 표시하세요\n\n실업급여, 건강보험, 연금 관련 일정은 놓치면 다시 처리하기 번거롭습니다. 공식 기관 안내를 확인하고 신청일과 준비물을 한 장에 정리하세요.", category:"퇴직 준비", tags:["퇴직 체크리스트","생활비","실업급여"], status:"published", publishedAt:"2026-08-08", scheduledAt:null, readingMinutes:6, visual:"30D" },
-  { id:2, title:"실업급여 받으면서 알바하면 걸릴까? 신고 기준은 생각보다 넓습니다", slug:"side-jobs-while-receiving-benefits", excerpt:"소득 신고가 필요한 경우와 취업으로 보는 기준을 공식 안내 중심으로 정리했습니다.", body:"실업급여를 받는 동안 부업을 시작할 수 있지만, 근로 사실과 소득은 반드시 정확하게 신고해야 합니다. 플랫폼 수익이나 단기 아르바이트도 예외로 생각하지 않는 편이 안전합니다.\n\n## 공식 기준을 먼저 확인하세요\n\n개인마다 근로 시간과 계약 형태가 다르므로 고용24와 관할 고용센터에서 본인 상황을 확인해야 합니다. 인터넷의 경험담은 참고만 하고, 신청 전에는 공식 답변을 기록해 두세요.\n\n## 작은 수익도 기록하세요\n\n입금일, 금액, 일을 한 날짜와 시간을 표로 남기면 실업인정일에 당황하지 않습니다. 이 기록은 나중에 부업의 실제 시간당 수익을 계산하는 자료로도 쓸 수 있습니다.", category:"정부지원·실업급여", tags:["실업급여","부업","소득신고"], status:"published", publishedAt:"2026-08-05", scheduledAt:null, readingMinutes:7, visual:"Q&A" },
-  { id:3, title:"AI에 제목만 던지면 남는 건 '그럴듯한 남의 글'입니다 — 3시간 줄인 작업 순서", slug:"ai-blog-writing-workflow", excerpt:"자료 수집부터 초안, 사실 확인, 발행까지 직접 시험한 현실적인 작업 순서입니다.", body:"AI에게 제목 하나만 주고 글 전체를 맡기면 그럴듯하지만 비슷한 글이 나옵니다. 시간을 줄이려면 사람과 AI가 맡을 일을 분리해야 합니다.\n\n## 자료는 사람이 고릅니다\n\n정부 정책과 금융 정보는 공식 출처를 먼저 모읍니다. AI는 자료를 찾는 도구가 아니라, 선택한 자료를 비교하고 초안 구조를 잡는 도구로 사용합니다.\n\n## 발행 전 세 가지를 확인합니다\n\n숫자와 날짜, 신청 조건, 출처 링크를 사람이 다시 확인합니다. 마지막으로 자신의 경험이나 판단을 더해야 읽을 이유가 있는 글이 됩니다.", category:"AI 활용", tags:["AI 글쓰기","블로그","자동화"], status:"published", publishedAt:"2026-08-02", scheduledAt:null, readingMinutes:5, visual:"−3H" },
-  { id:4, title:"실업급여는 퇴사한 날부터가 아닙니다 — 퇴직 전부터 준비하는 8단계", slug:"unemployment-benefit-eight-steps", excerpt:"이직확인서부터 구직등록, 사전교육과 실업인정까지 고용24 공식 절차를 한 장으로 정리했습니다.", body:"실업급여는 퇴직 후 아무 때나 신청해도 되는 생활비가 아닙니다. 회사가 제출할 서류와 본인이 해야 할 절차가 나뉘므로 순서를 미리 알아두는 것이 좋습니다.\n\n## 퇴직 전에 회사에 요청할 것\n\n회사가 고용보험 피보험자격 상실신고서와 이직확인서를 제출해야 다음 단계가 원활합니다. 고용24 공식 안내에 따르면 근로자가 이직확인서 발급을 요청하면 사업주는 10일 이내에 발급해야 합니다. 처리 여부는 관련 온라인 서비스에서 확인할 수 있습니다.\n\n## 신청 순서 8단계\n\n서류 제출 요청 → 사전 확인 → 구직 등록 → 사전 교육 → 수급자격 인정 신청 → 재취업 준비 → 실업 인정과 지급 → 지급 종료 순서입니다. 수급자격 인정 신청은 신분증을 가지고 고용복지센터를 방문하는 절차가 포함될 수 있으므로 관할 센터 안내를 먼저 확인하세요.\n\n## 일을 했다면 금액과 관계없이 신고합니다\n\n수급 중 단기간이라도 일을 했다면 실업인정 신청 때 근로 사실을 신고해야 합니다. 임금을 아직 받지 않았더라도 일한 사실 자체를 신고하라는 것이 고용24 안내입니다. 개인별 수급 가능 여부와 일정은 관할 고용센터에서 최종 확인하세요.\n\n출처: https://www.work24.go.kr/cm/c/f/1100/selecSystInfo.do?systClId=SC00000254&systId=SI00000411", category:"정부지원·실업급여", tags:["실업급여","고용24","퇴직 준비"], status:"published", publishedAt:"2026-08-11", scheduledAt:null, readingMinutes:7, visual:"8STEP" },
-  { id:5, title:"국민연금 끊길까 걱정된다면: 보험료 75%를 대신 내주는 실업크레딧", slug:"2026-unemployment-credit-guide", excerpt:"구직급여 수급 중 국민연금 가입기간을 이어가는 실업크레딧의 대상, 부담액과 신청기한을 확인합니다.", body:"퇴직 후 국민연금 납부가 끊기는 것이 걱정된다면 실업크레딧을 확인할 필요가 있습니다. 구직급여 수급자가 연금보험료 납부를 희망할 때 보험료 일부를 지원하고 그 기간을 국민연금 가입기간에 더해주는 제도입니다.\n\n## 본인은 25%, 나머지 75%는 지원\n\n국민연금공단의 2026년 안내에 따르면 인정소득을 기준으로 계산한 보험료의 25%를 본인이 내면 나머지 75%를 지원합니다. 지원기간은 구직급여 수급기간이며 생애 최대 12개월입니다.\n\n## 모든 수급자가 자동 대상은 아닙니다\n\n국민연금 가입자이거나 가입자였던 18세 이상 60세 미만 구직급여 수급자가 기본 대상입니다. 다만 재산과 종합소득 기준에 따른 제외 조건이 있으므로 신청 전 본인의 최신 자료를 확인해야 합니다.\n\n## 신청기한을 달력에 적어두세요\n\n국민연금공단 지사 또는 고용센터에서 신청할 수 있습니다. 공식 안내상 신청기한은 구직급여 종료일이 속하는 달의 다음 달 15일까지입니다. 제도와 금액은 바뀔 수 있으므로 신청 시점의 국민연금공단 안내를 다시 확인하세요.\n\n출처: https://edi.nps.or.kr/cm/main/guide/edi_workguide_new.pdf", category:"정부지원·실업급여", tags:["국민연금","실업크레딧","구직급여"], status:"published", publishedAt:"2026-08-10", scheduledAt:null, readingMinutes:6, visual:"75%" },
-  { id:6, title:"3.3% 떼였으면 신고 끝일까? N잡 수입, 5월 전에 남겨둘 기록", slug:"side-income-tax-records", excerpt:"플랫폼·강의·원고료처럼 여러 곳에서 생긴 수입을 놓치지 않도록 월별로 남길 항목을 정리했습니다.", body:"부업 수입은 통장에 들어온 금액만 모아두면 충분하지 않습니다. 일을 제공한 날짜, 지급처, 소득의 성격과 업무에 직접 쓴 비용을 함께 기록해야 신고할 때 다시 찾는 시간을 줄일 수 있습니다.\n\n## 매달 다섯 항목을 적습니다\n\n입금일, 지급처, 총수입, 원천징수액, 관련 비용을 한 줄에 남기세요. 계약서와 지급명세서, 영수증은 같은 이름의 폴더에 보관하면 좋습니다. 플랫폼이 여러 개라면 플랫폼별 정산 화면도 월말에 내려받습니다.\n\n## 3.3%를 떼었다고 신고가 끝난 것은 아닙니다\n\n국세청 안내에 따르면 인적용역 사업소득처럼 3.3% 원천징수된 소득도 종합소득세 신고 대상이 될 수 있습니다. 근로소득이 있어 연말정산을 했더라도 신고 대상인 다른 소득이 있으면 합산 신고가 필요할 수 있습니다.\n\n## 소득의 이름보다 실제 성격이 중요합니다\n\n사업소득과 기타소득의 구분, 필요경비 인정 여부는 활동의 반복성과 계약 내용에 따라 달라질 수 있습니다. 이 글은 기록 방법을 설명하는 참고자료이며 개인의 신고 판단은 국세청이나 세무 전문가에게 확인하세요.\n\n출처: https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=238978", category:"재취업·N잡", tags:["N잡","종합소득세","부업 기록"], status:"published", publishedAt:"2026-08-09", scheduledAt:null, readingMinutes:6, visual:"TAX" },
-  { id:7, title:"퇴직 후 월 300만 원, 부업 하나에 몰아넣으면 위험한 이유", slug:"three-layer-income-plan", excerpt:"생활비 방어, 노동소득, 콘텐츠와 자산소득을 층으로 나눠 현실적인 월 현금흐름을 설계합니다.", body:"월 300만 원이라는 목표가 막막한 이유는 하나의 일로 전부 벌어야 한다고 생각하기 때문입니다. 퇴직 후에는 수입의 안정성과 성장 가능성을 나눠 보는 편이 현실적입니다.\n\n## 1층은 생활비 방어입니다\n\n실업급여와 받을 수 있는 지원을 확인하고 고정비를 줄입니다. 새로 버는 돈이 아니어도 매달 빠져나가는 돈을 30만 원 줄이면 같은 크기의 현금흐름을 만든 것과 비슷한 효과가 있습니다.\n\n## 2층은 지금 가진 경험을 파는 일입니다\n\n재취업, 프로젝트, 강의, 상담처럼 비교적 빨리 현금화할 수 있는 일을 놓습니다. 단가는 높을 수 있지만 시간을 계속 투입해야 하므로 이 수입만으로 장기 계획을 세우지는 않습니다.\n\n## 3층은 시간이 지나며 쌓이는 수입입니다\n\n검색되는 콘텐츠, 디지털 자료, 자동화된 서비스와 장기 자산을 천천히 더합니다. 처음에는 수입이 거의 없을 수 있으므로 1층과 2층이 버틸 시간을 만들어줘야 합니다. 목표는 완벽한 수동소득이 아니라 서로 다른 위험을 가진 수입원을 조합하는 것입니다.", category:"실제 수익실험", tags:["월300만원","현금흐름","수입 다각화"], status:"published", publishedAt:"2026-08-07", scheduledAt:null, readingMinutes:5, visual:"3층" },
+  { id:1, title:"퇴직 후 첫 30일, 새 일자리보다 먼저 정리해야 할 7가지", slug:"first-30-days-after-retirement", excerpt:"통장, 보험, 실업급여부터 생활 리듬까지. 불안을 줄이는 첫 달 체크리스트입니다.", body:"퇴직 직후에는 새로운 일을 급하게 찾기보다, 지금 가진 시간과 돈을 정확히 파악하는 일이 먼저입니다.\n\n첫째, 고정지출을 생존·유지·선택의 세 단계로 나눕니다. 둘째, 퇴직금과 비상금을 생활비 계좌와 분리합니다. 셋째, 실업급여 신청 가능 여부와 일정을 확인합니다.\n\n## 1. 한 달 생활비를 다시 계산하세요\n\n회사에 다닐 때의 지출과 퇴직 후 지출은 다릅니다. 교통비와 점심값은 줄지만 건강보험료처럼 새로 체감되는 비용이 생깁니다. 최근 3개월 카드와 이체 내역을 기준으로 최소 생활비를 계산하세요.\n\n## 2. 중요한 날짜를 달력에 표시하세요\n\n실업급여, 건강보험, 연금 관련 일정은 놓치면 다시 처리하기 번거롭습니다. 공식 기관 안내를 확인하고 신청일과 준비물을 한 장에 정리하세요.", category:"퇴직금·노후 생활비", tags:["퇴직 체크리스트","생활비","실업급여"], status:"published", publishedAt:"2026-08-08", scheduledAt:null, readingMinutes:6, visual:"30D" },
+  { id:2, title:"실업급여 받으면서 알바하면 걸릴까? 신고 기준은 생각보다 넓습니다", slug:"side-jobs-while-receiving-benefits", excerpt:"소득 신고가 필요한 경우와 취업으로 보는 기준을 공식 안내 중심으로 정리했습니다.", body:"실업급여를 받는 동안 부업을 시작할 수 있지만, 근로 사실과 소득은 반드시 정확하게 신고해야 합니다. 플랫폼 수익이나 단기 아르바이트도 예외로 생각하지 않는 편이 안전합니다.\n\n## 공식 기준을 먼저 확인하세요\n\n개인마다 근로 시간과 계약 형태가 다르므로 고용24와 관할 고용센터에서 본인 상황을 확인해야 합니다. 인터넷의 경험담은 참고만 하고, 신청 전에는 공식 답변을 기록해 두세요.\n\n## 작은 수익도 기록하세요\n\n입금일, 금액, 일을 한 날짜와 시간을 표로 남기면 실업인정일에 당황하지 않습니다. 이 기록은 나중에 부업의 실제 시간당 수익을 계산하는 자료로도 쓸 수 있습니다.", category:"실업급여", tags:["실업급여","부업","소득신고"], status:"published", publishedAt:"2026-08-05", scheduledAt:null, readingMinutes:7, visual:"Q&A" },
+  { id:3, title:"AI에 제목만 던지면 남는 건 '그럴듯한 남의 글'입니다 — 3시간 줄인 작업 순서", slug:"ai-blog-writing-workflow", excerpt:"자료 수집부터 초안, 사실 확인, 발행까지 직접 시험한 현실적인 작업 순서입니다.", body:"AI에게 제목 하나만 주고 글 전체를 맡기면 그럴듯하지만 비슷한 글이 나옵니다. 시간을 줄이려면 사람과 AI가 맡을 일을 분리해야 합니다.\n\n## 자료는 사람이 고릅니다\n\n정부 정책과 금융 정보는 공식 출처를 먼저 모읍니다. AI는 자료를 찾는 도구가 아니라, 선택한 자료를 비교하고 초안 구조를 잡는 도구로 사용합니다.\n\n## 발행 전 세 가지를 확인합니다\n\n숫자와 날짜, 신청 조건, 출처 링크를 사람이 다시 확인합니다. 마지막으로 자신의 경험이나 판단을 더해야 읽을 이유가 있는 글이 됩니다.", category:"AI 활용·바이브코딩", tags:["AI 글쓰기","블로그","자동화"], status:"published", publishedAt:"2026-08-02", scheduledAt:null, readingMinutes:5, visual:"−3H" },
+  { id:4, title:"실업급여는 퇴사한 날부터가 아닙니다 — 퇴직 전부터 준비하는 8단계", slug:"unemployment-benefit-eight-steps", excerpt:"이직확인서부터 구직등록, 사전교육과 실업인정까지 고용24 공식 절차를 한 장으로 정리했습니다.", body:"실업급여는 퇴직 후 아무 때나 신청해도 되는 생활비가 아닙니다. 회사가 제출할 서류와 본인이 해야 할 절차가 나뉘므로 순서를 미리 알아두는 것이 좋습니다.\n\n## 퇴직 전에 회사에 요청할 것\n\n회사가 고용보험 피보험자격 상실신고서와 이직확인서를 제출해야 다음 단계가 원활합니다. 고용24 공식 안내에 따르면 근로자가 이직확인서 발급을 요청하면 사업주는 10일 이내에 발급해야 합니다. 처리 여부는 관련 온라인 서비스에서 확인할 수 있습니다.\n\n## 신청 순서 8단계\n\n서류 제출 요청 → 사전 확인 → 구직 등록 → 사전 교육 → 수급자격 인정 신청 → 재취업 준비 → 실업 인정과 지급 → 지급 종료 순서입니다. 수급자격 인정 신청은 신분증을 가지고 고용복지센터를 방문하는 절차가 포함될 수 있으므로 관할 센터 안내를 먼저 확인하세요.\n\n## 일을 했다면 금액과 관계없이 신고합니다\n\n수급 중 단기간이라도 일을 했다면 실업인정 신청 때 근로 사실을 신고해야 합니다. 임금을 아직 받지 않았더라도 일한 사실 자체를 신고하라는 것이 고용24 안내입니다. 개인별 수급 가능 여부와 일정은 관할 고용센터에서 최종 확인하세요.\n\n출처: https://www.work24.go.kr/cm/c/f/1100/selecSystInfo.do?systClId=SC00000254&systId=SI00000411", category:"실업급여", tags:["실업급여","고용24","퇴직 준비"], status:"published", publishedAt:"2026-08-11", scheduledAt:null, readingMinutes:7, visual:"8STEP" },
+  { id:5, title:"국민연금 끊길까 걱정된다면: 보험료 75%를 대신 내주는 실업크레딧", slug:"2026-unemployment-credit-guide", excerpt:"구직급여 수급 중 국민연금 가입기간을 이어가는 실업크레딧의 대상, 부담액과 신청기한을 확인합니다.", body:"퇴직 후 국민연금 납부가 끊기는 것이 걱정된다면 실업크레딧을 확인할 필요가 있습니다. 구직급여 수급자가 연금보험료 납부를 희망할 때 보험료 일부를 지원하고 그 기간을 국민연금 가입기간에 더해주는 제도입니다.\n\n## 본인은 25%, 나머지 75%는 지원\n\n국민연금공단의 2026년 안내에 따르면 인정소득을 기준으로 계산한 보험료의 25%를 본인이 내면 나머지 75%를 지원합니다. 지원기간은 구직급여 수급기간이며 생애 최대 12개월입니다.\n\n## 모든 수급자가 자동 대상은 아닙니다\n\n국민연금 가입자이거나 가입자였던 18세 이상 60세 미만 구직급여 수급자가 기본 대상입니다. 다만 재산과 종합소득 기준에 따른 제외 조건이 있으므로 신청 전 본인의 최신 자료를 확인해야 합니다.\n\n## 신청기한을 달력에 적어두세요\n\n국민연금공단 지사 또는 고용센터에서 신청할 수 있습니다. 공식 안내상 신청기한은 구직급여 종료일이 속하는 달의 다음 달 15일까지입니다. 제도와 금액은 바뀔 수 있으므로 신청 시점의 국민연금공단 안내를 다시 확인하세요.\n\n출처: https://edi.nps.or.kr/cm/main/guide/edi_workguide_new.pdf", category:"실업급여", tags:["국민연금","실업크레딧","구직급여"], status:"published", publishedAt:"2026-08-10", scheduledAt:null, readingMinutes:6, visual:"75%" },
+  { id:6, title:"3.3% 떼였으면 신고 끝일까? N잡 수입, 5월 전에 남겨둘 기록", slug:"side-income-tax-records", excerpt:"플랫폼·강의·원고료처럼 여러 곳에서 생긴 수입을 놓치지 않도록 월별로 남길 항목을 정리했습니다.", body:"부업 수입은 통장에 들어온 금액만 모아두면 충분하지 않습니다. 일을 제공한 날짜, 지급처, 소득의 성격과 업무에 직접 쓴 비용을 함께 기록해야 신고할 때 다시 찾는 시간을 줄일 수 있습니다.\n\n## 매달 다섯 항목을 적습니다\n\n입금일, 지급처, 총수입, 원천징수액, 관련 비용을 한 줄에 남기세요. 계약서와 지급명세서, 영수증은 같은 이름의 폴더에 보관하면 좋습니다. 플랫폼이 여러 개라면 플랫폼별 정산 화면도 월말에 내려받습니다.\n\n## 3.3%를 떼었다고 신고가 끝난 것은 아닙니다\n\n국세청 안내에 따르면 인적용역 사업소득처럼 3.3% 원천징수된 소득도 종합소득세 신고 대상이 될 수 있습니다. 근로소득이 있어 연말정산을 했더라도 신고 대상인 다른 소득이 있으면 합산 신고가 필요할 수 있습니다.\n\n## 소득의 이름보다 실제 성격이 중요합니다\n\n사업소득과 기타소득의 구분, 필요경비 인정 여부는 활동의 반복성과 계약 내용에 따라 달라질 수 있습니다. 이 글은 기록 방법을 설명하는 참고자료이며 개인의 신고 판단은 국세청이나 세무 전문가에게 확인하세요.\n\n출처: https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=238978", category:"퇴직 후 부업·N잡", tags:["N잡","종합소득세","부업 기록"], status:"published", publishedAt:"2026-08-09", scheduledAt:null, readingMinutes:6, visual:"TAX" },
+  { id:7, title:"퇴직 후 월 300만 원, 부업 하나에 몰아넣으면 위험한 이유", slug:"three-layer-income-plan", excerpt:"생활비 방어, 노동소득, 콘텐츠와 자산소득을 층으로 나눠 현실적인 월 현금흐름을 설계합니다.", body:"월 300만 원이라는 목표가 막막한 이유는 하나의 일로 전부 벌어야 한다고 생각하기 때문입니다. 퇴직 후에는 수입의 안정성과 성장 가능성을 나눠 보는 편이 현실적입니다.\n\n## 1층은 생활비 방어입니다\n\n실업급여와 받을 수 있는 지원을 확인하고 고정비를 줄입니다. 새로 버는 돈이 아니어도 매달 빠져나가는 돈을 30만 원 줄이면 같은 크기의 현금흐름을 만든 것과 비슷한 효과가 있습니다.\n\n## 2층은 지금 가진 경험을 파는 일입니다\n\n재취업, 프로젝트, 강의, 상담처럼 비교적 빨리 현금화할 수 있는 일을 놓습니다. 단가는 높을 수 있지만 시간을 계속 투입해야 하므로 이 수입만으로 장기 계획을 세우지는 않습니다.\n\n## 3층은 시간이 지나며 쌓이는 수입입니다\n\n검색되는 콘텐츠, 디지털 자료, 자동화된 서비스와 장기 자산을 천천히 더합니다. 처음에는 수입이 거의 없을 수 있으므로 1층과 2층이 버틸 시간을 만들어줘야 합니다. 목표는 완벽한 수동소득이 아니라 서로 다른 위험을 가진 수입원을 조합하는 것입니다.", category:"퇴직 후 부업·N잡", tags:["월300만원","현금흐름","수입 다각화"], status:"published", publishedAt:"2026-08-07", scheduledAt:null, readingMinutes:5, visual:"3층" },
   { id:8, title:"내 최소생활비, 지금 바로 답할 수 있나요? 3칸이면 나옵니다", slug:"retirement-minimum-budget-three-buckets", excerpt:"최근 3개월 지출을 생존·유지·선택 세 칸으로 나눠 내 최소생활비를 찾는 방법. 칸별 기준표와 최소안·기본안 두 개의 예산표, 퇴직 후 새로 생기는 비용까지 정리했습니다.", body:`<p><strong>퇴직 준비에서 가장 먼저 필요한 숫자는 퇴직금도 기대수익률도 아닌 월 최소생활비입니다.</strong> 회사에 다닐 때 쓴 총액을 그대로 가져오면 교통비는 과하게 잡히고 건강보험료처럼 새로 체감할 비용은 빠집니다. 최근 3개월 카드와 계좌 내역을 모은 뒤 모든 지출을 생존, 유지, 선택 세 칸에 한 번씩만 넣어보세요. 한 항목을 두 칸에 걸쳐 넣으면 합계가 부풀어 계산이 무너집니다.</p>
 
 <h2>세 칸의 기준부터 맞춥니다</h2>
@@ -53,7 +53,7 @@ export const seedPosts: Post[] = [
 <h2>3개월마다 실제값으로 고칩니다</h2>
 <p>퇴직 후 첫 3개월의 실제 지출을 모아 예상과 10% 이상 차이 난 항목만 고치세요. 전부 다시 짜려 하면 오래 못 갑니다. 생활비가 정리되면 <a href="/tools/retirement-runway">퇴직생활비 계산기</a>에 보유 자금과 고정 수입을 함께 넣어 준비 가능한 기간을 확인할 수 있습니다. 입력값은 저장되지 않습니다.</p>
 
-<p>이 글은 예산을 정리하는 일반적인 방법을 안내한 것으로 개인별 재무·세무 자문을 대신하지 않습니다. 노후 준비 진단과 상담은 <a href="https://csa.nps.or.kr/" target="_blank" rel="noreferrer">국민연금공단 중앙노후준비지원센터</a>에서 무료로 받을 수 있습니다.</p>`, category:"퇴직 준비", tags:["최소생활비","퇴직 예산","생활비 계산","퇴직 준비"], status:"published", publishedAt:"2026-08-11", scheduledAt:null, readingMinutes:9, visual:"3칸" },
+<p>이 글은 예산을 정리하는 일반적인 방법을 안내한 것으로 개인별 재무·세무 자문을 대신하지 않습니다. 노후 준비 진단과 상담은 <a href="https://csa.nps.or.kr/" target="_blank" rel="noreferrer">국민연금공단 중앙노후준비지원센터</a>에서 무료로 받을 수 있습니다.</p>`, category:"퇴직금·노후 생활비", tags:["최소생활비","퇴직 예산","생활비 계산","퇴직 준비"], status:"published", publishedAt:"2026-08-11", scheduledAt:null, readingMinutes:9, visual:"3칸" },
   { id:9, title:"퇴직금 1억, 월 250만 원 쓰면 3년 4개월입니다 — 이 기간을 늘리는 변수", slug:"one-hundred-million-retirement-runway", excerpt:"수익률을 낙관하지 않고 생활비만으로 계산한 세 가지 시나리오. 고정 수입이 있을 때의 기간 비교표, 먼저 빼야 할 목적 자금, 보수적 시나리오 만드는 법을 정리했습니다.", body:`<p><strong>퇴직금 1억 원은 큰돈이지만 월 생활비로 바꾸면 시간이 보입니다.</strong> 투자수익, 세금, 물가를 모두 0으로 두고 단순히 나누면 월 200만 원은 50개월, 250만 원은 40개월, 300만 원은 약 33개월입니다. 각각 약 4년 2개월, 3년 4개월, 2년 9개월입니다. 이 숫자는 미래를 예측하는 답이 아니라 <strong>어떤 변수가 기간을 크게 바꾸는지 확인하는 기준선</strong>입니다.</p>
 
 <h2>먼저 기준선을 표로 봅니다</h2>
@@ -97,7 +97,7 @@ export const seedPosts: Post[] = [
 <h2>돈을 세 계좌로 분리합니다</h2>
 <p>1년치 최소생활비는 생활비 계좌, 갑작스러운 의료·주거 비용은 비상금 계좌, 그 이후에 쓸 돈은 장기 자산 계좌로 나눕니다. 목적을 분리하면 시장이 흔들릴 때 <strong>당장의 생활비 때문에 장기 자산을 급하게 매도할 가능성</strong>을 줄일 수 있습니다. 예금으로 나눠 둘 때는 금융회사별 예금자보호 한도도 함께 확인하세요. <a href="/posts/deposit-protection-100-million-retirement-money-checks">보호 한도와 분산 예치를 정리한 글</a>이 있습니다.</p>
 
-<p>내 자금과 고정 수입을 넣어 바로 계산하려면 <a href="/tools/retirement-runway">퇴직생활비 계산기</a>를 이용하세요. 이 글은 금융상품을 추천하지 않으며 특정 수익이나 결과를 보장하지 않습니다. 실제 운용은 세금과 본인의 위험 감수 수준을 함께 확인해야 하며, 흩어진 연금 가입 내역은 <a href="https://100lifeplan.fss.or.kr/" target="_blank" rel="noreferrer">금융감독원 통합연금포털</a>에서 한 번에 조회할 수 있습니다.</p>`, category:"투자·재테크", tags:["퇴직금 1억","생활비 시뮬레이션","은퇴 자금","퇴직금 계산"], status:"published", publishedAt:"2026-08-11", scheduledAt:null, readingMinutes:8, visual:"1억" },
+<p>내 자금과 고정 수입을 넣어 바로 계산하려면 <a href="/tools/retirement-runway">퇴직생활비 계산기</a>를 이용하세요. 이 글은 금융상품을 추천하지 않으며 특정 수익이나 결과를 보장하지 않습니다. 실제 운용은 세금과 본인의 위험 감수 수준을 함께 확인해야 하며, 흩어진 연금 가입 내역은 <a href="https://100lifeplan.fss.or.kr/" target="_blank" rel="noreferrer">금융감독원 통합연금포털</a>에서 한 번에 조회할 수 있습니다.</p>`, category:"퇴직금·노후 생활비", tags:["퇴직금 1억","생활비 시뮬레이션","은퇴 자금","퇴직금 계산"], status:"published", publishedAt:"2026-08-11", scheduledAt:null, readingMinutes:8, visual:"1억" },
   { id:10, title:"N잡을 '예상 월수익'으로 고르면 오래 못 갑니다 — 5가지 점수표", slug:"midlife-side-job-scorecard", excerpt:"유행 대신 내 경험과 자금에 맞는 N잡을 고르는 5가지 평가 기준표와 2주 검증법. 계속·수정·중단 기준을 시작 전에 정하는 방법까지 정리했습니다.", body:`<p><strong>퇴직 후 N잡을 고를 때 예상 월수익만 보면 시작하기는 쉽지만 오래가기 어렵습니다.</strong> 같은 100만 원이라도 매일 5시간이 필요한 일과 한 달 뒤 반복 판매가 가능한 일의 성격은 전혀 다릅니다. 후보를 세 개만 적고 아래 다섯 항목을 각각 1점부터 5점까지 매겨보세요. 유행하는 아이템을 고르는 대신 <strong>내 시간과 자금에 맞는 것</strong>을 고르기 위한 표입니다.</p>
 
 <h2>다섯 항목을 한 표에 놓습니다</h2>
@@ -141,7 +141,7 @@ export const seedPosts: Post[] = [
 <h2>계속·수정·중단 기준을 먼저 정하세요</h2>
 <p>2주 뒤 판단 기준을 시작 전에 적어둡니다. 유료 의향이 1명 이상이면 계속, 관심은 있지만 가격이나 결과가 불분명하면 수정, 아무 반응이 없고 접근할 고객도 찾기 어렵다면 중단입니다. <strong>실패한 실험은 지운 비용이 아니라 다음 후보에서 피할 조건을 알려주는 자료입니다.</strong> 세 후보를 차례로 돌리면 두 달 안에 방향이 잡힙니다.</p>
 
-<p>수입이 생기기 시작하면 기록과 세금 준비를 함께 시작해야 합니다. <a href="/posts/side-income-tax-records">N잡 수입 기록 방법</a>을 참고하세요. 직업훈련이나 창업 지원을 함께 알아보려면 <a href="https://www.work24.go.kr/" target="_blank" rel="noreferrer">고용24</a>와 <a href="https://www.sbiz24.kr/" target="_blank" rel="noreferrer">소상공인24</a>의 안내를 확인할 수 있습니다. 이 글은 특정 부업의 수익을 보장하지 않으며 결과는 사람마다 다릅니다.</p>`, category:"재취업·N잡", tags:["중장년 N잡","부업 선택","수익 실험","퇴직 후 부업"], status:"published", publishedAt:"2026-08-11", scheduledAt:null, readingMinutes:8, visual:"N잡" },
+<p>수입이 생기기 시작하면 기록과 세금 준비를 함께 시작해야 합니다. <a href="/posts/side-income-tax-records">N잡 수입 기록 방법</a>을 참고하세요. 직업훈련이나 창업 지원을 함께 알아보려면 <a href="https://www.work24.go.kr/" target="_blank" rel="noreferrer">고용24</a>와 <a href="https://www.sbiz24.kr/" target="_blank" rel="noreferrer">소상공인24</a>의 안내를 확인할 수 있습니다. 이 글은 특정 부업의 수익을 보장하지 않으며 결과는 사람마다 다릅니다.</p>`, category:"퇴직 후 부업·N잡", tags:["중장년 N잡","부업 선택","수익 실험","퇴직 후 부업"], status:"published", publishedAt:"2026-08-11", scheduledAt:null, readingMinutes:8, visual:"N잡" },
   { id:11, title:"AI로 정말 돈이 벌릴까? 7일이면 되는지 안 되는지 나옵니다", slug:"ai-first-income-five-methods-seven-day-plan", excerpt:"리서치 대행부터 디지털 상품·인스타툰·미니사이트·웹게임까지, 과장된 수익 약속 대신 고객·비용·7일 검증·중단 기준으로 바꿨습니다.", body:`<p><strong>결론부터 말하면 다섯 가지를 전부 시작하면 안 됩니다.</strong> 지금 가진 경험과 첫 수익까지 버틸 시간을 기준으로 한 가지만 고르고, 7일 안에 실제 고객 반응을 확인해야 합니다. AI는 제작 시간을 줄여주지만 고객, 사실 확인, 저작권과 판매 책임까지 대신해 주지는 않습니다.</p>
 <h2>영상의 다섯 방법을 실행 기준으로 다시 봅니다</h2>
 <table><thead><tr><th>방법</th><th>돈을 내는 사람</th><th>7일 안에 만들 것</th><th>첫 검증 신호</th></tr></thead><tbody><tr><td>리서치 대행</td><td>시장·경쟁사 정보가 필요한 사업자</td><td>3쪽짜리 샘플 보고서</td><td>유료 시험 의뢰 1건</td></tr><tr><td>디지털 상품</td><td>시간을 아끼려는 특정 사용자</td><td>체크리스트·템플릿 최소판</td><td>결제 의향 2명</td></tr><tr><td>인스타툰</td><td>독자, 이후 광고주·협업사</td><td>같은 주제의 3편</td><td>저장·공유·문의</td></tr><tr><td>수익형 미니사이트</td><td>불편을 해결하려는 방문자</td><td>계산기나 진단 도구 1개</td><td>재방문 또는 검색 유입</td></tr><tr><td>간단한 웹게임</td><td>플레이어, 이후 광고주·구매자</td><td>1분 안에 끝나는 게임</td><td>반복 플레이</td></tr></tbody></table>
@@ -176,7 +176,7 @@ export const seedPosts: Post[] = [
 <ul><li>첫 7일에는 고가 강의, 재고, 유료 광고와 장기 구독을 결제하지 않습니다.</li><li>고객 10명에게 제안하지 않았다면 실패도 성공도 판단하지 않습니다.</li><li>관심은 있지만 결제 의향이 없으면 기능을 늘리지 말고 대상이나 문제를 바꿉니다.</li><li>출처를 확인할 수 없거나 권리 침해 가능성이 있으면 공개하지 않습니다.</li><li>수익 사례는 가능성의 예일 뿐 내 수익을 보장하지 않습니다.</li></ul>
 <p>이 영상에서 가져올 가장 중요한 태도는 “AI로 무엇이든 만들 수 있다”가 아니라 <strong>작은 결과물을 빠르게 만들어 실제 사람에게 검증한다</strong>는 것입니다. 첫 목표를 월수익이 아니라 유료 고객 1명, 결제 의향 2명, 반복 사용자 1명처럼 확인 가능한 신호로 바꾸세요.</p>
 <p>원본 영상: <a href="https://www.youtube.com/watch?v=qEVZ7AgB7zI" target="_blank" rel="noreferrer">클로드로 당장 수익 만드는 확실한 방법 5가지</a></p>
-<p><strong>최루프 · AI 실전활용 편집자</strong></p>`, category:"AI 활용", tags:["클로드","AI 부업","디지털 상품","미니사이트","수익 실험"], status:"published", publishedAt:"2026-08-14", scheduledAt:null, readingMinutes:13, visual:"AI×5" },
+<p><strong>최루프 · AI 실전활용 편집자</strong></p>`, category:"AI 활용·바이브코딩", tags:["클로드","AI 부업","디지털 상품","미니사이트","수익 실험"], status:"published", publishedAt:"2026-08-14", scheduledAt:null, readingMinutes:13, visual:"AI×5" },
   { id:12, title:"퇴직 다음 달 건강보험료 고지서에 놀라기 전에, 확인할 3가지", slug:"health-insurance-after-retirement-three-checks", excerpt:"피부양자·지역가입자·임의계속가입 가운데 내게 가능한 경로를 확인하고, 첫 고지서와 신청기한을 놓치지 않는 순서를 정리했습니다.", body:`<p><strong>퇴직 후 건강보험료는 퇴직 전 월급명세서의 금액만 보고 예상하면 빗나갈 수 있습니다.</strong> 직장가입자일 때는 보수에 보험료율을 적용하고 회사와 본인이 나눠 부담하지만, 지역가입자가 되면 세대의 소득과 재산을 반영해 보험료가 산정되기 때문입니다. 첫 고지서를 받기 전에 <strong>피부양자 가능 여부, 예상 지역보험료, 임의계속가입 가능 여부</strong>를 같은 표에서 비교하세요.</p>
 <p>이 글의 기준일은 2026년 8월 14일입니다. 개인별 자격과 금액은 자료 반영 시점에 따라 달라질 수 있으므로 국민건강보험공단에서 최종 확인해야 합니다.</p>
 <h2>퇴직하면 선택지가 세 갈래로 나뉩니다</h2>
@@ -203,7 +203,7 @@ export const seedPosts: Post[] = [
 <table><thead><tr><th>비교 항목</th><th>월 건강보험료</th><th>월 장기요양보험료</th><th>적용기간·기한</th></tr></thead><tbody><tr><td>퇴직 전 본인부담액</td><td>급여명세서 확인</td><td>급여명세서 확인</td><td>퇴직일까지</td></tr><tr><td>예상 지역보험료</td><td>공단 확인</td><td>공단 확인</td><td>자격 변동일부터</td></tr><tr><td>예상 임의계속보험료</td><td>공단 확인</td><td>공단 확인</td><td>최대 36개월·신청기한 확인</td></tr></tbody></table>
 <p>건강보험료는 퇴직 후 고정비를 크게 바꿀 수 있지만, 무조건 피부양자나 임의계속가입이 유리하다고 정해져 있지는 않습니다. 내 자료로 세 경로를 비교하고 기한 안에 선택하는 것이 핵심입니다.</p>
 <p>공식 확인: <a href="https://www.nhis.or.kr/static/alim/paper/oldpaper/202212/sub/18.html" target="_blank" rel="noreferrer">국민건강보험공단 임의계속가입 안내</a> · <a href="https://edi.nhis.or.kr/portal/images/popup/20251204_pop01longdesc.html" target="_blank" rel="noreferrer">2026년도 보험료율 안내</a> · <a href="https://www.nhis.or.kr/" target="_blank" rel="noreferrer">국민건강보험공단</a></p>
-<p><strong>노후 · 연금·보험 편집자</strong></p>`, category:"연금·세금·보험", tags:["퇴직 건강보험료","지역가입자","피부양자","임의계속가입","2026 건강보험"], status:"published", publishedAt:"2026-08-14", scheduledAt:null, readingMinutes:11, visual:"건보", authorName:"노후" },
+<p><strong>노후 · 연금·보험 편집자</strong></p>`, category:"건강보험료·건강검진", tags:["퇴직 건강보험료","지역가입자","피부양자","임의계속가입","2026 건강보험"], status:"published", publishedAt:"2026-08-14", scheduledAt:null, readingMinutes:11, visual:"건보", authorName:"노후" },
   { id:1001, title:"예금자보호 1억이면 안심일까? 퇴직금 나누기 전 확인할 5가지", slug:"deposit-protection-100-million-retirement-money-checks", excerpt:"원금과 이자를 합쳐 금융회사별 1억원까지 보호되는 기준, 보호되지 않는 상품, 퇴직연금 별도 한도와 분산 예치표를 정리했습니다.", body:`<p><strong>2025년 9월 1일부터 예금보호한도는 금융회사별로 원금과 소정의 이자를 합해 1인당 1억원입니다.</strong> 계좌마다 1억원이 아니며, 같은 금융회사에 여러 예금이 있으면 합산해 계산합니다. 퇴직금을 옮기기 전에는 금리순으로 통장을 만들지 말고 <strong>보호 대상 여부 → 금융회사별 합계 → 만기와 중도해지 조건</strong> 순서로 확인하세요.</p>
 <figure class="article-image"><img src="/article-thumbnails/income-tax-calculation.webp" alt="예금보호한도와 퇴직금 분산 예치를 계산하는 표·계산기 일러스트" width="355" height="444" loading="lazy" decoding="async"><figcaption>보호한도만 보지 말고 금융회사별 원금·예상 이자 합계와 만기일을 함께 적어야 합니다. · 퇴직생활연구소 제작 일러스트</figcaption></figure>
 <h2>1. 가입 화면에서 예금자보호 표시부터 확인합니다</h2>
@@ -223,7 +223,7 @@ export const seedPosts: Post[] = [
 <ul><li>보호 대상 표시나 금융회사 법인 구분을 확인하지 못한 경우</li><li>우대금리 조건 때문에 불필요한 카드·보험 가입을 요구받는 경우</li><li>중도해지 이율과 만기 전 필요한 생활비를 계산하지 않은 경우</li><li>예금자보호를 원금손실 없는 투자상품이라는 뜻으로 설명하는 경우</li></ul>
 <blockquote>보호한도는 상품을 추천하는 기준이 아니라, 퇴직금을 한 곳에 집중하지 않았는지 확인하는 안전 점검선입니다.</blockquote>
 <p>기준일: 2026년 8월 14일. 공식 확인: <a href="https://www.fsc.go.kr/edu/news/85225" target="_blank" rel="noreferrer">금융위원회 예금보호한도 1억원 안내</a> · <a href="https://www.fsc.go.kr/edu/news/85077" target="_blank" rel="noreferrer">금융위원회 적용 대상·별도 한도 안내</a> · <a href="https://www.kdic.or.kr/" target="_blank" rel="noreferrer">예금보험공사</a></p>
-<p><strong>자산 · 투자·재테크 편집자</strong></p>`, category:"투자·재테크", tags:["예금자보호","퇴직금","1억원","예금보험공사","분산 예치"], status:"published", publishedAt:"2026-08-14", scheduledAt:null, readingMinutes:10, visual:"1억", authorName:"자산" },
+<p><strong>자산 · 투자·재테크 편집자</strong></p>`, category:"퇴직금·노후 생활비", tags:["예금자보호","퇴직금","1억원","예금보험공사","분산 예치"], status:"published", publishedAt:"2026-08-14", scheduledAt:null, readingMinutes:10, visual:"1억", authorName:"자산" },
   { id:1002, title:"사진관 안 가고 휴대폰 셀카로 증명사진 만들기 — 무료 ProShot 사용법", slug:"proshot-mobile-id-studio-photo-guide", excerpt:"휴대폰 셀카 한 장으로 증명사진·비즈니스 헤드샷·스튜디오 프로필을 무료로 만드는 순서와 공식 신분증 사용 시 주의점을 정리했습니다.", body:`<p><strong>ProShot은 현재 무료로 이용할 수 있습니다.</strong> 이력서나 업무 프로필 사진이 급할 때 휴대폰 셀카 한 장으로 정장 헤드샷과 스튜디오 프로필을 만들 수 있습니다. 사진을 올리고 원하는 스타일을 고른 뒤 결과를 내려받는 방식입니다. 사진관을 완전히 대신한다기보다, 온라인 이력서·포트폴리오·강사 소개처럼 디지털 프로필이 먼저 필요한 상황에서 부담 없이 시안을 만드는 용도로 활용하세요.</p>
 <p><a class="primary-button" href="https://proshot.adbles.com/" target="_blank" rel="noreferrer">ProShot에서 사진 만들기 <span aria-hidden="true">↗</span></a></p>
 <figure class="article-image"><img src="https://proshot.adbles.com/images/selfie_before.png" alt="ProShot에 업로드하기 전 휴대폰 정면 셀카 예시" width="640" height="640" loading="lazy" decoding="async"><figcaption>정면을 또렷하게 바라본 휴대폰 셀카를 준비합니다. · ProShot 제공 예시 이미지</figcaption></figure>
@@ -243,7 +243,7 @@ export const seedPosts: Post[] = [
 <blockquote>AI 사진의 장점은 빠른 시안 제작입니다. 본인 확인이 필요한 사진은 편리함보다 제출기관의 최신 규격을 먼저 따르세요.</blockquote>
 <p><a class="primary-button" href="https://proshot.adbles.com/" target="_blank" rel="noreferrer">ProShot 바로가기 <span aria-hidden="true">↗</span></a></p>
 <p>기준일: 2026년 8월 14일. 무료 이용 여부와 기능 확인: <a href="https://proshot.adbles.com/" target="_blank" rel="noreferrer">ProShot 공식 화면</a></p>
-<p><strong>픽 · 유용한 도구 편집자</strong></p>`, category:"유용한 도구", tags:["ProShot","AI 증명사진","프로필 사진","비즈니스 헤드샷","휴대폰 사진"], status:"published", publishedAt:"2026-08-15", scheduledAt:null, readingMinutes:8, visual:"PHOTO", authorName:"픽" },
+<p><strong>픽 · 유용한 도구 편집자</strong></p>`, category:"무료 도구 활용법", tags:["ProShot","AI 증명사진","프로필 사진","비즈니스 헤드샷","휴대폰 사진"], status:"published", publishedAt:"2026-08-15", scheduledAt:null, readingMinutes:8, visual:"PHOTO", authorName:"픽" },
   { id:1003, title:"IRP에 들어온 퇴직금, 해지 버튼을 누르기 전에 볼 5가지", slug:"retirement-pay-irp-five-checks-before-withdrawal", excerpt:"퇴직금이 IRP로 들어온 뒤 일시금과 연금 중 무엇을 선택할지, 과세이연·세율·수수료·생활비를 기준으로 확인합니다.", body:`<p><strong>퇴직금이 개인형퇴직연금(IRP)에 들어왔다고 바로 해지할 필요는 없습니다.</strong> IRP 입금은 세금이 없어진 것이 아니라 퇴직소득세 납부 시점을 뒤로 미룬 상태입니다. 생활비 때문에 일시금이 필요한지, 연금으로 나눠 받을 수 있는지, 계좌 안에 퇴직금 외 개인 납입금이 섞여 있는지를 먼저 확인해야 합니다.</p>
 <figure class="article-image"><img src="/article-thumbnails/application-process-timeline.webp" alt="퇴직금이 IRP에 입금된 뒤 일시금과 연금 수령 절차를 확인하는 서류·일정표 일러스트" width="355" height="444" loading="lazy" decoding="async"><figcaption>IRP는 해지 버튼부터 누르기보다 퇴직금의 출처, 필요한 시점과 수령 방식을 순서대로 확인해야 합니다. · 퇴직생활연구소 제작 일러스트</figcaption></figure>
 <h2>먼저 내 퇴직금이 왜 IRP로 들어왔는지 확인하세요</h2>
@@ -262,7 +262,7 @@ export const seedPosts: Post[] = [
 <p>일시금과 연금의 세후 비교표를 받지 못했거나, 계좌 안 자금의 출처를 구분하지 못했거나, 고위험 상품을 이해하지 못한 상태라면 당일 해지를 멈추세요. 반대로 당장 필요한 생활비가 있는데 세금 혜택만 보고 무리하게 연금수령을 고집해서도 안 됩니다. 퇴직금은 세금뿐 아니라 앞으로 버틸 시간을 함께 계산해야 합니다.</p>
 <blockquote>IRP를 유지할지 해지할지는 수익률 전망보다 ‘언제 얼마가 필요한가’와 ‘세후로 얼마를 받는가’를 먼저 비교해 결정하세요.</blockquote>
 <p>기준일: 2026년 8월 14일. 공식 확인: <a href="https://1350.moel.go.kr/rtmview.do?id=1000255731&page=1&type=ALL" target="_blank" rel="noreferrer">고용노동부 IRP 의무이전·예외 안내</a> · <a href="https://www.moel.go.kr/retirementpay.do" target="_blank" rel="noreferrer">고용노동부 퇴직연금제도 안내</a> · <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7888&mi=6609" target="_blank" rel="noreferrer">국세청 연금계좌 원천징수세율</a> · <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7880&mi=6444" target="_blank" rel="noreferrer">국세청 퇴직소득세·과세이연 안내</a></p>
-<p><strong>절세 · 세금·보험 편집자</strong></p>`, category:"연금·세금·보험", tags:["퇴직금 IRP","개인형퇴직연금","퇴직소득세","과세이연","연금수령"], status:"published", publishedAt:"2026-08-15", scheduledAt:null, readingMinutes:11, visual:"IRP", authorName:"절세" },
+<p><strong>절세 · 세금·보험 편집자</strong></p>`, category:"국민연금·퇴직연금", tags:["퇴직금 IRP","개인형퇴직연금","퇴직소득세","과세이연","연금수령"], status:"published", publishedAt:"2026-08-15", scheduledAt:null, readingMinutes:11, visual:"IRP", authorName:"절세" },
   { id:1004, title:"페이스북 광고 부업, 수익보다 광고비가 먼저 나갑니다 — 시작 전 7가지", slug:"facebook-ads-side-hustle-reality", excerpt:"페이스북·인스타그램 광고 운영 대행을 소수익 클릭 부업으로 오해하지 않도록, 초기 비용·위험·책임과 14일 검증 순서를 정리했습니다.", body:`<p><strong>페이스북·인스타그램(Meta) 광고 운영은 '클릭으로 돈 버는 부업'이 아닙니다.</strong> 소상공인이나 온라인 쇼핑몰의 광고 계정을 세팅하고 타깃팅·소재·예산을 관리해 주는 <strong>서비스형 마케팅 부업</strong>입니다. 첫 광고비를 쓰기 전 본인의 대행 역량, 광고비 입출금 구조, 과장광고 책임 범위를 반드시 정리해야 합니다.</p>
 <p>이 글의 기준일은 2026년 8월 16일입니다. Meta 광고 정책과 표시광고법 기준을 바탕으로 작성되었습니다.</p>
 <h2>1. 대량 클릭 부업과 광고 운영 대행의 차이</h2>
@@ -271,7 +271,7 @@ export const seedPosts: Post[] = [
 <ol><li><strong>광고비는 절대 개인 카드/계좌로 대납하지 않습니다.</strong> 반드시 고객사의 Meta 비즈니스 관리자 계정에 결제 수단을 직접 등록하게 합니다.</li><li><strong>과장·허위 수수료 표현을 절대 쓰지 않습니다.</strong> "월 1,000% ROI 보장" 같은 문구는 표시광고법 위반 및 계정 영구 정지의 원인이 됩니다.</li><li><strong>픽셀(Pixel)과 전환 API를 먼저 설치합니다.</strong> 랜딩페이지 유입과 실제 구매/문의 전환 지표를 측정하지 못하면 예산만 낭비됩니다.</li><li><strong>첫 테스트 예산 상한을 정합니다.</strong> 하루 1~2만 원 선에서 3~5일간 A/B 테스트를 진행하고 지표를 확인합니다.</li><li><strong>소재 제작 시 개인정보 및 타깃 저작권을 확인합니다.</strong> 타인의 이미지나 상표를 무단 도용하지 않습니다.</li><li><strong>중단 기준을 서면으로 공유합니다.</strong> 3일간 CTR(클릭률) 1% 미만, CPA(전환단가) 초과 시 소재 교체 또는 중단 조건을 미리 정합니다.</li><li><strong>월 1회 정기 성과 보고서를 제출합니다.</strong> 노출수, 클릭수, 전환수, ROAS(광고비 대비 매출액)를 표로 작성해 인계합니다.</li></ol>
 <h2>3. 14일 첫 고객 검증 순서</h2>
 <table><thead><tr><th>기간</th><th>실행 목표</th><th>완료 기준</th></tr></thead><tbody><tr><td>1~3일차</td><td>Meta 비즈니스 계정 및 픽셀 공부</td><td>테스트 캠페인 구조 설계 완료</td></tr><tr><td>4~7일차</td><td>지인 가게나 소상공인 1곳 무료 시안 제공</td><td>카드 뉴스 소재 3종 및 타깃 세팅</td></tr><tr><td>8~10일차</td><td>하루 1만 원 소액 테스트 집행</td><td>CTR·CPC(클릭당 비용) 데이터 모니터링</td></tr><tr><td>11~14일차</td><td>첫 성과 보고서 작성 및 유료 계약 제안</td><td>월 관리비 수수료 정식 계약 1건</td></tr></tbody></table>
-<p><strong>원 · 수익실험 편집자</strong></p>`, category:"재취업·N잡", tags:["페이스북 광고","N잡","Meta 광고","부업 검증","마케팅 부업"], status:"published", publishedAt:"2026-08-16", scheduledAt:null, readingMinutes:10, visual:"FB_ADS", authorName:"원" },
+<p><strong>원 · 수익실험 편집자</strong></p>`, category:"퇴직 후 부업·N잡", tags:["페이스북 광고","N잡","Meta 광고","부업 검증","마케팅 부업"], status:"published", publishedAt:"2026-08-16", scheduledAt:null, readingMinutes:10, visual:"FB_ADS", authorName:"원" },
   { id:1005, title:"퇴직하면 회사 건강검진이 끊깁니다 — 국가검진 대상·주기 직접 챙기는 법", slug:"post-retirement-health-checkup-guide", excerpt:"퇴직 후 놓치기 쉬운 국가건강검진 대상자 확인, 만성질환 예방 필수 검사 항목, 연령별 검진 주기와 비용 절약 팁을 정리했습니다.", body:`<p><strong>퇴직 후 직장 단체 검진이 중단되면 국가건강검진 주기를 직접 챙겨야 합니다.</strong> 국민건강보험공단에서 제공하는 일반건강검진과 암검진은 출생연도(짝수/홀수해)에 따라 지정되며, 40세·66세 등 생애전환기 맞춤형 검사 항목이 추가됩니다. 첫 검진표를 받기 전 <strong>검진 대상 여부, 필수 검사 항목, 연령별 추가 권장 검사</strong>를 확인하세요.</p>
 <p>이 글의 기준일은 2026년 8월 16일입니다. 국민건강보험공단 및 질병관리청 가이드라인을 바탕으로 작성되었습니다.</p>
 <h2>1. 퇴직 후 직장검진에서 국가검진으로의 전환</h2>
@@ -280,7 +280,7 @@ export const seedPosts: Post[] = [
 <ul><li><strong>일반건강검진 (기본):</strong> 신체계측, 혈압, 비만도, 시력·청력, 혈당, 이상지질혈증(남 24세/여 40세 이상 4년마다), 간기능, 신장기능, 흉부 X-ray.</li><li><strong>위암 검진 (40세 이상):</strong> 2년마다 위내시경 검사 (비용 공단 90%, 본인 10%).</li><li><strong>대장암 검진 (50세 이상):</strong> 1년마다 분변잠혈검사 (공단 100% 지원, 양성 시 대장내시경 지원).</li><li><strong>간암 검진 (40세 이상 고위험군):</strong> 상반기·하반기 연 2회 간초음파 및 혈액검사.</li><li><strong>폐암 검진 (54~74세 고위험군):</strong> 2년마다 저선량 CT 검사.</li></ul>
 <h2>3. 건강검진 전후 5가지 주의사항</h2>
 <ol><li><strong>검진 8시간 전 금식:</strong> 검사 전날 저녁 9시 이후 금식하며, 수분 섭취도 최소화합니다.</li><li><strong>기저질환 약물 복용 확인:</strong> 고혈압 약은 검진 당일 아침 일찍 소량의 물과 복용하되, 당뇨약/인슐린은 저혈당 예방을 위해 복용을 금합니다.</li><li><strong>추가 선택 검사 꼭 필요한 것만:</strong> 뇌 MRI, PET-CT 등 고가 검사는 증상이나 가족력이 있을 때 전문의 상담 후 선택합니다.</li><li><strong>검진 결과표 이상 소견 재검진:</strong> 2차 검진 대상(고혈압·당뇨 의심) 통보 시 기한 내 지정 병원에서 무료 재검사를 받습니다.</li><li><strong>결과 기록 모바일 통합 관리:</strong> 공단 'The 건강보험' 앱을 통해 과거 검진 이력을 통합 관리하세요.</li></ol>
-<p><strong>케어 · 건강·예방 편집자</strong></p>`, category:"건강·예방", tags:["건강검진","국가건강검진","중장년 건강","건강보험","예방의학"], status:"published", publishedAt:"2026-08-16", scheduledAt:null, readingMinutes:9, visual:"HEALTH", authorName:"케어" },
+<p><strong>케어 · 건강·예방 편집자</strong></p>`, category:"건강보험료·건강검진", tags:["건강검진","국가건강검진","중장년 건강","건강보험","예방의학"], status:"published", publishedAt:"2026-08-16", scheduledAt:null, readingMinutes:9, visual:"HEALTH", authorName:"케어" },
   { id:1006, title:"자진퇴사면 실업급여 못 받는다? 인정되는 사유가 따로 있습니다", slug:"voluntary-resignation-unemployment-benefit-conditions", excerpt:"자발적 퇴사는 원칙적으로 실업급여 대상이 아니지만 고용보험법 시행규칙 별표2의 정당한 이직 사유에 해당하면 받을 수 있습니다. 2개월·3시간·30일 같은 인정 기준과 사유별 증빙 서류, 2026년 실제 수령액을 정리했습니다.", body:`<figure class="article-image"><img src="/article-thumbnail-sprite.png" alt="자발적 퇴사 실업급여 정당한 이직 사유와 증빙 서류를 정리한 퇴직생활연구소 시각자료" loading="lazy" decoding="async"></figure>
 <p><strong>결론부터 말하면, 자발적 퇴사도 실업급여를 받을 수 있습니다.</strong> 다만 "그만두고 싶어서 그만둔 경우"는 아니고, 「고용보험법 시행규칙」 제101조제2항 별표2가 정한 <strong>정당한 이직 사유</strong>에 해당해야 합니다. 그리고 실무에서 결과를 가르는 것은 사유 자체보다 <strong>그 사유를 서류로 증명할 수 있는지</strong>입니다.</p>
 <p>이 글의 기준일은 2026년 8월 18일이며, 고용노동부·국가법령정보센터·찾기쉬운 생활법령정보의 공개 자료를 근거로 정리했습니다. 개인별 최종 판단은 관할 고용센터가 하므로, 신청 전 확인이 필요합니다.</p>
@@ -357,7 +357,7 @@ export const seedPosts: Post[] = [
 <p>정당한 이직 사유의 판단 기준은 "본인의 귀책사유 없이 사유가 발생했고, <strong>통상 다른 근로자도 이직했을 것</strong>이라고 객관적으로 인정되는지"입니다. 힘들었다는 사실만으로는 부족하고, 그 상황에서 누구라도 그만뒀을 것이라고 서류로 보여야 합니다.</p>
 <p>이 글은 공개된 법령과 공식 안내를 정리한 참고자료입니다. 제도와 금액은 바뀔 수 있고 개인별 인정 여부는 관할 고용센터가 최종 판단하므로, 신청 전 고용센터(국번 없이 1350) 또는 고용24에서 본인 상황을 확인하세요.</p>
 <p>출처: 고용보험법 시행규칙 별표2(https://www.law.go.kr/lsBylInfoPLinkR.do?bylCls=BE&lsNm=고용보험법+시행규칙&bylNo=0002&bylBrNo=00), 찾기쉬운 생활법령정보 구직급여(https://easylaw.go.kr/CSP/CnpClsMain.laf?popMenu=ov&csmSeq=722&ccfNo=2&cciNo=3&cnpClsNo=2), 2026년 적용 최저임금 고시(https://www.moel.go.kr/info/lawinfo/instruction/view.do?bbs_seq=20250800121)</p>
-<p><strong>데스크 · 정부지원·실업급여 편집자</strong></p>`, category:"정부지원·실업급여", tags:["자발적 퇴사 실업급여","자진퇴사","정당한 이직 사유","실업급여 조건","실업급여 증빙"], status:"published", publishedAt:"2026-08-18", scheduledAt:null, readingMinutes:11, visual:"자진퇴사" },
+<p><strong>데스크 · 정부지원·실업급여 편집자</strong></p>`, category:"실업급여", tags:["자발적 퇴사 실업급여","자진퇴사","정당한 이직 사유","실업급여 조건","실업급여 증빙"], status:"published", publishedAt:"2026-08-18", scheduledAt:null, readingMinutes:11, visual:"자진퇴사" },
   { id:1007, title:"사직서에 뭐라고 쓰느냐로 실업급여가 갈립니다 — 권고사직·자진퇴사·계약만료 차이", slug:"resignation-vs-layoff-vs-contract-end-unemployment-benefits", excerpt:"권고사직, 자발적 퇴사, 계약만료의 실업급여 수급자격, 퇴직금 차이, 이직확인서 코드(23번·11번·32번)와 사직서 작성 주의사항을 2026년 고용노동부 공식 기준으로 총정리했습니다.", body:`<p><strong>퇴사 통보를 앞두고 있다면 사직서에 서명하기 전에 퇴사 유형(권고사직·자발적 퇴사·계약만료)의 법적 성격과 고용보험 이직사유 코드를 반드시 확인해야 합니다.</strong> 퇴사 사유가 어떻게 전산에 등록되느냐에 따라 수백만 원에서 천만 원이 넘는 <strong>실업급여(구직급여) 수급 여부</strong>가 결정되기 때문입니다.</p>
 <p>이 글은 2026년 고용노동부 및 고용보험법 최신 기준을 바탕으로 세 가지 퇴사 방식의 <strong>실업급여 수급 자격, 퇴직금 지급 기준, 이직확인서 코드 대조표, 사직서 작성 요령, 그리고 자발적 퇴사 시 실업급여 예외 인정 조건</strong>을 총정리한 실전 가이드입니다.</p>
 <h2>1. 권고사직 vs 자발적 퇴사 vs 계약만료 핵심 비교표</h2>
@@ -489,7 +489,7 @@ export const seedPosts: Post[] = [
   <strong>편집실 조언:</strong> 퇴사 과정에서 회사와의 갈등이 예상된다면 통화 녹음, 메신저 대화, 이메일, 근무표 등 객관적인 입증 자료를 반드시 개인 기기에 백업해 두세요. 고용센터 수급 심사에서 가장 강력한 증거가 됩니다.
 </blockquote>
 <p>출처 및 공식 확인: <a href="https://www.work24.go.kr" target="_blank" rel="noopener noreferrer">고용24 (구 고용보험·워크넷)</a> · <a href="https://www.moel.go.kr" target="_blank" rel="noopener noreferrer">고용노동부 공식 포털</a> · 근로기준법 제26조 및 제36조</p>
-<p><strong>가드 · 지원금·세무·노무 편집자</strong></p>`, category:"정부지원·실업급여", tags:["권고사직","자발적 퇴사","계약만료","실업급여 조건","퇴직금 차이","이직사유 코드","사직서 양식"], status:"published", publishedAt:"2026-08-18", scheduledAt:"2026-08-18T01:00:00.000Z", readingMinutes:10, visual:"VS비교", authorName:"가드" },
+<p><strong>가드 · 지원금·세무·노무 편집자</strong></p>`, category:"실업급여", tags:["권고사직","자발적 퇴사","계약만료","실업급여 조건","퇴직금 차이","이직사유 코드","사직서 양식"], status:"published", publishedAt:"2026-08-18", scheduledAt:"2026-08-18T01:00:00.000Z", readingMinutes:10, visual:"VS비교", authorName:"가드" },
   { id:2000, title:"AI가 짜준 코드를 그대로 올리면 생기는 일 — 바이브 코딩 치명적 위험 8가지", slug:"vibe-coding-risks-8-things", excerpt:"AI로 코딩할 때 발생할 수 있는 요금 폭탄, 데이터 삭제, 보안 유출 등 8가지 치명적인 위험 요소와 이를 예방하는 프롬프트 작성법을 알아봅니다.", body:`<p>최근 AI를 활용해 코딩을 하는 '바이브 코딩(Vibe Coding)'이 유행하고 있습니다. 프롬프트 몇 줄만으로 번듯한 웹사이트와 앱을 뚝딱 만들어내는 마법 같은 기술이지만, <strong>설정 하나를 놓쳤다가 하룻밤 새 수백 달러가 결제되거나 수만 명의 개인정보가 유출되는 끔찍한 사고</strong>도 함께 발생하고 있습니다.</p>
 <p>단순한 해프닝이 아니라 실전에서 여러분의 지갑과 데이터를 위협할 수 있는 <strong>바이브 코딩의 8가지 치명적 위험 요소와 그 예방법</strong>을 정리해 드립니다.</p>
 <h2>1. 요금 폭탄: 자동 충전 한도 설정 누락</h2>
@@ -524,7 +524,7 @@ export const seedPosts: Post[] = [
 <ul><li><strong>예방법:</strong> 기능을 만들 때마다 '보안'을 명시적으로 요구하고, 배포 전 점검을 지시하세요.
 <blockquote>"그냥 회원가입을 만들어 줘가 아니라, 인증이랑 입력 검증까지 포함해서 안전하게 만들어 줘."<br>"배포하기 전에 AI한테 보안에 문제가 없는지 자동으로 한 번 점검해 줘."</blockquote></li></ul>
 <h2>마치며</h2>
-<p>AI를 활용한 코딩은 엄청난 생산성을 가져다주지만, 개발자가 보안에 대한 기본 개념을 잡고 명시적으로 안전장치를 지시하지 않으면 대형 사고로 이어질 수 있습니다. 프롬프트 딱 한 줄을 덧붙이는 것만으로도 대부분의 사고를 예방할 수 있으니, 바이브 코딩을 하실 때 위 8가지 체크리스트를 꼭 활용해 보시기 바랍니다.</p>`, category:"AI 활용", tags:["AI", "바이브코딩", "보안"], status:"published", publishedAt:"2026-08-18", scheduledAt:null, readingMinutes:5, visual:"NEW", authorName:"데스크" },
+<p>AI를 활용한 코딩은 엄청난 생산성을 가져다주지만, 개발자가 보안에 대한 기본 개념을 잡고 명시적으로 안전장치를 지시하지 않으면 대형 사고로 이어질 수 있습니다. 프롬프트 딱 한 줄을 덧붙이는 것만으로도 대부분의 사고를 예방할 수 있으니, 바이브 코딩을 하실 때 위 8가지 체크리스트를 꼭 활용해 보시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["AI", "바이브코딩", "보안"], status:"published", publishedAt:"2026-08-18", scheduledAt:null, readingMinutes:5, visual:"NEW", authorName:"데스크" },
   { id:2001, title:"2026 실업급여, 월급이 많아도 월 204만 원에서 멈춥니다 — 상한액·반복수급 감액", slug:"2026-unemployment-benefits-revision-guide", excerpt:"2026년 실업급여 1일 상한액 68,100원·하한액 66,048원과 최근 5년 내 반복수급 시 10~50퍼센트 감액 구조, 최대 4주 연장되는 대기기간, 나이와 가입기간이 정하는 소정급여일수를 정리했습니다.", body:`<p><strong>2026년 실업급여는 상한액과 하한액이 함께 조정됐고, 반복수급에 대한 제재가 눈에 띄게 강해졌습니다.</strong> 퇴직을 앞두고 있다면 "얼마를 얼마나 받는가"보다 <strong>"내가 감액 대상인가"</strong>를 먼저 확인해야 합니다. 이 글은 2026년 기준으로 정리한 것으로, 금액과 요건은 이후 개정될 수 있습니다.</p>
 
 <figure class="article-image"><img src="/article-thumbnails/unemployment_benefits_thumbnail.jpg" alt="실업급여와 재정 지원을 상징하는 일러스트" width="800" height="800" loading="lazy" decoding="async"><figcaption>정확한 정보와 준비가 퇴직 후의 재정적 안정을 결정합니다. · AI 생성 이미지</figcaption></figure>
@@ -590,7 +590,7 @@ export const seedPosts: Post[] = [
 
 <p>수급 중 국민연금 납부를 이어가고 싶다면 <a href="/posts/2026-unemployment-credit-guide">실업크레딧</a>을, 수급 중 일을 하게 된다면 <a href="/posts/side-jobs-while-receiving-benefits">신고 기준</a>을 함께 확인하세요.</p>
 
-<p>이 글은 2026년 기준 제도 변화를 정리한 것으로 개인의 수급 자격이나 금액을 알려주지 않습니다. 금액·요건·감액 기준은 개정될 수 있으므로 신청 전에 <a href="https://www.work24.go.kr/" target="_blank" rel="noreferrer">고용24</a>의 모의계산과 관할 고용복지플러스센터 상담으로 본인 기준을 확인하시기 바랍니다.</p>`, category:"정부지원·실업급여", tags:["실업급여","2026 실업급여 상한액","반복수급 감액","구직급여","소정급여일수","이직확인서"], status:"published", publishedAt:"2026-08-18", scheduledAt:null, readingMinutes:9, visual:"2026", authorName:"가드" },
+<p>이 글은 2026년 기준 제도 변화를 정리한 것으로 개인의 수급 자격이나 금액을 알려주지 않습니다. 금액·요건·감액 기준은 개정될 수 있으므로 신청 전에 <a href="https://www.work24.go.kr/" target="_blank" rel="noreferrer">고용24</a>의 모의계산과 관할 고용복지플러스센터 상담으로 본인 기준을 확인하시기 바랍니다.</p>`, category:"실업급여", tags:["실업급여","2026 실업급여 상한액","반복수급 감액","구직급여","소정급여일수","이직확인서"], status:"published", publishedAt:"2026-08-18", scheduledAt:null, readingMinutes:9, visual:"2026", authorName:"가드" },
   { id:2002, title:"바이브 코딩 입문 1: 코딩을 몰라도 프롬프트 하나면 도구가 나옵니다", slug:"vibe-coding-basics-1", excerpt:"코딩을 몰라도 AI와 대화하며 도구를 만들 수 있습니다. 바이브 코딩의 개념, 잘 되는 것과 어려운 것의 경계, 첫 지시문에 담을 네 가지를 정리했습니다.", body:`<p>과거에는 프로그래밍을 하려면 복잡한 문법과 영문 명령어를 수개월간 외우고 공부해야 했습니다. 하지만 이제는 일상적인 '대화'만으로도 컴퓨터에게 일을 시키고 프로그램을 만들 수 있는 시대가 왔습니다. 이를 <strong>'바이브 코딩(Vibe Coding)'</strong>이라고 부릅니다.</p>
 
 <h2>바이브 코딩이란?</h2>
@@ -634,7 +634,7 @@ export const seedPosts: Post[] = [
 <h2>다음 편에서는</h2>
 <p>바이브 코딩은 완벽한 코드를 한 번에 짜는 것이 아니라, AI가 만들어준 결과물을 보고 다시 대화하며 조금씩 다듬어가는 '핑퐁 게임'과 같습니다. <a href="/posts/vibe-coding-basics-2">2편</a>에서는 그 대화를 어떻게 이어가야 원하는 결과에 빨리 닿는지 다룹니다. 도구를 아직 못 정했다면 <a href="/posts/vibe-coding-basics-4">4편 도구 선택</a>을 먼저 봐도 됩니다.</p>
 
-<p>이 글은 바이브 코딩의 개념과 시작 방법을 정리한 것으로 특정 도구나 결과를 보장하지 않습니다. AI가 만든 코드는 그대로 신뢰하지 말고 <a href="/posts/vibe-coding-risks-8-things">AI 코딩 시 반드시 알아야 할 8가지 치명적 위험</a>을 함께 확인하시기 바랍니다.</p>`, category:"AI 활용", tags:["바이브코딩", "AI활용", "노코드", "프롬프트", "시리즈1"], status:"published", publishedAt:"2026-08-18", scheduledAt:null, readingMinutes:7, visual:"VIBE1", authorName:"데스크" },
+<p>이 글은 바이브 코딩의 개념과 시작 방법을 정리한 것으로 특정 도구나 결과를 보장하지 않습니다. AI가 만든 코드는 그대로 신뢰하지 말고 <a href="/posts/vibe-coding-risks-8-things">AI 코딩 시 반드시 알아야 할 8가지 치명적 위험</a>을 함께 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["바이브코딩", "AI활용", "노코드", "프롬프트", "시리즈1"], status:"published", publishedAt:"2026-08-18", scheduledAt:null, readingMinutes:7, visual:"VIBE1", authorName:"데스크" },
   { id:2003, title:"바이브 코딩 입문 2: 한 번에 완벽을 시키면 실패합니다 — AI와 '핑퐁'하는 법", slug:"vibe-coding-basics-2", excerpt:"한 번의 지시로 완벽을 기대하면 실패합니다. 한 번에 하나씩 바꾸는 점진적 대화법, 막연한 지시를 고쳐 쓰는 법, 맥락을 유지하고 되돌리는 요령을 정리했습니다.", body:`<p>이전 글에서 바이브 코딩의 기본 개념을 알아보았습니다. 이번에는 AI가 내가 원하는 결과물을 정확히 만들어 내도록 이끄는 <strong>대화의 기술(Prompting)</strong>에 대해 다뤄보겠습니다.</p>
 
 <h2>완벽을 기대하지 말고 '점진적으로'</h2>
@@ -681,7 +681,7 @@ export const seedPosts: Post[] = [
 <h2>다음 편에서는</h2>
 <p>대화로 원하는 화면을 만들었다면, 이제 그것을 내 컴퓨터 밖으로 꺼낼 차례입니다. <a href="/posts/vibe-coding-basics-3">3편</a>에서 배포를 다룹니다.</p>
 
-<p>이 글은 AI와의 대화 방법을 정리한 것으로 특정 도구의 동작이나 결과를 보장하지 않습니다. 도구마다 화면과 용어가 다르므로 각 서비스의 공식 안내를 함께 확인하시기 바랍니다.</p>`, category:"AI 활용", tags:["바이브코딩", "AI활용", "프롬프트엔지니어링", "시리즈2"], status:"published", publishedAt:"2026-08-18", scheduledAt:null, readingMinutes:7, visual:"VIBE2", authorName:"데스크" },
+<p>이 글은 AI와의 대화 방법을 정리한 것으로 특정 도구의 동작이나 결과를 보장하지 않습니다. 도구마다 화면과 용어가 다르므로 각 서비스의 공식 안내를 함께 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["바이브코딩", "AI활용", "프롬프트엔지니어링", "시리즈2"], status:"published", publishedAt:"2026-08-18", scheduledAt:null, readingMinutes:7, visual:"VIBE2", authorName:"데스크" },
   { id:2004, title:"바이브 코딩 입문 3: 내 컴퓨터에만 있던 도구, 인터넷에 올리기", slug:"vibe-coding-basics-3", excerpt:"내 컴퓨터에서만 돌던 결과물을 인터넷에 올리는 순서. 도구 내장 배포와 Github 연동 배포의 차이, 배포 전 보안 점검 4단계, 비용이 생기는 지점을 정리했습니다.", body:`<p>바이브 코딩을 통해 결과물을 만들었다면, 이제 다른 사람이 볼 수 있게 할 차례입니다. 내 컴퓨터(로컬)에서만 작동하던 코드를 인터넷 서버에 올려 누구나 접속할 수 있게 하는 과정을 <strong>배포(Deployment)</strong>라고 합니다.</p>
 
 <h2>클라우드 서비스 활용하기</h2>
@@ -733,7 +733,7 @@ export const seedPosts: Post[] = [
 <h2>다음 편에서는</h2>
 <p>이제 코딩을 모르더라도 기획력만 있다면 자신만의 도구를 만들어 인터넷에 올릴 수 있게 되었습니다. <a href="/posts/vibe-coding-basics-6">6편</a>에서는 그것을 남이 실제로 쓰게 만드는 방법 — 공개 전 점검표와 첫 사용자 열 명을 찾는 순서를 다룹니다.</p>
 
-<p>이 글은 배포의 일반적인 절차를 정리한 것으로 특정 서비스나 결과를 보장하지 않습니다. 각 호스팅 서비스의 기능·요금·무료 한도는 수시로 바뀌므로 공식 안내를 확인하시기 바랍니다.</p>`, category:"AI 활용", tags:["바이브코딩", "AI활용", "배포", "Vercel", "시리즈3"], status:"published", publishedAt:"2026-08-18", scheduledAt:null, readingMinutes:7, visual:"VIBE3", authorName:"데스크" },
+<p>이 글은 배포의 일반적인 절차를 정리한 것으로 특정 서비스나 결과를 보장하지 않습니다. 각 호스팅 서비스의 기능·요금·무료 한도는 수시로 바뀌므로 공식 안내를 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["바이브코딩", "AI활용", "배포", "Vercel", "시리즈3"], status:"published", publishedAt:"2026-08-18", scheduledAt:null, readingMinutes:7, visual:"VIBE3", authorName:"데스크" },
   { id:2101, title:"소득은 끊겼는데 건강보험료는 올랐다면 — 임의계속가입 확인 순서", slug:"post-retirement-health-insurance-voluntary-continuation", excerpt:"퇴직하면 지역가입자로 바뀌면서 보험료를 전액 부담하게 됩니다. 임의계속가입과 피부양자 등재를 비교하는 순서와 놓치기 쉬운 신청 기한을 정리했습니다.", body:`<p><strong>퇴직 다음 달에 예상하지 못한 건강보험료 고지서를 받는 일이 흔합니다.</strong> 직장에 다닐 때는 보험료의 절반을 회사가 부담했지만, 퇴직하면 지역가입자로 자격이 바뀌면서 소득뿐 아니라 재산과 자동차까지 반영된 보험료를 본인이 전액 내야 합니다. 소득이 끊긴 시점에 보험료가 오히려 올라가는 상황이 생기는 이유입니다. 부담을 줄이는 장치로 임의계속가입과 피부양자 등재가 있고, 두 가지 모두 신청할 수 있는 기간이 정해져 있습니다.</p>
 
 <h2>퇴직하면 자격이 이렇게 바뀝니다</h2>
@@ -779,7 +779,7 @@ export const seedPosts: Post[] = [
 
 <blockquote>보험료 액수보다 신청 기한을 놓치는 쪽이 손해가 큽니다. 고지서를 받은 날, 납부기한부터 확인하세요.</blockquote>
 
-<p>이 글은 제도의 큰 틀을 정리한 것으로, 개인별 보험료와 자격 요건은 소득·재산·가족 구성에 따라 달라집니다. 금액이나 요건을 확정적으로 판단하기 전에 반드시 국민건강보험공단의 공식 안내를 확인하시기 바랍니다.</p>`, category:"연금·세금·보험", tags:["건강보험","임의계속가입","피부양자","퇴직 준비"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:8, visual:"임의계속", authorName:"데스크" },
+<p>이 글은 제도의 큰 틀을 정리한 것으로, 개인별 보험료와 자격 요건은 소득·재산·가족 구성에 따라 달라집니다. 금액이나 요건을 확정적으로 판단하기 전에 반드시 국민건강보험공단의 공식 안내를 확인하시기 바랍니다.</p>`, category:"건강보험료·건강검진", tags:["건강보험","임의계속가입","피부양자","퇴직 준비"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:8, visual:"임의계속", authorName:"데스크" },
   { id:2102, title:"실업급여 대상이 아니라는 말을 들었다면 — 국민취업지원제도부터 확인하세요", slug:"national-employment-support-program-guide", excerpt:"실업급여 대상이 아니거나 수급이 끝난 구직자를 위한 국민취업지원제도의 구조, 유형 구분, 신청 순서와 중장년이 특히 확인할 점을 정리했습니다.", body:`<p><strong>실업급여를 받지 못하는 상황이라면 국민취업지원제도를 먼저 확인해 볼 만합니다.</strong> 고용보험 가입 기간이 모자라거나, 실업급여 수급이 끝났거나, 오랫동안 일을 쉬다가 다시 구직에 나선 경우가 여기에 해당합니다. 이 제도는 구직활동을 전제로 상담과 직업훈련을 연계하고, 요건을 충족하면 구직촉진수당을 지급하는 고용노동부의 취업지원 제도입니다.</p>
 
 <h2>실업급여와는 다른 제도입니다</h2>
@@ -823,7 +823,7 @@ export const seedPosts: Post[] = [
 
 <blockquote>제도를 아는 것보다 본인이 어느 유형에 해당하는지 확인하는 일이 먼저입니다. 판단은 상담 창구에 맡기고, 준비는 서류로 하세요.</blockquote>
 
-<p>지원 대상과 지급 요건, 수당 지급 기간은 해마다 조정될 수 있습니다. 이 글은 제도의 구조를 정리한 것으로 개별 수급 여부를 판단해 주지 않습니다. 신청 전에 고용노동부와 고용24의 공식 안내, 그리고 거주지 관할 고용센터의 상담을 통해 본인 기준으로 확인하시기 바랍니다.</p>`, category:"정부지원·실업급여", tags:["국민취업지원제도","구직촉진수당","고용센터","취업지원"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:9, visual:"국취제", authorName:"데스크" },
+<p>지원 대상과 지급 요건, 수당 지급 기간은 해마다 조정될 수 있습니다. 이 글은 제도의 구조를 정리한 것으로 개별 수급 여부를 판단해 주지 않습니다. 신청 전에 고용노동부와 고용24의 공식 안내, 그리고 거주지 관할 고용센터의 상담을 통해 본인 기준으로 확인하시기 바랍니다.</p>`, category:"실업급여", tags:["국민취업지원제도","구직촉진수당","고용센터","취업지원"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:9, visual:"국취제", authorName:"데스크" },
   { id:2103, title:"20년 경력을 한 장으로 못 줄이면 서류에서 걸립니다 — 중장년 경력기술서 쓰는 법", slug:"midlife-career-description-resume-guide", excerpt:"경력이 길수록 나열이 되기 쉽습니다. 지원 직무에 맞춰 항목을 고르고 본인의 역할이 드러나게 고쳐 쓰는 순서와 보내기 전 점검 항목을 정리했습니다.", body:`<p><strong>중장년 재취업에서 이력서보다 결과를 가르는 문서는 경력기술서입니다.</strong> 이력서는 어디에서 얼마나 일했는지를 보여주지만, 경력기술서는 그 자리에서 무엇을 맡아 어떻게 처리했는지를 보여줍니다. 20년 넘는 경력을 한 장에 눌러 담다 보면 직함과 부서명만 남고 정작 채용 담당자가 알고 싶은 내용이 빠지는 일이 자주 생깁니다.</p>
 
 <h2>왜 경력이 길수록 불리해 보이는가</h2>
@@ -867,7 +867,7 @@ export const seedPosts: Post[] = [
 
 <blockquote>경력을 다 보여주려 하면 아무것도 남지 않습니다. 지원하는 자리 하나에 맞춰 덜어내는 것이 편집입니다.</blockquote>
 
-<p>채용 절차와 요구 서류는 회사와 직종에 따라 다릅니다. 이 글은 일반적인 작성 원칙을 정리한 것이며, 특정 결과나 합격을 담보하지 않습니다. 공공 취업지원 프로그램의 대상과 내용은 변경될 수 있으므로 공식 안내를 확인하시기 바랍니다.</p>`, category:"재취업·N잡", tags:["경력기술서","재취업","중장년","이력서"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:8, visual:"경력서", authorName:"데스크" },
+<p>채용 절차와 요구 서류는 회사와 직종에 따라 다릅니다. 이 글은 일반적인 작성 원칙을 정리한 것이며, 특정 결과나 합격을 담보하지 않습니다. 공공 취업지원 프로그램의 대상과 내용은 변경될 수 있으므로 공식 안내를 확인하시기 바랍니다.</p>`, category:"중장년 재취업·창업", tags:["경력기술서","재취업","중장년","이력서"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:8, visual:"경력서", authorName:"데스크" },
   { id:2104, title:"퇴직하면 국민연금은 어떻게 되나요? 납부예외·임의가입·추후납부 비교", slug:"national-pension-after-retirement-options", excerpt:"퇴직하면 국민연금 보험료를 낼 주체가 사라집니다. 납부예외·임의가입·추후납부·실업크레딧을 비교하고, 조기수령 6% 감액과 연기연금 연 7.2% 가산까지 확인 순서로 정리했습니다.", body:`<p><strong>퇴직하면 국민연금 보험료를 내던 주체가 사라집니다.</strong> 직장가입자일 때는 회사와 절반씩 나눠 냈지만, 퇴직 후에는 소득이 없는 기간을 어떻게 처리할지 본인이 정해야 합니다. 아무것도 하지 않으면 대개 납부예외 상태가 되는데, 이 기간은 가입기간으로 인정되지 않습니다. 선택지는 납부예외, 임의가입, 나중에 메우는 추후납부(추납), 그리고 구직급여를 받는 동안의 실업크레딧입니다.</p>
 
 <h2>퇴직 후 국민연금 선택지 한눈에 비교</h2>
@@ -914,7 +914,7 @@ export const seedPosts: Post[] = [
 
 <p>실업급여를 받는 동안의 보험료 지원은 <a href="/posts/2026-unemployment-credit-guide">2026년 실업크레딧, 국민연금 보험료 75% 지원받는 법</a>에서 따로 정리했습니다. 건강보험 쪽 공백이 걱정된다면 <a href="/posts/post-retirement-health-insurance-voluntary-continuation">퇴직 후 건강보험료가 오르는 이유와 임의계속가입 확인 순서</a>를 함께 보세요.</p>
 
-<p>가입 요건, 보험료율, 추후납부 한도와 감액·가산 비율은 제도 개편에 따라 달라질 수 있습니다. 이 글은 선택지의 구조를 정리한 것으로 개인별 유불리를 판단해 주지 않습니다. 신청 전에 국민연금공단의 공식 안내와 지사 상담으로 본인 이력을 기준으로 확인하시기 바랍니다.</p>`, category:"연금·세금·보험", tags:["퇴직 후 국민연금","납부예외","임의가입","추후납부","조기수령","연기연금"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:9, visual:"연금", authorName:"데스크" },
+<p>가입 요건, 보험료율, 추후납부 한도와 감액·가산 비율은 제도 개편에 따라 달라질 수 있습니다. 이 글은 선택지의 구조를 정리한 것으로 개인별 유불리를 판단해 주지 않습니다. 신청 전에 국민연금공단의 공식 안내와 지사 상담으로 본인 이력을 기준으로 확인하시기 바랍니다.</p>`, category:"국민연금·퇴직연금", tags:["퇴직 후 국민연금","납부예외","임의가입","추후납부","조기수령","연기연금"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:9, visual:"연금", authorName:"데스크" },
   { id:2105, title:"퇴직했는데 5월에 신고하라고? 첫 종합소득세, 대상부터 가려봅니다", slug:"first-comprehensive-income-tax-after-retirement", excerpt:"퇴직한 해에도 다음 해 5월 종합소득세 신고 대상이 될 수 있습니다. 3.3% 원천징수의 의미, 사업소득과 기타소득 차이, 홈택스 모두채움 신고와 준비 서류를 정리했습니다.", body:`<p><strong>퇴직한 해에도 다음 해 5월에는 종합소득세 신고를 해야 할 수 있습니다.</strong> 회사가 연말정산으로 처리해 주던 일이 사라지기 때문입니다. 퇴직 전까지의 근로소득에 더해 퇴직 후 받은 강의료, 원고료, 플랫폼 수입, 프리랜서 용역비가 있으면 이를 합산해 직접 신고합니다. 금액이 적어도 신고 대상에서 자동으로 빠지지는 않습니다.</p>
 
 <h2>내가 종합소득세 신고 대상인지 먼저 확인하세요</h2>
@@ -961,7 +961,7 @@ export const seedPosts: Post[] = [
 
 <p>세율, 공제 항목과 신고 방식은 해마다 달라질 수 있고, 소득 구분은 계약 형태에 따라 판단이 갈립니다. 이 글은 신고 구조를 정리한 것으로 개별 세액을 계산해 주지 않습니다. 신고 전에 <a href="https://www.nts.go.kr/" target="_blank" rel="noreferrer">국세청</a>과 <a href="https://www.hometax.go.kr/" target="_blank" rel="noreferrer">홈택스</a>의 공식 안내를 확인하고, 금액이 크거나 소득 구분이 애매하면 세무 전문가와 상담하시기 바랍니다.</p>
 
-<p>수입이 생길 때부터 무엇을 남겨 두어야 하는지는 <a href="/posts/side-income-tax-records">퇴직 후 N잡 수입, 세금 신고 전에 남겨야 할 기록</a>에서 따로 정리했습니다.</p>`, category:"연금·세금·보험", tags:["종합소득세 신고","3.3% 원천징수","사업소득 기타소득 차이","홈택스 모두채움","프리랜서 세금"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:8, visual:"종소세", authorName:"데스크" },
+<p>수입이 생길 때부터 무엇을 남겨 두어야 하는지는 <a href="/posts/side-income-tax-records">퇴직 후 N잡 수입, 세금 신고 전에 남겨야 할 기록</a>에서 따로 정리했습니다.</p>`, category:"정부지원금·세금", tags:["종합소득세 신고","3.3% 원천징수","사업소득 기타소득 차이","홈택스 모두채움","프리랜서 세금"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:8, visual:"종소세", authorName:"데스크" },
   { id:2106, title:"내가 받을 수 있는 지원금, 정부24에서 확인됩니다 — 보조금24 조회 순서", slug:"bojogeum24-government-subsidy-search-guide", excerpt:"정부24 보조금24에서 맞춤형 지원금을 조회하는 5단계와, 목록을 그대로 믿으면 안 되는 이유. 퇴직 직후 특히 눈여겨볼 갈래와 신청 전 확인 항목을 정리했습니다.", body:`<p><strong>받을 수 있는데 몰라서 신청하지 않은 지원금이 생각보다 많습니다.</strong> 중앙부처와 지자체가 각각 운영하다 보니 어디에 무엇이 있는지 한 번에 보기 어렵기 때문입니다. 정부24의 <strong>보조금24</strong>는 흩어진 행정정보를 모아 본인이 받을 수 있는 혜택을 목록으로 보여 주는 서비스입니다. 퇴직 직후처럼 소득과 가구 상황이 바뀌는 시기에 한 번 훑어볼 만합니다.</p>
 
 <h2>보조금24는 무엇을 보여 주나</h2>
@@ -1006,7 +1006,7 @@ export const seedPosts: Post[] = [
 
 <p>실업급여 대상이 아닌 경우의 선택지는 <a href="/posts/national-employment-support-program-guide">국민취업지원제도, 실업급여를 못 받을 때 확인할 것들</a>에서 정리했습니다. 퇴직 직후 순서대로 챙길 항목은 <a href="/posts/first-30-days-after-retirement">퇴직 후 첫 30일, 돈보다 먼저 정리할 7가지</a>를 참고하세요.</p>
 
-<p>지원 대상과 지급 기준, 모집 기간은 예산과 정책에 따라 수시로 달라집니다. 이 글은 조회 방법과 확인 순서를 정리한 것으로 개별 수급 여부를 판단해 주지 않습니다. 신청 전에 <a href="https://www.gov.kr/" target="_blank" rel="noreferrer">정부24</a>와 소관 기관의 공식 공고를 확인하시기 바랍니다.</p>`, category:"연금·세금·보험", tags:["보조금24","정부24 지원금 조회","맞춤형 혜택","중장년 지원금","정부 지원금"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:7, visual:"보조금", authorName:"데스크" },
+<p>지원 대상과 지급 기준, 모집 기간은 예산과 정책에 따라 수시로 달라집니다. 이 글은 조회 방법과 확인 순서를 정리한 것으로 개별 수급 여부를 판단해 주지 않습니다. 신청 전에 <a href="https://www.gov.kr/" target="_blank" rel="noreferrer">정부24</a>와 소관 기관의 공식 공고를 확인하시기 바랍니다.</p>`, category:"정부지원금·세금", tags:["보조금24","정부24 지원금 조회","맞춤형 혜택","중장년 지원금","정부 지원금"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:7, visual:"보조금", authorName:"데스크" },
   { id:2107, title:"천안에서 중장년 일자리 찾을 때 헤매지 않는 순서 — 창구 네 곳 구분", slug:"cheonan-midlife-job-search-guide", excerpt:"천안은 창구가 네 갈래로 흩어져 있습니다. 고용복지플러스센터·일자리종합지원센터·중장년내일센터·시니어클럽을 구분하고, 제조업 중심 지역에서 공고를 볼 때 확인할 조건을 정리했습니다.", body:`<p><strong>천안에서 일자리를 찾을 때 가장 많이 하는 실수는 채용 사이트부터 여는 것입니다.</strong> 천안은 제조업 비중이 높고 공공 일자리 사업도 여러 기관에 흩어져 있어서, 어디에 무엇이 있는지 모르면 같은 공고만 반복해서 보게 됩니다. 중장년이라면 민간 채용공고와 공공 취업지원 사업을 나눠서 보고, 나이대에 따라 창구가 달라진다는 점부터 알아 두는 편이 빠릅니다.</p>
 
 <h2>천안에서 쓸 수 있는 창구는 네 갈래입니다</h2>
@@ -1058,7 +1058,7 @@ export const seedPosts: Post[] = [
 
 <p>각 기관의 주소·연락처와 사업별 모집 일정, 참여 조건은 바뀔 수 있습니다. 이 글은 창구를 구분하고 확인 순서를 정리한 것으로 개별 지원 가능 여부를 판단해 주지 않습니다. 방문이나 신청 전에 <a href="https://www.cheonan.go.kr/job.do" target="_blank" rel="noreferrer">천안시 일자리종합지원센터</a>, <a href="https://www.work24.go.kr/" target="_blank" rel="noreferrer">고용24</a>와 관할 고용복지플러스센터의 최신 공고를 확인하시기 바랍니다.</p>
 
-<p>실업급여 대상이 아닐 때의 선택지는 <a href="/posts/national-employment-support-program-guide">국민취업지원제도, 실업급여를 못 받을 때 확인할 것들</a>에, 경력기술서 정리는 <a href="/posts/midlife-career-description-resume-guide">중장년 재취업 경력기술서, 20년 경력을 한 장으로 줄이는 법</a>에 따로 정리했습니다.</p>`, category:"지역 생활정보", tags:["천안 일자리","천안 중장년 일자리","천안시 일자리종합지원센터","천안고용복지플러스센터","천안 노인일자리","중장년내일센터"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:9, visual:"천안", authorName:"데스크" },
+<p>실업급여 대상이 아닐 때의 선택지는 <a href="/posts/national-employment-support-program-guide">국민취업지원제도, 실업급여를 못 받을 때 확인할 것들</a>에, 경력기술서 정리는 <a href="/posts/midlife-career-description-resume-guide">중장년 재취업 경력기술서, 20년 경력을 한 장으로 줄이는 법</a>에 따로 정리했습니다.</p>`, category:"중장년 재취업·창업", tags:["천안 일자리","천안 중장년 일자리","천안시 일자리종합지원센터","천안고용복지플러스센터","천안 노인일자리","중장년내일센터"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:9, visual:"천안", authorName:"데스크" },
   { id:2108, title:"바이브 코딩 입문 4: 러버블·리플릿·커서·클로드 코드, 뭘로 시작할까", slug:"vibe-coding-basics-4", excerpt:"도구 이름은 많은데 추천은 제각각입니다. 브라우저 완성형과 내 컴퓨터 개발형이라는 두 갈래로 나눠 보면 지금 나에게 맞는 것이 정해집니다. 고를 때 볼 네 가지와 결제 전 안전장치를 정리했습니다.", body:`<p><strong>바이브 코딩을 시작할 때 가장 먼저 막히는 지점은 코딩이 아니라 '어떤 도구를 켤 것인가'입니다.</strong> 이름은 다 처음 듣는데 소개 글마다 추천이 다릅니다. 그런데 도구들은 사실 성격이 몇 갈래로 나뉘고, 그 갈래만 알면 지금 나에게 맞는 것이 정해집니다. 앞선 <a href="/posts/vibe-coding-basics-1">1편</a>에서 대화로 프로그램을 만드는 개념을, <a href="/posts/vibe-coding-basics-2">2편</a>에서 핑퐁 대화법을 다뤘다면, 이번에는 그 대화를 어디서 할지 정하는 이야기입니다.</p>
 
 <h2>도구는 크게 두 갈래입니다</h2>
@@ -1103,7 +1103,7 @@ export const seedPosts: Post[] = [
 <h2>다음 편에서는</h2>
 <p>도구를 정하고 만들기 시작하면 반드시 오류를 만납니다. 화면이 하얗게 뜨거나 빨간 글씨가 쏟아지는 순간이 옵니다. 다음 편에서는 그때 AI에게 무엇을 어떻게 물어야 빨리 빠져나오는지 정리합니다.</p>
 
-<p>이 글은 도구를 고르는 기준을 정리한 것으로 특정 서비스를 추천하거나 결과를 보장하지 않습니다. 각 도구의 기능·요금·무료 한도는 수시로 바뀌므로 반드시 공식 안내를 확인하시기 바랍니다.</p>`, category:"AI 활용", tags:["바이브코딩","AI활용","러버블","커서","클로드코드","리플릿","시리즈4"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:8, visual:"VIBE4", authorName:"데스크" },
+<p>이 글은 도구를 고르는 기준을 정리한 것으로 특정 서비스를 추천하거나 결과를 보장하지 않습니다. 각 도구의 기능·요금·무료 한도는 수시로 바뀌므로 반드시 공식 안내를 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["바이브코딩","AI활용","러버블","커서","클로드코드","리플릿","시리즈4"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:8, visual:"VIBE4", authorName:"데스크" },
   { id:2109, title:"바이브 코딩 입문 5: 오류 메시지를 요약해서 물으면 AI도 못 고칩니다", slug:"vibe-coding-basics-5", excerpt:"초보자와 익숙한 사람을 가르는 것은 코딩 실력이 아니라 오류를 물어보는 실력입니다. 에러 메시지를 그대로 넘기는 이유, 질문 4단계, 같은 자리에서 세 번 막혔을 때 방향을 바꾸는 법을 정리했습니다.", body:`<p><strong>바이브 코딩에서 초보자와 익숙한 사람을 가르는 것은 코딩 실력이 아니라 '오류를 물어보는 실력'입니다.</strong> AI가 만들어 준 것이 한 번에 완벽하게 돌아가는 일은 드뭅니다. 화면이 하얗게 뜨거나 빨간 글씨가 쏟아지는 순간은 반드시 옵니다. 이때 "안 돼요"라고만 하면 AI도 헤매고, 에러 메시지를 그대로 붙여 넣으면 대개 몇 번 만에 풀립니다.</p>
 
 <h2>가장 흔한 실수: 요약해서 물어보기</h2>
@@ -1144,7 +1144,7 @@ export const seedPosts: Post[] = [
 <h2>다음 편에서는</h2>
 <p>오류를 넘기고 나면 결과물이 남습니다. 다음 편에서는 그것을 남에게 보여주기 전에 무엇을 점검해야 하는지, 그리고 첫 사용자를 어디서 찾는지 정리합니다.</p>
 
-<p>이 글은 오류 해결의 접근법을 정리한 것으로 특정 도구의 동작이나 결과를 보장하지 않습니다. 도구마다 화면과 용어가 다르므로 각 서비스의 공식 안내를 함께 확인하시기 바랍니다.</p>`, category:"AI 활용", tags:["바이브코딩","AI활용","오류해결","디버깅","프롬프트","시리즈5"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:7, visual:"VIBE5", authorName:"데스크" },
+<p>이 글은 오류 해결의 접근법을 정리한 것으로 특정 도구의 동작이나 결과를 보장하지 않습니다. 도구마다 화면과 용어가 다르므로 각 서비스의 공식 안내를 함께 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["바이브코딩","AI활용","오류해결","디버깅","프롬프트","시리즈5"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:7, visual:"VIBE5", authorName:"데스크" },
   { id:2110, title:"바이브 코딩 입문 6: 만들었는데 아무도 안 쓴다면 — 첫 사용자 열 명 찾기", slug:"vibe-coding-basics-6", excerpt:"배포했다고 사람이 오지는 않습니다. 비밀키 노출부터 휴대폰 화면까지 공개 전 점검표와, 첫 사용자 열 명에게 과제를 주고 관찰하는 순서를 정리했습니다.", body:`<p><strong>만들어서 인터넷에 올린 것과, 남이 실제로 쓰는 것 사이에는 생각보다 큰 간격이 있습니다.</strong> <a href="/posts/vibe-coding-basics-3">3편</a>에서 배포까지 마쳤다면 주소는 생겼습니다. 그런데 주소가 있다고 사람이 오지는 않습니다. 이번 편은 공개 직전 점검과, 첫 사용자를 만드는 현실적인 순서입니다.</p>
 
 <h2>공개 전 점검표</h2>
@@ -1196,7 +1196,7 @@ export const seedPosts: Post[] = [
 <h2>시리즈를 마치며</h2>
 <p>여기까지 오면 도구를 고르고, 대화로 만들고, 오류를 넘기고, 배포해서, 첫 사용자에게 보여주는 한 바퀴를 돈 셈입니다. 이 한 바퀴를 여러 번 도는 것이 바이브 코딩의 전부입니다. 처음부터 큰 것을 만들려 하지 말고, 작은 것으로 이 순환을 여러 번 경험해 보세요.</p>
 
-<p>이 글은 공개 전 점검과 초기 사용자 확보의 일반적인 순서를 정리한 것으로 특정 성과나 수익을 보장하지 않습니다. 개인정보를 수집하는 서비스라면 관련 법령과 공식 안내를 반드시 확인하시기 바랍니다.</p>`, category:"AI 활용", tags:["바이브코딩","AI활용","배포","사용자검증","수익화","시리즈6"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:7, visual:"VIBE6", authorName:"데스크" },
+<p>이 글은 공개 전 점검과 초기 사용자 확보의 일반적인 순서를 정리한 것으로 특정 성과나 수익을 보장하지 않습니다. 개인정보를 수집하는 서비스라면 관련 법령과 공식 안내를 반드시 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["바이브코딩","AI활용","배포","사용자검증","수익화","시리즈6"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:7, visual:"VIBE6", authorName:"데스크" },
   { id:2111, title:"바이브 코딩 입문 7: 내가 안 정하면 AI가 말없이 정해버리는 55가지", slug:"vibe-coding-basics-7", excerpt:"작은 도구 하나에도 수십 개의 갈림길이 있습니다. 내가 정하지 않으면 AI가 묻지 않고 정합니다. 결정을 세 갈래로 나누는 기준과, 코드를 쓰기 전에 목록을 받아내는 방법을 정리했습니다.", body:`<p><strong>바이브 코딩으로 뭔가를 만들다 보면, 어느 순간 "이건 내가 정한 적이 없는데" 싶은 것들이 잔뜩 들어와 있습니다.</strong> 로그인 방식, 데이터를 어디에 저장할지, 파일을 어떻게 올릴지, 누가 무엇을 볼 수 있는지 — 이런 것들은 전부 <strong>기술 의사결정</strong>입니다. 내가 정하지 않으면 AI가 대신 정합니다. 그리고 AI는 물어보지 않고 정합니다.</p>
 <p>3시간짜리 강의 하나가 이 결정 항목을 55개로 세어 보였습니다. 숫자 자체보다 중요한 것은, <strong>작은 도구 하나에도 수십 개의 갈림길이 있다는 사실</strong>입니다. 이번 편은 그 갈림길을 어떻게 드러내고 어디까지 내가 챙길지에 대한 이야기입니다.</p>
 
@@ -1251,7 +1251,7 @@ export const seedPosts: Post[] = [
 
 <p>이 글은 유튜브 영상 <a href="https://www.youtube.com/watch?v=K6Rsy-pHBi0" target="_blank" rel="noreferrer">「3시간 순삭) 55개 기술 의사결정, 소스코드 해설까지! 현존 바이브코딩 기본 강의 중 가장 실전적인 강의」</a>에서 다룬 '기술 의사결정' 관점을 출발점으로 삼아, 퇴직 전후 중장년 독자가 실제로 챙겨야 할 항목 중심으로 다시 구성한 것입니다. 영상의 구체적인 강의 내용과 소스코드 해설은 원본을 직접 확인하시기 바랍니다.</p>
 
-<p>도구와 서비스의 기능·요금·기본 설정은 수시로 바뀝니다. 이 글은 판단의 틀을 정리한 것으로 특정 도구의 동작이나 결과를 보장하지 않으며, 개인정보나 결제를 다루는 서비스라면 관련 법령과 공식 안내를 반드시 확인하시기 바랍니다.</p>`, category:"AI 활용", tags:["바이브코딩","AI활용","기술의사결정","개인정보","보안","시리즈7"], status:"published", publishedAt:"2026-08-30", scheduledAt:null, readingMinutes:9, visual:"VIBE7", authorName:"데스크" },
+<p>도구와 서비스의 기능·요금·기본 설정은 수시로 바뀝니다. 이 글은 판단의 틀을 정리한 것으로 특정 도구의 동작이나 결과를 보장하지 않으며, 개인정보나 결제를 다루는 서비스라면 관련 법령과 공식 안내를 반드시 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["바이브코딩","AI활용","기술의사결정","개인정보","보안","시리즈7"], status:"published", publishedAt:"2026-08-30", scheduledAt:null, readingMinutes:9, visual:"VIBE7", authorName:"데스크" },
   { id:2112, title:"주택연금, 한 번 가입하면 되돌리기 어렵습니다 — 서명 전 확인할 것들", slug:"housing-pension-before-you-sign", excerpt:"집은 있는데 쓸 현금이 없을 때 검토하는 제도입니다. 신청 전에 봐야 할 네 가지 축, 되돌리기 어려운 지점(초기보증료·상환 의무·재가입 제한), 가입 전 점검 순서를 정리했습니다.", body:`<p><strong>집은 있는데 매달 쓸 현금이 없다.</strong> 퇴직 후 가장 흔한 상황입니다. 자산의 대부분이 살고 있는 집 한 채에 묶여 있으니, 팔지 않는 한 생활비로 쓸 방법이 없습니다. 주택연금은 이 지점을 겨냥한 제도입니다. 집을 담보로 맡기고 <strong>그 집에 계속 살면서</strong> 매달 돈을 받는 구조입니다.</p>
 <p>다만 한 번 시작하면 되돌리는 비용이 큽니다. 신청 전에 구조와 제약을 알고 들어가야 합니다.</p>
 
@@ -1303,7 +1303,7 @@ export const seedPosts: Post[] = [
 <p>이사 계획이 있는 경우, 집이 유일한 자산인데 큰 의료비가 예상되는 경우, 자녀와 합가를 고려 중인 경우에는 서두르지 않는 편이 좋습니다. 반대로 <strong>이 집에서 계속 살 생각이 확실하고</strong>, 다른 연금만으로는 생활비가 모자라며, 목돈 쓸 일이 예정되어 있지 않다면 검토할 만합니다.</p>
 <p>월지급금·보증료·해지 조건은 제도 개편에 따라 달라지고, 실제 금액은 나이와 주택가격에 따라 사람마다 다릅니다. 이 글은 판단의 틀을 정리한 것으로 개별 수령액이나 가입 가능 여부를 알려주지 않습니다. 신청 전에 <a href="https://www.hf.go.kr/ko/sub03/sub03_01_01_05.do" target="_blank" rel="noreferrer">한국주택금융공사 주택연금 안내</a>와 <a href="https://www.hf.go.kr/ko/sub03/sub03_02_05_04.do" target="_blank" rel="noreferrer">자주 묻는 질문</a>에서 현재 기준을 확인하고, 상담 창구에서 본인 조건으로 다시 확인하시기 바랍니다.</p>
 
-<p>다른 노후 수입과 함께 계산하려면 <a href="/posts/national-pension-after-retirement-options">퇴직 후 국민연금, 납부예외·임의가입·추후납부 비교</a>와 <a href="/posts/retirement-pay-irp-five-checks-before-withdrawal">퇴직금이 IRP에 들어오면 바로 해지해도 될까?</a>를 함께 보세요. 월 생활비부터 정리하려면 <a href="/posts/retirement-minimum-budget-three-buckets">퇴직 후 최소생활비 계산법</a>이 출발점입니다.</p>`, category:"연금·세금·보험", tags:["주택연금","역모기지","주택연금 가입조건","주택연금 수령액","노후 생활비"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:9, visual:"주택연금", authorName:"데스크" },
+<p>다른 노후 수입과 함께 계산하려면 <a href="/posts/national-pension-after-retirement-options">퇴직 후 국민연금, 납부예외·임의가입·추후납부 비교</a>와 <a href="/posts/retirement-pay-irp-five-checks-before-withdrawal">퇴직금이 IRP에 들어오면 바로 해지해도 될까?</a>를 함께 보세요. 월 생활비부터 정리하려면 <a href="/posts/retirement-minimum-budget-three-buckets">퇴직 후 최소생활비 계산법</a>이 출발점입니다.</p>`, category:"국민연금·퇴직연금", tags:["주택연금","역모기지","주택연금 가입조건","주택연금 수령액","노후 생활비"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:9, visual:"주택연금", authorName:"데스크" },
   { id:2113, title:"VPN 하나 깔면 안전할까? 실제로 막아주는 범위와 고를 때 볼 다섯 가지", slug:"how-to-choose-a-vpn", excerpt:"카페·공항 와이파이의 위험과 VPN이 실제로 막아주는 범위. 노로그 외부 감사·본사 소재 국가·서버 위치·동시 접속·자동 갱신 요금까지 고를 때 볼 다섯 가지와 무료 VPN을 권하지 않는 이유를 정리했습니다.", body:`<p><strong>카페에서 무료 와이파이에 연결하고 은행 앱을 여는 순간, 그 통신은 같은 와이파이에 있는 누군가에게 들여다보일 수 있습니다.</strong> 더 흔한 수법은 아예 가짜 와이파이를 만들어 두는 것입니다. 이름을 매장 것과 똑같이 지어두면 대부분 의심 없이 연결합니다. VPN은 이 구간을 암호화해 가로채도 내용을 알아볼 수 없게 만드는 도구입니다.</p>
 <p>다만 광고 문구가 과한 분야이기도 합니다. 무엇을 해주고 무엇을 못 해주는지부터 나누는 편이 좋습니다.</p>
 
@@ -1356,7 +1356,7 @@ export const seedPosts: Post[] = [
 <p>서비스별 정책과 요금은 자주 바뀌고, 한 곳씩 찾아보면 시간이 많이 듭니다. 퇴직생활연구소를 운영하는 애드블스가 <a href="https://vpn.adbles.com/" target="_blank" rel="noreferrer">VPN 비교 사이트</a>를 따로 만들어 두었으니 항목별로 견주어 볼 때 활용하세요. 자사가 운영하는 사이트임을 밝혀 둡니다.</p>
 <p>어떤 서비스를 고르든 결제 전에 <strong>공식 홈페이지에서 현재 요금과 자동 갱신 조건</strong>을 직접 확인하시기 바랍니다. 이 글은 선택 기준을 정리한 것으로 특정 서비스를 보증하거나 보안 결과를 담보하지 않습니다.</p>
 
-<p>온라인에서 무엇을 조심해야 하는지 더 보려면 <a href="/posts/vibe-coding-risks-8-things">AI 코딩 시 반드시 알아야 할 8가지 치명적 위험</a>의 비밀키·권한 관리 부분이 도움이 됩니다.</p>`, category:"유용한 도구", tags:["VPN","VPN 추천","공용 와이파이","개인정보 보호","노로그"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:7, visual:"VPN", authorName:"데스크" },
+<p>온라인에서 무엇을 조심해야 하는지 더 보려면 <a href="/posts/vibe-coding-risks-8-things">AI 코딩 시 반드시 알아야 할 8가지 치명적 위험</a>의 비밀키·권한 관리 부분이 도움이 됩니다.</p>`, category:"무료 도구 활용법", tags:["VPN","VPN 추천","공용 와이파이","개인정보 보호","노로그"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:7, visual:"VPN", authorName:"데스크" },
   { id:2114, title:"국민연금 받으면 기초연금 못 받는다? 사실이 아닙니다 — 2026년 기준과 감액 구조", slug:"basic-pension-eligibility-and-reduction", excerpt:"국민연금과 기초연금은 함께 받을 수 있습니다. 2026년 선정기준액(단독 247만 원·부부 395만 2천 원), 소득인정액이 월급과 다른 이유, 국민연금 연계감액과 부부감액, 신청 창구와 재신청까지 정리했습니다.", body:`<p><strong>"국민연금을 받으면 기초연금은 못 받는다"는 말은 사실이 아닙니다.</strong> 두 제도는 별개이고 동시에 받을 수 있습니다. 다만 국민연금 수령액이 일정 선을 넘으면 기초연금이 일부 줄어드는 연계감액이 적용됩니다. 얼마나 줄어드는지, 애초에 내가 대상이 되는지를 순서대로 확인해야 헛걸음을 줄일 수 있습니다.</p>
 
 <h2>먼저 선정기준액을 넘는지 봅니다</h2>
@@ -1403,7 +1403,7 @@ export const seedPosts: Post[] = [
 
 <p>기초연금만으로 생활비가 채워지지 않는다면 다른 수입원과 함께 계산해야 합니다. <a href="/posts/housing-pension-before-you-sign">주택연금 검토 전 확인할 것들</a>과 <a href="/posts/retirement-minimum-budget-three-buckets">퇴직 후 최소생활비 계산법</a>을 함께 보세요. 건강보험료가 함께 부담이라면 <a href="/posts/post-retirement-health-insurance-voluntary-continuation">임의계속가입 확인 순서</a>도 도움이 됩니다.</p>
 
-<p>이 글의 금액과 기준은 2026년 발표 내용을 정리한 것으로, 제도 개편과 물가 반영에 따라 달라집니다. 본인의 수급 가능 여부와 예상 금액은 <a href="https://basicpension.mohw.go.kr/" target="_blank" rel="noreferrer">보건복지부 기초연금 안내</a>의 모의계산과 <a href="https://www.bokjiro.go.kr/" target="_blank" rel="noreferrer">복지로</a>에서 확인하고, 국민연금 연계 부분은 <a href="https://www.nps.or.kr/" target="_blank" rel="noreferrer">국민연금공단</a> 상담으로 다시 확인하시기 바랍니다. 이 글은 수급 여부나 금액을 보장하지 않습니다.</p>`, category:"연금·세금·보험", tags:["기초연금","기초연금 선정기준액","국민연금 연계감액","부부감액","기초연금 신청","소득인정액"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:9, visual:"기초연금", authorName:"노후" },
+<p>이 글의 금액과 기준은 2026년 발표 내용을 정리한 것으로, 제도 개편과 물가 반영에 따라 달라집니다. 본인의 수급 가능 여부와 예상 금액은 <a href="https://basicpension.mohw.go.kr/" target="_blank" rel="noreferrer">보건복지부 기초연금 안내</a>의 모의계산과 <a href="https://www.bokjiro.go.kr/" target="_blank" rel="noreferrer">복지로</a>에서 확인하고, 국민연금 연계 부분은 <a href="https://www.nps.or.kr/" target="_blank" rel="noreferrer">국민연금공단</a> 상담으로 다시 확인하시기 바랍니다. 이 글은 수급 여부나 금액을 보장하지 않습니다.</p>`, category:"국민연금·퇴직연금", tags:["기초연금","기초연금 선정기준액","국민연금 연계감액","부부감액","기초연금 신청","소득인정액"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:9, visual:"기초연금", authorName:"노후" },
   { id:2115, title:"노인일자리, 기초연금 안 받으면 신청도 못 하나요? 유형부터 갈립니다", slug:"senior-job-program-2026-application-guide", excerpt:"공익활동형·사회서비스형·민간형은 자격과 성격이 다릅니다. 기초연금 수급자만 되는 유형, 네 가지 신청 창구, 전년도 11~12월 모집 시기, 점수제 선발과 다른 급여와의 관계를 정리했습니다.", body:`<p><strong>노인일자리는 이름 때문에 일반 취업 공고처럼 생각하기 쉽지만, 실제로는 유형에 따라 성격이 완전히 다릅니다.</strong> 봉사에 가까운 활동부터 실제 근로계약을 맺는 일까지 섞여 있고, 신청 자격도 유형마다 다릅니다. 어느 유형에 해당하는지부터 정해야 헛걸음을 줄일 수 있습니다.</p>
 
 <h2>세 갈래로 먼저 나눕니다</h2>
@@ -1448,7 +1448,7 @@ export const seedPosts: Post[] = [
 
 <p>60대 초반이라 아직 대상이 아니라면 <a href="/posts/national-employment-support-program-guide">국민취업지원제도</a>나 <a href="/posts/cheonan-midlife-job-search-guide">지역 중장년 일자리 창구</a> 쪽이 맞습니다.</p>
 
-<p>이 글은 사업 구조와 확인 순서를 정리한 것으로 참여 가능 여부나 금액을 보장하지 않습니다. 유형·자격·활동비·모집 일정은 해마다 그리고 지역마다 달라지므로, 신청 전 <a href="https://www.seniorro.or.kr/" target="_blank" rel="noreferrer">노인일자리 여기(시니어로)</a>와 <a href="https://www.bokjiro.go.kr/" target="_blank" rel="noreferrer">복지로</a>에서 현재 공고를 확인하고 주소지 수행기관에 다시 문의하시기 바랍니다.</p>`, category:"정부지원·실업급여", tags:["노인일자리","노인일자리 신청방법","공익활동형","사회서비스형","시니어로","노인일자리 모집"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:8, visual:"노인일자리", authorName:"가드" },
+<p>이 글은 사업 구조와 확인 순서를 정리한 것으로 참여 가능 여부나 금액을 보장하지 않습니다. 유형·자격·활동비·모집 일정은 해마다 그리고 지역마다 달라지므로, 신청 전 <a href="https://www.seniorro.or.kr/" target="_blank" rel="noreferrer">노인일자리 여기(시니어로)</a>와 <a href="https://www.bokjiro.go.kr/" target="_blank" rel="noreferrer">복지로</a>에서 현재 공고를 확인하고 주소지 수행기관에 다시 문의하시기 바랍니다.</p>`, category:"정부지원금·세금", tags:["노인일자리","노인일자리 신청방법","공익활동형","사회서비스형","시니어로","노인일자리 모집"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:8, visual:"노인일자리", authorName:"가드" },
   { id:2116, title:"자격증부터 따면 늦습니다 — 중장년 재취업, 공고 열 개로 순서 잡기", slug:"midlife-reemployment-certificates-guide", excerpt:"자격증부터 고르면 취득 후 갈 곳을 다시 찾게 됩니다. 공고 열 개로 필수 자격을 먼저 가리는 법, 지게차·전기·요양보호사 비교표, 국민내일배움카드로 비용 줄이기, 등록 전 확인할 네 가지를 정리했습니다.", body:`<p><strong>중장년 재취업 준비에서 가장 흔한 순서 실수는 자격증부터 고르는 것입니다.</strong> "요즘 뭐가 잘 나가나요"로 시작하면 취득 후에 갈 곳을 다시 찾게 됩니다. 순서를 뒤집어 <strong>내가 갈 수 있는 일자리 공고를 먼저 열 개 모으고</strong>, 그 공고들이 공통으로 요구하는 자격을 확인한 다음 준비를 시작하는 편이 시간과 비용을 줄입니다.</p>
 
 <h2>먼저 공고 열 개를 모읍니다</h2>
@@ -1500,7 +1500,7 @@ export const seedPosts: Post[] = [
 <p>훈련은 몇 달이 걸립니다. 그 사이 수입이 없다면 계획이 흔들립니다. 실업급여 수급 중이라면 훈련 참여가 실업인정에 어떻게 반영되는지 관할 고용센터에 먼저 확인하고, 소득이 끊긴 상태라면 <a href="/posts/national-employment-support-program-guide">국민취업지원제도</a>의 구직촉진수당 대상인지 확인해 보세요. 생활비 기준선은 <a href="/posts/retirement-minimum-budget-three-buckets">최소생활비 3칸 예산표</a>로 잡을 수 있습니다.</p>
 <p>자격 취득이 어렵거나 시간이 오래 걸린다면, 기존 경험을 바로 파는 쪽도 함께 시험해 볼 수 있습니다. <a href="/posts/midlife-side-job-scorecard">N잡 선택표</a>로 후보를 비교해 보세요. 지역 창구가 궁금하면 <a href="/posts/cheonan-midlife-job-search-guide">지역 중장년 일자리 창구 정리</a>가 참고가 됩니다.</p>
 
-<p>이 글은 준비 순서를 정리한 것으로 특정 자격의 취업이나 소득을 보장하지 않습니다. 자격의 응시 자격·시험 일정은 <a href="https://www.q-net.or.kr/" target="_blank" rel="noreferrer">큐넷</a>에서, 훈련비 지원 한도와 자부담률은 <a href="https://www.work24.go.kr/hr/h/a/1100/selectIssuGudn.do" target="_blank" rel="noreferrer">고용24 국민내일배움카드 발급안내</a>에서 신청 시점 기준으로 확인하시기 바랍니다.</p>`, category:"재취업·N잡", tags:["중장년 자격증","재취업 자격증","국민내일배움카드","지게차운전기능사","요양보호사","전기기능사"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:9, visual:"자격증", authorName:"데스크" },
+<p>이 글은 준비 순서를 정리한 것으로 특정 자격의 취업이나 소득을 보장하지 않습니다. 자격의 응시 자격·시험 일정은 <a href="https://www.q-net.or.kr/" target="_blank" rel="noreferrer">큐넷</a>에서, 훈련비 지원 한도와 자부담률은 <a href="https://www.work24.go.kr/hr/h/a/1100/selectIssuGudn.do" target="_blank" rel="noreferrer">고용24 국민내일배움카드 발급안내</a>에서 신청 시점 기준으로 확인하시기 바랍니다.</p>`, category:"중장년 재취업·창업", tags:["중장년 자격증","재취업 자격증","국민내일배움카드","지게차운전기능사","요양보호사","전기기능사"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:9, visual:"자격증", authorName:"데스크" },
   { id:2117, title:"연금저축·IRP 900만 원 채웠는데 환급이 0원? 퇴직하면 계산이 달라집니다", slug:"irp-pension-savings-tax-credit-guide", excerpt:"세액공제는 낼 세금이 있어야 효과가 있습니다. 연금저축 600만·IRP 합산 900만 한도와 공제율, 퇴직 후 결정세액 확인법, ISA 만기자금 이전 추가공제, 2026년 확대되는 퇴직소득세 연금 감면과 중도해지 대가를 정리했습니다.", body:`<p><strong>퇴직을 앞두고 연금저축과 IRP를 알아볼 때 가장 먼저 확인해야 할 것은 한도가 아니라 "내가 낼 세금이 있는가"입니다.</strong> 세액공제는 이미 낸 세금에서 깎아주는 방식이라, 낼 세금이 적으면 한도를 채워도 돌려받을 것이 없습니다. 퇴직 첫해와 그 이후는 상황이 다르므로 순서대로 따져야 합니다.</p>
 
 <h2>한도와 공제율부터 정리합니다</h2>
@@ -1543,7 +1543,7 @@ export const seedPosts: Post[] = [
 <h2>흩어진 계좌부터 한 번에 확인하세요</h2>
 <p>직장을 여러 번 옮겼다면 본인도 모르는 퇴직연금·연금저축 계좌가 있을 수 있습니다. 금융감독원 통합연금포털에서 가입 내역과 예상 연금액을 한 번에 조회할 수 있습니다. 국민연금까지 함께 계산하려면 <a href="/posts/national-pension-after-retirement-options">퇴직 후 국민연금 선택지 비교</a>와 <a href="/posts/basic-pension-eligibility-and-reduction">기초연금 선정기준액과 감액 구조</a>를 같이 보세요. 연금소득이 늘면 기초연금 소득인정액에도 반영됩니다.</p>
 
-<p>이 글은 제도의 구조와 확인 순서를 정리한 것으로 개인별 세액이나 수익을 알려주지 않습니다. 한도·공제율·감면 구간은 세법 개정으로 바뀌므로 납입과 수령 전에 <a href="https://www.nts.go.kr/" target="_blank" rel="noreferrer">국세청</a> 안내와 <a href="https://www.hometax.go.kr/" target="_blank" rel="noreferrer">홈택스</a>에서 현재 기준을 확인하고, 가입 내역은 <a href="https://100lifeplan.fss.or.kr/" target="_blank" rel="noreferrer">금융감독원 통합연금포털</a>에서 조회하시기 바랍니다. 금액이 큰 결정은 세무 전문가와 상담하시길 권합니다.</p>`, category:"연금·세금·보험", tags:["연금저축","IRP","세액공제","퇴직소득세","ISA 연금계좌 이전","연말정산"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:9, visual:"세액공제", authorName:"절세" },
+<p>이 글은 제도의 구조와 확인 순서를 정리한 것으로 개인별 세액이나 수익을 알려주지 않습니다. 한도·공제율·감면 구간은 세법 개정으로 바뀌므로 납입과 수령 전에 <a href="https://www.nts.go.kr/" target="_blank" rel="noreferrer">국세청</a> 안내와 <a href="https://www.hometax.go.kr/" target="_blank" rel="noreferrer">홈택스</a>에서 현재 기준을 확인하고, 가입 내역은 <a href="https://100lifeplan.fss.or.kr/" target="_blank" rel="noreferrer">금융감독원 통합연금포털</a>에서 조회하시기 바랍니다. 금액이 큰 결정은 세무 전문가와 상담하시길 권합니다.</p>`, category:"국민연금·퇴직연금", tags:["연금저축","IRP","세액공제","퇴직소득세","ISA 연금계좌 이전","연말정산"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:9, visual:"세액공제", authorName:"절세" },
   { id:2118, title:"퇴직연금이 DB형이라면, 임금피크제 들어가기 전에 확인하세요 — DB·DC 차이", slug:"retirement-pension-db-dc-difference", excerpt:"DB형은 퇴직 직전 임금이, DC형은 매년 쌓인 돈과 운용 결과가 수령액을 정합니다. 계산 방식 비교표, 임금피크제 전 전환 시점, 되돌릴 수 없는 방향, 디폴트옵션과 내 유형 확인 순서를 정리했습니다.", body:`<p><strong>퇴직을 앞두고 "내 퇴직연금이 DB형인지 DC형인지" 모르는 분이 많습니다.</strong> 그런데 이 차이가 실제 수령액을 크게 가릅니다. 특히 임금피크제를 앞두고 있다면 <strong>전환 시점을 놓치는 순간 되돌릴 수 없습니다.</strong> 내 유형부터 확인하고, 남은 선택지가 있는지 따져보세요.</p>
 
 <h2>계산 방식이 근본적으로 다릅니다</h2>
@@ -1593,7 +1593,7 @@ export const seedPosts: Post[] = [
 <p>DB형이든 DC형이든 퇴직하면 퇴직급여는 원칙적으로 IRP 계좌로 이전됩니다. 여기서 바로 해지하면 퇴직소득세를 한 번에 내고 연금 수령 감면도 받지 못합니다. <a href="/posts/retirement-pay-irp-five-checks-before-withdrawal">퇴직금이 IRP에 들어오면 바로 해지해도 될까?</a>에서 인출 전 확인할 다섯 가지를, <a href="/posts/irp-pension-savings-tax-credit-guide">연금저축·IRP 세액공제</a>에서 세금 구조를 정리했습니다.</p>
 <p>퇴직급여가 노후 현금흐름에서 어느 정도 비중인지 보려면 <a href="/posts/national-pension-after-retirement-options">국민연금 선택지</a>, <a href="/posts/basic-pension-eligibility-and-reduction">기초연금</a>과 함께 계산해야 합니다.</p>
 
-<p>이 글은 두 제도의 구조와 확인 순서를 정리한 것으로 개인별 수령액이나 유불리를 알려주지 않으며 특정 운용 성과를 보장하지 않습니다. 전환 가능 여부와 절차는 회사 퇴직연금 규약에 따라 다르므로 인사 담당 부서에 확인하시고, 제도 내용은 <a href="https://www.moel.go.kr/retirementpay.do" target="_blank" rel="noreferrer">고용노동부 퇴직연금제도 안내</a>와 <a href="https://100lifeplan.fss.or.kr/" target="_blank" rel="noreferrer">금융감독원 통합연금포털</a>에서 확인하시기 바랍니다.`, category:"연금·세금·보험", tags:["퇴직연금","DB형 DC형 차이","확정급여형","확정기여형","임금피크제","디폴트옵션"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:9, visual:"DB·DC", authorName:"노후" },
+<p>이 글은 두 제도의 구조와 확인 순서를 정리한 것으로 개인별 수령액이나 유불리를 알려주지 않으며 특정 운용 성과를 보장하지 않습니다. 전환 가능 여부와 절차는 회사 퇴직연금 규약에 따라 다르므로 인사 담당 부서에 확인하시고, 제도 내용은 <a href="https://www.moel.go.kr/retirementpay.do" target="_blank" rel="noreferrer">고용노동부 퇴직연금제도 안내</a>와 <a href="https://100lifeplan.fss.or.kr/" target="_blank" rel="noreferrer">금융감독원 통합연금포털</a>에서 확인하시기 바랍니다.`, category:"국민연금·퇴직연금", tags:["퇴직연금","DB형 DC형 차이","확정급여형","확정기여형","임금피크제","디폴트옵션"], status:"published", publishedAt:"2026-08-31", scheduledAt:null, readingMinutes:9, visual:"DB·DC", authorName:"노후" },
   { id:2119, title:"국민연금 5년 당겨 받으면 평생 30% 깎입니다 — 되돌릴 수 없는 선택", slug:"national-pension-early-vs-deferred", excerpt:"조기수령은 1년당 6퍼센트 감액, 연기연금은 1년당 7.2퍼센트 가산. 손익분기점 72세 안팎, 일하면 한 번 더 깎이는 재직자 감액, 기초연금·건강보험에 미치는 영향과 결정 순서를 정리했습니다.", body:`<p><strong>국민연금은 언제부터 받을지 고를 수 있습니다. 그런데 이 선택은 한 번 하면 평생 따라옵니다.</strong> 5년 당겨 받으면 매달 받는 금액이 30퍼센트 깎인 채로 고정되고, 5년 미루면 36퍼센트 늘어난 채로 고정됩니다. 감액률은 나중에 되돌릴 수 없으므로 <strong>"당장 필요한가"만 보고 결정하면 20년 뒤에 후회할 수 있습니다.</strong></p>
 
 <h2>당겨 받기와 미뤄 받기, 숫자로 보면</h2>
@@ -1635,7 +1635,7 @@ export const seedPosts: Post[] = [
 
 <p><strong>당겨 받기는 "생활비가 지금 없다"는 문제를 푸는 수단이지 유리한 선택지가 아닙니다.</strong> 반대로 미루기도 그 기간을 버틸 다른 수입이 있어야 가능합니다. 순서를 뒤집어, 공백을 메울 방법을 먼저 찾고 그다음에 수령 시기를 정하는 편이 낫습니다.</p>
 
-<p>이 글은 제도의 구조와 확인 순서를 정리한 것으로 개인별 수령액이나 유불리를 알려주지 않습니다. 감액·가산율과 재직자 감액 기준은 개정될 수 있으므로, 본인의 예상 연금액과 수급개시연령은 <a href="https://www.nps.or.kr/" target="_blank" rel="noreferrer">국민연금공단</a>에서 조회하고 <a href="https://csa.nps.or.kr/" target="_blank" rel="noreferrer">중앙노후준비지원센터</a> 상담으로 본인 조건에 맞춰 다시 확인하시기 바랍니다.</p>`, category:"연금·세금·보험", tags:["국민연금 조기수령","연기연금","조기노령연금","재직자 노령연금 감액","국민연금 수령나이","손익분기점"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:9, visual:"조기·연기", authorName:"노후" },
+<p>이 글은 제도의 구조와 확인 순서를 정리한 것으로 개인별 수령액이나 유불리를 알려주지 않습니다. 감액·가산율과 재직자 감액 기준은 개정될 수 있으므로, 본인의 예상 연금액과 수급개시연령은 <a href="https://www.nps.or.kr/" target="_blank" rel="noreferrer">국민연금공단</a>에서 조회하고 <a href="https://csa.nps.or.kr/" target="_blank" rel="noreferrer">중앙노후준비지원센터</a> 상담으로 본인 조건에 맞춰 다시 확인하시기 바랍니다.</p>`, category:"국민연금·퇴직연금", tags:["국민연금 조기수령","연기연금","조기노령연금","재직자 노령연금 감액","국민연금 수령나이","손익분기점"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:9, visual:"조기·연기", authorName:"노후" },
   { id:2120, title:"폐업해도 압류되지 않는 돈이 있습니다 — 퇴직 후 사업자의 노란우산공제", slug:"noranwoosan-mutual-aid-guide", excerpt:"공제금이 법으로 압류 금지되는 것이 핵심입니다. 소득이 적을수록 커지는 소득공제 한도(최대 600만 원), 2026년 1,800만 원으로 늘어난 납입 한도, 돈을 받는 사유와 가입 전 확인할 네 가지를 정리했습니다.", body:`<p><strong>퇴직 후 프리랜서로 일하거나 작은 가게를 열면, 퇴직금 같은 안전망이 사라집니다.</strong> 사업이 잘 안 됐을 때 남는 것이 없다는 점이 가장 큰 불안입니다. 노란우산공제는 그 자리를 메우려고 만든 제도이고, <strong>공제금이 법으로 압류가 금지된다</strong>는 점이 다른 저축과 결정적으로 다릅니다.</p>
 
 <h2>소득공제와 압류 금지, 두 가지가 핵심입니다</h2>
@@ -1677,7 +1677,7 @@ export const seedPosts: Post[] = [
 <h2>N잡으로 시작한 경우라면</h2>
 <p>사업자등록을 하지 않은 단순 부업이라면 아직 대상이 아닐 수 있습니다. 수입이 이어질지부터 확인하는 것이 먼저입니다. <a href="/posts/midlife-side-job-scorecard">N잡 5가지 점수표</a>로 후보를 가리고, 수입이 생기면 <a href="/posts/side-income-tax-records">기록부터</a> 시작하세요. 사업자등록과 종합소득세 신고 흐름은 <a href="/posts/first-comprehensive-income-tax-after-retirement">퇴직 후 첫 종합소득세</a> 편에 정리해 두었습니다.</p>
 
-<p>이 글은 제도의 구조와 확인 순서를 정리한 것으로 가입 가능 여부나 절세 금액을 알려주지 않습니다. 한도·대상·지급 사유는 개정되므로 가입 전 <a href="https://www.8899.or.kr/" target="_blank" rel="noreferrer">노란우산 공식 홈페이지</a>와 <a href="https://www.sbiz24.kr/" target="_blank" rel="noreferrer">소상공인24</a>에서 현재 기준을 확인하고, 금액이 큰 결정은 세무 전문가와 상담하시기 바랍니다.</p>`, category:"재취업·N잡", tags:["노란우산공제","소상공인 소득공제","압류금지","퇴직 후 창업","사업소득 절세","폐업 공제금"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:8, visual:"노란우산", authorName:"절세" },
+<p>이 글은 제도의 구조와 확인 순서를 정리한 것으로 가입 가능 여부나 절세 금액을 알려주지 않습니다. 한도·대상·지급 사유는 개정되므로 가입 전 <a href="https://www.8899.or.kr/" target="_blank" rel="noreferrer">노란우산 공식 홈페이지</a>와 <a href="https://www.sbiz24.kr/" target="_blank" rel="noreferrer">소상공인24</a>에서 현재 기준을 확인하고, 금액이 큰 결정은 세무 전문가와 상담하시기 바랍니다.</p>`, category:"중장년 재취업·창업", tags:["노란우산공제","소상공인 소득공제","압류금지","퇴직 후 창업","사업소득 절세","폐업 공제금"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:8, visual:"노란우산", authorName:"절세" },
   { id:2121, title:"퇴직금부터 넣고 시작하면 늦습니다 — 중장년 창업, 계약 전에 볼 지원제도", slug:"midlife-startup-support-programs", excerpt:"정책자금은 지원금이 아니라 대출이고, 사업화 보조금도 절반 이상은 내 돈입니다. 신사업창업사관학교의 16주 점포경영체험, 지자체 중장년 창업 지원, 예비창업자 요건과 확인 순서를 정리했습니다.", body:`<p><strong>퇴직 후 창업에서 가장 흔한 순서 실수는 퇴직금부터 넣고 시작하는 것입니다.</strong> 가게를 계약하고 인테리어를 하고 나서야 지원제도를 알아보면, 이미 대부분의 프로그램에서 대상이 아닙니다. 예비창업자만 받을 수 있는 지원이 적지 않기 때문입니다. <strong>돈을 쓰기 전에 어떤 제도가 있는지부터 확인하세요.</strong></p>
 
 <h2>먼저 오해 두 가지를 걷어냅니다</h2>
@@ -1725,7 +1725,7 @@ export const seedPosts: Post[] = [
 
 <p>창업이 유일한 답은 아닙니다. 자금을 크게 넣기 전에 <a href="/posts/midlife-side-job-scorecard">N잡 5가지 점수표</a>로 작게 검증해 보거나, <a href="/posts/midlife-reemployment-certificates-guide">재취업 쪽</a>과 함께 비교해 보시길 권합니다. 생활비 기준선은 <a href="/posts/retirement-minimum-budget-three-buckets">최소생활비 3칸 예산표</a>로 먼저 잡으세요.</p>
 
-<p>이 글은 확인 순서를 정리한 것으로 선정이나 사업 성과를 보장하지 않습니다. 사업별 대상·지원 내용·자부담 비율·모집 일정은 해마다 바뀌므로, 신청 전 <a href="https://www.k-startup.go.kr/" target="_blank" rel="noreferrer">K-Startup</a>, <a href="https://www.sbiz24.kr/" target="_blank" rel="noreferrer">소상공인24</a>, <a href="https://www.bizinfo.go.kr/" target="_blank" rel="noreferrer">기업마당</a>에서 현재 공고를 확인하시기 바랍니다.</p>`, category:"재취업·N잡", tags:["중장년 창업","신사업창업사관학교","소상공인 정책자금","예비창업자","창업지원사업","퇴직 후 창업"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:9, visual:"창업지원", authorName:"데스크" },
+<p>이 글은 확인 순서를 정리한 것으로 선정이나 사업 성과를 보장하지 않습니다. 사업별 대상·지원 내용·자부담 비율·모집 일정은 해마다 바뀌므로, 신청 전 <a href="https://www.k-startup.go.kr/" target="_blank" rel="noreferrer">K-Startup</a>, <a href="https://www.sbiz24.kr/" target="_blank" rel="noreferrer">소상공인24</a>, <a href="https://www.bizinfo.go.kr/" target="_blank" rel="noreferrer">기업마당</a>에서 현재 공고를 확인하시기 바랍니다.</p>`, category:"중장년 재취업·창업", tags:["중장년 창업","신사업창업사관학교","소상공인 정책자금","예비창업자","창업지원사업","퇴직 후 창업"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:9, visual:"창업지원", authorName:"데스크" },
   { id:2122, title:"지하철만 공짜인 줄 알았다면 — 만 65세 교통 혜택, 버스도 30% 돌려받습니다", slug:"senior-65-transport-and-benefits", excerpt:"지하철은 무임이지만 버스는 유료입니다. 2026년 신설된 K-패스 어르신 유형의 30퍼센트 환급, 지역마다 다른 카드 이름과 신청처, 운전면허 반납 지원과 65세 전후로 함께 챙길 제도를 정리했습니다.", body:`<p><strong>만 65세가 되면 지하철이 무료라는 것은 대부분 압니다. 그런데 버스는 유료라는 것, 그리고 2026년부터 그 버스도 일부를 돌려받을 수 있다는 것은 덜 알려져 있습니다.</strong> 카드 이름과 신청처가 지역마다 달라서 "어디서 뭘 신청해야 하는지" 헷갈리는 것도 이유입니다. 한 번에 정리해 두면 매달 나가는 교통비가 달라집니다.</p>
 
 <h2>무료인 것과 아닌 것부터 가릅니다</h2>
@@ -1765,7 +1765,7 @@ export const seedPosts: Post[] = [
 </ol>
 <p>이 셋은 서로 얽혀 있습니다. 따로 알아보면 놓치는 부분이 생기므로 65세가 가까워지면 한 번에 정리해 두는 편이 좋습니다.</p>
 
-<p>이 글은 확인 순서를 정리한 것으로 개인의 지원 대상 여부나 금액을 알려주지 않습니다. 발급 기관·절차·무임 범위·환급 조건은 지역과 시기에 따라 다르므로, 신청 전 주소지 주민센터와 <a href="https://www.gov.kr/" target="_blank" rel="noreferrer">정부24</a>, <a href="https://www.bokjiro.go.kr/" target="_blank" rel="noreferrer">복지로</a>에서 현재 기준을 확인하시기 바랍니다.</p>`, category:"지역 생활정보", tags:["경로우대","65세 교통카드","지하철 무임승차","K-패스 어르신","우대용 교통카드","운전면허 반납"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:8, visual:"65세", authorName:"로컬" },
+<p>이 글은 확인 순서를 정리한 것으로 개인의 지원 대상 여부나 금액을 알려주지 않습니다. 발급 기관·절차·무임 범위·환급 조건은 지역과 시기에 따라 다르므로, 신청 전 주소지 주민센터와 <a href="https://www.gov.kr/" target="_blank" rel="noreferrer">정부24</a>, <a href="https://www.bokjiro.go.kr/" target="_blank" rel="noreferrer">복지로</a>에서 현재 기준을 확인하시기 바랍니다.</p>`, category:"정부지원금·세금", tags:["경로우대","65세 교통카드","지하철 무임승차","K-패스 어르신","우대용 교통카드","운전면허 반납"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:8, visual:"65세", authorName:"로컬" },
   { id:2123, title:"제휴 링크만 걸면 수익이 날까? 사이트를 하나 열어 구조를 공개합니다", slug:"affiliate-info-site-real-case", excerpt:"제휴 수익이 실제로 발생하는 지점, 공정위 표시 의무와 세금 구분까지. 애드블스가 새로 연 이사 정보 사이트를 예로 시작 시점의 상태를 그대로 공개합니다.", body:`<p><strong>먼저 밝힙니다.</strong> 이 글에 나오는 이사준비백서(isatips.adbles.com)는 퇴직생활연구소를 운영하는 <strong>애드블스가 직접 만든 자사 사이트</strong>입니다. 그 사이트 안에는 제휴 링크가 있고, 방문자가 그 링크를 거쳐 견적을 신청하면 애드블스에 수수료가 발생할 수 있습니다. 이 고지를 글 맨 앞에 두는 이유는 본문에서 함께 설명합니다.</p>\n
 <p>제휴마케팅을 소개하는 글은 대개 "링크만 걸어두면 잠자는 동안에도 돈이 들어온다"로 시작합니다. 구조를 뜯어보면 그 문장에서 생략된 단계가 많습니다. 이 글은 성과 자랑이 아니라 <strong>수익이 발생하는 지점과 그 앞에 필요한 조건</strong>을 순서대로 적은 기록입니다.</p>\n
 <h2>수익은 조회수가 아니라 행동에서 납니다</h2>\n
@@ -1801,7 +1801,7 @@ export const seedPosts: Post[] = [
 <p>구조를 글로만 읽는 것보다 실제 화면을 보는 편이 빠릅니다. <a href="https://isatips.adbles.com/">이사준비백서</a>에서 주제 구분, 글의 길이, 견적 링크가 놓인 자리를 확인해 보세요. <strong>퇴직생활연구소를 운영하는 애드블스가 만든 자사 사이트이며, 사이트 내 제휴 링크를 통해 수수료가 발생할 수 있음을 다시 밝힙니다.</strong></p>\n
 <p>퇴직생활연구소의 광고·제휴 원칙 전체는 <a href="/disclosure">광고·제휴 및 정보 이용 안내</a>에서 볼 수 있습니다.</p>\n
 <p>기준일: 2026년 9월 1일. 제휴 프로그램의 수수료 조건과 지급 기준은 운영사 정책에 따라 바뀔 수 있으므로 참여 전 해당 프로그램의 약관을 직접 확인하세요. 이 글은 특정 수익을 보장하지 않습니다.</p>\n
-<p><strong>원 · 수익실험 편집자</strong></p>`, category:"실제 수익실험", tags:["제휴마케팅","온라인 수익화","정보 사이트","부업","경제적 이해관계 표시"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:9, visual:"제휴", authorName:"원" },
+<p><strong>원 · 수익실험 편집자</strong></p>`, category:"퇴직 후 부업·N잡", tags:["제휴마케팅","온라인 수익화","정보 사이트","부업","경제적 이해관계 표시"], status:"published", publishedAt:"2026-09-01", scheduledAt:null, readingMinutes:9, visual:"제휴", authorName:"원" },
   { id:2124, title:"숨찬 걸 나이 탓으로 넘겼다면 — 2026년 국가검진에 폐 기능 검사가 새로 생겼습니다", slug:"2026-national-checkup-lung-function-test", excerpt:"56세·66세부터 받는 폐 기능 검사와, 당화혈색소·이상지질혈증 확진 검사 본인부담 면제. 보건복지부 발표를 기준으로 대상과 확인 순서를 정리했습니다.", body:`<p><strong>폐 기능은 절반 가까이 나빠질 때까지 뚜렷한 증상이 없습니다.</strong> 보건복지부가 밝힌 국내 만성폐쇄성폐질환(COPD) 유병률은 12%인데, 자신이 그 병을 가지고 있다는 사실을 아는 비율은 2.3%에 그칩니다. 계단에서 숨이 차고 아침 기침이 오래가는 것을 나이 탓으로 넘기는 사이 진행되는 병이라는 뜻입니다.</p>\n
 <p>2026년 1월부터 국가건강검진에 <strong>폐 기능 검사</strong>가 새로 들어왔습니다. 모든 연령이 아니라 특정 나이에만 해당하고, 같은 결정에서 확진 검사 비용 부담도 함께 줄었습니다. 올해 검진 대상이라면 무엇이 달라졌는지 먼저 확인하고 예약하는 편이 좋습니다.</p>\n
 <h2>2026년 검진에서 달라진 세 가지</h2>\n
@@ -1827,7 +1827,7 @@ export const seedPosts: Post[] = [
 <h2>정리</h2>\n
 <ul>\n<li>2026년 1월부터 국가건강검진에 폐 기능 검사가 들어왔고, 대상은 <strong>56세와 66세</strong>입니다.</li>\n<li>당뇨병 확진을 위한 당화혈색소 검사와 이상지질혈증 확진 검사가 <strong>본인부담 면제 항목</strong>에 추가됐습니다.</li>\n<li>면제는 <strong>1차 검진에서 의심 판정을 받은 경우</strong>의 사후관리이므로 결과 통보서를 챙겨 가세요.</li>\n<li>대상 여부와 받을 수 있는 항목은 국민건강보험공단에서 본인 기준으로 확인하는 것이 가장 정확합니다.</li>\n</ul>\n
 <p>기준일: 2026년 9월 2일. 검진 항목과 대상 연령, 본인부담 면제 범위는 고시 개정과 제도 변경에 따라 달라질 수 있습니다. 이 글은 공개된 발표 내용을 정리한 참고자료이며, 본인의 검진 대상 여부와 항목은 국민건강보험공단에서, 증상과 치료에 관한 판단은 의료진에게 확인하세요.</p>\n
-<p><strong>케어 · 건강·예방 편집자</strong></p>`, category:"건강·예방", tags:["국가건강검진","폐기능검사","만성폐쇄성폐질환","중장년 건강","당화혈색소"], status:"published", publishedAt:"2026-09-02", scheduledAt:null, readingMinutes:7, visual:"폐기능", authorName:"케어" },
+<p><strong>케어 · 건강·예방 편집자</strong></p>`, category:"건강보험료·건강검진", tags:["국가건강검진","폐기능검사","만성폐쇄성폐질환","중장년 건강","당화혈색소"], status:"published", publishedAt:"2026-09-02", scheduledAt:null, readingMinutes:7, visual:"폐기능", authorName:"케어" },
   { id:2125, title:"퇴직금은 통장으로 바로 안 옵니다 — 14일 기한, IRP 의무 이전, 연 20% 지연이자", slug:"severance-pay-payment-rules-irp-transfer", excerpt:"지급 기한 14일, 늦어지면 붙는 지연이자, IRP로 이전해야 하는 원칙과 55세·300만 원 예외까지. 고용노동부 안내를 기준으로 어긋나기 쉬운 지점을 짚었습니다.", body:`<p><strong>퇴직금을 신청했더니 회사가 IRP 계좌를 먼저 만들어 오라고 합니다.</strong> 번거로워서 그냥 월급 통장으로 받겠다고 하면 대개 안 된다는 답이 돌아옵니다. 회사가 까다롭게 구는 것이 아니라 법으로 정해진 지급 방식이기 때문입니다.</p>\n
 <p>퇴직금은 회사가 알아서 넣어주는 돈이 아니라 <strong>기한과 방식이 정해진 지급 절차</strong>를 따릅니다. 이 절차를 모르면 늦게 받고도 받을 수 있는 이자를 놓치거나, 예외에 해당하는데도 불필요한 계좌를 만들게 됩니다. 순서대로 정리했습니다.</p>\n
 <h2>1. 기한은 14일입니다</h2>\n
@@ -1857,7 +1857,7 @@ export const seedPosts: Post[] = [
 <p>퇴직금 지급은 퇴직 직후 처리해야 할 일 가운데 하나일 뿐입니다. 실업급여는 퇴사한 다음에 알아보면 이미 늦는 절차가 있고, 건강보험과 연금도 첫 달에 결정이 몰립니다.</p>\n
 <p>전체 순서는 <a href="/posts/first-30-days-after-retirement">퇴직 후 첫 30일, 새 일자리보다 먼저 정리해야 할 7가지</a>에, 실업급여 준비는 <a href="/posts/unemployment-benefit-eight-steps">실업급여는 퇴사한 날부터가 아닙니다 — 퇴직 전부터 준비하는 8단계</a>에 있습니다. 받은 퇴직금이 얼마나 버티는지 계산해 보려면 <a href="/posts/one-hundred-million-retirement-runway">퇴직금 1억, 월 250만 원 쓰면 3년 4개월입니다 — 이 기간을 늘리는 변수</a>를 참고하세요.</p>\n
 <p>기준일: 2026년 9월 2일. 지급 기한, 지연이자율, IRP 이전 예외 기준은 법령과 고시 개정으로 달라질 수 있습니다. 이 글은 공개된 공식 안내를 정리한 참고자료이며, 개인의 퇴직급여 산정과 분쟁 대응은 관할 고용노동관서나 공인노무사에게 확인하세요.</p>\n
-<p><strong>가드 · 지원금·세무·노무 편집자</strong></p>`, category:"퇴직 준비", tags:["퇴직금","IRP","지연이자","근로자퇴직급여 보장법","고용노동부"], status:"published", publishedAt:"2026-09-02", scheduledAt:null, readingMinutes:8, visual:"14일", authorName:"가드" },
+<p><strong>가드 · 지원금·세무·노무 편집자</strong></p>`, category:"퇴직금·노후 생활비", tags:["퇴직금","IRP","지연이자","근로자퇴직급여 보장법","고용노동부"], status:"published", publishedAt:"2026-09-02", scheduledAt:null, readingMinutes:8, visual:"14일", authorName:"가드" },
   { id:2126, title:"3.3% 떼는 일을 했다면 대상이 아닙니다 — 근로장려금 반기신청, 9월 15일 마감", slug:"earned-income-tax-credit-semiannual-2026", excerpt:"상반기에 근로소득만 있었던 가구만 신청할 수 있습니다. 대상 판정 순서, 가구유형별 소득·재산 요건, 12월에 들어오는 35%와 내년 6월 정산·환수까지 한 번에 정리했습니다.", body:`<p><strong>근로장려금 반기신청은 9월 15일에 닫힙니다.</strong> 5월 정기신청과 달리 이번 신청에는 조건이 하나 더 붙습니다. 2026년 1~6월에 <strong>근로소득만</strong> 있어야 하고, 그 판정에는 배우자의 소득까지 함께 들어갑니다. 프리랜서로 3.3%를 떼고 받은 돈이 한 번이라도 있었다면 이번 신청은 대상이 아니고, 내년 5월 정기신청으로 넘어갑니다.</p>
 
 <p>퇴직한 분들이 이 제도에서 가장 많이 헷갈리는 지점이 여기입니다. 퇴직 전 회사에서 받은 급여는 근로소득이라 대상이 될 수 있지만, 퇴직 후 시작한 배달·강의·플랫폼 수입은 대부분 사업소득으로 잡혀 대상에서 빠집니다. 아래 순서대로 한 번만 짚어보면 내가 어느 쪽인지 오늘 안에 판단할 수 있습니다.</p>
@@ -1963,7 +1963,1170 @@ export const seedPosts: Post[] = [
 
 <p>이 글은 제도의 구조와 판단 순서를 정리한 참고자료이며, 개인별 지급 여부와 금액에 대한 세무 자문을 대신하지 않습니다. 소득·재산 요건과 신청 기간은 해마다 바뀌므로 신청 전에는 반드시 국세청과 홈택스의 최신 안내를 확인하시고, 판단이 어려우면 국세상담센터(126)에 문의하세요.</p>
 
-<p>출처: <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=2453&amp;cntntsId=7784">국세청 근로·자녀장려금 심사 및 지급 안내</a></p>`, category:"정부지원·실업급여", tags:["근로장려금","반기신청","국세청","퇴직 후 소득","정부지원"], status:"published", publishedAt:"2026-09-04", scheduledAt:null, readingMinutes:11, visual:"9/15" },
+<p>출처: <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=2453&amp;cntntsId=7784">국세청 근로·자녀장려금 심사 및 지급 안내</a></p>`, category:"정부지원금·세금", tags:["근로장려금","반기신청","국세청","퇴직 후 소득","정부지원"], status:"published", publishedAt:"2026-09-04", scheduledAt:null, readingMinutes:11, visual:"9/15" },
+  { id:2127, title:"바이브 코딩 1인 창업 1: 왜 지금 혼자서도 되는가 — 3시간 강의를 15편으로 나눴습니다", slug:"vibe-coding-bootcamp-1", excerpt:"조코딩의 바이브 코딩 1인 창업 3시간 통합본을 목차대로 15편으로 나눈 시리즈의 첫 편입니다. 왜 지금 1인 창업인가, 인터넷 서비스의 큰 그림, 수익화 세 갈래를 퇴직 전후 독자 관점에서 정리했습니다.", body:`<p><strong>퇴직을 앞두고 "이제 뭘 해서 먹고사나"를 검색하면 대부분 재취업 아니면 자영업 이야기가 나옵니다.</strong> 그 사이에 하나가 더 생겼습니다. 사람을 뽑지 않고, 사무실을 얻지 않고, 인터넷에서 파는 물건을 혼자 만들어 파는 방식입니다. 조코딩 채널이 공개한 3시간짜리 통합 강의는 그 방식을 5주 과정으로 정리했습니다.</p>
+
+<p>이 시리즈는 그 강의의 목차를 따라가면서, <strong>퇴직 전후의 독자가 실제로 어디까지 해볼 수 있는지</strong>를 편마다 짚습니다. 강의 내용을 그대로 옮기지 않습니다. 목차 순서대로 "이 구간은 무슨 이야기인가, 나에게 필요한가, 어디서 멈추면 되나"를 정리한 안내서에 가깝습니다.</p>
+
+<h2>이 편이 다루는 목차 구간</h2>
+<table>
+<thead><tr><th>위치</th><th>목차</th></tr></thead>
+<tbody>
+<tr><td>00:00</td><td>바이브 코딩 1인 창업 부트캠프 소개</td></tr>
+<tr><td>03:10</td><td>(1주차) 왜 지금 1인 창업가의 시대인가</td></tr>
+<tr><td>13:10</td><td>(1주차) IT Product의 큰 그림</td></tr>
+<tr><td>15:47</td><td>(1주차) 수익화 방법</td></tr>
+</tbody>
+</table>
+
+<div class="embedded-video"><iframe src="https://www.youtube-nocookie.com/embed/P3jFI-VpyLg" title="이 영상이 당신 인생을 바꿉니다. 바이브 코딩 1인 창업 3시간 통합본 - 조코딩 JoCoding"></iframe></div>
+
+<h2>(도입 · 00:00) 3시간을 왜 15편으로 나누나</h2>
+
+<p>원본은 5주 부트캠프를 한 편으로 합친 3시간 13분짜리 영상입니다. 목차만 40개가 넘습니다. 한 번에 다 보겠다고 마음먹으면 대개 30분쯤에서 멈춥니다. <strong>중장년 독자에게는 특히 그렇습니다. 낯선 영어 단어가 5분에 하나씩 나오기 때문입니다.</strong></p>
+
+<p>그래서 이 시리즈는 목차를 세 개 안팎씩 묶어 15편으로 나눴습니다. 한 편은 원본 영상의 10~15분 구간에 해당합니다. 각 편 맨 위에 그 구간의 타임스탬프 표와 그 지점부터 시작하는 재생 창을 붙여두었으니, <strong>글을 먼저 읽고 필요한 구간만 영상으로 확인하는 순서</strong>를 권합니다.</p>
+
+<h2>(1주차 · 03:10) 왜 지금 1인 창업가의 시대인가</h2>
+
+<p>강의가 첫 10분을 여기에 쓰는 이유는 분명합니다. 도구를 배우기 전에 <strong>"왜 지금 혼자서도 되는가"</strong>가 납득되지 않으면 나머지가 남의 이야기로 들리기 때문입니다.</p>
+
+<p>핵심은 예전에는 사람을 써야 했던 일이 도구로 대체됐다는 것입니다. 웹사이트 하나를 만들려면 기획자, 디자이너, 개발자가 필요했습니다. 지금은 그 셋의 초안을 AI에게 시킬 수 있습니다. 초안의 품질이 사람보다 낫다는 뜻이 아니라, <strong>혼자서 시작 지점까지는 갈 수 있게 됐다는 뜻</strong>입니다.</p>
+
+<p>퇴직을 앞둔 독자에게 이 변화가 갖는 의미는 조금 다릅니다. 20대에게는 "빨리 창업할 수 있다"는 이야기지만, 50대에게는 <strong>"실패해도 잃는 돈이 적다"</strong>는 이야기에 가깝습니다. 가게를 열려면 보증금과 인테리어와 권리금이 듭니다. 인터넷에서 파는 물건은 도메인값과 서버비로 시작합니다. 안 되면 접습니다.</p>
+
+<blockquote>혼자 할 수 있게 됐다는 말은 혼자 다 해야 한다는 말이기도 합니다. 이 시리즈가 15편이나 되는 이유입니다.</blockquote>
+
+<h2>(1주차 · 13:10) IT Product의 큰 그림</h2>
+
+<p>강의가 두 번째로 짚는 것은 지도입니다. 인터넷 서비스 하나가 굴러가려면 무엇과 무엇이 필요한지를 먼저 보여줍니다. 용어를 외우는 구간이 아니라 <strong>"앞으로 나올 단어들이 어디에 놓이는지"를 표시해두는 구간</strong>입니다.</p>
+
+<p>거칠게 정리하면 네 덩어리입니다.</p>
+
+<ol>
+<li><strong>사람이 보는 화면</strong> — 브라우저에 뜨는 부분. 2편과 3편에서 다룹니다.</li>
+<li><strong>뒤에서 도는 것</strong> — 데이터를 저장하고 계산하는 부분. 9편과 12편에서 다룹니다.</li>
+<li><strong>인터넷에 올리는 일</strong> — 내 컴퓨터가 아니라 누구나 접속할 수 있게 만드는 일. 4편입니다.</li>
+<li><strong>돈이 들어오는 통로</strong> — 광고, 결제, 구독. 5편과 11편입니다.</li>
+</ol>
+
+<p>이 지도를 처음부터 다 이해할 필요는 없습니다. 다만 <strong>지금 내가 어느 칸에서 막혔는지</strong>를 알면 검색이 훨씬 쉬워집니다. "안 돼요"가 아니라 "화면은 나오는데 저장이 안 돼요"라고 물을 수 있게 됩니다.</p>
+
+<h2>(1주차 · 15:47) 수익화 방법</h2>
+
+<p>강의는 초반에 수익화 방법을 짧게 훑고 지나갑니다. 크게 세 갈래입니다.</p>
+
+<table>
+<thead><tr><th>방식</th><th>돈이 들어오는 원리</th><th>시작 난이도</th></tr></thead>
+<tbody>
+<tr><td><strong>광고</strong></td><td>사람이 많이 오면 광고가 붙습니다</td><td>낮음. 대신 시간이 오래 걸립니다</td></tr>
+<tr><td><strong>결제·구독</strong></td><td>쓸모가 있으면 돈을 냅니다</td><td>높음. 결제와 환불이 따라옵니다</td></tr>
+<tr><td><strong>제휴·중개</strong></td><td>소개해준 대가를 받습니다</td><td>중간. 신뢰가 먼저입니다</td></tr>
+</tbody>
+</table>
+
+<p>퇴직 후 수입을 만들려는 독자라면 여기서 한 가지를 기억하면 좋겠습니다. <strong>세 갈래 모두 "사람이 온다"가 앞에 붙습니다.</strong> 만드는 것보다 알리는 것이 어렵습니다. 그래서 이 시리즈의 6편과 7편은 만드는 이야기가 아니라 숫자를 보는 이야기입니다.</p>
+
+<h2>퇴직 전후 독자가 이 편에서 챙길 것</h2>
+
+<ul>
+<li><strong>돈을 먼저 쓰지 마세요.</strong> 강의가 소개하는 유료 도구는 대부분 뒤로 미룰 수 있습니다. 무엇이 필요한지 모르는 상태에서 결제하면 대개 안 씁니다.</li>
+<li><strong>목표를 "수익"이 아니라 "완주"로 잡으세요.</strong> 첫 결과물은 돈이 되지 않습니다. 끝까지 한 번 만들어본 경험이 다음 시도의 속도를 바꿉니다.</li>
+<li><strong>퇴직금을 넣는 창업이 아닙니다.</strong> 이 방식의 장점은 초기 비용이 작다는 것입니다. 장점을 버리는 선택은 하지 않는 편이 좋습니다. 퇴직금 운용은 <a href="/posts/one-hundred-million-retirement-runway">퇴직금 지속 기간 계산</a> 쪽에서 따로 판단하세요.</li>
+<li><strong>혼자 하되 혼자 판단하지는 마세요.</strong> 만든 것을 누군가에게 보여주는 단계가 6편에 있습니다. 거기까지 가는 것이 목표입니다.</li>
+</ul>
+
+<h2>다음 편 예고</h2>
+
+<p>2편은 1주차의 웹 개발 기초 구간(16:23~24:24)입니다. HTML, CSS, JavaScript가 각각 무엇을 맡는지와 개발 환경 세팅을 다룹니다. 용어가 처음 쏟아지는 구간이라 <strong>세 단어의 역할만 구분되면 충분합니다.</strong></p>
+
+<p>바이브 코딩 자체가 처음이라면 <a href="/posts/vibe-coding-basics-1">바이브 코딩 입문 1편</a>부터 보시는 편이 순서에 맞습니다. 이 시리즈는 입문 시리즈보다 한 단계 뒤, "만들어서 파는 데까지" 가는 과정을 다룹니다.</p>
+
+<h2>출처</h2>
+
+<p>이 글은 유튜브 영상 <a href="https://www.youtube.com/watch?v=P3jFI-VpyLg">「이 영상이 당신 인생을 바꿉니다. 바이브 코딩 1인 창업 3시간 통합본」(조코딩 JoCoding)</a>의 목차 가운데 00:00~16:23 구간을 출발점으로 삼아, 퇴직 전후 중장년 독자의 관점에서 다시 구성한 것입니다. 강의의 실제 설명과 실습 화면은 원본 영상에서 직접 확인하시기 바랍니다.</p>
+
+<p>도구와 서비스의 기능·요금·정책은 수시로 바뀝니다. 이 글은 판단의 틀을 정리한 참고자료이며 특정 도구의 동작이나 수익을 보장하지 않습니다. 사업자 등록, 세금, 개인정보 처리가 필요한 단계에서는 관련 법령과 공식 안내를 반드시 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["1인창업부트캠프","부트캠프1","바이브코딩1인창업","조코딩","퇴직후창업","AI활용"], status:"published", publishedAt:"2026-09-09", scheduledAt:null, readingMinutes:8, visual:"15편" },
+  { id:2128, title:"바이브 코딩 1인 창업 2: HTML·CSS·JavaScript, 문법 말고 담당 구역만 아세요", slug:"vibe-coding-bootcamp-2", excerpt:"웹의 세 요소가 각각 무엇을 맡는지 표 한 장으로 나눕니다. 개발 환경 세팅에서 막히지 않는 순서와, AI에게 정확히 말하기 위해 알아야 할 부품 이름을 정리했습니다.", body:`<p><strong>웹 개발을 배우겠다고 마음먹은 사람이 가장 먼저 마주치는 벽은 문법이 아니라 단어입니다.</strong> HTML, CSS, JavaScript가 한 번에 쏟아지고, 각각이 뭘 하는 건지 구분되지 않은 채로 실습이 시작됩니다. 그러면 따라 치기는 해도 무엇을 하고 있는지는 모르는 상태가 됩니다.</p>
+
+<p>이 구간은 그 세 단어의 역할을 나누는 자리입니다. <strong>바이브 코딩으로 만들 계획이라면 문법을 외울 필요는 없습니다.</strong> 다만 셋의 담당 구역은 알아야 합니다. 그래야 AI에게 "여기가 이상하다"고 정확히 말할 수 있습니다.</p>
+
+<h2>이 편이 다루는 목차 구간</h2>
+<table>
+<thead><tr><th>위치</th><th>목차</th></tr></thead>
+<tbody>
+<tr><td>16:23</td><td>(1주차) 웹 개발 기초 - HTML, CSS, JavaScript</td></tr>
+<tr><td>19:12</td><td>(1주차) 개발 환경 세팅</td></tr>
+<tr><td>19:34</td><td>(1주차) HTML 개념 &amp; 웹 개발 실습 기초</td></tr>
+</tbody>
+</table>
+
+<div class="embedded-video"><iframe src="https://www.youtube-nocookie.com/embed/P3jFI-VpyLg?start=983" title="바이브 코딩 1인 창업 3시간 통합본 - 웹 개발 기초 구간 (조코딩 JoCoding)"></iframe></div>
+
+<h2>(1주차 · 16:23) HTML, CSS, JavaScript는 각각 무엇을 맡나</h2>
+
+<p>집 짓기에 비유하는 설명이 흔한데, 실제로 이만큼 잘 맞는 비유도 드뭅니다.</p>
+
+<table>
+<thead><tr><th>이름</th><th>맡는 일</th><th>없으면</th></tr></thead>
+<tbody>
+<tr><td><strong>HTML</strong></td><td>뼈대. 제목, 문단, 버튼, 표가 어디에 있는지</td><td>아무것도 없습니다</td></tr>
+<tr><td><strong>CSS</strong></td><td>겉모습. 색, 크기, 간격, 배치</td><td>글씨만 줄줄이 나옵니다</td></tr>
+<tr><td><strong>JavaScript</strong></td><td>움직임. 누르면 반응하고, 계산하고, 바뀌는 것</td><td>보이기만 하고 아무 반응이 없습니다</td></tr>
+</tbody>
+</table>
+
+<p>이 구분이 왜 실용적이냐면, <strong>고장 났을 때 어디를 봐야 하는지가 바로 나오기 때문</strong>입니다. 버튼이 안 보이면 HTML, 보이는데 못생겼으면 CSS, 눌러도 반응이 없으면 JavaScript입니다. AI에게 물을 때도 "버튼을 눌러도 아무 일이 안 생긴다"처럼 증상을 말하면 훨씬 빨리 고쳐집니다.</p>
+
+<h2>(1주차 · 19:12) 개발 환경 세팅 — 지금 당장은 안 해도 됩니다</h2>
+
+<p>강의는 여기서 코드를 쓰는 프로그램을 설치합니다. 다만 <strong>이 시점에 설치가 막히면 시작도 못 하고 끝나는 경우가 많습니다.</strong> 순서를 바꾸는 편을 권합니다.</p>
+
+<ol>
+<li><strong>처음에는 브라우저만 있으면 됩니다.</strong> 웹에서 바로 편집하고 결과를 보여주는 서비스가 여럿 있습니다. 설치 없이 개념을 먼저 익히세요.</li>
+<li><strong>손에 익으면 그때 설치합니다.</strong> 4편에서 다룰 AI 코딩 도구를 쓰기 시작할 때가 적당한 시점입니다.</li>
+<li><strong>설치가 막히면 화면을 그대로 AI에게 보여주세요.</strong> 오류 메시지를 요약하지 말고 통째로 붙여넣는 것이 핵심입니다.</li>
+</ol>
+
+<p>설치 단계에서 좌절하는 것은 실력 문제가 아닙니다. 컴퓨터마다 상태가 달라서 생기는 일이고, 강의 영상과 내 화면이 다르게 보이는 것이 정상입니다.</p>
+
+<h2>(1주차 · 19:34) HTML 실습 — 태그 세 개면 시작됩니다</h2>
+
+<p>실습 구간에서 다루는 것은 <strong>태그</strong>입니다. 꺾쇠 괄호로 감싼 이름표를 붙여 "이건 제목이다, 이건 문단이다"를 표시하는 방식입니다. 종류가 수백 개지만 실제로 처음 쓰는 것은 몇 개뿐입니다.</p>
+
+<ul>
+<li><strong>제목</strong> — 큰 제목부터 작은 제목까지 단계가 있습니다. 검색에도 영향을 줍니다.</li>
+<li><strong>문단</strong> — 본문 한 덩어리.</li>
+<li><strong>링크</strong> — 다른 주소로 이동합니다.</li>
+<li><strong>이미지</strong> — 그림을 넣습니다. 설명글을 같이 넣는 습관이 중요합니다.</li>
+<li><strong>목록</strong> — 지금 읽고 계신 이 부분입니다.</li>
+</ul>
+
+<p>바이브 코딩으로 만들 때도 이 이름들은 알아두는 편이 좋습니다. <strong>"제목을 좀 더 크게"보다 "h2 제목의 크기를 키워줘"가 훨씬 정확하게 전달됩니다.</strong> AI에게 말을 거는 어휘가 늘어나는 만큼 결과가 좋아집니다.</p>
+
+<blockquote>문법은 몰라도 됩니다. 하지만 부품 이름은 알아야 주문을 할 수 있습니다.</blockquote>
+
+<h2>중장년 독자가 여기서 자주 막히는 지점</h2>
+
+<ul>
+<li><strong>영어 단어가 부담스럽다</strong> — 뜻을 외우지 말고 역할만 기억하세요. 위의 표 한 장이면 충분합니다.</li>
+<li><strong>강의 화면과 내 화면이 다르다</strong> — 프로그램 버전 차이입니다. 다르다고 잘못된 것이 아닙니다.</li>
+<li><strong>따라 쳤는데 안 나온다</strong> — 열에 아홉은 꺾쇠나 따옴표 하나가 빠진 것입니다. 전체를 복사해 AI에게 확인시키는 편이 눈으로 찾는 것보다 빠릅니다.</li>
+<li><strong>다 이해하고 넘어가려 한다</strong> — 이 구간은 <a href="/posts/vibe-coding-bootcamp-1">1편</a>에서 말한 지도의 첫 칸입니다. 완벽하게 이해하고 넘어갈 필요가 없습니다.</li>
+</ul>
+
+<h2>다음 편 예고</h2>
+
+<p>3편은 24:24부터입니다. 강의에서 가장 인상적인 대목 가운데 하나인 "웹사이트 해킹하기" 구간이 나옵니다. 이름은 과격하지만 <strong>남의 사이트가 어떻게 만들어졌는지 들여다보는 방법</strong>이고, 실제로는 가장 좋은 공부법 가운데 하나입니다. CSS와 JavaScript 개념, 그리고 첫 실습 결과물도 여기서 나옵니다.</p>
+
+<h2>출처</h2>
+
+<p>이 글은 유튜브 영상 <a href="https://www.youtube.com/watch?v=P3jFI-VpyLg">「이 영상이 당신 인생을 바꿉니다. 바이브 코딩 1인 창업 3시간 통합본」(조코딩 JoCoding)</a>의 목차 가운데 16:23~24:24 구간을 출발점으로 삼아, 퇴직 전후 중장년 독자의 관점에서 다시 구성한 것입니다. 강의의 실제 설명과 실습 화면은 원본 영상에서 직접 확인하시기 바랍니다.</p>
+
+<p>도구와 서비스의 기능·요금·정책은 수시로 바뀝니다. 이 글은 판단의 틀을 정리한 참고자료이며 특정 도구의 동작이나 수익을 보장하지 않습니다.</p>`, category:"AI 활용·바이브코딩", tags:["1인창업부트캠프","부트캠프2","HTML","CSS","자바스크립트","웹개발기초"], status:"published", publishedAt:"2026-09-09", scheduledAt:null, readingMinutes:7, visual:"3요소" },
+  { id:2129, title:"바이브 코딩 1인 창업 3: F12로 남의 사이트 뜯어보기가 가장 빠른 공부입니다", slug:"vibe-coding-bootcamp-3", excerpt:"강의 목차의 웹사이트 해킹하기 구간은 브라우저 개발자 도구로 구조를 들여다보는 방법입니다. CSS와 JavaScript 개념, 그리고 첫 결과물을 완성으로 고르는 기준까지 정리했습니다.", body:`<p><strong>강의 목차에 "웹사이트 해킹하기"라는 항목이 있습니다.</strong> 놀랄 것 없습니다. 브라우저에서 F12를 눌러 남의 사이트가 어떤 부품으로 만들어졌는지 들여다보고, 내 화면에서만 잠깐 바꿔보는 것입니다. 서버를 건드리는 게 아니라 <strong>내 컴퓨터에 내려받은 사본을 보는 것</strong>이라, 새로고침하면 원래대로 돌아옵니다.</p>
+
+<p>이게 왜 중요하냐면, 비전공자가 웹을 배우는 가장 빠른 길이 여기에 있기 때문입니다. 마음에 드는 사이트를 열고 "이 부분은 어떻게 만들었나"를 직접 확인하는 습관은 어떤 교재보다 실전적입니다.</p>
+
+<h2>이 편이 다루는 목차 구간</h2>
+<table>
+<thead><tr><th>위치</th><th>목차</th></tr></thead>
+<tbody>
+<tr><td>24:24</td><td>(1주차) 웹사이트 해킹하기</td></tr>
+<tr><td>26:12</td><td>(1주차) CSS, JavaScript 개념</td></tr>
+<tr><td>28:17</td><td>(1주차) 로또 번호 추첨 웹 사이트 개발 실습</td></tr>
+</tbody>
+</table>
+
+<div class="embedded-video"><iframe src="https://www.youtube-nocookie.com/embed/P3jFI-VpyLg?start=1464" title="바이브 코딩 1인 창업 3시간 통합본 - 웹사이트 해킹과 첫 실습 구간 (조코딩 JoCoding)"></iframe></div>
+
+<h2>(1주차 · 24:24) 웹사이트 해킹하기 — 실은 뜯어보기입니다</h2>
+
+<p>브라우저에서 F12를 누르면 화면 옆이나 아래에 개발자 도구가 열립니다. 여기서 할 수 있는 일은 세 가지입니다.</p>
+
+<ol>
+<li><strong>구조 보기</strong> — 이 버튼이 어떤 태그로 만들어졌는지 확인합니다.</li>
+<li><strong>겉모습 확인</strong> — 색과 간격이 어떤 값으로 지정됐는지 봅니다.</li>
+<li><strong>잠깐 바꿔보기</strong> — 글자를 고치거나 색을 바꿔봅니다. 새로고침하면 사라집니다.</li>
+</ol>
+
+<p>여기서 반드시 짚어야 할 것이 있습니다. <strong>바뀐 것은 내 화면뿐입니다.</strong> 남의 서버에는 아무 영향이 없습니다. 반대로 말하면, 이걸로 무언가를 진짜 바꿀 수는 없습니다. 인터넷에 도는 "잔액을 바꿨다"류의 장난 사진이 전부 이 방식입니다.</p>
+
+<p>주의할 점도 하나 있습니다. <strong>남의 사이트를 뜯어보는 것과 그 코드를 그대로 가져다 쓰는 것은 다른 문제입니다.</strong> 구조와 아이디어를 참고하는 것은 자유롭지만, 디자인이나 문구를 통째로 복사하면 저작권 문제가 생길 수 있습니다.</p>
+
+<h2>(1주차 · 26:12) CSS와 JavaScript — 꾸미기와 움직이기</h2>
+
+<p><a href="/posts/vibe-coding-bootcamp-2">2편</a>에서 역할만 나눠뒀던 두 가지를 여기서 조금 더 봅니다.</p>
+
+<p><strong>CSS는 "무엇을 어떻게 보이게 할지"를 정합니다.</strong> 대상을 고르고, 그 대상의 속성값을 지정하는 구조입니다. "제목은 파란색, 크기는 24" 같은 지시가 줄줄이 쌓인 것이라고 보면 됩니다. 바이브 코딩에서는 이 부분을 직접 쓸 일이 거의 없지만, <strong>"여백이 너무 좁다", "모바일에서 글자가 잘린다"처럼 지적할 수 있는 눈</strong>은 필요합니다.</p>
+
+<p><strong>JavaScript는 사건에 반응합니다.</strong> 버튼을 누르면, 값을 입력하면, 시간이 지나면 무언가를 합니다. 계산하고, 화면을 바꾸고, 값을 저장합니다. 오늘날 웹에서 "움직이는 것"은 거의 다 여기 소관입니다.</p>
+
+<h2>(1주차 · 28:17) 로또 번호 추첨 사이트 — 첫 결과물의 조건</h2>
+
+<p>첫 실습으로 로또 번호를 뽑는 페이지를 만듭니다. 예제로 이걸 고른 이유가 있습니다.</p>
+
+<ul>
+<li><strong>결과가 눈에 보입니다.</strong> 버튼을 누르면 숫자가 나옵니다. 됐는지 안 됐는지 바로 압니다.</li>
+<li><strong>세 가지가 다 들어갑니다.</strong> 버튼(HTML), 배치와 색(CSS), 무작위 추첨(JavaScript).</li>
+<li><strong>짧습니다.</strong> 30분 안에 끝납니다.</li>
+</ul>
+
+<p>퇴직 후 무언가를 만들어보려는 독자에게 이 구간이 주는 교훈은 로또가 아닙니다. <strong>첫 결과물은 쓸모가 아니라 완결성으로 고르라는 것</strong>입니다. 거창한 아이디어를 첫 작품으로 잡으면 대개 미완성으로 끝납니다. 끝까지 가본 경험이 다음 것을 만들 힘이 됩니다.</p>
+
+<blockquote>첫 작품의 목표는 쓸모가 아니라 "완성"입니다. 쓸모는 세 번째 작품쯤부터 생각해도 늦지 않습니다.</blockquote>
+
+<h2>지금 해볼 수 있는 것</h2>
+
+<ol>
+<li>자주 가는 사이트를 열고 F12를 눌러보세요. 무엇이 보이는지만 확인하면 됩니다.</li>
+<li>마음에 드는 부분을 발견하면 화면을 캡처해두세요. 나중에 AI에게 "이런 느낌으로"라고 보여줄 때 씁니다.</li>
+<li>AI에게 이렇게 요청해보세요. <strong>"버튼을 누르면 1부터 45 사이의 숫자 6개가 겹치지 않게 나오는 웹페이지를 만들어줘. HTML 파일 하나로."</strong> 결과가 나오면 그것이 첫 결과물입니다.</li>
+</ol>
+
+<h2>다음 편 예고</h2>
+
+<p>4편은 31:31부터입니다. 만든 것을 <strong>인터넷에 올리는 일</strong>, 즉 배포를 다룹니다. 내 컴퓨터에만 있는 파일과 남이 주소로 열 수 있는 사이트 사이에는 생각보다 큰 차이가 있습니다. 이어서 AI 코딩 도구를 본격적으로 쓰기 시작하는 환경 세팅(42:08)도 여기서 나옵니다.</p>
+
+<h2>출처</h2>
+
+<p>이 글은 유튜브 영상 <a href="https://www.youtube.com/watch?v=P3jFI-VpyLg">「이 영상이 당신 인생을 바꿉니다. 바이브 코딩 1인 창업 3시간 통합본」(조코딩 JoCoding)</a>의 목차 가운데 24:24~31:31 구간을 출발점으로 삼아, 퇴직 전후 중장년 독자의 관점에서 다시 구성한 것입니다. 강의의 실제 설명과 실습 화면은 원본 영상에서 직접 확인하시기 바랍니다.</p>
+
+<p>브라우저 개발자 도구는 열람과 임시 수정을 위한 기능입니다. 타인의 서비스에 무단으로 접근하거나 데이터를 변경하는 행위는 법적 책임이 따를 수 있으며, 이 글은 그러한 행위를 안내하지 않습니다.</p>`, category:"AI 활용·바이브코딩", tags:["1인창업부트캠프","부트캠프3","개발자도구","CSS","자바스크립트","첫결과물"], status:"published", publishedAt:"2026-09-09", scheduledAt:null, readingMinutes:7, visual:"F12" },
+  { id:2130, title:"바이브 코딩 1인 창업 4: 배포하지 않은 결과물은 아무도 못 봅니다", slug:"vibe-coding-bootcamp-4", excerpt:"내 컴퓨터의 파일과 남이 주소로 여는 사이트 사이의 한 단계, 배포를 다룹니다. 필요한 세 가지와 비용 감각, 그리고 AI 코딩 도구 환경 세팅에서 막히지 않는 방법을 정리했습니다.", body:`<p><strong>내 컴퓨터에서 잘 돌아가는 파일과, 다른 사람이 주소를 눌러 여는 사이트 사이에는 한 단계가 더 있습니다.</strong> 그 단계를 배포라고 부릅니다. 강의 1주차의 후반부는 이 배포와, 그 뒤에 이어지는 AI 코딩 도구 환경 세팅에 상당한 시간을 씁니다.</p>
+
+<p>퇴직 후 무언가를 만들어 팔 생각이라면 이 구간이 실질적인 분기점입니다. <strong>배포하지 않은 결과물은 아무도 볼 수 없고, 아무도 볼 수 없으면 수익도 없습니다.</strong></p>
+
+<h2>이 편이 다루는 목차 구간</h2>
+<table>
+<thead><tr><th>위치</th><th>목차</th></tr></thead>
+<tbody>
+<tr><td>31:31</td><td>(1주차) 배포(Deploy)</td></tr>
+<tr><td>37:00</td><td>(1주차) 고급 개발</td></tr>
+<tr><td>42:08</td><td>(1주차) AI 바이브 코딩 CLI 개발 환경 세팅</td></tr>
+</tbody>
+</table>
+
+<div class="embedded-video"><iframe src="https://www.youtube-nocookie.com/embed/P3jFI-VpyLg?start=1891" title="바이브 코딩 1인 창업 3시간 통합본 - 배포와 AI 코딩 환경 구간 (조코딩 JoCoding)"></iframe></div>
+
+<h2>(1주차 · 31:31) 배포 — 인터넷에 올린다는 것의 실체</h2>
+
+<p>배포는 세 가지를 갖추는 일입니다.</p>
+
+<table>
+<thead><tr><th>필요한 것</th><th>무슨 역할</th><th>비용 감각</th></tr></thead>
+<tbody>
+<tr><td><strong>파일을 둘 곳</strong></td><td>24시간 켜져 있는 남의 컴퓨터</td><td>작은 사이트는 무료 구간으로 시작 가능</td></tr>
+<tr><td><strong>주소</strong></td><td>사람들이 입력할 이름</td><td>서비스가 주는 긴 주소는 무료, 내 도메인은 연 단위 유료</td></tr>
+<tr><td><strong>올리는 절차</strong></td><td>수정할 때마다 반영하는 과정</td><td>요즘은 대부분 자동</td></tr>
+</tbody>
+</table>
+
+<p>예전에는 이 셋이 다 어려웠습니다. 지금은 파일을 올려두면 자동으로 주소가 생기고, 수정하면 알아서 반영되는 서비스가 여럿입니다. <strong>처음에는 무료 구간에서 시작해서, 사람이 오기 시작하면 그때 도메인을 사는 순서</strong>가 합리적입니다.</p>
+
+<p>다만 배포 이후에 반드시 확인할 것이 하나 있습니다. <strong>화면 쪽에 비밀값을 두면 누구나 볼 수 있습니다.</strong> <a href="/posts/vibe-coding-bootcamp-3">3편</a>에서 F12로 남의 사이트를 들여다봤듯이, 남도 내 사이트를 그렇게 봅니다. API 키 같은 값이 거기 있으면 그대로 노출됩니다. 이 문제는 10편에서 다시 다룹니다.</p>
+
+<h2>(1주차 · 37:00) 고급 개발 — 넘어가도 되는 구간</h2>
+
+<p>이 구간은 개념을 조금 더 깊게 들어갑니다. 솔직하게 말하면 <strong>퇴직 후 1인 창업을 목표로 하는 독자에게 지금 당장 필요한 부분은 아닙니다.</strong></p>
+
+<p>강의가 이런 구간을 넣는 이유는, 나중에 막혔을 때 "아, 그때 그 이야기"라고 떠올릴 수 있게 하려는 것입니다. 처음 볼 때는 흘려듣고, 실제로 막혔을 때 돌아오는 편이 낫습니다. <strong>순서대로 다 이해하고 넘어가려는 태도가 완주를 막는 가장 흔한 이유입니다.</strong></p>
+
+<h2>(1주차 · 42:08) AI 바이브 코딩 CLI 환경 세팅 — 여기가 진짜 시작입니다</h2>
+
+<p>10분 가까이 쓰는 이 구간이 사실상 이 강의의 핵심 도구를 세팅하는 자리입니다. 채팅창에 요구사항을 적으면 AI가 파일을 만들고 고치는 방식으로 작업하게 됩니다.</p>
+
+<p>여기서 나오는 CLI라는 말이 낯설 수 있습니다. <strong>까만 화면에 글자로 명령을 넣는 방식</strong>입니다. 마우스로 누르는 화면이 아니라서 처음에는 불편하지만, AI 도구들이 이 방식을 쓰는 이유가 있습니다. 파일을 직접 만들고 고치고 실행하는 일까지 한 번에 시킬 수 있기 때문입니다.</p>
+
+<p>중장년 독자가 이 구간에서 챙길 점은 세 가지입니다.</p>
+
+<ul>
+<li><strong>설치가 막히는 것은 정상입니다.</strong> 컴퓨터 상태가 저마다 달라서 생기는 일입니다. 오류 메시지 전체를 복사해 AI에게 그대로 물어보세요. 요약하면 못 고칩니다.</li>
+<li><strong>비용 상한을 먼저 정하세요.</strong> AI 도구는 쓴 만큼 돈이 나가는 구조가 많습니다. 사용량 한도 설정을 첫날 해두는 것이 안전합니다.</li>
+<li><strong>무엇을 만들지 정한 뒤에 설치하세요.</strong> 도구부터 깔아두면 대개 몇 번 쓰고 잊습니다.</li>
+</ul>
+
+<blockquote>도구가 좋아진 만큼 초보자의 문턱은 설치 단계로 옮겨왔습니다. 여기만 넘으면 나머지는 대화입니다.</blockquote>
+
+<h2>배포까지 해본 사람과 안 해본 사람</h2>
+
+<p>이 시리즈에서 굳이 한 편을 배포에 쓰는 이유가 있습니다. 만들다 마는 사람과 끝까지 가는 사람의 갈림길이 여기이기 때문입니다.</p>
+
+<ol>
+<li><strong>주소가 생기면 보여줄 수 있습니다.</strong> 보여주면 반응이 옵니다. 반응이 있어야 다음이 있습니다.</li>
+<li><strong>주소가 생기면 검색에 잡힐 수 있습니다.</strong> 광고 수익의 출발점입니다. 5편에서 다룹니다.</li>
+<li><strong>주소가 생기면 고쳐야 할 것이 보입니다.</strong> 내 컴퓨터에서만 보던 화면과 남의 휴대폰에서 보이는 화면은 다릅니다.</li>
+</ol>
+
+<p>퇴직 후 시간이 있다는 것은 이 과정에서 큰 자산입니다. 조급하게 성과를 재기보다, <strong>주소가 있는 결과물을 하나씩 늘려가는 방식</strong>이 이 방향에서는 훨씬 잘 맞습니다.</p>
+
+<h2>다음 편 예고</h2>
+
+<p>5편은 52:09부터입니다. 만든 사이트에 <strong>문의 폼, 댓글, AI 기능처럼 외부 서비스를 붙이는 방법</strong>과, 1주차의 마지막 주제인 <strong>구글 애드센스 광고 수익화</strong>가 나옵니다. 퇴직 후 첫 수입을 광고로 잡으려는 독자에게는 이 시리즈에서 가장 직접적인 편입니다.</p>
+
+<h2>출처</h2>
+
+<p>이 글은 유튜브 영상 <a href="https://www.youtube.com/watch?v=P3jFI-VpyLg">「이 영상이 당신 인생을 바꿉니다. 바이브 코딩 1인 창업 3시간 통합본」(조코딩 JoCoding)</a>의 목차 가운데 31:31~52:09 구간을 출발점으로 삼아, 퇴직 전후 중장년 독자의 관점에서 다시 구성한 것입니다. 강의의 실제 설명과 실습 화면은 원본 영상에서 직접 확인하시기 바랍니다.</p>
+
+<p>배포 서비스와 AI 도구의 요금제·무료 구간은 수시로 바뀝니다. 결제 수단을 등록하기 전에 사용량 한도와 과금 기준을 각 서비스의 공식 안내에서 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["1인창업부트캠프","부트캠프4","배포","도메인","AI코딩도구","비용관리"], status:"scheduled", publishedAt:"2026-09-10", scheduledAt:"2026-09-09T21:00:00.000Z", readingMinutes:8, visual:"배포" },
+  { id:2131, title:"바이브 코딩 1인 창업 5: 애드센스는 붙이기보다 승인이 어렵습니다", slug:"vibe-coding-bootcamp-5", excerpt:"문의 폼·댓글·AI 기능을 직접 만들지 않고 붙이는 방법과, 구글 애드센스 승인을 받기까지의 현실적인 순서를 정리했습니다. 광고 수익의 규모에 대한 솔직한 이야기도 담았습니다.", body:`<p><strong>퇴직 후 수입을 만들겠다며 사이트를 만드는 사람의 절반은 애드센스를 염두에 둡니다.</strong> 강의 1주차의 마지막 구간이 정확히 그 이야기입니다. 다만 순서가 있습니다. 광고를 붙이기 전에, 사람이 머물 이유가 있는 기능이 먼저 있어야 합니다.</p>
+
+<p>이 편은 그 순서를 다룹니다. 외부 서비스를 붙여 사이트에 기능을 만드는 구간과, 그 위에 광고를 얹는 구간입니다.</p>
+
+<h2>이 편이 다루는 목차 구간</h2>
+<table>
+<thead><tr><th>위치</th><th>목차</th></tr></thead>
+<tbody>
+<tr><td>52:09</td><td>(1주차) 외부 서비스 활용 (DB 문의하기 폼, 댓글 기능, AI 학습 및 추론)</td></tr>
+<tr><td>1:00:45</td><td>(1주차) 구글 애드센스 광고 수익화</td></tr>
+<tr><td>1:12:13</td><td>(1주차) 지적 허영심을 위한 심화 개념 공부</td></tr>
+</tbody>
+</table>
+
+<div class="embedded-video"><iframe src="https://www.youtube-nocookie.com/embed/P3jFI-VpyLg?start=3129" title="바이브 코딩 1인 창업 3시간 통합본 - 외부 서비스와 애드센스 구간 (조코딩 JoCoding)"></iframe></div>
+
+<h2>(1주차 · 52:09) 외부 서비스 활용 — 직접 만들지 않는 기술</h2>
+
+<p>문의 폼, 댓글, AI 기능. 셋 다 직접 만들면 며칠씩 걸리는 일입니다. 그런데 이미 만들어둔 서비스에 연결만 하면 30분 안에 붙습니다. <strong>1인 창업에서 가장 중요한 기술은 만드는 기술이 아니라 안 만드는 판단</strong>입니다.</p>
+
+<table>
+<thead><tr><th>기능</th><th>직접 만들면</th><th>붙이면</th></tr></thead>
+<tbody>
+<tr><td><strong>문의 폼</strong></td><td>저장소와 관리 화면까지 필요</td><td>입력값이 시트나 메일로 옵니다</td></tr>
+<tr><td><strong>댓글</strong></td><td>스팸 차단, 신고 처리까지 따라옵니다</td><td>코드 한 줄로 붙습니다</td></tr>
+<tr><td><strong>AI 기능</strong></td><td>모델 학습은 개인이 할 영역이 아닙니다</td><td>API로 물어보고 답을 받습니다</td></tr>
+</tbody>
+</table>
+
+<p>여기서 개인정보 이야기를 반드시 짚어야 합니다. <strong>문의 폼으로 이름과 연락처를 받는 순간, 그 정보를 어디에 어떻게 보관하는지에 대한 책임이 생깁니다.</strong> 처음에는 받는 항목을 최소한으로 줄이는 편이 안전합니다. 이름 없이 이메일만, 혹은 아예 메일 주소만 안내하는 방식도 선택지입니다.</p>
+
+<h2>(1주차 · 1:00:45) 구글 애드센스 — 붙이는 것보다 통과가 어렵습니다</h2>
+
+<p>강의가 10분 넘게 쓰는 구간입니다. 광고를 붙이는 기술 자체는 간단합니다. 어려운 것은 <strong>승인</strong>입니다.</p>
+
+<p>애드센스는 사이트를 심사합니다. 자동 생성된 글만 잔뜩 있거나, 내용이 얇거나, 다른 곳의 글을 옮겨온 사이트는 통과하기 어렵습니다. 퇴직 후 광고 수익을 노리는 독자가 가장 자주 겪는 실패가 여기입니다. <strong>사이트를 만드는 데는 하루, 승인을 받는 데는 몇 달이 걸리기도 합니다.</strong></p>
+
+<p>현실적인 순서는 이렇습니다.</p>
+
+<ol>
+<li><strong>사람이 검색할 만한 주제를 정합니다.</strong> 내가 아는 것 중에서 고르는 편이 유리합니다. 30년 일한 분야가 있다면 그게 자산입니다.</li>
+<li><strong>직접 쓴 글을 쌓습니다.</strong> 개수보다 각 글이 질문 하나에 제대로 답하는지가 중요합니다.</li>
+<li><strong>정책 페이지를 갖춥니다.</strong> 운영자 소개, 개인정보 처리 안내, 연락처가 없는 사이트는 신뢰를 얻기 어렵습니다.</li>
+<li><strong>그다음에 신청합니다.</strong> 거절되면 사유를 보고 고쳐서 다시 신청합니다. 재신청은 가능합니다.</li>
+</ol>
+
+<p>수익 규모에 대해서도 솔직할 필요가 있습니다. <strong>광고는 방문자 수에 비례합니다.</strong> 하루 방문자 수십 명 수준에서는 월 몇천 원입니다. 이 방식으로 생활비를 만들겠다는 계획은 시간표가 아주 길어집니다. 부업 수입을 층으로 나눠 보는 관점은 <a href="/posts/three-layer-income-plan">월 300만 원을 하나에 몰지 않는 이유</a> 쪽에 정리돼 있습니다.</p>
+
+<blockquote>광고는 결과이지 목표가 아닙니다. 사람이 오는 이유를 먼저 만들면 광고는 따라옵니다.</blockquote>
+
+<h2>(1주차 · 1:12:13) 심화 개념 — 강의가 스스로 "지적 허영심"이라 부른 구간</h2>
+
+<p>목차 이름이 솔직해서 오히려 신뢰가 갑니다. <strong>지금 당장 필요하지는 않지만 알아두면 대화가 되는 개념들</strong>을 모아둔 구간이라는 뜻입니다.</p>
+
+<p>이런 구간을 대하는 요령은 하나입니다. <strong>메모만 해두고 넘어가세요.</strong> 나중에 막혔을 때 검색어로 쓰면 됩니다. 처음부터 이해하려 들면 여기서 지칩니다.</p>
+
+<h2>1주차를 마치며 — 여기까지가 절반입니다</h2>
+
+<p>1편부터 5편까지가 원본 영상의 1주차 구간입니다. 정리하면 이렇습니다.</p>
+
+<ul>
+<li><a href="/posts/vibe-coding-bootcamp-1">1편</a> 왜 지금인가와 전체 지도</li>
+<li><a href="/posts/vibe-coding-bootcamp-2">2편</a> HTML, CSS, JavaScript의 역할 구분</li>
+<li><a href="/posts/vibe-coding-bootcamp-3">3편</a> 남의 사이트 뜯어보기와 첫 결과물</li>
+<li><a href="/posts/vibe-coding-bootcamp-4">4편</a> 배포와 AI 코딩 환경</li>
+<li>이 편 외부 서비스와 광고 수익화</li>
+</ul>
+
+<p>여기까지 왔다면 <strong>주소가 있는 사이트 하나</strong>는 가지고 있어야 합니다. 없다면 다음 편으로 넘어가기 전에 4편으로 돌아가는 편이 낫습니다. 2주차부터는 "만든 것에 사람이 오는가"를 재는 이야기라, 잴 대상이 없으면 읽어도 남는 게 없습니다.</p>
+
+<h2>다음 편 예고</h2>
+
+<p>6편부터 2주차입니다. 1:15:18의 MVP와 데이터 이야기로 시작해서, <strong>구글 애널리틱스와 MS 클래리티를 설치하는 구간</strong>이 이어집니다. 만든 것을 누가 얼마나 보는지 숫자로 확인하는 단계입니다.</p>
+
+<h2>출처</h2>
+
+<p>이 글은 유튜브 영상 <a href="https://www.youtube.com/watch?v=P3jFI-VpyLg">「이 영상이 당신 인생을 바꿉니다. 바이브 코딩 1인 창업 3시간 통합본」(조코딩 JoCoding)</a>의 목차 가운데 52:09~1:14:27 구간을 출발점으로 삼아, 퇴직 전후 중장년 독자의 관점에서 다시 구성한 것입니다. 강의의 실제 설명과 실습 화면은 원본 영상에서 직접 확인하시기 바랍니다.</p>
+
+<p>광고 프로그램의 승인 기준과 정책은 운영사가 수시로 변경합니다. 이 글은 일반적인 준비 순서를 정리한 참고자료이며 승인이나 수익을 보장하지 않습니다. 개인정보를 수집하는 기능을 추가할 때는 관련 법령과 공식 안내를 반드시 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["1인창업부트캠프","부트캠프5","애드센스","광고수익","외부서비스","개인정보"], status:"scheduled", publishedAt:"2026-09-11", scheduledAt:"2026-09-10T21:00:00.000Z", readingMinutes:8, visual:"수익화" },
+  { id:2132, title:"바이브 코딩 1인 창업 6: 아무도 안 온다? 재는 도구부터 다세요", slug:"vibe-coding-bootcamp-6", excerpt:"MVP를 작게 내놓는 기준과, 구글 애널리틱스·MS 클래리티를 붙여 방문자를 숫자로 확인하는 방법입니다. 처음에 볼 네 가지 숫자와 설치 시 주의점을 정리했습니다.", body:`<p><strong>만들었는데 아무도 안 온다.</strong> 1인 창업에서 가장 흔한 상태입니다. 그런데 정확히 말하면 "아무도 안 온다"가 아니라 "몇 명이 왔는지 모른다"인 경우가 많습니다. 재는 도구를 안 달았기 때문입니다.</p>
+
+<p>강의 2주차는 여기서 시작합니다. 기능을 더 붙이기 전에 <strong>지금 것이 쓰이고 있는지를 숫자로 확인하는 단계</strong>입니다. 퇴직 후 사업을 준비하는 독자에게는 특히 중요한 구간입니다. 시간과 돈을 어디에 더 쓸지 감이 아니라 근거로 정하게 해주기 때문입니다.</p>
+
+<h2>이 편이 다루는 목차 구간</h2>
+<table>
+<thead><tr><th>위치</th><th>목차</th></tr></thead>
+<tbody>
+<tr><td>1:15:18</td><td>(2주차) 프로덕트 성공 방법 및 MVP와 데이터</td></tr>
+<tr><td>1:20:00</td><td>(2주차) Google Analytics 설치하기</td></tr>
+<tr><td>1:24:32</td><td>(2주차) MS Clarity 설치하기</td></tr>
+</tbody>
+</table>
+
+<div class="embedded-video"><iframe src="https://www.youtube-nocookie.com/embed/P3jFI-VpyLg?start=4518" title="바이브 코딩 1인 창업 3시간 통합본 - MVP와 측정 도구 구간 (조코딩 JoCoding)"></iframe></div>
+
+<h2>(2주차 · 1:15:18) MVP — 작게 만들어서 빨리 틀리기</h2>
+
+<p>MVP는 최소 기능 제품을 뜻합니다. 완성품이 아니라 <strong>가설을 확인할 수 있는 최소한의 것</strong>입니다.</p>
+
+<p>중장년 창업자가 이 개념에서 자주 걸리는 지점이 있습니다. 오래 일한 사람일수록 "부끄럽지 않은 수준"에 대한 기준이 높습니다. 그래서 다 갖추고 내놓으려다 몇 달을 씁니다. 그런데 <strong>내놓고 나서야 알게 되는 것들이 대부분입니다.</strong> 사람들이 어디서 헤매는지, 무엇을 기대하고 왔는지는 상상으로 알 수 없습니다.</p>
+
+<p>실무적인 기준 하나를 제안하면 이렇습니다. <strong>"이걸로 한 사람이라도 쓸 수 있나"에 답이 되면 내놓습니다.</strong> 예쁘지 않아도 되고, 기능이 하나여도 됩니다.</p>
+
+<h2>(2주차 · 1:20:00) 구글 애널리틱스 — 몇 명이 왔는지</h2>
+
+<p>애널리틱스는 방문 기록을 모아 보여주는 도구입니다. 사이트에 코드 한 조각을 넣으면 그때부터 쌓입니다. 무료입니다.</p>
+
+<p>처음에 볼 숫자는 네 개면 충분합니다.</p>
+
+<table>
+<thead><tr><th>숫자</th><th>무엇을 말해주나</th></tr></thead>
+<tbody>
+<tr><td><strong>방문자 수</strong></td><td>얼마나 오는가</td></tr>
+<tr><td><strong>유입 경로</strong></td><td>검색인가, 링크인가, 직접 입력인가</td></tr>
+<tr><td><strong>많이 본 페이지</strong></td><td>어떤 글이 일하고 있는가</td></tr>
+<tr><td><strong>기기 비율</strong></td><td>휴대폰인가 컴퓨터인가</td></tr>
+</tbody>
+</table>
+
+<p>마지막 항목을 특히 강조하고 싶습니다. <strong>대부분의 사이트에서 방문자의 절반 이상이 휴대폰입니다.</strong> 만드는 사람은 컴퓨터 화면만 보고 만듭니다. 이 불일치가 초보 사이트가 외면받는 흔한 이유입니다. 숫자를 보면 바로 드러납니다.</p>
+
+<h2>(2주차 · 1:24:32) MS 클래리티 — 어디서 헤맸는지</h2>
+
+<p>애널리틱스가 "몇 명"이라면 클래리티는 "어떻게"입니다. 방문자가 마우스를 어디에 올렸고 어디까지 스크롤했는지를 열 지도처럼 보여주고, 실제 방문 화면을 다시 재생해서 볼 수도 있습니다. 역시 무료입니다.</p>
+
+<p>이 도구가 유용한 이유는 <strong>말로 설명할 수 없는 문제를 눈으로 보여주기 때문</strong>입니다. 버튼을 못 찾아 같은 자리를 세 번 누른 기록, 중요한 내용에 닿기 전에 나가버린 기록 같은 것들입니다. 사용자에게 물어봐도 이런 건 대답해주지 않습니다. 본인도 기억하지 못하기 때문입니다.</p>
+
+<blockquote>고칠 곳을 찾는 가장 빠른 방법은 남이 헤매는 장면을 보는 것입니다.</blockquote>
+
+<h2>두 도구를 붙일 때의 주의</h2>
+
+<ul>
+<li><strong>개인정보 안내가 필요합니다.</strong> 방문 기록을 수집한다는 사실과 어떤 도구를 쓰는지 안내하는 페이지를 갖추세요. 광고 승인 심사에서도 확인하는 항목입니다.</li>
+<li><strong>내 접속은 제외하세요.</strong> 만드는 사람이 하루에 수십 번 들어갑니다. 그대로 두면 숫자가 왜곡됩니다.</li>
+<li><strong>첫 2주는 숫자가 거의 안 나옵니다.</strong> 정상입니다. 검색에 잡히기까지 시간이 걸립니다. 이 시기에 조급해서 사이트를 갈아엎는 것이 가장 흔한 실수입니다.</li>
+<li><strong>설치는 AI에게 맡기세요.</strong> "이 사이트에 구글 애널리틱스를 붙여줘. 측정 ID는 이것"이라고 하면 됩니다.</li>
+</ul>
+
+<h2>퇴직 후 창업에서 이 단계가 갖는 의미</h2>
+
+<p>재취업이든 창업이든 퇴직 후의 시도에는 공통점이 있습니다. <strong>시간은 있지만 재시도할 여유는 많지 않다</strong>는 것입니다. 그래서 감이 아니라 숫자로 방향을 정하는 습관이 중요합니다.</p>
+
+<p>숫자를 보기 시작하면 판단이 바뀝니다. "이 사이트는 별로인 것 같다"가 "검색으로 들어온 사람은 있는데 첫 화면에서 나간다"로 바뀝니다. 두 번째 문장이라야 고칠 수 있습니다. 부업의 실제 시간당 수익을 기록으로 남기는 방식은 <a href="/posts/side-income-tax-records">N잡 수입 기록</a> 쪽과 같은 맥락입니다.</p>
+
+<h2>다음 편 예고</h2>
+
+<p>7편은 1:26:46부터입니다. 쌓인 숫자를 <strong>어떻게 읽을 것인가</strong>를 다룹니다. AARRR, PMF, 아하 모먼트 같은 용어가 나오는데, 겁먹을 필요는 없습니다. 세 가지 다 상식적인 이야기에 이름을 붙인 것입니다. 이어서 도메인, 파비콘, 검색 노출(SEO)과 생성형 AI 노출(GEO) 이야기도 나옵니다.</p>
+
+<h2>출처</h2>
+
+<p>이 글은 유튜브 영상 <a href="https://www.youtube.com/watch?v=P3jFI-VpyLg">「이 영상이 당신 인생을 바꿉니다. 바이브 코딩 1인 창업 3시간 통합본」(조코딩 JoCoding)</a>의 목차 가운데 1:15:18~1:26:46 구간을 출발점으로 삼아, 퇴직 전후 중장년 독자의 관점에서 다시 구성한 것입니다. 강의의 실제 설명과 설치 화면은 원본 영상에서 직접 확인하시기 바랍니다.</p>
+
+<p>분석 도구의 기능·무료 범위·수집 항목은 운영사 정책에 따라 바뀝니다. 방문자 데이터를 수집하는 기능을 추가할 때는 개인정보 관련 법령과 각 서비스의 공식 안내를 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["1인창업부트캠프","부트캠프6","MVP","구글애널리틱스","클래리티","데이터측정"], status:"scheduled", publishedAt:"2026-09-12", scheduledAt:"2026-09-11T21:00:00.000Z", readingMinutes:8, visual:"측정" },
+  { id:2133, title:"바이브 코딩 1인 창업 7: AARRR·PMF·아하 모먼트, 장사하던 사람은 이미 아는 말", slug:"vibe-coding-bootcamp-7", excerpt:"손님이 거쳐 가는 다섯 칸으로 어디서 새는지 찾는 법, 광고비를 쓰기 전에 확인할 기준, 그리고 도메인·SEO·GEO의 기본기를 정리했습니다.", body:`<p><strong>AARRR, PMF, 아하 모먼트.</strong> 창업 관련 영상에서 자주 나오는 세 단어입니다. 영어 약자라 어렵게 들리지만, 셋 다 장사하는 사람이라면 이미 아는 이야기에 이름을 붙인 것입니다. 강의 2주차 후반이 이 세 가지와 사이트를 알리는 기본기를 다룹니다.</p>
+
+<p><a href="/posts/vibe-coding-bootcamp-6">6편</a>에서 도구를 달았다면, 이제 그 숫자를 읽는 순서입니다.</p>
+
+<h2>이 편이 다루는 목차 구간</h2>
+<table>
+<thead><tr><th>위치</th><th>목차</th></tr></thead>
+<tbody>
+<tr><td>1:26:46</td><td>(2주차) 데이터 보는 방법과 기본 용어 AARRR, PMF, 아하 모먼트</td></tr>
+<tr><td>1:35:32</td><td>(2주차) 도메인, Favicon, SEO &amp; GEO, 바이럴 구조, 마케팅 등</td></tr>
+</tbody>
+</table>
+
+<div class="embedded-video"><iframe src="https://www.youtube-nocookie.com/embed/P3jFI-VpyLg?start=5206" title="바이브 코딩 1인 창업 3시간 통합본 - 데이터 해석과 SEO 구간 (조코딩 JoCoding)"></iframe></div>
+
+<h2>(2주차 · 1:26:46) AARRR — 손님이 거쳐 가는 다섯 칸</h2>
+
+<p>가게로 바꿔 생각하면 바로 이해됩니다.</p>
+
+<table>
+<thead><tr><th>단계</th><th>웹에서</th><th>가게로 치면</th></tr></thead>
+<tbody>
+<tr><td><strong>유입</strong></td><td>사이트에 들어옴</td><td>문 앞을 지나다 들어옴</td></tr>
+<tr><td><strong>활성화</strong></td><td>기능을 한 번 써봄</td><td>물건을 만져봄</td></tr>
+<tr><td><strong>유지</strong></td><td>다시 옴</td><td>단골이 됨</td></tr>
+<tr><td><strong>추천</strong></td><td>남에게 알림</td><td>친구를 데려옴</td></tr>
+<tr><td><strong>수익</strong></td><td>돈을 냄</td><td>결제</td></tr>
+</tbody>
+</table>
+
+<p>이 틀이 실제로 쓸모 있는 이유는 <strong>어느 칸에서 새는지 알려주기 때문</strong>입니다. 방문자는 많은데 아무도 기능을 안 쓴다면 문제는 홍보가 아니라 첫 화면입니다. 한 번 쓰고 다시 안 온다면 문제는 쓸모입니다. 대책이 완전히 달라집니다.</p>
+
+<p>퇴직 후 창업에서 흔한 오해가 여기 있습니다. <strong>안 되면 무조건 더 알려야 한다고 생각하는 것</strong>입니다. 새는 통에 물을 더 붓는 격일 때가 많습니다.</p>
+
+<h2>(2주차) PMF — 시장이 원하는 것을 만들었는가</h2>
+
+<p>Product Market Fit, 만든 것과 시장의 수요가 맞아떨어진 상태를 말합니다. 판단 기준은 의외로 단순합니다. <strong>내가 홍보를 멈춰도 사람이 오는가.</strong></p>
+
+<p>여기에 도달하기 전에는 광고비를 쓰지 않는 편이 낫습니다. 돈을 넣는 동안만 사람이 오고, 멈추면 그대로 멈춥니다. 퇴직금으로 마케팅비를 쓰다 소진하는 경우가 이 지점에서 생깁니다.</p>
+
+<h2>(2주차) 아하 모먼트 — 쓸모를 깨닫는 순간</h2>
+
+<p>사용자가 "아, 이래서 쓰는구나"를 느끼는 지점입니다. 이 지점까지 가는 사람은 남고, 못 가면 떠납니다.</p>
+
+<p>실무에서 할 일은 하나입니다. <strong>그 순간까지 가는 길을 짧게 만드는 것</strong>입니다. 가입을 먼저 요구하거나, 설명을 길게 늘어놓거나, 버튼이 아래쪽에 숨어 있으면 대부분 도달하기 전에 나갑니다. 6편에서 설치한 클래리티로 실제 화면을 보면 어디서 끊기는지 바로 보입니다.</p>
+
+<blockquote>사람들은 설명을 읽지 않습니다. 눌러보고 안 되면 나갑니다.</blockquote>
+
+<h2>(2주차 · 1:35:32) 도메인, 파비콘, SEO와 GEO</h2>
+
+<p>강의가 하이라이트로 훑는 구간이지만, 퇴직 후 콘텐츠로 수익을 만들려는 독자에게는 오히려 핵심에 가깝습니다.</p>
+
+<ul>
+<li><strong>도메인</strong> — 내 이름의 주소입니다. 짧고 기억하기 쉬운 편이 낫습니다. 연 단위 비용이 들지만 크지 않습니다.</li>
+<li><strong>파비콘</strong> — 브라우저 탭에 뜨는 작은 아이콘입니다. 사소해 보여도 있고 없고가 인상을 바꿉니다.</li>
+<li><strong>SEO</strong> — 검색에서 찾아지게 만드는 일입니다. 제목, 설명, 구조, 그리고 무엇보다 내용의 질입니다.</li>
+<li><strong>GEO</strong> — 생성형 AI가 답변할 때 내 사이트를 인용하게 만드는 일입니다. 최근에 생긴 개념이고, 방향은 SEO와 크게 다르지 않습니다. 사실이 정확하고 출처가 분명한 글이 인용됩니다.</li>
+</ul>
+
+<p>이 넷 가운데 가장 큰 차이를 만드는 것은 <strong>검색되는 글</strong>입니다. 30년 일한 분야가 있다면, 그 분야에서 사람들이 실제로 검색하는 질문에 답하는 글을 쓰는 것이 가장 빠른 길입니다. 기술이 아니라 경험이 재료입니다.</p>
+
+<h2>2주차를 마치며</h2>
+
+<p>2주차는 만드는 이야기가 하나도 없습니다. 대신 <strong>재고, 읽고, 알리는</strong> 이야기입니다. 이 구간을 건너뛰고 3주차로 가는 사람이 많은데, 나중에 대부분 여기로 돌아옵니다.</p>
+
+<h2>다음 편 예고</h2>
+
+<p>8편부터 3주차입니다. 1:38:31의 <strong>"결제 가능성 있는 돈 될 만한 아이디어 기획하기"</strong>로 시작합니다. 지금까지가 도구였다면 3주차는 실제로 팔 물건을 정하는 단계입니다.</p>
+
+<h2>출처</h2>
+
+<p>이 글은 유튜브 영상 <a href="https://www.youtube.com/watch?v=P3jFI-VpyLg">「이 영상이 당신 인생을 바꿉니다. 바이브 코딩 1인 창업 3시간 통합본」(조코딩 JoCoding)</a>의 목차 가운데 1:26:46~1:38:08 구간을 출발점으로 삼아, 퇴직 전후 중장년 독자의 관점에서 다시 구성한 것입니다. 강의의 실제 설명은 원본 영상에서 직접 확인하시기 바랍니다.</p>
+
+<p>검색 노출 방식과 광고 정책은 각 플랫폼이 수시로 변경합니다. 이 글은 일반적인 원칙을 정리한 참고자료이며 특정한 노출이나 수익을 보장하지 않습니다.</p>`, category:"AI 활용·바이브코딩", tags:["1인창업부트캠프","부트캠프7","AARRR","PMF","SEO","GEO"], status:"scheduled", publishedAt:"2026-09-13", scheduledAt:"2026-09-12T21:00:00.000Z", readingMinutes:8, visual:"AARRR" },
+  { id:2134, title:"바이브 코딩 1인 창업 8: 돈 되는 아이디어는 이미 돈 쓰는 문제에 있습니다", slug:"vibe-coding-bootcamp-8", excerpt:"팔릴 아이디어의 네 가지 조건과, 중장년 창업자에게 유리한 자리를 정리했습니다. 라이브러리와 프레임워크를 고를 때 초보자가 써야 할 기준도 함께 담았습니다.", body:`<p><strong>3주차부터 강의의 성격이 바뀝니다.</strong> 1~2주차가 도구와 측정이었다면, 여기서부터는 실제로 팔 물건을 정하고 만듭니다. 첫 목차 이름이 솔직합니다. "결제 가능성 있는 돈 될 만한 아이디어 기획하기."</p>
+
+<p>퇴직 후 창업을 준비하는 독자에게는 이 구간이 가장 현실적입니다. <strong>만들 줄 아는 것과 팔릴 것을 고르는 것은 다른 능력</strong>이고, 대개 후자가 더 어렵습니다.</p>
+
+<h2>이 편이 다루는 목차 구간</h2>
+<table>
+<thead><tr><th>위치</th><th>목차</th></tr></thead>
+<tbody>
+<tr><td>1:38:31</td><td>(3주차) 결제 가능성 있는 돈 될 만한 아이디어 기획하기</td></tr>
+<tr><td>1:41:36</td><td>(3주차) 구현할 서비스 소개</td></tr>
+<tr><td>1:41~</td><td>(3주차) 라이브러리, 프레임워크 개념과 선택의 기준</td></tr>
+</tbody>
+</table>
+
+<div class="embedded-video"><iframe src="https://www.youtube-nocookie.com/embed/P3jFI-VpyLg?start=5911" title="바이브 코딩 1인 창업 3시간 통합본 - 아이디어 기획과 도구 선택 구간 (조코딩 JoCoding)"></iframe></div>
+
+<h2>(3주차 · 1:38:31) 돈이 될 아이디어의 조건</h2>
+
+<p>"좋은 아이디어"와 "돈이 되는 아이디어"는 다릅니다. 후자에는 조건이 붙습니다.</p>
+
+<ol>
+<li><strong>이미 돈을 쓰고 있는 문제인가.</strong> 사람들이 그 일을 하려고 시간이나 돈을 이미 쓰고 있다면 수요가 확인된 것입니다. 아무도 돈을 안 쓰던 곳에 처음 지갑을 열게 하는 일은 훨씬 어렵습니다.</li>
+<li><strong>지금 불편한가.</strong> 언젠가 필요할 것 같은 것 말고, 오늘 짜증 나는 것.</li>
+<li><strong>내가 아는 영역인가.</strong> 이게 중장년 창업자의 가장 큰 무기입니다. 20년 일한 업계의 불편은 그 업계 사람만 압니다.</li>
+<li><strong>작게 시작할 수 있는가.</strong> 첫 버전이 한 화면으로 되는가.</li>
+</ol>
+
+<p>네 번째가 특히 중요합니다. 아이디어가 좋아도 첫 버전이 크면 완성 전에 지칩니다. <strong>"이 서비스에서 딱 하나만 남긴다면 무엇인가"</strong>를 스스로 물어보고, 그것만 만드는 것이 3주차의 방식입니다.</p>
+
+<h2>퇴직자에게 유리한 아이디어의 자리</h2>
+
+<p>젊은 창업자와 같은 자리에서 경쟁할 이유가 없습니다. 유리한 자리가 따로 있습니다.</p>
+
+<ul>
+<li><strong>업무 지식이 필요한 영역</strong> — 특정 업계의 서류, 절차, 규정. 밖에서는 뭐가 불편한지도 모릅니다.</li>
+<li><strong>또래가 겪는 문제</strong> — 중장년이 쓰기 어려운 서비스가 아직 많습니다. 같은 세대가 만들면 다릅니다.</li>
+<li><strong>지역과 오프라인이 얽힌 문제</strong> — 발로 뛰어야 아는 것들. 원격으로는 안 보입니다.</li>
+<li><strong>사람 신뢰가 필요한 영역</strong> — 경력 자체가 신뢰의 근거가 됩니다.</li>
+</ul>
+
+<p>반대로 피할 자리는 <strong>기술력만으로 겨루는 곳</strong>입니다. 더 빠르고 더 화려한 것으로 이길 수는 없습니다.</p>
+
+<h2>(3주차 · 1:41:36) 구현할 서비스 소개 — 예제를 따라가되 내 것으로 바꾸기</h2>
+
+<p>강의는 3~4주차에 걸쳐 하나의 서비스를 실제로 만듭니다. 예제를 그대로 따라 만드는 것도 의미가 있지만, <strong>같은 구조로 내 아이디어를 만들어보는 편이 훨씬 남습니다.</strong></p>
+
+<p>요령이 있습니다. 강의가 만드는 서비스의 <strong>구조만 빌리는 것</strong>입니다. 입력을 받고, 처리하고, 결과를 보여주고, 저장하는 흐름은 대부분의 서비스가 비슷합니다. 그 자리에 내 주제를 넣으면 됩니다.</p>
+
+<blockquote>남의 예제를 따라 만들면 그 예제가 남고, 구조를 빌려 내 것을 만들면 내 서비스가 남습니다.</blockquote>
+
+<h2>(3주차 · 1:41~) 라이브러리와 프레임워크 — 이름만 알면 됩니다</h2>
+
+<p>둘 다 <strong>남이 미리 만들어둔 것을 가져다 쓰는 방식</strong>입니다. 차이는 주도권입니다.</p>
+
+<table>
+<thead><tr><th>구분</th><th>성격</th><th>비유</th></tr></thead>
+<tbody>
+<tr><td><strong>라이브러리</strong></td><td>필요할 때 내가 불러다 씁니다</td><td>공구함에서 필요한 공구를 꺼내 쓰는 것</td></tr>
+<tr><td><strong>프레임워크</strong></td><td>정해진 틀 안에 내 코드를 넣습니다</td><td>조립식 주택의 골조에 맞춰 짓는 것</td></tr>
+</tbody>
+</table>
+
+<p>선택 기준으로 강의가 드는 것은 <strong>얼마나 많이 쓰이는가</strong>입니다. 이게 초보자에게는 결정적입니다. 많이 쓰이는 도구일수록 검색하면 답이 나오고, AI도 더 잘 압니다. <strong>사용자가 적은 최신 도구를 고르면 막혔을 때 물어볼 곳이 없습니다.</strong></p>
+
+<p>바이브 코딩으로 만들 때는 이렇게 물어보면 됩니다. "이런 걸 만들려는데 어떤 걸로 하는 게 좋을까? 초보자가 자료를 찾기 쉬운 쪽으로 추천해줘." 선택지와 이유를 받은 뒤 고르면 됩니다. 이 방식은 <a href="/posts/vibe-coding-basics-7">기술 의사결정 편</a>에서 다룬 원칙과 같습니다.</p>
+
+<h2>다음 편 예고</h2>
+
+<p>9편은 1:46:45부터입니다. React, Vite, Next.js 같은 이름이 나옵니다. <strong>이름이 셋이라 어렵게 느껴지지만 관계만 알면 정리됩니다.</strong> 이어서 서버리스 개념까지 다룹니다.</p>
+
+<h2>출처</h2>
+
+<p>이 글은 유튜브 영상 <a href="https://www.youtube.com/watch?v=P3jFI-VpyLg">「이 영상이 당신 인생을 바꿉니다. 바이브 코딩 1인 창업 3시간 통합본」(조코딩 JoCoding)</a>의 목차 가운데 1:38:31~1:46:45 구간을 출발점으로 삼아, 퇴직 전후 중장년 독자의 관점에서 다시 구성한 것입니다. 강의의 실제 설명과 실습 화면은 원본 영상에서 직접 확인하시기 바랍니다.</p>
+
+<p>사업 아이디어의 성패는 시장 상황과 실행에 따라 달라집니다. 이 글은 판단의 기준을 정리한 참고자료이며 특정 아이디어의 수익성을 보장하지 않습니다. 사업자 등록과 세금 문제는 관할 세무서나 전문가에게 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["1인창업부트캠프","부트캠프8","아이디어기획","중장년창업","프레임워크","라이브러리"], status:"scheduled", publishedAt:"2026-09-14", scheduledAt:"2026-09-13T21:00:00.000Z", readingMinutes:8, visual:"기획" },
+  { id:2135, title:"바이브 코딩 1인 창업 9: React·Vite·Next.js, 셋의 관계만 알면 됩니다", slug:"vibe-coding-bootcamp-9", excerpt:"이름 셋이 어떤 관계인지 표로 정리하고, 목적별로 무엇을 고를지 기준을 세웁니다. 서버가 없다는 뜻이 아닌 서버리스의 실제 의미와 1인 창업자에게 유리한 이유도 다룹니다.", body:`<p><strong>React, Vite, Next.js.</strong> 이 세 단어에서 막히는 사람이 많습니다. 셋 다 웹 화면을 만드는 데 쓰이는 도구인데, 이름만 봐서는 무엇이 무엇을 포함하는지 알 수 없습니다. 강의 3주차 중반이 이 관계를 정리하고, 이어서 서버리스라는 개념까지 나갑니다.</p>
+
+<p>바이브 코딩으로 만들 계획이라면 <strong>직접 다룰 일은 거의 없습니다.</strong> 다만 AI가 "Next.js로 만들까요"라고 물었을 때 판단은 해야 합니다. 그 정도의 이해를 목표로 합니다.</p>
+
+<h2>이 편이 다루는 목차 구간</h2>
+<table>
+<thead><tr><th>위치</th><th>목차</th></tr></thead>
+<tbody>
+<tr><td>1:46:45</td><td>(3주차) React, Vite의 개념, Next.js의 차이</td></tr>
+<tr><td>1:49:14</td><td>(3주차) React 웹 구현하기</td></tr>
+<tr><td>1:53:16</td><td>(3주차) 서버리스(Serverless)의 개념</td></tr>
+</tbody>
+</table>
+
+<div class="embedded-video"><iframe src="https://www.youtube-nocookie.com/embed/P3jFI-VpyLg?start=6405" title="바이브 코딩 1인 창업 3시간 통합본 - React와 서버리스 구간 (조코딩 JoCoding)"></iframe></div>
+
+<h2>(3주차 · 1:46:45) 세 이름의 관계</h2>
+
+<table>
+<thead><tr><th>이름</th><th>하는 일</th><th>한 줄로</th></tr></thead>
+<tbody>
+<tr><td><strong>React</strong></td><td>화면을 조각으로 나눠 만드는 방식</td><td>부품 단위로 화면 조립</td></tr>
+<tr><td><strong>Vite</strong></td><td>만드는 동안 빠르게 돌려보게 해주는 도구</td><td>작업 속도를 올리는 보조 장비</td></tr>
+<tr><td><strong>Next.js</strong></td><td>React에 필요한 것들을 미리 갖춘 틀</td><td>React 기반의 완성형 패키지</td></tr>
+</tbody>
+</table>
+
+<p>관계를 한 문장으로 정리하면 이렇습니다. <strong>React는 방식, Vite는 작업 환경, Next.js는 React를 포함한 더 큰 틀입니다.</strong> 셋 중 하나를 고르는 문제가 아니라, React를 쓰면서 Vite로 작업하거나 Next.js 안에서 쓰는 식입니다.</p>
+
+<p>왜 React 같은 방식이 필요한가는 실제로 겪어봐야 압니다. 화면이 커지면 같은 모양이 반복됩니다. 버튼, 카드, 목록. 이걸 매번 새로 쓰지 않고 <strong>부품으로 만들어 재사용</strong>하는 것이 핵심입니다. 한 번 고치면 쓰인 데가 다 바뀝니다.</p>
+
+<h2>초보자가 고를 기준</h2>
+
+<ul>
+<li><strong>페이지 몇 장짜리 소개 사이트</strong> — 이 도구들이 필요 없습니다. 단순한 파일 몇 개가 낫습니다.</li>
+<li><strong>기능이 있고 로그인이나 저장이 붙는 서비스</strong> — Next.js처럼 갖춰진 틀이 편합니다.</li>
+<li><strong>검색 노출이 중요한 콘텐츠 사이트</strong> — 이 부분은 도구에 따라 차이가 있어 처음부터 확인하는 편이 좋습니다.</li>
+</ul>
+
+<p>AI에게 물을 때는 목적을 먼저 말하는 것이 요령입니다. "블로그처럼 글이 쌓이고 검색에 잘 잡혀야 한다"고 하면 그에 맞는 답이 나옵니다. <strong>도구 이름을 먼저 말하면 그 도구 안에서만 답이 나옵니다.</strong></p>
+
+<h2>(3주차 · 1:49:14) React 웹 구현 — 따라 하되 붙잡히지 말 것</h2>
+
+<p>실습 구간입니다. 여기서 중장년 학습자가 자주 겪는 상황이 있습니다. <strong>화면이 강의와 다르게 나오는 것</strong>입니다. 도구 버전이 올라가면 초기 화면이나 폴더 구조가 바뀝니다.</p>
+
+<p>대응은 간단합니다. 다르다는 사실 자체를 AI에게 말하면 됩니다. "강의에서는 이런 화면이 나온다는데 내 화면은 이렇다"고 캡처와 함께 물어보면 대개 해결됩니다. <strong>다른 것이 잘못된 것은 아닙니다.</strong></p>
+
+<h2>(3주차 · 1:53:16) 서버리스 — 서버가 없다는 뜻이 아닙니다</h2>
+
+<p>이름이 오해를 부르는 대표적인 용어입니다. 서버가 없는 게 아니라 <strong>내가 서버를 관리하지 않는다</strong>는 뜻입니다.</p>
+
+<table>
+<thead><tr><th>구분</th><th>예전 방식</th><th>서버리스</th></tr></thead>
+<tbody>
+<tr><td><strong>준비</strong></td><td>서버를 빌리고 설정합니다</td><td>코드만 올립니다</td></tr>
+<tr><td><strong>비용</strong></td><td>안 써도 매달 나갑니다</td><td>호출된 만큼만</td></tr>
+<tr><td><strong>관리</strong></td><td>보안 업데이트를 직접</td><td>맡깁니다</td></tr>
+</tbody>
+</table>
+
+<p>1인 창업자에게 이 방식이 유리한 이유가 분명합니다. <strong>사람이 안 오면 돈이 거의 안 나갑니다.</strong> 시작하는 입장에서 고정비가 없다는 것은 큰 차이입니다. 반대로 갑자기 많이 쓰이면 비용이 뜁니다. 그래서 <a href="/posts/vibe-coding-bootcamp-4">4편</a>에서 말한 사용량 상한 설정이 여기서도 필요합니다.</p>
+
+<blockquote>고정비가 없다는 것은 접을 때 손실이 작다는 뜻입니다. 퇴직 후 시도에서 이 성질은 생각보다 중요합니다.</blockquote>
+
+<h2>다음 편 예고</h2>
+
+<p>10편은 1:55:48부터입니다. <strong>API와 AI API</strong>를 다룹니다. 남이 만든 기능을 내 서비스에 끌어다 쓰는 방법이고, 지금 시점에서 가장 실용적인 구간이기도 합니다. OpenAI의 글 생성과 이미지 생성 실습이 이어집니다.</p>
+
+<h2>출처</h2>
+
+<p>이 글은 유튜브 영상 <a href="https://www.youtube.com/watch?v=P3jFI-VpyLg">「이 영상이 당신 인생을 바꿉니다. 바이브 코딩 1인 창업 3시간 통합본」(조코딩 JoCoding)</a>의 목차 가운데 1:46:45~1:55:48 구간을 출발점으로 삼아, 퇴직 전후 중장년 독자의 관점에서 다시 구성한 것입니다. 강의의 실제 설명과 실습 화면은 원본 영상에서 직접 확인하시기 바랍니다.</p>
+
+<p>개발 도구와 클라우드 서비스의 기능·요금은 수시로 바뀝니다. 사용량 기반 과금 서비스는 한도 설정 여부와 초과 시 정책을 각 서비스의 공식 안내에서 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["1인창업부트캠프","부트캠프9","React","Nextjs","서버리스","도구선택"], status:"scheduled", publishedAt:"2026-09-15", scheduledAt:"2026-09-14T21:00:00.000Z", readingMinutes:7, visual:"React" },
+  { id:2136, title:"바이브 코딩 1인 창업 10: AI를 붙이는 법과 API 키를 지키는 법", slug:"vibe-coding-bootcamp-10", excerpt:"API로 남의 기능을 끌어다 쓰는 구조, OpenAI 글·이미지 생성 연동에서 알아야 할 세 가지, 그리고 키 노출과 종량제 요금 사고를 막는 방어선을 정리했습니다.", body:`<p><strong>AI 서비스를 만든다는 말이 AI를 직접 개발한다는 뜻은 아닙니다.</strong> 대부분은 이미 만들어진 AI에 질문을 보내고 답을 받아 쓰는 방식입니다. 그 통로가 API입니다. 강의 3주차 후반이 이 구간이고, 지금 시점에서 가장 실용적인 대목이기도 합니다.</p>
+
+<p>퇴직 후 만들 수 있는 서비스 가운데 상당수가 여기서 나옵니다. <strong>내가 아는 분야의 지식과 AI의 처리 능력을 붙이는 것</strong>이기 때문입니다.</p>
+
+<h2>이 편이 다루는 목차 구간</h2>
+<table>
+<thead><tr><th>위치</th><th>목차</th></tr></thead>
+<tbody>
+<tr><td>1:55:48</td><td>(3주차) API의 개념과 AI API</td></tr>
+<tr><td>1:58:43</td><td>(3주차) OpenAI LLM API 활용하기 실습</td></tr>
+<tr><td>2:05:47</td><td>(3주차) OpenAI 이미지 생성 API 활용하기 실습</td></tr>
+</tbody>
+</table>
+
+<div class="embedded-video"><iframe src="https://www.youtube-nocookie.com/embed/P3jFI-VpyLg?start=6948" title="바이브 코딩 1인 창업 3시간 통합본 - API와 AI 연동 구간 (조코딩 JoCoding)"></iframe></div>
+
+<h2>(3주차 · 1:55:48) API — 식당 주문 창구에 비유하면</h2>
+
+<p>API는 <strong>남의 서비스에 요청을 넣고 답을 받는 창구</strong>입니다. 주방에 들어가지 않고 메뉴판에서 골라 주문하는 것과 같습니다. 주방이 어떻게 돌아가는지는 몰라도 됩니다. 정해진 방식으로 주문하면 정해진 형태로 나옵니다.</p>
+
+<p>이 구조 덕분에 1인 창업이 가능해졌습니다. 지도, 결제, 번역, 날씨, 그리고 AI. 직접 만들면 몇 년이 걸릴 기능을 <strong>주문해서 씁니다.</strong></p>
+
+<h2>(3주차 · 1:58:43) AI API 실습 — 세 가지만 알면 됩니다</h2>
+
+<p>실습 구간이지만 개념만 잡으면 나머지는 AI에게 시킬 수 있습니다.</p>
+
+<ol>
+<li><strong>키</strong> — 나임을 증명하는 값입니다. 이걸로 사용량이 집계되고 요금이 매겨집니다.</li>
+<li><strong>요청</strong> — 무엇을 해달라는 내용. AI API에서는 프롬프트가 여기 들어갑니다.</li>
+<li><strong>응답</strong> — 결과가 정해진 형식으로 돌아옵니다.</li>
+</ol>
+
+<p>여기서 <strong>가장 중요한 안전 수칙</strong>이 나옵니다. <a href="/posts/vibe-coding-bootcamp-4">4편</a>에서 짚었던 이야기의 연장입니다.</p>
+
+<blockquote>키는 절대 화면 쪽에 두지 마세요. 브라우저에서 F12를 누르면 그대로 보입니다.</blockquote>
+
+<p>키가 노출되면 남이 내 이름으로 AI를 씁니다. 요금은 나에게 청구됩니다. 이 사고는 초보자에게 실제로 자주 일어납니다. <strong>키는 서버 쪽에 두고, 화면은 내 서버에 요청하고, 내 서버가 AI에 요청하는 구조</strong>여야 합니다. AI에게 만들어달라고 할 때 이 문장을 그대로 붙이면 됩니다. "API 키는 서버에서만 쓰고 브라우저에 노출되지 않게 해줘."</p>
+
+<h2>비용 관리 — 종량제의 함정</h2>
+
+<p>AI API는 쓴 만큼 돈이 나갑니다. 개인이 테스트하는 수준에서는 미미하지만, 두 가지 상황에서 갑자기 커집니다.</p>
+
+<ul>
+<li><strong>반복 호출이 잘못 들어갔을 때</strong> — 실수로 계속 부르는 코드가 돌면 하룻밤에 요금이 쌓입니다.</li>
+<li><strong>키가 유출됐을 때</strong> — 남이 씁니다.</li>
+</ul>
+
+<p>대책은 두 가지입니다. <strong>사용 한도를 계정에서 먼저 걸어두는 것</strong>, 그리고 <strong>결제 수단을 한도가 낮은 것으로 등록하는 것</strong>입니다. 퇴직 후 자금을 다루는 입장에서는 이 정도의 방어선은 첫날 세워두는 편이 좋습니다.</p>
+
+<h2>(3주차 · 2:05:47) 이미지 생성 API</h2>
+
+<p>글 생성과 원리는 같습니다. 요청을 보내면 이미지가 옵니다. 활용처가 넓어서 실제로 쓸모가 많습니다.</p>
+
+<ul>
+<li>블로그나 사이트에 넣을 삽화</li>
+<li>제품 소개용 이미지</li>
+<li>썸네일</li>
+</ul>
+
+<p>다만 <strong>상업적 이용 조건은 서비스마다 다르고 수시로 바뀝니다.</strong> 생성한 이미지를 판매물에 쓰기 전에는 해당 서비스의 이용약관을 직접 확인해야 합니다. 실존 인물이나 특정 브랜드를 닮은 이미지는 생성 자체가 가능해도 사용에 문제가 될 수 있습니다.</p>
+
+<h2>퇴직자에게 맞는 AI 서비스의 모양</h2>
+
+<p>AI API로 만들 수 있는 것은 무궁무진하지만, 경쟁이 심한 영역과 그렇지 않은 영역이 나뉩니다.</p>
+
+<table>
+<thead><tr><th>피할 곳</th><th>노려볼 곳</th></tr></thead>
+<tbody>
+<tr><td>범용 챗봇, 글쓰기 도구</td><td>특정 업무의 서류·양식 처리</td></tr>
+<tr><td>이미 큰 회사가 하는 것</td><td>업계 용어를 알아야 하는 정리 작업</td></tr>
+<tr><td>기술력으로 겨루는 것</td><td>경험과 판단이 섞여야 하는 일</td></tr>
+</tbody>
+</table>
+
+<p>핵심은 <strong>AI가 못 하는 부분을 내가 채우는 구조</strong>입니다. 프롬프트에 넣을 기준과 예시를 만드는 일이 곧 30년 경력이 값을 하는 자리입니다. AI에게 일을 나누는 방식은 <a href="/posts/ai-blog-writing-workflow">AI 글쓰기 작업 순서</a> 쪽과 같은 원리입니다.</p>
+
+<h2>다음 편 예고</h2>
+
+<p>11편은 2:07:57부터입니다. 3주차의 마지막인 <strong>글로벌 결제</strong>입니다. 해외 사용자에게 돈을 받는 구조가 국내와 어떻게 다른지, 개인이 어디까지 할 수 있는지를 다룹니다.</p>
+
+<h2>출처</h2>
+
+<p>이 글은 유튜브 영상 <a href="https://www.youtube.com/watch?v=P3jFI-VpyLg">「이 영상이 당신 인생을 바꿉니다. 바이브 코딩 1인 창업 3시간 통합본」(조코딩 JoCoding)</a>의 목차 가운데 1:55:48~2:07:57 구간을 출발점으로 삼아, 퇴직 전후 중장년 독자의 관점에서 다시 구성한 것입니다. 강의의 실제 설명과 실습 화면은 원본 영상에서 직접 확인하시기 바랍니다.</p>
+
+<p>AI 서비스의 요금 체계, 이용약관, 생성물의 상업적 이용 조건은 수시로 바뀝니다. 결제 수단을 등록하기 전에 사용 한도와 과금 기준을, 생성물을 판매에 쓰기 전에 해당 서비스의 약관을 직접 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["1인창업부트캠프","부트캠프10","API","OpenAI","AI연동","보안"], status:"scheduled", publishedAt:"2026-09-16", scheduledAt:"2026-09-15T21:00:00.000Z", readingMinutes:8, visual:"API" },
+  { id:2137, title:"바이브 코딩 1인 창업 11: 결제를 붙이는 순간 생기는 네 가지 책임", slug:"vibe-coding-bootcamp-11", excerpt:"글로벌 결제를 붙이기 전에 알아야 할 것과, 국내 결제와 해외 결제의 차이를 정리했습니다. 해외에서 받은 수입도 국내 신고 대상이라는 점을 함께 짚었습니다.", body:`<p><strong>만든 것을 국내에서만 팔 이유가 없다는 것이 이 강의의 전제입니다.</strong> 인터넷에서 파는 물건에는 국경이 없고, 오히려 해외 시장이 더 클 때가 많습니다. 다만 돈을 받는 방법이 국내와 다릅니다. 3주차의 마지막 구간이 이 이야기입니다.</p>
+
+<p>퇴직 후 창업을 준비하는 독자에게는 <strong>당장 실행할 구간이라기보다 미리 알아둘 구간</strong>입니다. 결제가 붙는 순간 사업의 성격이 달라지기 때문입니다.</p>
+
+<h2>이 편이 다루는 목차 구간</h2>
+<table>
+<thead><tr><th>위치</th><th>목차</th></tr></thead>
+<tbody>
+<tr><td>2:07:57</td><td>(3주차) 글로벌 결제 개요</td></tr>
+<tr><td>2:10:54</td><td>(3주차) 바이브 디자인, Polar 결제, 이메일 전송</td></tr>
+</tbody>
+</table>
+
+<div class="embedded-video"><iframe src="https://www.youtube-nocookie.com/embed/P3jFI-VpyLg?start=7677" title="바이브 코딩 1인 창업 3시간 통합본 - 글로벌 결제 구간 (조코딩 JoCoding)"></iframe></div>
+
+<h2>(3주차 · 2:07:57) 결제를 붙인다는 것의 무게</h2>
+
+<p>기술적으로는 어렵지 않습니다. 결제 서비스가 제공하는 방식을 따라 붙이면 됩니다. 어려운 것은 <strong>그다음에 따라오는 것들</strong>입니다.</p>
+
+<table>
+<thead><tr><th>결제를 붙이면 생기는 일</th><th>준비해야 할 것</th></tr></thead>
+<tbody>
+<tr><td>환불 요청이 옵니다</td><td>환불 기준과 처리 절차</td></tr>
+<tr><td>문의가 옵니다</td><td>답할 수 있는 연락 창구</td></tr>
+<tr><td>세금 신고 대상이 됩니다</td><td>사업자 등록 여부 판단</td></tr>
+<tr><td>약관이 필요합니다</td><td>이용약관, 환불정책 페이지</td></tr>
+</tbody>
+</table>
+
+<p>그래서 순서에 대한 권고가 있습니다. <strong>무료로 먼저 내놓고, 쓰는 사람이 생긴 뒤에 결제를 붙이는 것</strong>입니다. 아무도 안 쓰는 서비스에 결제를 붙이는 데 시간을 쓰면 그 시간이 통째로 버려집니다.</p>
+
+<h2>국내 결제와 해외 결제의 차이</h2>
+
+<ul>
+<li><strong>국내</strong> — 사업자 등록이 사실상 전제입니다. 결제대행사 심사가 있고 서류가 필요합니다.</li>
+<li><strong>해외</strong> — 개인 자격으로 시작할 수 있는 서비스가 있습니다. 대신 수수료가 높고 정산 주기가 깁니다.</li>
+</ul>
+
+<p>강의가 소개하는 방식은 후자 쪽입니다. 디지털 상품이나 구독을 파는 1인 개발자를 위해 <strong>결제, 세금 처리, 정산을 대신 해주는 서비스</strong>들이 있고, 이런 서비스는 판매자를 대신해 세금 부분을 처리해주는 구조를 갖춘 경우가 있습니다.</p>
+
+<p>다만 여기서 반드시 짚어야 합니다. <strong>해외 서비스를 통해 얻은 수입도 국내 거주자라면 국내 신고 대상입니다.</strong> 어느 나라에서 받았는지와 무관합니다. 금액이 커지면 사업자 등록과 부가가치세 문제도 따라옵니다. 이 부분은 세무 전문가나 관할 세무서에 확인해야 하며, 이 글에서 판단을 대신할 수 없습니다. 부업 수입의 기록 방법은 <a href="/posts/side-income-tax-records">3.3% 떼였으면 신고 끝일까</a> 쪽을 참고하세요.</p>
+
+<blockquote>결제는 기술 문제가 아니라 책임 문제입니다. 돈을 받는 순간 지켜야 할 것이 생깁니다.</blockquote>
+
+<h2>(3주차 · 2:10:54) 디자인, 결제, 이메일 — 하이라이트로 지나가는 것들</h2>
+
+<p>강의가 짧게 훑는 구간이지만 실제 운영에서는 자주 쓰입니다.</p>
+
+<ul>
+<li><strong>디자인</strong> — AI에게 화면 디자인을 맡기는 방식입니다. 참고할 화면을 캡처해 보여주는 편이 말로 설명하는 것보다 훨씬 잘 나옵니다.</li>
+<li><strong>결제 연동</strong> — 위에서 말한 방식입니다. 테스트 모드로 충분히 확인한 뒤 실제 결제로 전환하세요.</li>
+<li><strong>이메일 전송</strong> — 가입 확인, 결제 영수증, 안내 메일. 직접 보내면 스팸 처리되기 쉬워서 전용 서비스를 씁니다.</li>
+</ul>
+
+<p>이메일에 대해 하나 덧붙이면, <strong>광고성 메일에는 법적 표시 의무가 있습니다.</strong> 제목에 표기해야 하는 사항과 수신 거부 방법 안내가 필요합니다. 안내 메일과 광고 메일의 구분을 처음부터 해두는 편이 안전합니다.</p>
+
+<h2>3주차를 마치며</h2>
+
+<p>8편부터 11편까지가 3주차입니다. 아이디어를 정하고, 도구를 고르고, AI를 붙이고, 돈 받을 통로까지 봤습니다. 여기까지가 <strong>"팔 물건"의 윤곽</strong>입니다.</p>
+
+<h2>다음 편 예고</h2>
+
+<p>12편부터 4주차입니다. 2:13:23의 <strong>데이터베이스</strong>부터 시작합니다. 지금까지 만든 것에 "기억"을 붙이는 단계입니다. 사용자가 입력한 것이 새로고침해도 남아 있게 하는 일이고, 서비스가 서비스다워지는 지점이기도 합니다.</p>
+
+<h2>출처</h2>
+
+<p>이 글은 유튜브 영상 <a href="https://www.youtube.com/watch?v=P3jFI-VpyLg">「이 영상이 당신 인생을 바꿉니다. 바이브 코딩 1인 창업 3시간 통합본」(조코딩 JoCoding)</a>의 목차 가운데 2:07:57~2:11:26 구간을 출발점으로 삼아, 퇴직 전후 중장년 독자의 관점에서 다시 구성한 것입니다. 강의의 실제 설명은 원본 영상에서 직접 확인하시기 바랍니다.</p>
+
+<p>결제 서비스의 수수료, 가입 조건, 세금 처리 방식은 서비스마다 다르고 수시로 바뀝니다. 이 글은 일반적인 구조를 정리한 참고자료이며 세무·법률 자문을 대신하지 않습니다. 사업자 등록 여부, 소득 신고 방법, 부가가치세 문제는 관할 세무서나 세무 전문가에게 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["1인창업부트캠프","부트캠프11","글로벌결제","구독","세금신고","이메일발송"], status:"scheduled", publishedAt:"2026-09-17", scheduledAt:"2026-09-16T21:00:00.000Z", readingMinutes:7, visual:"결제" },
+  { id:2138, title:"바이브 코딩 1인 창업 12: 로그인 기능만큼은 직접 만들지 마세요", slug:"vibe-coding-bootcamp-12", excerpt:"데이터베이스와 스토리지의 역할 구분, Supabase와 R2 같은 서비스의 자리, 그리고 회원 정보를 다룰 때 AI에게 맡기면 안 되는 네 가지 결정을 정리했습니다.", body:`<p><strong>새로고침하면 사라지는 것과 남는 것의 차이.</strong> 그것이 데이터베이스입니다. 지금까지 만든 것에 기억을 붙이는 단계이고, 여기서부터 만든 것이 서비스다워집니다. 강의 4주차 전체가 이 이야기입니다.</p>
+
+<p>용어가 많이 나오는 구간이지만 실제로 알아야 할 것은 두 가지입니다. <strong>무엇을 어디에 저장하는가, 그리고 그 저장된 것을 누가 볼 수 있는가.</strong></p>
+
+<h2>이 편이 다루는 목차 구간</h2>
+<table>
+<thead><tr><th>위치</th><th>목차</th></tr></thead>
+<tbody>
+<tr><td>2:12:20</td><td>(4주차) 구현할 기능 소개</td></tr>
+<tr><td>2:13:23</td><td>(4주차) 데이터베이스와 DBMS, Supabase</td></tr>
+<tr><td>2:19:03</td><td>(4주차) 스토리지의 개념과 Cloudflare R2</td></tr>
+<tr><td>2:22:27</td><td>(4주차) 회원가입, 로그인, 소셜로그인, 구독, 퍼널 디자인</td></tr>
+</tbody>
+</table>
+
+<div class="embedded-video"><iframe src="https://www.youtube-nocookie.com/embed/P3jFI-VpyLg?start=7940" title="바이브 코딩 1인 창업 3시간 통합본 - 데이터베이스와 스토리지 구간 (조코딩 JoCoding)"></iframe></div>
+
+<h2>(4주차 · 2:13:23) 데이터베이스 — 표가 있는 창고</h2>
+
+<p>엑셀 시트를 떠올리면 대체로 맞습니다. 행과 열이 있고, 한 줄이 한 건입니다. 회원 명단, 주문 내역, 게시글이 각각 하나의 표가 됩니다.</p>
+
+<p>엑셀과 다른 점은 세 가지입니다. <strong>여러 사람이 동시에 써도 안전하고, 원하는 조건으로 빠르게 찾을 수 있고, 프로그램이 자동으로 읽고 씁니다.</strong> 그래서 서비스에는 엑셀이 아니라 데이터베이스를 씁니다.</p>
+
+<p>DBMS는 그 창고를 관리하는 프로그램이고, 강의가 소개하는 Supabase는 <strong>그 창고를 빌려주면서 회원 관리 기능까지 얹어주는 서비스</strong>입니다. 무료 구간이 있어서 시작하기 좋습니다.</p>
+
+<h2>(4주차 · 2:19:03) 스토리지 — 파일은 따로 둡니다</h2>
+
+<p>사진, 동영상, PDF 같은 파일은 데이터베이스에 넣지 않습니다. 무겁기 때문입니다. 파일은 <strong>스토리지</strong>에 두고, 데이터베이스에는 "그 파일이 어디 있는지"만 적어둡니다.</p>
+
+<table>
+<thead><tr><th>구분</th><th>넣는 것</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><strong>데이터베이스</strong></td><td>글자와 숫자</td><td>이름, 날짜, 금액, 파일 주소</td></tr>
+<tr><td><strong>스토리지</strong></td><td>파일 자체</td><td>사진, 첨부문서, 영상</td></tr>
+</tbody>
+</table>
+
+<p>강의가 언급하는 Cloudflare R2 같은 서비스가 스토리지에 해당합니다. 이 분야에서 비용을 좌우하는 것은 저장 용량보다 <strong>내보내는 양</strong>인 경우가 많습니다. 사진이 많은 서비스라면 이 부분을 미리 확인하는 편이 좋습니다.</p>
+
+<h2>(4주차 · 2:22:27) 회원가입과 로그인 — 직접 만들지 마세요</h2>
+
+<p>이 구간에서 가장 중요한 조언은 하나입니다. <strong>로그인 기능을 직접 만들지 마세요.</strong></p>
+
+<p>비밀번호를 안전하게 보관하는 일, 비밀번호 찾기, 계정 도용 대응은 전부 전문 영역입니다. 잘못 만들면 사고가 나고, 사고가 나면 개인이 감당할 수 없습니다. <strong>Supabase 같은 서비스가 제공하는 인증 기능이나 소셜 로그인을 쓰는 것이 정답입니다.</strong></p>
+
+<p>소셜 로그인에는 부수 효과도 있습니다. 비밀번호를 새로 만들지 않아도 되니 가입 단계에서 이탈이 줄어듭니다. <a href="/posts/vibe-coding-bootcamp-7">7편</a>에서 말한 아하 모먼트까지 가는 길이 짧아지는 셈입니다.</p>
+
+<blockquote>남의 개인정보를 보관하는 일은 가볍게 시작할 일이 아닙니다. 안 받을 수 있으면 안 받는 것이 최선입니다.</blockquote>
+
+<h2>데이터를 다룰 때 반드시 정할 것</h2>
+
+<p>이 구간은 <a href="/posts/vibe-coding-basics-7">기술 의사결정</a>의 관점에서 특히 조심해야 하는 자리입니다. AI에게 맡기면 말없이 정해버리는데, 나중에 바꾸기 어려운 항목들이기 때문입니다.</p>
+
+<ol>
+<li><strong>무엇을 받을 것인가</strong> — 이름과 연락처가 정말 필요한지 다시 따지세요. 안 받으면 지킬 것도 없습니다.</li>
+<li><strong>누가 볼 수 있는가</strong> — 기본값이 "링크를 아는 사람은 모두"인 경우가 흔합니다. 내 글을 남이 고칠 수 있는 상태로 열려 있는 사고가 여기서 납니다.</li>
+<li><strong>어디에 저장되는가</strong> — 서버 위치와 백업 여부. 서비스를 옮길 때 데이터를 내려받을 수 있는지도 확인하세요.</li>
+<li><strong>얼마나 보관하는가</strong> — 탈퇴하면 지우는지, 언제까지 두는지. 안내 페이지에 적어야 할 내용입니다.</li>
+</ol>
+
+<p>AI에게 이렇게 요청하면 확인이 됩니다. <strong>"이 데이터베이스 설정에서 로그인하지 않은 사람이 볼 수 있거나 고칠 수 있는 것이 뭐야? 표로 정리해줘."</strong></p>
+
+<h2>4주차를 마치며 — 여기까지가 서비스입니다</h2>
+
+<p>화면이 있고(2~3편), 인터넷에 있고(4편), 기능이 있고(10편), 기억이 있고(이 편), 돈 받을 통로가 있으면(11편) 서비스의 뼈대는 완성입니다. 남은 것은 운영입니다.</p>
+
+<h2>다음 편 예고</h2>
+
+<p>13편부터 5주차입니다. 2:25:12의 <strong>퍼널 분석과 개선</strong>으로 시작합니다. 만든 것을 고쳐가는 단계이고, 이어서 앱 개발 이야기가 나옵니다. 웹으로 시작한 것을 휴대폰 앱으로 넓히는 구간입니다.</p>
+
+<h2>출처</h2>
+
+<p>이 글은 유튜브 영상 <a href="https://www.youtube.com/watch?v=P3jFI-VpyLg">「이 영상이 당신 인생을 바꿉니다. 바이브 코딩 1인 창업 3시간 통합본」(조코딩 JoCoding)</a>의 목차 가운데 2:11:26~2:24:00 구간을 출발점으로 삼아, 퇴직 전후 중장년 독자의 관점에서 다시 구성한 것입니다. 강의의 실제 설명과 실습 화면은 원본 영상에서 직접 확인하시기 바랍니다.</p>
+
+<p>클라우드 서비스의 무료 구간과 요금 체계는 수시로 바뀝니다. 이용자의 개인정보를 수집·보관하는 기능을 만들 때는 개인정보 보호 관련 법령과 공식 안내를 반드시 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["1인창업부트캠프","부트캠프12","데이터베이스","Supabase","로그인","개인정보"], status:"scheduled", publishedAt:"2026-09-18", scheduledAt:"2026-09-17T21:00:00.000Z", readingMinutes:8, visual:"DB" },
+  { id:2139, title:"바이브 코딩 1인 창업 13: 새는 통에 물 붓기 — 광고 전에 퍼널부터", slug:"vibe-coding-bootcamp-13", excerpt:"퍼널 단계별로 어디서 사람이 빠지는지 재는 방법과 하나씩 고치는 순서입니다. 퍼포먼스 마케팅을 하지 말아야 할 때, 그리고 앱이 정말 필요한지 판단하는 기준을 담았습니다.", body:`<p><strong>5주차는 만드는 이야기가 아니라 굴리는 이야기입니다.</strong> 이미 만든 것을 숫자로 보고 고치는 일, 그리고 웹에서 앱으로 넓히는 일. 강의의 마지막 주차가 여기서 시작합니다.</p>
+
+<p>퇴직 후 시작한 시도가 취미로 끝나느냐 수입이 되느냐는 대개 이 단계에서 갈립니다. <strong>만드는 것보다 고치는 것이 훨씬 지루하고, 그래서 대부분 여기서 멈추기 때문</strong>입니다.</p>
+
+<h2>이 편이 다루는 목차 구간</h2>
+<table>
+<thead><tr><th>위치</th><th>목차</th></tr></thead>
+<tbody>
+<tr><td>2:25:12</td><td>(5주차) 실무 운영 - 퍼널 분석 및 개선</td></tr>
+<tr><td>2:31:36</td><td>(5주차) 퍼포먼스 마케팅</td></tr>
+<tr><td>2:31:58</td><td>(5주차) 앱 개발 개요</td></tr>
+</tbody>
+</table>
+
+<div class="embedded-video"><iframe src="https://www.youtube-nocookie.com/embed/P3jFI-VpyLg?start=8712" title="바이브 코딩 1인 창업 3시간 통합본 - 퍼널 분석과 앱 개발 구간 (조코딩 JoCoding)"></iframe></div>
+
+<h2>(5주차 · 2:25:12) 퍼널 분석 — 어디서 새는지 찾는 일</h2>
+
+<p>퍼널은 깔때기입니다. 위에서 100명이 들어와 아래에서 3명이 나오는 구조를 그린 것입니다. <a href="/posts/vibe-coding-bootcamp-7">7편</a>의 AARRR을 실제 화면 단위로 쪼갠 것이라고 보면 됩니다.</p>
+
+<table>
+<thead><tr><th>단계</th><th>예시 숫자</th><th>남는 비율</th></tr></thead>
+<tbody>
+<tr><td>사이트 방문</td><td>100명</td><td>-</td></tr>
+<tr><td>기능 화면까지 이동</td><td>40명</td><td>40%</td></tr>
+<tr><td>실제로 한 번 사용</td><td>12명</td><td>30%</td></tr>
+<tr><td>재방문</td><td>3명</td><td>25%</td></tr>
+</tbody>
+</table>
+
+<p>이렇게 적어두면 <strong>어느 칸의 손실이 가장 큰지</strong>가 눈에 들어옵니다. 위 표라면 첫 화면에서 60명이 나갑니다. 여기를 고치는 것이 광고를 늘리는 것보다 효율이 좋습니다. 같은 노력으로 결과가 몇 배 차이 납니다.</p>
+
+<p>고칠 곳을 찾는 순서는 이렇습니다.</p>
+
+<ol>
+<li>가장 많이 새는 칸을 고릅니다.</li>
+<li><a href="/posts/vibe-coding-bootcamp-6">6편</a>에서 설치한 클래리티로 그 화면의 실제 방문 기록을 봅니다.</li>
+<li>가설을 하나만 세웁니다. "버튼이 아래에 있어서 못 본다" 같은 식으로.</li>
+<li>하나만 고치고 2주 지켜봅니다.</li>
+</ol>
+
+<p>한 번에 여러 개를 고치면 무엇이 효과가 있었는지 알 수 없습니다. <strong>느리게 보여도 하나씩 고치는 쪽이 결국 빠릅니다.</strong></p>
+
+<h2>(5주차 · 2:31:36) 퍼포먼스 마케팅 — 돈으로 사람을 사는 일</h2>
+
+<p>광고비를 써서 방문자를 데려오는 방식입니다. 강의는 짧게 언급하고 지나갑니다. 여기서는 <strong>언제 하지 말아야 하는가</strong>를 강조하고 싶습니다.</p>
+
+<ul>
+<li><strong>퍼널이 새고 있을 때</strong> — 100명 중 3명만 남는 상태에서 광고로 1000명을 데려오면 30명이 남습니다. 비용 대비 손실이 그대로 열 배가 됩니다.</li>
+<li><strong>수익 구조가 없을 때</strong> — 광고비를 회수할 통로가 없으면 그냥 지출입니다.</li>
+<li><strong>퇴직금으로 광고비를 쓸 때</strong> — 이 방향은 특히 위험합니다. 광고는 켜면 오고 끄면 멈춥니다.</li>
+</ul>
+
+<blockquote>광고는 이미 잘 굴러가는 것을 더 크게 만드는 도구지, 안 되는 것을 되게 하는 도구가 아닙니다.</blockquote>
+
+<h2>(5주차 · 2:31:58) 앱 개발 개요 — 웹으로 충분한 경우가 많습니다</h2>
+
+<p>강의 후반은 앱 개발로 넘어갑니다. 그 전에 판단할 것이 있습니다. <strong>정말 앱이 필요한가.</strong></p>
+
+<table>
+<thead><tr><th>웹으로 충분한 경우</th><th>앱이 필요한 경우</th></tr></thead>
+<tbody>
+<tr><td>검색으로 유입되는 콘텐츠</td><td>매일 여러 번 쓰는 도구</td></tr>
+<tr><td>한 번 쓰고 끝나는 계산기</td><td>알림을 보내야 하는 서비스</td></tr>
+<tr><td>정보를 보여주는 사이트</td><td>카메라나 위치를 써야 하는 것</td></tr>
+<tr><td>결제가 단순한 판매</td><td>오프라인에서도 써야 하는 것</td></tr>
+</tbody>
+</table>
+
+<p>앱에는 웹에 없는 부담이 따라옵니다. <strong>스토어 심사, 업데이트 배포, 기기별 대응, 그리고 스토어 수수료</strong>입니다. 웹은 고치면 바로 반영되지만 앱은 심사를 거칩니다.</p>
+
+<p>그래서 현실적인 순서는 <strong>웹으로 먼저 만들어 쓰는 사람이 있는지 확인하고, 그다음에 앱을 고민하는 것</strong>입니다. 강의가 앱을 5주차에 둔 것도 같은 맥락으로 읽힙니다.</p>
+
+<h2>다음 편 예고</h2>
+
+<p>14편은 2:38:06부터입니다. 실제로 <strong>앱을 만드는 구간</strong>입니다. 웹과 앱을 하나의 코드로 만드는 방식, 앱의 뒤쪽을 붙이는 작업, 그리고 웹과 앱의 구독을 함께 관리하는 문제를 다룹니다.</p>
+
+<h2>출처</h2>
+
+<p>이 글은 유튜브 영상 <a href="https://www.youtube.com/watch?v=P3jFI-VpyLg">「이 영상이 당신 인생을 바꿉니다. 바이브 코딩 1인 창업 3시간 통합본」(조코딩 JoCoding)</a>의 목차 가운데 2:24:00~2:38:06 구간을 출발점으로 삼아, 퇴직 전후 중장년 독자의 관점에서 다시 구성한 것입니다. 강의의 실제 설명은 원본 영상에서 직접 확인하시기 바랍니다.</p>
+
+<p>광고 플랫폼의 과금 방식과 앱 스토어 정책은 수시로 바뀝니다. 이 글은 판단의 틀을 정리한 참고자료이며 특정한 성과를 보장하지 않습니다. 광고비 집행은 회수 가능한 범위 안에서 판단하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["1인창업부트캠프","부트캠프13","퍼널분석","퍼포먼스마케팅","앱개발","개선"], status:"scheduled", publishedAt:"2026-09-19", scheduledAt:"2026-09-18T21:00:00.000Z", readingMinutes:8, visual:"퍼널" },
+  { id:2140, title:"바이브 코딩 1인 창업 14: 웹은 되는데 앱은 안 될 때 — 하나의 코드로 두 앱", slug:"vibe-coding-bootcamp-14", excerpt:"Expo로 아이폰·안드로이드를 함께 만드는 방식과, 웹과 앱이 뒤쪽을 공유하는 구조를 정리했습니다. 결제 경로가 둘일 때 구독 상태를 하나로 관리해야 하는 이유도 다룹니다.", body:`<p><strong>웹으로 만든 것을 휴대폰 앱으로 옮기는 구간입니다.</strong> 예전에는 아이폰용과 안드로이드용을 따로 만들어야 했습니다. 지금은 하나의 코드로 양쪽을 만드는 방식이 자리를 잡았고, 강의가 다루는 Expo가 그런 도구 가운데 하나입니다.</p>
+
+<p><a href="/posts/vibe-coding-bootcamp-13">13편</a>에서 "정말 앱이 필요한가"를 먼저 따졌다면, 이 편은 필요하다고 판단한 다음의 이야기입니다.</p>
+
+<h2>이 편이 다루는 목차 구간</h2>
+<table>
+<thead><tr><th>위치</th><th>목차</th></tr></thead>
+<tbody>
+<tr><td>2:38:06</td><td>(5주차) Expo 앱 개발 실습</td></tr>
+<tr><td>2:42:34</td><td>(5주차) 앱 백엔드 개발 실습</td></tr>
+<tr><td>2:49:33</td><td>(5주차) 웹앱 통합 구독 관리</td></tr>
+</tbody>
+</table>
+
+<div class="embedded-video"><iframe src="https://www.youtube-nocookie.com/embed/P3jFI-VpyLg?start=9486" title="바이브 코딩 1인 창업 3시간 통합본 - 앱 개발 실습 구간 (조코딩 JoCoding)"></iframe></div>
+
+<h2>(5주차 · 2:38:06) 하나의 코드로 두 개의 앱</h2>
+
+<p>Expo는 <strong>한 번 만들어 아이폰과 안드로이드 양쪽에서 돌아가게 하는 방식</strong>을 쓰는 도구입니다. 웹 화면을 만들 때 쓰는 지식이 상당 부분 그대로 쓰인다는 점이 1인 개발자에게 큰 장점입니다.</p>
+
+<p>초보자에게 특히 편한 점이 하나 있습니다. <strong>내 휴대폰에서 바로 확인할 수 있다</strong>는 것입니다. 코드를 고치면 손에 든 휴대폰 화면이 바뀝니다. 스토어에 올리지 않아도 됩니다. 이 즉시성이 학습 속도를 크게 바꿉니다.</p>
+
+<p>다만 웹과 다른 점도 분명합니다.</p>
+
+<ul>
+<li><strong>화면 크기가 제각각입니다.</strong> 기종마다 다르게 보입니다.</li>
+<li><strong>권한을 물어야 합니다.</strong> 카메라, 위치, 알림 모두 사용자 동의가 필요합니다.</li>
+<li><strong>업데이트가 즉시가 아닙니다.</strong> 사용자가 받아야 반영됩니다.</li>
+</ul>
+
+<h2>(5주차 · 2:42:34) 앱 백엔드 — 뒤쪽은 공유합니다</h2>
+
+<p>앱을 만들었다고 뒤쪽을 새로 만들 필요는 없습니다. <a href="/posts/vibe-coding-bootcamp-12">12편</a>에서 만든 데이터베이스와 서버 기능을 웹과 앱이 함께 씁니다.</p>
+
+<p>구조를 그림으로 그리면 이렇습니다. <strong>화면은 둘(웹, 앱), 뒤쪽은 하나.</strong> 회원 정보도, 저장된 글도 같은 곳에 있습니다. 그래야 웹에서 쓰던 사람이 앱으로 로그인해도 이어집니다.</p>
+
+<p>여기서 초보자가 자주 겪는 문제가 하나 있습니다. <strong>휴대폰에서만 안 되는 현상</strong>입니다. 컴퓨터 브라우저에서는 되는데 앱에서는 안 됩니다. 대개 접근 허용 설정이나 주소 문제인데, 증상만으로는 알기 어렵습니다. AI에게 물을 때 <strong>"웹에서는 되는데 앱에서는 안 된다"는 사실 자체를 먼저 말하는 것</strong>이 해결의 지름길입니다.</p>
+
+<h2>(5주차 · 2:49:33) 웹과 앱의 구독을 함께 관리하기</h2>
+
+<p>돈을 받기 시작하면 골치 아픈 문제가 하나 생깁니다. <strong>같은 사람이 웹에서 결제할 수도 있고 앱에서 결제할 수도 있다</strong>는 것입니다.</p>
+
+<table>
+<thead><tr><th>결제 경로</th><th>수수료</th><th>특징</th></tr></thead>
+<tbody>
+<tr><td><strong>웹 결제</strong></td><td>결제대행 수수료</td><td>비교적 낮습니다</td></tr>
+<tr><td><strong>앱 스토어 결제</strong></td><td>스토어 정책에 따름</td><td>디지털 상품은 스토어 결제를 요구하는 경우가 있습니다</td></tr>
+</tbody>
+</table>
+
+<p>이 규칙은 스토어 정책에 따라 다르고 <strong>지역과 시기에 따라 계속 바뀌고 있습니다.</strong> 각국의 규제 변화로 최근 몇 년 사이에도 여러 차례 조정됐습니다. 그래서 이 글에서 특정 비율이나 규칙을 단정하지 않겠습니다. <strong>앱에 결제를 붙이기 전에 해당 스토어의 최신 정책 문서를 직접 확인해야 합니다.</strong></p>
+
+<p>기술적으로 정리해야 할 것은 하나입니다. <strong>어느 경로로 결제했든 한 사람의 구독 상태는 한 곳에서 관리되어야 합니다.</strong> 그러지 않으면 앱에서 결제한 사람이 웹에서 로그인했을 때 무료 사용자로 보이는 사고가 납니다.</p>
+
+<blockquote>결제 경로가 둘이면 상태 관리는 하나여야 합니다. 이 원칙이 깨지면 환불 요청이 쏟아집니다.</blockquote>
+
+<h2>퇴직 후 창업자가 앱 단계에서 판단할 것</h2>
+
+<ol>
+<li><strong>앱까지 갈 필요가 있는지 다시 확인하세요.</strong> 웹 사용자가 충분히 모이기 전에 앱을 만들면 유지 부담만 두 배가 됩니다.</li>
+<li><strong>등록 비용과 절차를 미리 알아보세요.</strong> 스토어 개발자 등록에는 비용과 심사가 따릅니다.</li>
+<li><strong>혼자 두 개를 유지할 수 있는지 보세요.</strong> 웹과 앱을 동시에 굴리는 것은 생각보다 손이 많이 갑니다.</li>
+</ol>
+
+<h2>다음 편 예고</h2>
+
+<p>마지막 15편은 2:50:19부터 끝까지입니다. <strong>앱 스토어 출시, 미국 법인과 Stripe Atlas, 그리고 Exit 전략</strong>이 나옵니다. 만든 것을 파는 이야기까지 다루고 시리즈를 마무리합니다.</p>
+
+<h2>출처</h2>
+
+<p>이 글은 유튜브 영상 <a href="https://www.youtube.com/watch?v=P3jFI-VpyLg">「이 영상이 당신 인생을 바꿉니다. 바이브 코딩 1인 창업 3시간 통합본」(조코딩 JoCoding)</a>의 목차 가운데 2:38:06~2:50:19 구간을 출발점으로 삼아, 퇴직 전후 중장년 독자의 관점에서 다시 구성한 것입니다. 강의의 실제 설명과 실습 화면은 원본 영상에서 직접 확인하시기 바랍니다.</p>
+
+<p>앱 스토어의 결제 정책과 수수료 규정은 지역과 시기에 따라 계속 변경되고 있습니다. 이 글은 구조를 설명한 참고자료이며 특정 정책의 현재 내용을 보증하지 않습니다. 앱에 결제 기능을 넣기 전에 각 스토어의 최신 공식 문서를 반드시 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["1인창업부트캠프","부트캠프14","Expo","앱개발","구독관리","앱스토어"], status:"scheduled", publishedAt:"2026-09-20", scheduledAt:"2026-09-19T21:00:00.000Z", readingMinutes:7, visual:"앱" },
+  { id:2141, title:"바이브 코딩 1인 창업 15: 만든 것을 파는 선택지까지 — 15편 총정리", slug:"vibe-coding-bootcamp-15", excerpt:"앱 스토어 출시 절차, 미국 법인 설립이 이른 이유, 그리고 만든 서비스를 자산으로 넘기는 Exit 관점을 정리했습니다. 마지막에 15편 전체와 실행 순서를 한 장으로 접었습니다.", body:`<p><strong>마지막 편입니다.</strong> 강의는 앱 스토어 출시, 미국 법인 설립, 그리고 Exit 전략까지 다루고 끝납니다. 앞의 어느 구간보다 현실적인 무게가 있는 대목이고, 동시에 <strong>대부분의 사람에게는 당장 필요하지 않은 구간</strong>이기도 합니다.</p>
+
+<p>그래서 이 편은 두 가지를 함께 합니다. 마지막 구간을 정리하고, 15편짜리 시리즈 전체를 다시 접습니다.</p>
+
+<h2>이 편이 다루는 목차 구간</h2>
+<table>
+<thead><tr><th>위치</th><th>목차</th></tr></thead>
+<tbody>
+<tr><td>2:50:19</td><td>(5주차) 앱 스토어 출시 방법</td></tr>
+<tr><td>2:51:49</td><td>(5주차) 미국 법인과 Stripe Atlas</td></tr>
+<tr><td>3:02:28</td><td>(5주차) Exit 전략</td></tr>
+<tr><td>3:12:26</td><td>총 정리 및 마무리</td></tr>
+</tbody>
+</table>
+
+<div class="embedded-video"><iframe src="https://www.youtube-nocookie.com/embed/P3jFI-VpyLg?start=10219" title="바이브 코딩 1인 창업 3시간 통합본 - 출시와 Exit 전략 구간 (조코딩 JoCoding)"></iframe></div>
+
+<h2>(5주차 · 2:50:19) 앱 스토어 출시 — 심사가 있습니다</h2>
+
+<p>앱을 만들었다고 바로 사람들이 받을 수 있는 것은 아닙니다. 스토어에 올리려면 개발자 등록을 하고, 앱 정보를 채우고, 심사를 통과해야 합니다.</p>
+
+<ul>
+<li><strong>개발자 등록</strong> — 비용이 듭니다. 스토어마다 다르고 갱신 주기도 다릅니다.</li>
+<li><strong>필수 준비물</strong> — 아이콘, 스크린샷, 설명, 개인정보 처리방침 주소. 마지막 항목이 없으면 심사가 진행되지 않습니다.</li>
+<li><strong>심사</strong> — 며칠 걸립니다. 반려되면 사유를 고쳐 다시 냅니다. 첫 앱은 대체로 한 번쯤 반려됩니다.</li>
+</ul>
+
+<p>반려가 실패는 아닙니다. <strong>사유를 정확히 읽고 고치는 과정</strong>이라고 보면 됩니다. AI에게 반려 사유 원문을 그대로 보여주고 무엇을 고쳐야 하는지 물으면 대개 정리해줍니다.</p>
+
+<h2>(5주차 · 2:51:49) 미국 법인 — 대부분에게는 아직 이릅니다</h2>
+
+<p>강의는 해외 결제와 글로벌 서비스를 염두에 두고 미국 법인 설립 방법을 설명합니다. Stripe Atlas 같은 서비스를 쓰면 절차 자체는 온라인으로 처리할 수 있습니다.</p>
+
+<p>다만 이 부분은 분명하게 말씀드려야 합니다. <strong>법인은 만드는 것보다 유지하는 것이 일입니다.</strong></p>
+
+<table>
+<thead><tr><th>따라오는 것</th><th>내용</th></tr></thead>
+<tbody>
+<tr><td>설립 비용</td><td>대행 수수료와 등록비</td></tr>
+<tr><td>연간 유지</td><td>등록 유지비, 대리인 비용</td></tr>
+<tr><td>세무 신고</td><td>수익이 없어도 신고 의무가 있을 수 있습니다</td></tr>
+<tr><td>국내 신고</td><td>국내 거주자의 해외 법인·계좌는 별도 신고 대상이 될 수 있습니다</td></tr>
+</tbody>
+</table>
+
+<p>특히 마지막 줄이 중요합니다. <strong>해외에 법인이나 계좌를 두면 국내에서 신고해야 하는 항목이 생길 수 있고, 누락하면 가산세가 따릅니다.</strong> 요건과 기준 금액은 제도가 바뀔 수 있으므로, 이 글의 설명으로 판단하지 마시고 반드시 세무 전문가나 관할 세무서에 확인하셔야 합니다.</p>
+
+<p>현실적인 권고는 이렇습니다. <strong>해외 매출이 실제로 발생하고, 그 규모가 유지비를 확실히 넘어선 뒤에 검토하세요.</strong> 그전에는 개인 자격으로 시작할 수 있는 방법(<a href="/posts/vibe-coding-bootcamp-11">11편</a>)으로 충분합니다.</p>
+
+<h2>(5주차 · 3:02:28) Exit 전략 — 만든 것을 파는 선택지</h2>
+
+<p>강의가 10분을 쓰는 마지막 주제입니다. 인터넷 서비스는 <strong>사업 자체를 팔 수 있는 자산</strong>이라는 관점입니다. 실제로 작은 서비스나 사이트가 거래되는 시장이 있습니다.</p>
+
+<p>거래에서 값을 정하는 기준은 대체로 <strong>매달 반복되는 순수익</strong>입니다. 그래서 다음 세 가지가 갖춰져 있으면 값이 붙습니다.</p>
+
+<ol>
+<li><strong>수익이 기록으로 남아 있는가</strong> — 광고, 결제, 구독의 내역이 정리돼 있어야 합니다.</li>
+<li><strong>운영자가 바뀌어도 굴러가는가</strong> — 내 개인 계정과 내 손에만 묶여 있으면 넘길 수가 없습니다.</li>
+<li><strong>트래픽이 어디서 오는가</strong> — 검색에서 꾸준히 온다면 값이 올라갑니다.</li>
+</ol>
+
+<p>퇴직 후 창업자에게 이 관점이 갖는 의미가 있습니다. <strong>이 방향의 일은 그만둘 때 남는 것이 있습니다.</strong> 가게는 접으면 시설비가 사라지지만, 검색되는 사이트는 넘길 수 있습니다. 처음부터 팔 생각으로 만들 필요는 없지만, <strong>기록을 남기는 습관</strong>만큼은 초기부터 들이는 편이 좋습니다.</p>
+
+<blockquote>넘길 수 있게 만들어두면, 넘기지 않더라도 운영이 편해집니다. 둘은 같은 일입니다.</blockquote>
+
+<h2>(3:12:26) 총정리 — 15편을 한 장으로</h2>
+
+<table>
+<thead><tr><th>구간</th><th>편</th><th>핵심</th></tr></thead>
+<tbody>
+<tr><td><strong>1주차</strong></td><td><a href="/posts/vibe-coding-bootcamp-1">1</a>~<a href="/posts/vibe-coding-bootcamp-5">5</a></td><td>왜 지금인가 / 웹의 3요소 / 첫 결과물 / 배포 / 외부 서비스와 광고</td></tr>
+<tr><td><strong>2주차</strong></td><td><a href="/posts/vibe-coding-bootcamp-6">6</a>~<a href="/posts/vibe-coding-bootcamp-7">7</a></td><td>측정 도구 설치 / 숫자 읽는 법과 SEO</td></tr>
+<tr><td><strong>3주차</strong></td><td><a href="/posts/vibe-coding-bootcamp-8">8</a>~<a href="/posts/vibe-coding-bootcamp-11">11</a></td><td>아이디어 기획 / 도구 선택 / AI 연동 / 글로벌 결제</td></tr>
+<tr><td><strong>4주차</strong></td><td><a href="/posts/vibe-coding-bootcamp-12">12</a></td><td>데이터베이스와 스토리지, 회원 관리</td></tr>
+<tr><td><strong>5주차</strong></td><td><a href="/posts/vibe-coding-bootcamp-13">13</a>~15</td><td>퍼널 개선 / 앱 개발 / 출시와 Exit</td></tr>
+</tbody>
+</table>
+
+<h2>퇴직 전후 독자를 위한 마지막 정리</h2>
+
+<p>3시간짜리 강의를 15편으로 나눠 읽었지만, 실제로 실행할 것은 훨씬 적습니다. 순서를 다시 적으면 이렇습니다.</p>
+
+<ol>
+<li><strong>주소가 있는 결과물 하나를 만듭니다.</strong> 로또 번호 추첨이든 계산기든 상관없습니다(2~4편).</li>
+<li><strong>측정 도구를 답니다.</strong> 무료입니다(6편).</li>
+<li><strong>내가 아는 분야에서 사람들이 검색하는 질문에 답하는 글을 씁니다.</strong> 여기가 30년 경력이 값을 하는 자리입니다(7편).</li>
+<li><strong>숫자를 보고 하나씩 고칩니다.</strong> 6개월은 봐야 합니다(13편).</li>
+<li><strong>그다음에 수익화를 붙입니다.</strong> 광고든 결제든(5편, 11편).</li>
+</ol>
+
+<p>이 순서를 뒤집는 것이 가장 흔한 실패입니다. 수익화부터 붙이고, 광고비를 쓰고, 앱을 만들고, 법인을 세우는 순서로 가면 <strong>돈은 나가는데 사용자는 없는 상태</strong>가 됩니다.</p>
+
+<p>마지막으로 하나만 덧붙입니다. 이 방향의 일에서 퇴직자의 가장 큰 강점은 기술이 아니라 <strong>시간과 경험</strong>입니다. 20대와 속도로 겨룰 필요가 없습니다. 아는 분야에서, 서두르지 않고, 기록을 남기며 쌓는 방식이 이 방향에서는 오히려 유리합니다. 수입을 여러 층으로 나눠 보는 관점은 <a href="/posts/three-layer-income-plan">월 300만 원을 하나에 몰지 않는 이유</a> 쪽에 정리해두었습니다.</p>
+
+<h2>출처</h2>
+
+<p>이 글은 유튜브 영상 <a href="https://www.youtube.com/watch?v=P3jFI-VpyLg">「이 영상이 당신 인생을 바꿉니다. 바이브 코딩 1인 창업 3시간 통합본」(조코딩 JoCoding)</a>의 목차 가운데 2:50:19~3:13:50 구간을 출발점으로 삼아, 퇴직 전후 중장년 독자의 관점에서 다시 구성한 것입니다. 이 시리즈 15편 전체가 같은 영상의 목차를 따라 작성됐으며, 강의의 실제 설명과 실습 화면은 원본 영상에서 직접 확인하시기 바랍니다.</p>
+
+<p>법인 설립, 해외 계좌·법인 보유에 따른 신고 의무, 세금 문제는 개인의 상황과 제도 변경에 따라 달라집니다. 이 글은 일반적인 구조를 설명한 참고자료이며 세무·법률 자문을 대신하지 않습니다. 실행 전에 반드시 세무 전문가나 관할 기관에 확인하시기 바랍니다. 앱 스토어와 결제 서비스의 정책 역시 수시로 변경되므로 각 서비스의 최신 공식 문서를 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["1인창업부트캠프","부트캠프15","앱스토어","해외법인","Exit전략","총정리"], status:"scheduled", publishedAt:"2026-09-21", scheduledAt:"2026-09-20T21:00:00.000Z", readingMinutes:9, visual:"EXIT" },
 ];
 const contentQualityUpgrades:Record<string,Pick<Post,"excerpt"|"body"|"readingMinutes">>={
   "vibe-coding-basics-5":{

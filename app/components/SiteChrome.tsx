@@ -32,10 +32,10 @@ export function SiteFooter() {
       <div className="footer-links">
         <nav aria-label="주요 콘텐츠">
           <strong>살펴보기</strong>
-          <a href="/challenge">30일 수입 실험</a>
-          <a href="/official-info">지원금·세무 정보</a>
-          <a href="/health">건강 정보</a>
-          <a href="/tools">무료 도구</a><a href="/site">사이트 모음</a>
+          <a href="/tools">퇴직금 계산기</a>
+          <a href="/official-info">실업급여·국민연금</a>
+          <a href="/challenge">퇴직 후 부업</a>
+          <a href="/health">건강검진·질병예방</a><a href="/site">사이트 모음</a>
         </nav>
         <nav aria-label="사이트 신뢰 정보">
           <strong>사이트 정보</strong>

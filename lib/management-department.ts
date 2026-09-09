@@ -20,7 +20,7 @@ export const managementDepartment: ManagementMember[] = [
   { id: "site-safety", name: "박지안", role: "품질감사 매니저 · 상시감사 담당", mission: "전 프로젝트 업무와 리소스를 감사하고 증거·발견사항·조치 결과를 문서화합니다." },
 ];
 
-const HIGH_RISK_CATEGORIES = new Set(["정부지원·실업급여", "정부지원·세무", "투자·재테크", "건강·예방"]);
+const HIGH_RISK_CATEGORIES = new Set(["실업급여", "정부지원금·세금", "국민연금·퇴직연금", "퇴직금·노후 생활비", "건강보험료·건강검진"]);
 const GUARANTEE_PATTERN = /(무조건\s*(수익|승인|합격)|100%\s*(보장|수익)|원금\s*보장|확실한\s*수익)/i;
 
 export function inspectPublicationPolicy(post: Omit<Post, "id"> | Post): PolicyFinding[] {
