@@ -1,0 +1,313 @@
+{
+  "site": "adbles",
+  "label": "애드블스 허브",
+  "domain": "adbles.com",
+  "repo": "psaksg-debug/teogisa",
+  "scannedAt": "2026-09-11T00:30:34.200Z",
+  "pagesCrawled": 80,
+  "sitemapUrls": 69,
+  "externalChecked": 97,
+  "summary": {
+    "high": 11,
+    "medium": 20,
+    "low": 2
+  },
+  "occurrences": 33,
+  "findings": [
+    {
+      "severity": "high",
+      "kind": "noindex",
+      "page": "https://adbles.com/search",
+      "robots": "noindex, follow",
+      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+    },
+    {
+      "severity": "high",
+      "kind": "noindex",
+      "page": "https://adbles.com/search?category=%ED%87%B4%EC%A7%81%EA%B8%88%C2%B7%EB%85%B8%ED%9B%84%20%EC%83%9D%ED%99%9C%EB%B9%84",
+      "robots": "noindex, follow",
+      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+    },
+    {
+      "severity": "high",
+      "kind": "noindex",
+      "page": "https://adbles.com/search?category=%EC%8B%A4%EC%97%85%EA%B8%89%EC%97%AC",
+      "robots": "noindex, follow",
+      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+    },
+    {
+      "severity": "high",
+      "kind": "noindex",
+      "page": "https://adbles.com/search?category=%EA%B5%AD%EB%AF%BC%EC%97%B0%EA%B8%88%C2%B7%ED%87%B4%EC%A7%81%EC%97%B0%EA%B8%88",
+      "robots": "noindex, follow",
+      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+    },
+    {
+      "severity": "high",
+      "kind": "noindex",
+      "page": "https://adbles.com/search?category=%EC%A0%95%EB%B6%80%EC%A7%80%EC%9B%90%EA%B8%88%C2%B7%EC%84%B8%EA%B8%88",
+      "robots": "noindex, follow",
+      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+    },
+    {
+      "severity": "high",
+      "kind": "noindex",
+      "page": "https://adbles.com/search?category=%ED%87%B4%EC%A7%81%20%ED%9B%84%20%EB%B6%80%EC%97%85%C2%B7N%EC%9E%A1",
+      "robots": "noindex, follow",
+      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+    },
+    {
+      "severity": "high",
+      "kind": "noindex",
+      "page": "https://adbles.com/search?category=%EC%A4%91%EC%9E%A5%EB%85%84%20%EC%9E%AC%EC%B7%A8%EC%97%85%C2%B7%EC%B0%BD%EC%97%85",
+      "robots": "noindex, follow",
+      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+    },
+    {
+      "severity": "high",
+      "kind": "noindex",
+      "page": "https://adbles.com/search?category=AI%20%ED%99%9C%EC%9A%A9%C2%B7%EB%B0%94%EC%9D%B4%EB%B8%8C%EC%BD%94%EB%94%A9",
+      "robots": "noindex, follow",
+      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+    },
+    {
+      "severity": "high",
+      "kind": "noindex",
+      "page": "https://adbles.com/search?q=%EA%B1%B4%EA%B0%95",
+      "robots": "noindex, follow",
+      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+    },
+    {
+      "severity": "high",
+      "kind": "noindex",
+      "page": "https://adbles.com/search?category=%EA%B1%B4%EA%B0%95%EB%B3%B4%ED%97%98%EB%A3%8C%C2%B7%EA%B1%B4%EA%B0%95%EA%B2%80%EC%A7%84",
+      "robots": "noindex, follow",
+      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+    },
+    {
+      "severity": "high",
+      "kind": "noindex",
+      "page": "https://adbles.com/search?category=%EB%AC%B4%EB%A3%8C%20%EB%8F%84%EA%B5%AC%20%ED%99%9C%EC%9A%A9%EB%B2%95",
+      "robots": "noindex, follow",
+      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+    },
+    {
+      "severity": "medium",
+      "kind": "no-h1",
+      "page": "https://adbles.com",
+      "note": "h1이 없다. 문서 주제가 무엇인지 기계가 못 읽는다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-anchor",
+      "page": "https://adbles.com",
+      "href": "#cat-%ED%87%B4%EC%A7%81%EA%B8%88%C2%B7%EB%85%B8%ED%9B%84%20%EC%83%9D%ED%99%9C%EB%B9%84",
+      "text": "퇴직금·노후 생활비 5",
+      "nav": true,
+      "note": "같은 문서에 그 id가 없다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-anchor",
+      "page": "https://adbles.com",
+      "href": "#cat-%EC%8B%A4%EC%97%85%EA%B8%89%EC%97%AC",
+      "text": "실업급여 7",
+      "nav": true,
+      "note": "같은 문서에 그 id가 없다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-anchor",
+      "page": "https://adbles.com",
+      "href": "#cat-%EA%B5%AD%EB%AF%BC%EC%97%B0%EA%B8%88%C2%B7%ED%87%B4%EC%A7%81%EC%97%B0%EA%B8%88",
+      "text": "국민연금·퇴직연금 7",
+      "nav": true,
+      "note": "같은 문서에 그 id가 없다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-anchor",
+      "page": "https://adbles.com",
+      "href": "#cat-%EA%B1%B4%EA%B0%95%EB%B3%B4%ED%97%98%EB%A3%8C%C2%B7%EA%B1%B4%EA%B0%95%EA%B2%80%EC%A7%84",
+      "text": "건강보험료·건강검진 4",
+      "nav": true,
+      "note": "같은 문서에 그 id가 없다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-anchor",
+      "page": "https://adbles.com",
+      "href": "#cat-%EC%A0%95%EB%B6%80%EC%A7%80%EC%9B%90%EA%B8%88%C2%B7%EC%84%B8%EA%B8%88",
+      "text": "정부지원금·세금 5",
+      "nav": true,
+      "note": "같은 문서에 그 id가 없다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-anchor",
+      "page": "https://adbles.com",
+      "href": "#cat-%ED%87%B4%EC%A7%81%20%ED%9B%84%20%EB%B6%80%EC%97%85%C2%B7N%EC%9E%A1",
+      "text": "퇴직 후 부업·N잡 5",
+      "nav": true,
+      "note": "같은 문서에 그 id가 없다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-anchor",
+      "page": "https://adbles.com",
+      "href": "#cat-%EC%A4%91%EC%9E%A5%EB%85%84%20%EC%9E%AC%EC%B7%A8%EC%97%85%C2%B7%EC%B0%BD%EC%97%85",
+      "text": "중장년 재취업·창업 5",
+      "nav": true,
+      "note": "같은 문서에 그 id가 없다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-anchor",
+      "page": "https://adbles.com",
+      "href": "#cat-AI%20%ED%99%9C%EC%9A%A9%C2%B7%EB%B0%94%EC%9D%B4%EB%B8%8C%EC%BD%94%EB%94%A9",
+      "text": "AI 활용·바이브코딩 14",
+      "nav": true,
+      "note": "같은 문서에 그 id가 없다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-anchor",
+      "page": "https://adbles.com",
+      "href": "#cat-%EB%AC%B4%EB%A3%8C%20%EB%8F%84%EA%B5%AC%20%ED%99%9C%EC%9A%A9%EB%B2%95",
+      "text": "무료 도구 활용법 2",
+      "nav": true,
+      "note": "같은 문서에 그 id가 없다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-external-link",
+      "page": "https://adbles.com/official-info",
+      "href": "https://www.nts.go.kr",
+      "status": 400,
+      "refs": 25,
+      "text": "국세청 공식 사이트 ↗",
+      "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-external-link",
+      "page": "https://adbles.com/posts/earned-income-tax-credit-semiannual-2026",
+      "href": "https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=2453&amp;cntntsId=7784",
+      "status": 400,
+      "refs": 1,
+      "text": "국세청 근로·자녀장려금 심사 및 지급 안내",
+      "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-external-link",
+      "page": "https://adbles.com/posts/earned-income-tax-credit-semiannual-2026",
+      "href": "https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=2453&cntntsId=7784",
+      "status": 400,
+      "refs": 1,
+      "text": "국세청 근로·자녀장려금 심사 및 지급 안내 ↗",
+      "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-external-link",
+      "page": "https://adbles.com/posts/affiliate-info-site-real-case",
+      "href": "https://www.law.go.kr/%ED%96%89%EC%A0%95%EA%B7%9C%EC%B9%99/%EC%B6%94%EC%B2%9C%C2%B7%EB%B3%B4%EC%A6%9D%EB%93%B1%EC%97%90%EA%B4%80%ED%95%9C%ED%91%9C%EC%8B%9C%C2%B7%EA%B4%91%EA%B3%A0%EC%8B%AC%EC%82%AC%EC%A7%80%EC%B9%A8",
+      "status": 404,
+      "refs": 2,
+      "text": "국가법령정보센터의 추천·보증 등에 관한 표시·광고 심사지침 원문",
+      "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-external-link",
+      "page": "https://adbles.com/posts/midlife-startup-support-programs",
+      "href": "https://www.k-startup.go.kr",
+      "status": 400,
+      "refs": 2,
+      "text": "K-Startup",
+      "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-external-link",
+      "page": "https://adbles.com/posts/vibe-coding-basics-5",
+      "href": "https://stackoverflow.com/help/how-to-ask",
+      "status": 404,
+      "refs": 2,
+      "text": "Stack Overflow · 좋은 질문을 하는 방법",
+      "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-external-link",
+      "page": "https://adbles.com/posts/voluntary-resignation-unemployment-benefit-conditions",
+      "href": "https://www.law.go.kr/lsBylInfoPLinkR.do?bylCls=BE&lsNm=%EA%B3%A0%EC%9A%A9%EB%B3%B4%ED%97%98%EB%B2%95+%EC%8B%9C%ED%96%89%EA%B7%9C%EC%B9%99&bylNo=0002&bylBrNo=00",
+      "status": 404,
+      "refs": 1,
+      "text": "law.go.kr 공식자료 ↗",
+      "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-external-link",
+      "page": "https://adbles.com/posts/retirement-pay-irp-five-checks-before-withdrawal",
+      "href": "https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7888&mi=6609",
+      "status": 400,
+      "refs": 2,
+      "text": "국세청 연금계좌 원천징수세율",
+      "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-external-link",
+      "page": "https://adbles.com/posts/retirement-pay-irp-five-checks-before-withdrawal",
+      "href": "https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7880&mi=6444",
+      "status": 400,
+      "refs": 2,
+      "text": "국세청 퇴직소득세·과세이연 안내",
+      "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-external-link",
+      "page": "https://adbles.com/posts/side-income-tax-records",
+      "href": "https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=238978",
+      "status": 400,
+      "refs": 2,
+      "text": "국세청 3.3% 원천징수 안내",
+      "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
+    },
+    {
+      "severity": "low",
+      "kind": "external-unreachable",
+      "page": "https://adbles.com/health",
+      "href": "https://www.mentalhealth.go.kr",
+      "status": 0,
+      "error": "fetch failed",
+      "note": "응답없음 — 일시적일 수 있어 다음 회차에 다시 본다"
+    },
+    {
+      "severity": "low",
+      "kind": "external-unreachable",
+      "page": "https://adbles.com/posts/national-pension-early-vs-deferred",
+      "href": "https://100lifeplan.fss.or.kr",
+      "status": 0,
+      "error": "fetch failed",
+      "note": "응답없음 — 일시적일 수 있어 다음 회차에 다시 본다"
+    }
+  ],
+  "detail": {},
+  "autoFixable": [
+    "dead-internal-anchor",
+    "protocol-relative",
+    "trailing-double-slash",
+    "http-to-https",
+    "self-referencing-canonical"
+  ],
+  "reportOnly": [
+    "dead-external",
+    "redirect-chain",
+    "orphan-page"
+  ]
+}
