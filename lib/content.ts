@@ -2643,7 +2643,7 @@ export const seedPosts: Post[] = [
 
 <p>이 글은 유튜브 영상 <a href="https://www.youtube.com/watch?v=P3jFI-VpyLg">「이 영상이 당신 인생을 바꿉니다. 바이브 코딩 1인 창업 3시간 통합본」(조코딩 JoCoding)</a>의 목차 가운데 1:46:45~1:55:48 구간을 출발점으로 삼아, 퇴직 전후 중장년 독자의 관점에서 다시 구성한 것입니다. 강의의 실제 설명과 실습 화면은 원본 영상에서 직접 확인하시기 바랍니다.</p>
 
-<p>개발 도구와 클라우드 서비스의 기능·요금은 수시로 바뀝니다. 사용량 기반 과금 서비스는 한도 설정 여부와 초과 시 정책을 각 서비스의 공식 안내에서 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["1인창업부트캠프","부트캠프9","React","Nextjs","서버리스","도구선택"], status:"scheduled", publishedAt:"2026-09-15", scheduledAt:"2026-09-14T21:00:00.000Z", readingMinutes:7, visual:"React" },
+<p>개발 도구와 클라우드 서비스의 기능·요금은 수시로 바뀝니다. 사용량 기반 과금 서비스는 한도 설정 여부와 초과 시 정책을 각 서비스의 공식 안내에서 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["1인창업부트캠프","부트캠프9","React","Nextjs","서버리스","도구선택"], status:"published", publishedAt:"2026-09-14", scheduledAt:null, readingMinutes:7, visual:"React" },
   { id:2136, title:"바이브 코딩 1인 창업 10: AI를 붙이는 법과 API 키를 지키는 법", slug:"vibe-coding-bootcamp-10", excerpt:"API로 남의 기능을 끌어다 쓰는 구조, OpenAI 글·이미지 생성 연동에서 알아야 할 세 가지, 그리고 키 노출과 종량제 요금 사고를 막는 방어선을 정리했습니다.", body:`<p><strong>AI 서비스를 만든다는 말이 AI를 직접 개발한다는 뜻은 아닙니다.</strong> 대부분은 이미 만들어진 AI에 질문을 보내고 답을 받아 쓰는 방식입니다. 그 통로가 API입니다. 강의 3주차 후반이 이 구간이고, 지금 시점에서 가장 실용적인 대목이기도 합니다.</p>
 
 <p>퇴직 후 만들 수 있는 서비스 가운데 상당수가 여기서 나옵니다. <strong>내가 아는 분야의 지식과 AI의 처리 능력을 붙이는 것</strong>이기 때문입니다.</p>
