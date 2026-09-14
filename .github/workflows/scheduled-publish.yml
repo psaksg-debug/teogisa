@@ -51,7 +51,9 @@ jobs:
       # 제출하면 크롤러가 404를 보고 재방문을 미룬다.
       - name: Deploy to production
         id: deploy
-        if: steps.commit.outputs.published == 'true'
+        # 예약 실행은 새 글이 생겼을 때만 배포하고, 사람이 수동 실행한 경우에는
+        # 일반 코드 수정도 adbles.com에 반영할 수 있도록 항상 배포한다.
+        if: steps.commit.outputs.published == 'true' || github.event_name == 'workflow_dispatch'
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
