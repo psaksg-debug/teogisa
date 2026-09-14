@@ -43,6 +43,7 @@ test("renders the finished Korean content site", async () => {
   assert.match(page, /posts\.slice\(0, LATEST_COUNT\)/);
   assert.match(page, /groupByCategory/);
   assert.match(page, /explore-grid/);
+  assert.match(page, /className="post-card-link" href=\{`\/posts\/\$\{post\.slug\}`\}/);
   assert.match(page, /post-meta[^}]+post\.category/);
   assert.match(css, /\.explore-grid\{display:grid/);
   assert.match(css, /\.category-columns\{display:grid/);
@@ -187,7 +188,7 @@ test("renders the finished Korean content site", async () => {
   assert.match(articleHtml, /sanitizeArticleHtml/);
   assert.match(articleHtml, /blockedElements/);
   assert.match(articleHtml, /youtube-nocookie/);
-  assert.doesNotMatch(`${page}\n${search}\n${article}\n${footer}`, /next\/link|<Link/);
+  assert.doesNotMatch(`${search}\n${article}\n${footer}`, /next\/link|<Link/);
   assert.doesNotMatch(`${page}\n${layout}`, /codex-preview|react-loading-skeleton/i);
 });
 

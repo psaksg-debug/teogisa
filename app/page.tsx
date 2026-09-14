@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { getPublishedPosts } from "../lib/repository";
 import { Brand, PortalNav, SiteFooter } from "./components/SiteChrome";
 import { MobileMenu } from "./components/MobileMenu";
@@ -110,12 +111,14 @@ export default async function Home() {
           <div className="explore-grid">
             {latest.map((post) => (
               <article className="post-card" key={post.slug}>
-                <ArticleThumbnail post={post}/>
-                <div className="post-body">
-                  <p className="post-meta">{post.category} · {post.readingMinutes}분</p>
-                  <h3><a href={`/posts/${post.slug}`}>{post.title}</a></h3>
-                  <p>{post.excerpt}</p>
-                </div>
+                <Link className="post-card-link" href={`/posts/${post.slug}`}>
+                  <ArticleThumbnail post={post}/>
+                  <div className="post-body">
+                    <p className="post-meta">{post.category} · {post.readingMinutes}분</p>
+                    <h3>{post.title}</h3>
+                    <p>{post.excerpt}</p>
+                  </div>
+                </Link>
               </article>
             ))}
           </div>
