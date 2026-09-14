@@ -14,13 +14,9 @@ export const metadata: Metadata = {
 
 export const revalidate = 0;
 
-// 홈은 콘텐츠 탐색이 목적이다. 브랜드 소개와 슬로건은 /about으로 옮겼다.
-// 첫 화면에서 바로 글을 고를 수 있도록 주제 이동 → 최신 글 → 주제별 모아보기
-// 순서로 둔다.
-const LATEST_COUNT = 12;
+const LATEST_COUNT = 5; // 1 hero + 4 side
 const PER_CATEGORY = 4;
 
-/** 왼쪽부터 자주 찾는 순서. 여기 없는 카테고리는 글 수가 많은 순으로 뒤에 붙는다. */
 const categoryOrder = [
   "퇴직금·노후 생활비",
   "실업급여",
@@ -50,8 +46,6 @@ function groupByCategory(posts: Awaited<ReturnType<typeof getPublishedPosts>>) {
   });
 }
 
-// 카드 제목도 메뉴와 같은 검색어로 시작한다. 홈에서 허브로 가는 링크가
-// 사이트 안에서 가장 많이 반복되는 앵커텍스트다.
 const situationHubs = [
   { href: "/tools", label: "무료 계산", title: "퇴직금·퇴직생활비 계산하기", body: "예상 퇴직금과 보유 자금이 버틸 기간을 직접 계산해 다음 선택의 기준을 만듭니다." },
   { href: "/official-info", label: "놓친 혜택", title: "실업급여·국민연금 확인하기", body: "실업급여·연금·건강보험·지원금을 공식 창구에서 상황별로 찾아갈 수 있습니다." },
@@ -61,7 +55,11 @@ const situationHubs = [
 
 export default async function Home() {
   const posts = await getPublishedPosts();
-  const latest = posts.slice(0, LATEST_COUNT);
+  
+  // Hero and Top Stories
+  const heroPost = posts[0];
+  const topStories = posts.slice(1, LATEST_COUNT);
+  
   const grouped = groupByCategory(posts);
   const jsonLd = {"@context":"https://schema.org","@graph":[
     {"@type":"Organization","@id":`${SITE_URL}/#organization`,name:SITE_NAME,legalName:"애드블스",url:SITE_URL,logo:{"@type":"ImageObject",url:`${SITE_URL}/brand-mark-v2.png`},contactPoint:{"@type":"ContactPoint",contactType:"customer support",email:"master@adbles.com",url:`${SITE_URL}/contact`,availableLanguage:"Korean"}},
@@ -79,85 +77,98 @@ export default async function Home() {
         <div className="header-tools"><a className="tool-link" href="/tools/retirement-runway">내 준비기간 계산</a><a className="search-link" href="/search" aria-label="글 검색">검색 <span>⌕</span></a><MobileMenu/></div>
       </header>
 
-      <main id="main-content">
-        <aside className="home-value-bar" aria-label="연구소 핵심 안내">
-          <div className="home-value-inner">
-            <span className="home-value-badge">퇴직생활연구소</span>
-            <p className="home-value-text">
-              퇴직 전후 3년, 막막한 생활비·정부지원제도·새 수입을 숫자로 알기 쉽게 정리합니다.
-            </p>
-            <a className="home-value-link" href="/tools/retirement-runway">
-              내 준비기간 계산 <span aria-hidden="true">→</span>
-            </a>
+      <main id="main-content" className="newsroom-layout">
+        <div className="newsroom-main">
+          
+          {/* Hero Section */}
+          <section className="newsroom-hero" aria-labelledby="hero-title">
+            <h2 id="hero-title" className="sr-only" style={{display: 'none'}}>최신 주요 기사</h2>
+            
+            <div className="newsroom-hero-main">
+              {heroPost && (
+                <Link href={`/posts/${heroPost.slug}`} className="hero-link">
+                  <ArticleThumbnail post={heroPost} variant="hero" />
+                </Link>
+              )}
+            </div>
+            
+            <div className="newsroom-hero-side">
+              {topStories.map((post) => (
+                <article className="post-card" key={post.slug}>
+                  <Link href={`/posts/${post.slug}`} className="post-card-link" style={{display: 'contents'}}>
+                    <ArticleThumbnail post={post} variant="search" />
+                    <div className="post-body">
+                      <p className="post-meta">{post.category} · {post.readingMinutes}분</p>
+                      <h3>{post.title}</h3>
+                      <p>{post.excerpt}</p>
+                    </div>
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* Categories Grid */}
+          <section aria-labelledby="category-browse-title">
+            <h2 id="category-browse-title" className="sr-only" style={{display: 'none'}}>주제별로 모아보기</h2>
+            
+            {grouped.map(([category, items]) => {
+              if (items.length === 0) return null;
+              return (
+                <div className="newsroom-category-block" id={`cat-${encodeURIComponent(category)}`} key={category}>
+                  <div className="newsroom-category-block-header">
+                    <h2>{category}</h2>
+                    {items.length > PER_CATEGORY && (
+                      <a href={`/search?category=${encodeURIComponent(category)}`}>
+                        모두 보기 <span aria-hidden="true">→</span>
+                      </a>
+                    )}
+                  </div>
+                  <div className="newsroom-category-grid">
+                    {items.slice(0, PER_CATEGORY).map((post) => (
+                      <article className="post-card" key={post.slug}>
+                        <Link href={`/posts/${post.slug}`} className="post-card-link" style={{display: 'contents'}}>
+                          <ArticleThumbnail post={post} variant="search" />
+                          <div className="post-body">
+                            <p className="post-meta">{post.category} · {post.readingMinutes}분</p>
+                            <h3>{post.title}</h3>
+                            <p>{post.excerpt}</p>
+                          </div>
+                        </Link>
+                      </article>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </section>
+
+        </div>
+
+        {/* Sidebar */}
+        <aside className="newsroom-sidebar" aria-label="사이드바">
+          <div className="newsroom-sidebar-sticky">
+            <div className="sidebar-widget">
+              <h3 className="sidebar-widget-title">상황별 솔루션</h3>
+              <div>
+                {situationHubs.map((hub) => (
+                  <a href={hub.href} key={hub.href} className="sidebar-hub-item">
+                    <span>{hub.label}</span>
+                    <h4>{hub.title}</h4>
+                    <p>{hub.body}</p>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className="sidebar-widget" style={{marginTop: '32px', backgroundColor: '#e67b32', color: '#fff', border: 'none'}}>
+              <h3 className="sidebar-widget-title" style={{color: '#fff', borderColor: 'rgba(255,255,255,0.3)'}}>퇴직생활비 계산기</h3>
+              <p style={{fontSize: '13px', lineHeight: '1.6', marginBottom: '16px'}}>지금 가진 돈으로 몇 개월을 버틸 수 있을까요? 준비기간을 미리 파악해보세요.</p>
+              <a href="/tools/retirement-runway" style={{display: 'inline-block', backgroundColor: '#fff', color: '#e67b32', padding: '8px 16px', borderRadius: '4px', fontSize: '13px', fontWeight: '800'}}>바로 계산하기 →</a>
+            </div>
           </div>
         </aside>
 
-        <nav className="topic-nav" aria-label="주제별 글 찾기">
-          <ul>
-            <li><a className="topic-nav-all" href="/search">전체 {posts.length}편</a></li>
-            {grouped.map(([category, items]) => (
-              <li key={category}>
-                <a href={`#cat-${encodeURIComponent(category)}`}>{category} <b>{items.length}</b></a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <section className="latest section-wrap" id="latest" aria-labelledby="recent-posts-title">
-          <div className="section-heading">
-            <div><h2 id="recent-posts-title">최근 발행 글</h2></div>
-            <a href="/search">모든 글 보기 <span aria-hidden="true">→</span></a>
-          </div>
-          <div className="explore-grid">
-            {latest.map((post) => (
-              <article className="post-card" key={post.slug}>
-                <Link className="post-card-link" href={`/posts/${post.slug}`}>
-                  <ArticleThumbnail post={post}/>
-                  <div className="post-body">
-                    <p className="post-meta">{post.category} · {post.readingMinutes}분</p>
-                    <h3>{post.title}</h3>
-                    <p>{post.excerpt}</p>
-                  </div>
-                </Link>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="category-browse section-wrap" aria-labelledby="category-browse-title">
-          <div className="section-heading"><div><h2 id="category-browse-title">주제별로 모아보기</h2></div></div>
-          <div className="category-columns">
-            {grouped.map(([category, items]) => (
-              <section className="category-column" id={`cat-${encodeURIComponent(category)}`} key={category}>
-                <h3>{category} <span>{items.length}편</span></h3>
-                <ul>
-                  {items.slice(0, PER_CATEGORY).map((post) => (
-                    <li key={post.slug}><a href={`/posts/${post.slug}`}>{post.title}</a></li>
-                  ))}
-                </ul>
-                {items.length > PER_CATEGORY && (
-                  <a className="category-more" href={`/search?category=${encodeURIComponent(category)}`}>
-                    {category} 전체 보기 <span aria-hidden="true">→</span>
-                  </a>
-                )}
-              </section>
-            ))}
-          </div>
-        </section>
-
-        <section className="home-hubs section-wrap" aria-labelledby="hub-title">
-          <div className="section-heading"><div><h2 id="hub-title">지금 상황부터 고르셔도 됩니다</h2></div></div>
-          <div className="hub-grid">
-            {situationHubs.map((hub) => (
-              <a href={hub.href} key={hub.href}><span>{hub.label}</span><h3>{hub.title}</h3><p>{hub.body}</p><b>바로 가기 →</b></a>
-            ))}
-          </div>
-        </section>
-
-        <section className="tool-promo section-wrap" aria-labelledby="tool-title">
-          <div className="tool-promo-copy"><p className="eyebrow">FREE RETIREMENT TOOL</p><h2 id="tool-title">지금 가진 돈으로<br/>몇 개월을 버틸 수 있을까요?</h2><p>보유 자금, 월 필수생활비, 고정 수입 세 가지만 입력하면 재취업과 새 수입원을 준비할 수 있는 시간을 바로 계산합니다. 입력값은 저장하지 않습니다.</p><a className="primary-button" href="/tools/retirement-runway">퇴직생활비 계산기 <span aria-hidden="true">→</span></a></div>
-          <div className="tool-promo-result" aria-hidden="true"><span>예시 계산</span><strong>24개월</strong><p>자금 6,000만 원<br/>월 부족액 250만 원</p></div>
-        </section>
       </main>
 
       <SiteFooter/>
