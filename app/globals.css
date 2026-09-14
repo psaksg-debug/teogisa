@@ -1169,3 +1169,35 @@ button:not(:disabled),[role="button"],summary{cursor:pointer}
   color: var(--orange);
 }
 
+
+/* =========================================
+   Mobile UX & AdSense Optimization
+========================================= */
+html, body {
+  overflow-x: hidden; /* Prevent horizontal scroll which causes AdSense Layout Shift */
+}
+
+@media(max-width: 900px) {
+  .newsroom-layout {
+    padding: 24px 16px; /* Decrease outer padding on mobile */
+    gap: 32px;
+  }
+  .newsroom-main {
+    gap: 40px;
+  }
+  .newsroom-hero-side .post-card {
+    grid-template-columns: 100px 1fr;
+    padding: 12px 0; /* Optimize mobile touch targets */
+  }
+  .newsroom-category-block-header a {
+    /* Expand touch target to >48px for AdSense policy compliance */
+    padding: 12px;
+    margin-right: -12px;
+  }
+  .newsroom-category-grid .post-body p:not(.post-meta) {
+    font-size: 14px; /* Increase readability for mobile readers */
+  }
+  .sidebar-widget {
+    padding: 20px 16px;
+  }
+}
