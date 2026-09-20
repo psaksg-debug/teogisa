@@ -3126,7 +3126,7 @@ export const seedPosts: Post[] = [
 
 <p>이 글은 유튜브 영상 <a href="https://www.youtube.com/watch?v=P3jFI-VpyLg">「이 영상이 당신 인생을 바꿉니다. 바이브 코딩 1인 창업 3시간 통합본」(조코딩 JoCoding)</a>의 목차 가운데 2:50:19~3:13:50 구간을 출발점으로 삼아, 퇴직 전후 중장년 독자의 관점에서 다시 구성한 것입니다. 이 시리즈 15편 전체가 같은 영상의 목차를 따라 작성됐으며, 강의의 실제 설명과 실습 화면은 원본 영상에서 직접 확인하시기 바랍니다.</p>
 
-<p>법인 설립, 해외 계좌·법인 보유에 따른 신고 의무, 세금 문제는 개인의 상황과 제도 변경에 따라 달라집니다. 이 글은 일반적인 구조를 설명한 참고자료이며 세무·법률 자문을 대신하지 않습니다. 실행 전에 반드시 세무 전문가나 관할 기관에 확인하시기 바랍니다. 앱 스토어와 결제 서비스의 정책 역시 수시로 변경되므로 각 서비스의 최신 공식 문서를 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["1인창업부트캠프","부트캠프15","앱스토어","해외법인","Exit전략","총정리"], status:"scheduled", publishedAt:"2026-09-21", scheduledAt:"2026-09-20T21:00:00.000Z", readingMinutes:9, visual:"EXIT" },
+<p>법인 설립, 해외 계좌·법인 보유에 따른 신고 의무, 세금 문제는 개인의 상황과 제도 변경에 따라 달라집니다. 이 글은 일반적인 구조를 설명한 참고자료이며 세무·법률 자문을 대신하지 않습니다. 실행 전에 반드시 세무 전문가나 관할 기관에 확인하시기 바랍니다. 앱 스토어와 결제 서비스의 정책 역시 수시로 변경되므로 각 서비스의 최신 공식 문서를 확인하시기 바랍니다.</p>`, category:"AI 활용·바이브코딩", tags:["1인창업부트캠프","부트캠프15","앱스토어","해외법인","Exit전략","총정리"], status:"published", publishedAt:"2026-09-20", scheduledAt:null, readingMinutes:9, visual:"EXIT" },
 ];
 const contentQualityUpgrades:Record<string,Pick<Post,"excerpt"|"body"|"readingMinutes">>={
   "vibe-coding-basics-5":{
