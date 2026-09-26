@@ -3,17 +3,25 @@
   "label": "애드블스 허브",
   "domain": "adbles.com",
   "repo": "psaksg-debug/teogisa",
-  "scannedAt": "2026-09-25T04:34:33.699Z",
+  "scannedAt": "2026-09-26T04:37:17.754Z",
   "pagesCrawled": 91,
   "sitemapUrls": 80,
-  "externalChecked": 108,
+  "externalChecked": 107,
   "summary": {
-    "high": 11,
-    "medium": 10,
+    "high": 12,
+    "medium": 9,
     "low": 2
   },
   "occurrences": 23,
   "findings": [
+    {
+      "severity": "high",
+      "kind": "page-dead",
+      "page": "https://adbles.com/posts/vibe-coding-bootcamp-10",
+      "status": 0,
+      "error": "The operation was aborted due to timeout",
+      "note": "사이트맵이나 내부 링크가 가리키는데 열리지 않는다"
+    },
     {
       "severity": "high",
       "kind": "noindex",
@@ -150,16 +158,6 @@
     {
       "severity": "medium",
       "kind": "dead-external-link",
-      "page": "https://adbles.com/posts/voluntary-resignation-unemployment-benefit-conditions",
-      "href": "https://www.law.go.kr/lsBylInfoPLinkR.do?bylCls=BE&lsNm=%EA%B3%A0%EC%9A%A9%EB%B3%B4%ED%97%98%EB%B2%95+%EC%8B%9C%ED%96%89%EA%B7%9C%EC%B9%99&bylNo=0002&bylBrNo=00",
-      "status": 404,
-      "refs": 1,
-      "text": "law.go.kr 공식자료 ↗",
-      "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
-    },
-    {
-      "severity": "medium",
-      "kind": "dead-external-link",
       "page": "https://adbles.com/posts/retirement-pay-irp-five-checks-before-withdrawal",
       "href": "https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7888&mi=6609",
       "status": 400,
@@ -190,11 +188,11 @@
     {
       "severity": "low",
       "kind": "external-unreachable",
-      "page": "https://adbles.com/posts/noranwoosan-mutual-aid-guide",
-      "href": "https://www.8899.or.kr",
-      "status": 503,
-      "error": null,
-      "note": "503 — 일시적일 수 있어 다음 회차에 다시 본다"
+      "page": "https://adbles.com/posts/affiliate-info-site-real-case",
+      "href": "https://www.law.go.kr/%ED%96%89%EC%A0%95%EA%B7%9C%EC%B9%99/%EC%B6%94%EC%B2%9C%C2%B7%EB%B3%B4%EC%A6%9D%EB%93%B1%EC%97%90%EA%B4%80%ED%95%9C%ED%91%9C%EC%8B%9C%C2%B7%EA%B4%91%EA%B3%A0%EC%8B%AC%EC%82%AC%EC%A7%80%EC%B9%A8",
+      "status": 0,
+      "error": "fetch failed",
+      "note": "응답없음 — 일시적일 수 있어 다음 회차에 다시 본다"
     },
     {
       "severity": "low",
