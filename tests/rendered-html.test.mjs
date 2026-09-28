@@ -36,14 +36,13 @@ test("renders the finished Korean content site", async () => {
 
   assert.doesNotMatch(page, /공식 자료 검토/);
   assert.match(page, /본문으로 바로가기/);
-  // 홈은 콘텐츠 탐색 화면이다: 주제 이동 → 최신 글 → 주제별 모아보기.
-  assert.match(page, /topic-nav/);
-  assert.match(page, /최근 발행 글/);
+  // 홈은 콘텐츠 탐색 화면이다(2026-09-14 뉴스룸형 개편): 대표 글 + 최신 글 → 주제별 모아보기.
+  assert.match(page, /newsroom-hero/);
   assert.match(page, /주제별로 모아보기/);
-  assert.match(page, /posts\.slice\(0, LATEST_COUNT\)/);
+  assert.match(page, /posts\.slice\(1, LATEST_COUNT\)/);
   assert.match(page, /groupByCategory/);
-  assert.match(page, /explore-grid/);
-  assert.match(page, /className="post-card-link" href=\{`\/posts\/\$\{post\.slug\}`\}/);
+  assert.match(page, /newsroom-category-grid/);
+  assert.match(page, /href=\{`\/posts\/\$\{post\.slug\}`\} className="post-card-link"/);
   assert.match(page, /post-meta[^}]+post\.category/);
   assert.match(css, /\.explore-grid\{display:grid/);
   assert.match(css, /\.category-columns\{display:grid/);
