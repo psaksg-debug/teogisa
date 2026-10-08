@@ -16,6 +16,7 @@ export const revalidate = 3600;
 
 const LATEST_COUNT = 5; // 1 hero + 4 side
 const PER_CATEGORY = 4;
+const VIBE_CATEGORY = "AI 활용·바이브코딩"; // 하단 전용 섹션에서만 노출
 
 const categoryOrder = [
   "퇴직금·노후 생활비",
@@ -57,8 +58,9 @@ export default async function Home() {
   const posts = await getPublishedPosts();
   
   // Hero and Top Stories
-  const heroPost = posts[0];
-  const topStories = posts.slice(1, LATEST_COUNT);
+  const latestPosts = posts.filter((post) => post.category !== VIBE_CATEGORY);
+  const heroPost = latestPosts[0];
+  const topStories = latestPosts.slice(1, LATEST_COUNT);
   
   const grouped = groupByCategory(posts);
   const jsonLd = {"@context":"https://schema.org","@graph":[
