@@ -1,5 +1,5 @@
 export type PostStatus = "draft" | "scheduled" | "published";
-export type Post = { id:number; title:string; slug:string; excerpt:string; body:string; category:string; tags:string[]; status:PostStatus; publishedAt:string; scheduledAt:string | null; readingMinutes:number; visual:string; authorName?:string; };
+export type Post = { id:number; title:string; slug:string; excerpt:string; body:string; category:string; tags:string[]; status:PostStatus; publishedAt:string; scheduledAt:string | null; readingMinutes:number; visual:string; authorName?:string; modifiedAt?:string; };
 
 export const seedPosts: Post[] = [
   { id:1, title:"퇴직 후 첫 30일, 새 일자리보다 먼저 정리해야 할 7가지", slug:"first-30-days-after-retirement", excerpt:"통장, 보험, 실업급여부터 생활 리듬까지. 불안을 줄이는 첫 달 체크리스트입니다.", body:"퇴직 직후에는 새로운 일을 급하게 찾기보다, 지금 가진 시간과 돈을 정확히 파악하는 일이 먼저입니다.\n\n첫째, 고정지출을 생존·유지·선택의 세 단계로 나눕니다. 둘째, 퇴직금과 비상금을 생활비 계좌와 분리합니다. 셋째, 실업급여 신청 가능 여부와 일정을 확인합니다.\n\n## 1. 한 달 생활비를 다시 계산하세요\n\n회사에 다닐 때의 지출과 퇴직 후 지출은 다릅니다. 교통비와 점심값은 줄지만 건강보험료처럼 새로 체감되는 비용이 생깁니다. 최근 3개월 카드와 이체 내역을 기준으로 최소 생활비를 계산하세요.\n\n## 2. 중요한 날짜를 달력에 표시하세요\n\n실업급여, 건강보험, 연금 관련 일정은 놓치면 다시 처리하기 번거롭습니다. 공식 기관 안내를 확인하고 신청일과 준비물을 한 장에 정리하세요.", category:"퇴직금·노후 생활비", tags:["퇴직 체크리스트","생활비","실업급여"], status:"published", publishedAt:"2026-08-08", scheduledAt:null, readingMinutes:6, visual:"30D" },
@@ -1858,7 +1858,7 @@ export const seedPosts: Post[] = [
 <p>전체 순서는 <a href="/posts/first-30-days-after-retirement">퇴직 후 첫 30일, 새 일자리보다 먼저 정리해야 할 7가지</a>에, 실업급여 준비는 <a href="/posts/unemployment-benefit-eight-steps">실업급여는 퇴사한 날부터가 아닙니다 — 퇴직 전부터 준비하는 8단계</a>에 있습니다. 받은 퇴직금이 얼마나 버티는지 계산해 보려면 <a href="/posts/one-hundred-million-retirement-runway">퇴직금 1억, 월 250만 원 쓰면 3년 4개월입니다 — 이 기간을 늘리는 변수</a>를 참고하세요.</p>\n
 <p>기준일: 2026년 9월 2일. 지급 기한, 지연이자율, IRP 이전 예외 기준은 법령과 고시 개정으로 달라질 수 있습니다. 이 글은 공개된 공식 안내를 정리한 참고자료이며, 개인의 퇴직급여 산정과 분쟁 대응은 관할 고용노동관서나 공인노무사에게 확인하세요.</p>\n
 <p><strong>가드 · 지원금·세무·노무 편집자</strong></p>`, category:"퇴직금·노후 생활비", tags:["퇴직금","IRP","지연이자","근로자퇴직급여 보장법","고용노동부"], status:"published", publishedAt:"2026-09-02", scheduledAt:null, readingMinutes:8, visual:"14일", authorName:"가드" },
-  { id:2126, title:"3.3% 떼는 일을 했다면 대상이 아닙니다 — 근로장려금 반기신청, 9월 15일 마감", slug:"earned-income-tax-credit-semiannual-2026", excerpt:"상반기에 근로소득만 있었던 가구만 신청할 수 있습니다. 대상 판정 순서, 가구유형별 소득·재산 요건, 12월에 들어오는 35%와 내년 6월 정산·환수까지 한 번에 정리했습니다.", body:`<p><strong>근로장려금 반기신청은 9월 15일에 닫힙니다.</strong> 5월 정기신청과 달리 이번 신청에는 조건이 하나 더 붙습니다. 2026년 1~6월에 <strong>근로소득만</strong> 있어야 하고, 그 판정에는 배우자의 소득까지 함께 들어갑니다. 프리랜서로 3.3%를 떼고 받은 돈이 한 번이라도 있었다면 이번 신청은 대상이 아니고, 내년 5월 정기신청으로 넘어갑니다.</p>
+  { id:2126, title:"3.3% 떼는 일을 했다면 대상이 아닙니다 — 근로장려금 반기신청, 다음 신청 시기와 확인 순서", slug:"earned-income-tax-credit-semiannual-2026", excerpt:"반기신청은 근로소득만 있었던 가구만 할 수 있습니다. 다음 신청 시기를 놓치지 않는 순서, 대상 판정, 소득·재산 요건, 12월 35% 선지급과 내년 6월 정산·환수까지 한 번에 정리했습니다.", body:`<p><strong>근로장려금 반기신청은 해당 연도에 근로소득만 있는 가구에 열려 있는 신청 창구입니다.</strong> 5월 정기신청과 달리 조건이 하나 더 붙습니다. 신청 연도에 <strong>근로소득만</strong> 있어야 하고, 그 판정에는 배우자의 소득까지 함께 들어갑니다. 프리랜서로 3.3%를 떼고 받은 돈이 한 번이라도 있었다면 반기신청은 대상이 아니고, 이듬해 5월 정기신청으로 넘어갑니다. 2026년 상반기분 신청 기간은 이미 지났으므로, 이 글은 <strong>다음 신청 시기를 놓치지 않는 확인 순서</strong>를 중심으로 정리합니다.</p>
 
 <p>퇴직한 분들이 이 제도에서 가장 많이 헷갈리는 지점이 여기입니다. 퇴직 전 회사에서 받은 급여는 근로소득이라 대상이 될 수 있지만, 퇴직 후 시작한 배달·강의·플랫폼 수입은 대부분 사업소득으로 잡혀 대상에서 빠집니다. 아래 순서대로 한 번만 짚어보면 내가 어느 쪽인지 오늘 안에 판단할 수 있습니다.</p>
 
@@ -1883,7 +1883,7 @@ export const seedPosts: Post[] = [
 
 <p>소득의 이름은 계약서가 아니라 실제 지급 형태로 갈립니다. 통장에 들어온 금액만 보지 말고 지급명세서와 원천징수 내역을 확인하세요. 이 기록을 어떻게 남기는지는 <a href="/posts/side-income-tax-records">N잡 수입 기록 정리</a>에 따로 정리해두었습니다.</p>
 
-<h2>지금 신청하면 12월, 나머지는 내년 6월입니다</h2>
+<h2>상반기분은 12월, 나머지는 내년 6월에 정산됩니다</h2>
 
 <figure class="article-image"><img src="/article-images/eitc-semiannual-timeline.svg" alt="2026년 9월 상반기분 신청, 12월 35% 지급, 2027년 3월 하반기분 신청, 2027년 6월 정산으로 이어지는 근로장려금 반기신청 일정표"><figcaption>반기신청은 네 개의 날짜로 이루어진 한 세트입니다. · 퇴직생활연구소 제작 도표</figcaption></figure>
 
@@ -1946,11 +1946,11 @@ export const seedPosts: Post[] = [
 <h3>대상이 아니라고 나오면 끝인가요</h3>
 <p>반기신청 대상이 아닐 뿐입니다. 2027년 5월 정기신청에서 2026년 소득 전체로 다시 판단하면 되고, 이때는 사업소득이 있어도 신청할 수 있습니다. 근로장려금이 아니라도 <a href="/posts/national-employment-support-program-guide">국민취업지원제도</a>처럼 다른 창구가 열려 있는 경우가 있습니다.</p>
 
-<h2>9월 15일을 놓쳤다면</h2>
+<h2>반기 신청 시기를 놓쳤다면</h2>
 
-<p>반기신청에는 기한 후 신청이 없습니다. 15일이 지나면 이번 상반기분은 신청할 수 없고, <strong>2027년 5월 정기신청에서 2026년 소득 전체로 한 번에 신청</strong>하게 됩니다. 받는 총액이 줄어드는 것은 아니지만, 12월에 미리 받는 35%는 사라집니다.</p>
+<p>반기신청에는 기한 후 신청이 없습니다. 신청 기간이 지나면 해당 반기분은 신청할 수 없고, <strong>2027년 5월 정기신청에서 2026년 소득 전체로 한 번에 신청</strong>하게 됩니다. 받는 총액이 줄어드는 것은 아니지만, 12월에 미리 받는 35%는 사라집니다.</p>
 
-<p>정기신청 기간(5월 1일~31일)마저 놓치면 그해 11월 30일까지 기한 후 신청을 할 수 있습니다. 다만 이때는 산정액의 95%만 지급되므로 5%는 그대로 손해입니다. 달력에 5월 1일과 9월 1일을 미리 표시해두는 편이 안전합니다.</p>
+<p>정기신청 기간(5월 1일~31일)마저 놓치면 그해 11월 30일까지 기한 후 신청을 할 수 있습니다. 다만 이때는 산정액의 95%만 지급되므로 5%는 그대로 손해입니다. 달력에 5월 1일과 반기신청이 열리는 9월 초를 미리 표시해두는 편이 안전합니다. 정확한 신청 기간은 해마다 국세청 공지로 확인하세요.</p>
 
 <h2>오늘 5분이면 끝나는 확인</h2>
 
@@ -1963,7 +1963,7 @@ export const seedPosts: Post[] = [
 
 <p>이 글은 제도의 구조와 판단 순서를 정리한 참고자료이며, 개인별 지급 여부와 금액에 대한 세무 자문을 대신하지 않습니다. 소득·재산 요건과 신청 기간은 해마다 바뀌므로 신청 전에는 반드시 국세청과 홈택스의 최신 안내를 확인하시고, 판단이 어려우면 국세상담센터(126)에 문의하세요.</p>
 
-<p>출처: <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=2453&amp;cntntsId=7784">국세청 근로·자녀장려금 심사 및 지급 안내</a></p>`, category:"정부지원금·세금", tags:["근로장려금","반기신청","국세청","퇴직 후 소득","정부지원"], status:"published", publishedAt:"2026-09-04", scheduledAt:null, readingMinutes:11, visual:"9/15" },
+<p>출처: <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=2453&amp;cntntsId=7784">국세청 근로·자녀장려금 심사 및 지급 안내</a></p>`, category:"정부지원금·세금", tags:["근로장려금","반기신청","국세청","퇴직 후 소득","정부지원"], status:"published", publishedAt:"2026-09-04", scheduledAt:null, readingMinutes:11, visual:"반기신청", modifiedAt:"2026-10-08" },
   { id:2127, title:"바이브 코딩 1인 창업 1: 왜 지금 혼자서도 되는가 — 3시간 강의를 15편으로 나눴습니다", slug:"vibe-coding-bootcamp-1", excerpt:"조코딩의 바이브 코딩 1인 창업 3시간 통합본을 목차대로 15편으로 나눈 시리즈의 첫 편입니다. 왜 지금 1인 창업인가, 인터넷 서비스의 큰 그림, 수익화 세 갈래를 퇴직 전후 독자 관점에서 정리했습니다.", body:`<p><strong>퇴직을 앞두고 "이제 뭘 해서 먹고사나"를 검색하면 대부분 재취업 아니면 자영업 이야기가 나옵니다.</strong> 그 사이에 하나가 더 생겼습니다. 사람을 뽑지 않고, 사무실을 얻지 않고, 인터넷에서 파는 물건을 혼자 만들어 파는 방식입니다. 조코딩 채널이 공개한 3시간짜리 통합 강의는 그 방식을 5주 과정으로 정리했습니다.</p>
 
 <p>이 시리즈는 그 강의의 목차를 따라가면서, <strong>퇴직 전후의 독자가 실제로 어디까지 해볼 수 있는지</strong>를 편마다 짚습니다. 강의 내용을 그대로 옮기지 않습니다. 목차 순서대로 "이 구간은 무슨 이야기인가, 나에게 필요한가, 어디서 멈추면 되나"를 정리한 안내서에 가깝습니다.</p>
