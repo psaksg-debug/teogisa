@@ -3,16 +3,16 @@
   "label": "애드블스 허브",
   "domain": "adbles.com",
   "repo": "psaksg-debug/teogisa",
-  "scannedAt": "2026-10-29T05:22:58.011Z",
+  "scannedAt": "2026-10-30T05:22:19.124Z",
   "pagesCrawled": 93,
   "sitemapUrls": 82,
   "externalChecked": 113,
   "summary": {
     "high": 11,
-    "medium": 12,
+    "medium": 11,
     "low": 2
   },
-  "occurrences": 25,
+  "occurrences": 24,
   "findings": [
     {
       "severity": "high",
@@ -135,16 +135,6 @@
       "status": 400,
       "refs": 1,
       "text": "국세청 근로·자녀장려금 심사 및 지급 안내 ↗",
-      "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
-    },
-    {
-      "severity": "medium",
-      "kind": "dead-external-link",
-      "page": "https://adbles.com/posts/affiliate-info-site-real-case",
-      "href": "https://www.law.go.kr/%ED%96%89%EC%A0%95%EA%B7%9C%EC%B9%99/%EC%B6%94%EC%B2%9C%C2%B7%EB%B3%B4%EC%A6%9D%EB%93%B1%EC%97%90%EA%B4%80%ED%95%9C%ED%91%9C%EC%8B%9C%C2%B7%EA%B4%91%EA%B3%A0%EC%8B%AC%EC%82%AC%EC%A7%80%EC%B9%A8",
-      "status": 404,
-      "refs": 2,
-      "text": "국가법령정보센터의 추천·보증 등에 관한 표시·광고 심사지침 원문",
       "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
     },
     {
