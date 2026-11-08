@@ -3,16 +3,16 @@
   "label": "애드블스 허브",
   "domain": "adbles.com",
   "repo": "psaksg-debug/teogisa",
-  "scannedAt": "2026-11-07T05:35:25.670Z",
+  "scannedAt": "2026-11-08T05:36:46.930Z",
   "pagesCrawled": 93,
   "sitemapUrls": 82,
   "externalChecked": 113,
   "summary": {
     "high": 11,
-    "medium": 12,
+    "medium": 13,
     "low": 1
   },
-  "occurrences": 24,
+  "occurrences": 25,
   "findings": [
     {
       "severity": "high",
@@ -155,6 +155,16 @@
       "status": 400,
       "refs": 2,
       "text": "K-Startup",
+      "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-external-link",
+      "page": "https://adbles.com/posts/housing-pension-before-you-sign",
+      "href": "https://www.hf.go.kr/ko/sub03/sub03_01_01_05.do",
+      "status": 400,
+      "refs": 2,
+      "text": "한국주택금융공사 주택연금 안내",
       "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
     },
     {
