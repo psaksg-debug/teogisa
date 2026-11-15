@@ -1,4 +1,5 @@
 import { getPublishedPosts } from "../../../lib/repository";
+import { isNoindexPost } from "../../../lib/indexing";
 import { SITE_URL } from "../../../lib/site";
 
 export const dynamic = "force-dynamic";
@@ -40,7 +41,7 @@ export function buildInfoSitemap(posts: ReadonlyArray<{ slug: string; category: 
   const entries = [
     ...INFO_PAGES.map((page) => ({ loc: `${SITE_URL}${page.path}`, lastmod: "2026-08-14", priority: page.priority, changefreq: "monthly" })),
     ...posts
-      .filter((post) => INFO_CATEGORIES.has(post.category))
+      .filter((post) => INFO_CATEGORIES.has(post.category) && !isNoindexPost(post.slug))
       .map((post) => ({ loc: `${SITE_URL}/posts/${post.slug}`, lastmod: lastModified(post.publishedAt), priority: "0.8", changefreq: "monthly" })),
   ];
   const urls = entries.map((entry) => `  <url>
