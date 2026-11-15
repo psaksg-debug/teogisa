@@ -262,7 +262,9 @@ export const seedPosts: Post[] = [
 <p>일시금과 연금의 세후 비교표를 받지 못했거나, 계좌 안 자금의 출처를 구분하지 못했거나, 고위험 상품을 이해하지 못한 상태라면 당일 해지를 멈추세요. 반대로 당장 필요한 생활비가 있는데 세금 혜택만 보고 무리하게 연금수령을 고집해서도 안 됩니다. 퇴직금은 세금뿐 아니라 앞으로 버틸 시간을 함께 계산해야 합니다.</p>
 <blockquote>IRP를 유지할지 해지할지는 수익률 전망보다 ‘언제 얼마가 필요한가’와 ‘세후로 얼마를 받는가’를 먼저 비교해 결정하세요.</blockquote>
 <p>기준일: 2026년 8월 14일. 공식 확인: <a href="https://1350.moel.go.kr/rtmview.do?id=1000255731&page=1&type=ALL" target="_blank" rel="noreferrer">고용노동부 IRP 의무이전·예외 안내</a> · <a href="https://www.moel.go.kr/retirementpay.do" target="_blank" rel="noreferrer">고용노동부 퇴직연금제도 안내</a> · <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7888&mi=6609" target="_blank" rel="noreferrer">국세청 연금계좌 원천징수세율</a> · <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7880&mi=6444" target="_blank" rel="noreferrer">국세청 퇴직소득세·과세이연 안내</a></p>
-<p><strong>절세 · 세금·보험 편집자</strong></p>`, category:"국민연금·퇴직연금", tags:["퇴직금 IRP","개인형퇴직연금","퇴직소득세","과세이연","연금수령"], status:"published", publishedAt:"2026-08-15", scheduledAt:null, readingMinutes:11, visual:"IRP", authorName:"절세" },
+<p><strong>절세 · 세금·보험 편집자</strong></p>
+
+<p>IRP로 들어오는 금액이 어떻게 계산되는지는 <a href="/posts/severance-pay-calculation-average-wage-formula">퇴직금 계산법</a>에서, 퇴직 전에 정산하는 경우는 <a href="/posts/severance-pay-interim-settlement-legal-reasons">퇴직금 중간정산 사유</a>에서 볼 수 있습니다.</p>`, category:"국민연금·퇴직연금", tags:["퇴직금 IRP","개인형퇴직연금","퇴직소득세","과세이연","연금수령"], status:"published", publishedAt:"2026-08-15", scheduledAt:null, readingMinutes:11, visual:"IRP", authorName:"절세" },
   { id:1004, title:"페이스북 광고 부업, 수익보다 광고비가 먼저 나갑니다 — 시작 전 7가지", slug:"facebook-ads-side-hustle-reality", excerpt:"페이스북·인스타그램 광고 운영 대행을 소수익 클릭 부업으로 오해하지 않도록, 초기 비용·위험·책임과 14일 검증 순서를 정리했습니다.", body:`<p><strong>페이스북·인스타그램(Meta) 광고 운영은 '클릭으로 돈 버는 부업'이 아닙니다.</strong> 소상공인이나 온라인 쇼핑몰의 광고 계정을 세팅하고 타깃팅·소재·예산을 관리해 주는 <strong>서비스형 마케팅 부업</strong>입니다. 첫 광고비를 쓰기 전 본인의 대행 역량, 광고비 입출금 구조, 과장광고 책임 범위를 반드시 정리해야 합니다.</p>
 <p>이 글의 기준일은 2026년 8월 16일입니다. Meta 광고 정책과 표시광고법 기준을 바탕으로 작성되었습니다.</p>
 <h2>1. 대량 클릭 부업과 광고 운영 대행의 차이</h2>
@@ -357,7 +359,9 @@ export const seedPosts: Post[] = [
 <p>정당한 이직 사유의 판단 기준은 "본인의 귀책사유 없이 사유가 발생했고, <strong>통상 다른 근로자도 이직했을 것</strong>이라고 객관적으로 인정되는지"입니다. 힘들었다는 사실만으로는 부족하고, 그 상황에서 누구라도 그만뒀을 것이라고 서류로 보여야 합니다.</p>
 <p>이 글은 공개된 법령과 공식 안내를 정리한 참고자료입니다. 제도와 금액은 바뀔 수 있고 개인별 인정 여부는 관할 고용센터가 최종 판단하므로, 신청 전 고용센터(국번 없이 1350) 또는 고용24에서 본인 상황을 확인하세요.</p>
 <p>출처: 고용보험법 시행규칙 별표2(https://www.law.go.kr/lsBylInfoPLinkR.do?bylCls=BE&lsNm=고용보험법+시행규칙&bylNo=0002&bylBrNo=00), 찾기쉬운 생활법령정보 구직급여(https://easylaw.go.kr/CSP/CnpClsMain.laf?popMenu=ov&csmSeq=722&ccfNo=2&cciNo=3&cnpClsNo=2), 2026년 적용 최저임금 고시(https://www.moel.go.kr/info/lawinfo/instruction/view.do?bbs_seq=20250800121)</p>
-<p><strong>데스크 · 정부지원·실업급여 편집자</strong></p>`, category:"실업급여", tags:["자발적 퇴사 실업급여","자진퇴사","정당한 이직 사유","실업급여 조건","실업급여 증빙"], status:"published", publishedAt:"2026-08-18", scheduledAt:null, readingMinutes:11, visual:"자진퇴사" },
+<p><strong>데스크 · 정부지원·실업급여 편집자</strong></p>
+
+<p>180일 요건을 어떻게 계산하는지는 <a href="/posts/unemployment-benefit-180-days-insured-period-how-to-count">실업급여 180일 계산법</a>에서 이어서 볼 수 있습니다.</p>`, category:"실업급여", tags:["자발적 퇴사 실업급여","자진퇴사","정당한 이직 사유","실업급여 조건","실업급여 증빙"], status:"published", publishedAt:"2026-08-18", scheduledAt:null, readingMinutes:11, visual:"자진퇴사" },
   { id:1007, title:"사직서에 뭐라고 쓰느냐로 실업급여가 갈립니다 — 권고사직·자진퇴사·계약만료 차이", slug:"resignation-vs-layoff-vs-contract-end-unemployment-benefits", excerpt:"권고사직, 자발적 퇴사, 계약만료의 실업급여 수급자격, 퇴직금 차이, 이직확인서 코드(23번·11번·32번)와 사직서 작성 주의사항을 2026년 고용노동부 공식 기준으로 총정리했습니다.", body:`<p><strong>퇴사 통보를 앞두고 있다면 사직서에 서명하기 전에 퇴사 유형(권고사직·자발적 퇴사·계약만료)의 법적 성격과 고용보험 이직사유 코드를 반드시 확인해야 합니다.</strong> 퇴사 사유가 어떻게 전산에 등록되느냐에 따라 수백만 원에서 천만 원이 넘는 <strong>실업급여(구직급여) 수급 여부</strong>가 결정되기 때문입니다.</p>
 <p>이 글은 2026년 고용노동부 및 고용보험법 최신 기준을 바탕으로 세 가지 퇴사 방식의 <strong>실업급여 수급 자격, 퇴직금 지급 기준, 이직확인서 코드 대조표, 사직서 작성 요령, 그리고 자발적 퇴사 시 실업급여 예외 인정 조건</strong>을 총정리한 실전 가이드입니다.</p>
 <h2>1. 권고사직 vs 자발적 퇴사 vs 계약만료 핵심 비교표</h2>
@@ -590,7 +594,9 @@ export const seedPosts: Post[] = [
 
 <p>수급 중 국민연금 납부를 이어가고 싶다면 <a href="/posts/2026-unemployment-credit-guide">실업크레딧</a>을, 수급 중 일을 하게 된다면 <a href="/posts/side-jobs-while-receiving-benefits">신고 기준</a>을 함께 확인하세요.</p>
 
-<p>이 글은 2026년 기준 제도 변화를 정리한 것으로 개인의 수급 자격이나 금액을 알려주지 않습니다. 금액·요건·감액 기준은 개정될 수 있으므로 신청 전에 <a href="https://www.work24.go.kr/" target="_blank" rel="noreferrer">고용24</a>의 모의계산과 관할 고용복지플러스센터 상담으로 본인 기준을 확인하시기 바랍니다.</p>`, category:"실업급여", tags:["실업급여","2026 실업급여 상한액","반복수급 감액","구직급여","소정급여일수","이직확인서"], status:"published", publishedAt:"2026-08-18", scheduledAt:null, readingMinutes:9, visual:"2026", authorName:"가드" },
+<p>이 글은 2026년 기준 제도 변화를 정리한 것으로 개인의 수급 자격이나 금액을 알려주지 않습니다. 금액·요건·감액 기준은 개정될 수 있으므로 신청 전에 <a href="https://www.work24.go.kr/" target="_blank" rel="noreferrer">고용24</a>의 모의계산과 관할 고용복지플러스센터 상담으로 본인 기준을 확인하시기 바랍니다.</p>
+
+<p>수급자격의 기간 요건인 180일을 어떻게 세는지는 <a href="/posts/unemployment-benefit-180-days-insured-period-how-to-count">실업급여 180일 계산법</a>에서 확인할 수 있습니다.</p>`, category:"실업급여", tags:["실업급여","2026 실업급여 상한액","반복수급 감액","구직급여","소정급여일수","이직확인서"], status:"published", publishedAt:"2026-08-18", scheduledAt:null, readingMinutes:9, visual:"2026", authorName:"가드" },
   { id:2002, title:"바이브 코딩 입문 1: 코딩을 몰라도 프롬프트 하나면 도구가 나옵니다", slug:"vibe-coding-basics-1", excerpt:"코딩을 몰라도 AI와 대화하며 도구를 만들 수 있습니다. 바이브 코딩의 개념, 잘 되는 것과 어려운 것의 경계, 첫 지시문에 담을 네 가지를 정리했습니다.", body:`<p>과거에는 프로그래밍을 하려면 복잡한 문법과 영문 명령어를 수개월간 외우고 공부해야 했습니다. 하지만 이제는 일상적인 '대화'만으로도 컴퓨터에게 일을 시키고 프로그램을 만들 수 있는 시대가 왔습니다. 이를 <strong>'바이브 코딩(Vibe Coding)'</strong>이라고 부릅니다.</p>
 
 <h2>바이브 코딩이란?</h2>
@@ -779,7 +785,9 @@ export const seedPosts: Post[] = [
 
 <blockquote>보험료 액수보다 신청 기한을 놓치는 쪽이 손해가 큽니다. 고지서를 받은 날, 납부기한부터 확인하세요.</blockquote>
 
-<p>이 글은 제도의 큰 틀을 정리한 것으로, 개인별 보험료와 자격 요건은 소득·재산·가족 구성에 따라 달라집니다. 금액이나 요건을 확정적으로 판단하기 전에 반드시 국민건강보험공단의 공식 안내를 확인하시기 바랍니다.</p>`, category:"건강보험료·건강검진", tags:["건강보험","임의계속가입","피부양자","퇴직 준비"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:8, visual:"임의계속", authorName:"데스크" },
+<p>이 글은 제도의 큰 틀을 정리한 것으로, 개인별 보험료와 자격 요건은 소득·재산·가족 구성에 따라 달라집니다. 금액이나 요건을 확정적으로 판단하기 전에 반드시 국민건강보험공단의 공식 안내를 확인하시기 바랍니다.</p>
+
+<p>건강보험 외에 연금·고용·산재보험까지 한 번에 정리하려면 <a href="/posts/after-retirement-four-insurances-what-to-do">퇴직 후 4대보험 정리</a>를 함께 보세요.</p>`, category:"건강보험료·건강검진", tags:["건강보험","임의계속가입","피부양자","퇴직 준비"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:8, visual:"임의계속", authorName:"데스크" },
   { id:2102, title:"실업급여 대상이 아니라는 말을 들었다면 — 국민취업지원제도부터 확인하세요", slug:"national-employment-support-program-guide", excerpt:"실업급여 대상이 아니거나 수급이 끝난 구직자를 위한 국민취업지원제도의 구조, 유형 구분, 신청 순서와 중장년이 특히 확인할 점을 정리했습니다.", body:`<p><strong>실업급여를 받지 못하는 상황이라면 국민취업지원제도를 먼저 확인해 볼 만합니다.</strong> 고용보험 가입 기간이 모자라거나, 실업급여 수급이 끝났거나, 오랫동안 일을 쉬다가 다시 구직에 나선 경우가 여기에 해당합니다. 이 제도는 구직활동을 전제로 상담과 직업훈련을 연계하고, 요건을 충족하면 구직촉진수당을 지급하는 고용노동부의 취업지원 제도입니다.</p>
 
 <h2>실업급여와는 다른 제도입니다</h2>
@@ -914,7 +922,9 @@ export const seedPosts: Post[] = [
 
 <p>실업급여를 받는 동안의 보험료 지원은 <a href="/posts/2026-unemployment-credit-guide">2026년 실업크레딧, 국민연금 보험료 75% 지원받는 법</a>에서 따로 정리했습니다. 건강보험 쪽 공백이 걱정된다면 <a href="/posts/post-retirement-health-insurance-voluntary-continuation">퇴직 후 건강보험료가 오르는 이유와 임의계속가입 확인 순서</a>를 함께 보세요.</p>
 
-<p>가입 요건, 보험료율, 추후납부 한도와 감액·가산 비율은 제도 개편에 따라 달라질 수 있습니다. 이 글은 선택지의 구조를 정리한 것으로 개인별 유불리를 판단해 주지 않습니다. 신청 전에 국민연금공단의 공식 안내와 지사 상담으로 본인 이력을 기준으로 확인하시기 바랍니다.</p>`, category:"국민연금·퇴직연금", tags:["퇴직 후 국민연금","납부예외","임의가입","추후납부","조기수령","연기연금"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:9, visual:"연금", authorName:"데스크" },
+<p>가입 요건, 보험료율, 추후납부 한도와 감액·가산 비율은 제도 개편에 따라 달라질 수 있습니다. 이 글은 선택지의 구조를 정리한 것으로 개인별 유불리를 판단해 주지 않습니다. 신청 전에 국민연금공단의 공식 안내와 지사 상담으로 본인 이력을 기준으로 확인하시기 바랍니다.</p>
+
+<p>건강·고용·산재보험까지 퇴직 직후 순서로 보려면 <a href="/posts/after-retirement-four-insurances-what-to-do">퇴직 후 4대보험 정리</a>를 참고하세요.</p>`, category:"국민연금·퇴직연금", tags:["퇴직 후 국민연금","납부예외","임의가입","추후납부","조기수령","연기연금"], status:"published", publishedAt:"2026-08-29", scheduledAt:null, readingMinutes:9, visual:"연금", authorName:"데스크" },
   { id:2105, title:"퇴직했는데 5월에 신고하라고? 첫 종합소득세, 대상부터 가려봅니다", slug:"first-comprehensive-income-tax-after-retirement", excerpt:"퇴직한 해에도 다음 해 5월 종합소득세 신고 대상이 될 수 있습니다. 3.3% 원천징수의 의미, 사업소득과 기타소득 차이, 홈택스 모두채움 신고와 준비 서류를 정리했습니다.", body:`<p><strong>퇴직한 해에도 다음 해 5월에는 종합소득세 신고를 해야 할 수 있습니다.</strong> 회사가 연말정산으로 처리해 주던 일이 사라지기 때문입니다. 퇴직 전까지의 근로소득에 더해 퇴직 후 받은 강의료, 원고료, 플랫폼 수입, 프리랜서 용역비가 있으면 이를 합산해 직접 신고합니다. 금액이 적어도 신고 대상에서 자동으로 빠지지는 않습니다.</p>
 
 <h2>내가 종합소득세 신고 대상인지 먼저 확인하세요</h2>
@@ -1857,7 +1867,9 @@ export const seedPosts: Post[] = [
 <p>퇴직금 지급은 퇴직 직후 처리해야 할 일 가운데 하나일 뿐입니다. 실업급여는 퇴사한 다음에 알아보면 이미 늦는 절차가 있고, 건강보험과 연금도 첫 달에 결정이 몰립니다.</p>\n
 <p>전체 순서는 <a href="/posts/first-30-days-after-retirement">퇴직 후 첫 30일, 새 일자리보다 먼저 정리해야 할 7가지</a>에, 실업급여 준비는 <a href="/posts/unemployment-benefit-eight-steps">실업급여는 퇴사한 날부터가 아닙니다 — 퇴직 전부터 준비하는 8단계</a>에 있습니다. 받은 퇴직금이 얼마나 버티는지 계산해 보려면 <a href="/posts/one-hundred-million-retirement-runway">퇴직금 1억, 월 250만 원 쓰면 3년 4개월입니다 — 이 기간을 늘리는 변수</a>를 참고하세요.</p>\n
 <p>기준일: 2026년 9월 2일. 지급 기한, 지연이자율, IRP 이전 예외 기준은 법령과 고시 개정으로 달라질 수 있습니다. 이 글은 공개된 공식 안내를 정리한 참고자료이며, 개인의 퇴직급여 산정과 분쟁 대응은 관할 고용노동관서나 공인노무사에게 확인하세요.</p>\n
-<p><strong>가드 · 지원금·세무·노무 편집자</strong></p>`, category:"퇴직금·노후 생활비", tags:["퇴직금","IRP","지연이자","근로자퇴직급여 보장법","고용노동부"], status:"published", publishedAt:"2026-09-02", scheduledAt:null, readingMinutes:8, visual:"14일", authorName:"가드" },
+<p><strong>가드 · 지원금·세무·노무 편집자</strong></p>
+
+<p>받을 금액을 직접 계산해 보려면 <a href="/posts/severance-pay-calculation-average-wage-formula">퇴직금 계산법, 평균임금 3개월 계산과 예시</a>를, 퇴직 전에 미리 받을 수 있는 경우는 <a href="/posts/severance-pay-interim-settlement-legal-reasons">퇴직금 중간정산 사유</a>를 확인하세요.</p>`, category:"퇴직금·노후 생활비", tags:["퇴직금","IRP","지연이자","근로자퇴직급여 보장법","고용노동부"], status:"published", publishedAt:"2026-09-02", scheduledAt:null, readingMinutes:8, visual:"14일", authorName:"가드" },
   { id:2126, title:"3.3% 떼는 일을 했다면 대상이 아닙니다 — 근로장려금 반기신청, 9월 15일 마감", slug:"earned-income-tax-credit-semiannual-2026", excerpt:"상반기에 근로소득만 있었던 가구만 신청할 수 있습니다. 대상 판정 순서, 가구유형별 소득·재산 요건, 12월에 들어오는 35%와 내년 6월 정산·환수까지 한 번에 정리했습니다.", body:`<p><strong>근로장려금 반기신청은 9월 15일에 닫힙니다.</strong> 5월 정기신청과 달리 이번 신청에는 조건이 하나 더 붙습니다. 2026년 1~6월에 <strong>근로소득만</strong> 있어야 하고, 그 판정에는 배우자의 소득까지 함께 들어갑니다. 프리랜서로 3.3%를 떼고 받은 돈이 한 번이라도 있었다면 이번 신청은 대상이 아니고, 내년 5월 정기신청으로 넘어갑니다.</p>
 
 <p>퇴직한 분들이 이 제도에서 가장 많이 헷갈리는 지점이 여기입니다. 퇴직 전 회사에서 받은 급여는 근로소득이라 대상이 될 수 있지만, 퇴직 후 시작한 배달·강의·플랫폼 수입은 대부분 사업소득으로 잡혀 대상에서 빠집니다. 아래 순서대로 한 번만 짚어보면 내가 어느 쪽인지 오늘 안에 판단할 수 있습니다.</p>
@@ -3209,7 +3221,9 @@ export const seedPosts: Post[] = [
 <li><a href="https://www.moel.go.kr/minwon/fastcounsel/fastcounselView.do?inetDcssMngId=202404290259308870947" rel="noopener noreferrer" target="_blank">고용노동부 민원 답변 · 조기재취업수당 신청 조건</a></li>
 <li><a href="https://www.gov.kr/portal/rcvfvrSvc/dtlEx/149200000063" rel="noopener noreferrer" target="_blank">정부24 보조금24 · 조기재취업수당</a></li>
 <li><a href="https://easylaw.go.kr/CSP/CnpClsMain.laf?popMenu=ov&csmSeq=722&ccfNo=3&cciNo=1&cnpClsNo=1" rel="noopener noreferrer" target="_blank">생활법령정보 · 조기재취업 수당</a></li>
-</ul>`, category:"실업급여", tags:["조기재취업수당","취업촉진수당","구직급여","재취업","고용센터"], status:"published", publishedAt:"2026-10-11", scheduledAt:null, readingMinutes:9, visual:"12개월", authorName:"가드" },
+</ul>
+
+<p>구직급여 수급자격의 기간 요건은 <a href="/posts/unemployment-benefit-180-days-insured-period-how-to-count">실업급여 180일 계산법</a>에 정리했습니다.</p>`, category:"실업급여", tags:["조기재취업수당","취업촉진수당","구직급여","재취업","고용센터"], status:"published", publishedAt:"2026-10-11", scheduledAt:null, readingMinutes:9, visual:"12개월", authorName:"가드" },
   { id:2143, title:"실업급여 받는 중에 직업훈련을 받으면 하루 10,320원 — 직업능력개발수당 받는 법과 못 받는 경우", slug:"vocational-training-allowance-while-on-benefits", excerpt:"고용센터장이 지시한 직업능력개발 훈련을 받는 구직급여 수급자에게 훈련일마다 지급되는 직업능력개발수당. 지급 요건, 하루 금액, 교통비·식비를 따로 받을 때의 차감, 수강증명서 제출 시점을 생활법령정보 기준으로 정리했습니다.", body:`<p><strong>실업급여를 받는 동안 직업훈련을 받게 되면 구직급여와는 별도로 훈련을 받은 날마다 수당이 붙을 수 있습니다.</strong> 직업능력개발수당입니다. 금액은 크지 않지만 훈련 기간이 길수록 쌓이고, 신청 서류를 제때 내지 않으면 받을 수 없는 구조라서 훈련을 시작하기 전에 순서를 알아두는 편이 좋습니다.</p>
 
 <p>이 글은 생활법령정보(2026년 9월 15일 기준)와 고용24의 실업급여 안내를 바탕으로 정리했습니다. 법적 효력이 있는 유권해석이 아니며, 구체적인 사항은 관할 고용센터나 국민신문고에서 확인해야 합니다.</p>
@@ -3261,6 +3275,207 @@ export const seedPosts: Post[] = [
 <li><a href="https://easylaw.go.kr/CSP/CnpClsMain.laf?popMenu=ov&csmSeq=722&ccfNo=3&cciNo=1&cnpClsNo=2" rel="noopener noreferrer" target="_blank">생활법령정보 · 직업능력개발 수당</a></li>
 <li><a href="https://www.work24.go.kr/cm/c/f/1100/selecSystInfo.do?systClId=SC00000254&systId=SI00000411" rel="noopener noreferrer" target="_blank">고용24 · 실업급여(상용직) 안내</a></li>
 </ul>`, category:"실업급여", tags:["직업능력개발수당","취업촉진수당","직업훈련","내일배움카드","구직급여"], status:"published", publishedAt:"2026-10-11", scheduledAt:null, readingMinutes:7, visual:"10,320", authorName:"가드" },
+  { id:2144, title:"퇴직금 계산법, 월급 300만 원이면 얼마? 평균임금 3개월 계산과 예시(2026)", slug:"severance-pay-calculation-average-wage-formula", excerpt:"퇴직금은 1일 평균임금 × 30일 × (재직일수 ÷ 365)입니다. 평균임금에 들어가는 항목, 빼는 기간, 월급 300만 원 3년 근무 가정 예시까지 공식 안내로 정리했습니다.", body:`<p><strong>퇴직금은 "1일 평균임금 × 30일 × (재직일수 ÷ 365)"로 계산합니다.</strong> 여기서 핵심은 평균임금입니다. 퇴직하기 전 3개월 동안 받은 임금총액을 그 3개월의 달력상 총일수로 나눈 금액이고, 이 값이 통상임금보다 적으면 통상임금을 평균임금으로 씁니다. 아래 계산은 2026년 11월 15일 기준 고용노동부·찾기쉬운 생활법령 안내를 따랐고, 금액 예시는 이해를 돕기 위한 가정입니다.</p>
+
+<h2>퇴직금을 받을 수 있는 사람은 누구인가요?</h2>
+<p>근로자퇴직급여 보장법에 따라 계속근로기간이 1년 이상이고, 4주를 평균해 1주 소정근로시간이 15시간 이상이면 대상입니다. 1년 미만이거나 주 15시간 미만이면 법정 퇴직금 대상에서 빠집니다.</p>
+<figure class="article-image"><img src="/article-images/severance-calc-eligibility.svg" alt="퇴직금 지급 대상 조건인 계속근로 1년 이상과 주 15시간 이상을 나란히 보여주는 카드"><figcaption>두 조건을 모두 채워야 퇴직금 대상입니다 · 퇴직생활연구소 제작 도표</figcaption></figure>
+
+<h2>평균임금은 어떻게 구하나요?</h2>
+<p>평균임금은 퇴직일 이전 3개월 동안 지급된 임금총액을 그 기간의 총일수로 나눕니다. 근무한 날이 아니라 달력상 날수(예: 7·8·9월이면 92일)로 나누는 점이 헷갈리기 쉽습니다.</p>
+<figure class="article-image"><img src="/article-images/severance-calc-steps.svg" alt="임금총액 모으기, 1일 평균임금 구하기, 퇴직금 곱하기로 이어지는 퇴직금 계산 3단계 흐름도"><figcaption>퇴직금은 세 번의 계산으로 끝납니다 · 퇴직생활연구소 제작 도표</figcaption></figure>
+<p>상여금과 연차수당이 있다면 3개월분만 더합니다. 고용노동부 퇴직금 계산기 예시에서는 연간 상여금 400만 원은 3/12인 100만 원, 연차수당 30만 원(6만 원 × 5일)은 3/12인 7만 5천 원을 임금총액에 더했습니다. 이 예시의 임금총액은 815만 5천 원, 1일 평균임금은 약 88,641원입니다.</p>
+
+<h2>월급 300만 원으로 3년 일하면 퇴직금은 얼마인가요?</h2>
+<p>상여금이 없고 월급이 300만 원으로 같은 3년 근무를 가정해 보겠습니다.</p>
+<figure class="article-image"><img src="/article-images/severance-calc-example.svg" alt="월급 300만 원으로 3년 일한 가정에서 평균임금과 퇴직금을 순서대로 계산한 표"><figcaption>가정한 숫자일 뿐 실제 금액은 임금 항목에 따라 달라집니다 · 퇴직생활연구소 제작 도표</figcaption></figure>
+<table>
+<thead><tr><th>항목</th><th>계산</th><th>결과</th></tr></thead>
+<tbody>
+<tr><td>3개월 임금총액</td><td>300만 원 × 3</td><td>9,000,000원</td></tr>
+<tr><td>1일 평균임금</td><td>9,000,000 ÷ 92일</td><td>약 97,826원</td></tr>
+<tr><td>퇴직금</td><td>97,826 × 30 × (1,095 ÷ 365)</td><td>약 8,804,000원</td></tr>
+</tbody>
+</table>
+<p>같은 월급이어도 상여금, 연차수당, 수당 항목이 있으면 평균임금이 올라갑니다. 반대로 월급이 중간에 바뀌었다면 마지막 3개월 기준으로만 계산합니다. 정확한 금액은 고용노동부 퇴직금 계산기에 직접 넣어 확인하세요.</p>
+
+<h2>어떤 기간은 평균임금 계산에서 빠지나요?</h2>
+<p>수습 중인 3개월 이내, 사업주 귀책 휴업, 출산전후휴가, 업무상 요양 휴업, 육아휴직, 정당한 쟁의행위 기간 등은 평균임금 산정 기간에서 제외합니다. 이런 기간이 3개월 안에 끼어 있으면 해당 날짜와 그 기간에 받은 임금을 함께 뺀 뒤 계산합니다.</p>
+<figure class="article-image"><img src="/article-images/severance-calc-excluded.svg" alt="평균임금 산정 기간에서 제외하는 기간을 회사 사정, 요양·의무 이행, 육아·돌봄 세 묶음으로 나눈 카드"><figcaption>제외 기간은 고용노동부 1350 상담 답변 기준입니다 · 퇴직생활연구소 제작 도표</figcaption></figure>
+
+<h2>세전인가요, 세후인가요? 퇴직소득세는 따로 봅니다</h2>
+<p>위 계산 결과는 세금을 떼기 전 금액입니다. 퇴직소득세는 국세청 홈택스의 "퇴직소득 세액계산 프로그램"에서 귀속연도별로 따로 계산합니다. IRP로 받을 때의 세금 흐름은 <a href="/posts/retirement-pay-irp-five-checks-before-withdrawal">IRP에 들어온 퇴직금, 해지 버튼을 누르기 전에 볼 5가지</a>에서 이어서 보세요.</p>
+
+<h2>회사가 준 금액이 다르면 어떻게 하나요?</h2>
+<p>먼저 평균임금 산정 기간과 포함한 항목을 서면으로 요청해 위 공식에 맞춰 보세요. 지급 기한과 IRP 이전 원칙은 <a href="/posts/severance-pay-payment-rules-irp-transfer">퇴직금은 통장으로 바로 안 옵니다</a>에 정리했고, 직접 숫자를 넣어보려면 <a href="/tools/severance-pay">퇴직금 계산기</a>를 쓸 수 있습니다. 회사가 미리 정산한 이력이 있다면 <a href="/posts/severance-pay-interim-settlement-legal-reasons">퇴직금 중간정산 사유</a>도 함께 확인해야 합니다.</p>
+
+<h2>자주 묻는 질문</h2>
+<h3>1년이 안 되면 퇴직금이 전혀 없나요?</h3>
+<p>법정 퇴직금은 계속근로기간 1년 이상부터입니다. 회사 규정이나 계약으로 더 주는 경우는 별도로 확인해야 합니다.</p>
+<h3>상여금은 퇴직금에 포함되나요?</h3>
+<p>평균임금 계산에는 연간 상여금의 3/12가 임금총액에 더해집니다. 어떤 상여금이 포함되는지는 지급 조건에 따라 다르므로 급여 항목을 확인하세요.</p>
+<h3>마지막 달에 급여가 줄었는데 불리한가요?</h3>
+<p>평균임금이 통상임금보다 적으면 통상임금을 평균임금으로 씁니다. 개별 사례는 고용노동부 1350에서 확인할 수 있습니다.</p>
+
+<p>이 글은 공식 안내를 정리한 참고자료이며 개인별 퇴직금을 확정해 주지 않습니다. 임금 항목, 취업규칙, 휴직 이력에 따라 결과가 달라질 수 있으니 고용노동부(1350)와 관할 노동관서에서 최종 확인하세요.</p>
+
+<h2>공식 출처 (2026-11-15 확인)</h2>
+<ul>
+<li><a href="https://www.moel.go.kr/faq/faqView.do?seqRepeat=89" rel="noopener noreferrer" target="_blank">고용노동부 FAQ · 퇴직금 및 평균임금 산정공식</a></li>
+<li><a href="https://www.moel.go.kr/retirementpayCal.do" rel="noopener noreferrer" target="_blank">고용노동부 퇴직금 계산기와 계산 예시</a></li>
+<li><a href="http://easylaw.go.kr/CSP/CnpClsMain.laf?ccfNo=3&cciNo=2&cnpClsNo=1&csmSeq=999&popMenu=ov" rel="noopener noreferrer" target="_blank">찾기쉬운 생활법령정보 · 퇴직금 지급</a></li>
+<li><a href="https://1350.moel.go.kr/rtmview.do?id=1000320876" rel="noopener noreferrer" target="_blank">고용노동부 1350 상담사례 · 퇴직금 대상과 평균임금 제외 기간</a></li>
+</ul>`, category:"퇴직금·노후 생활비", tags:["퇴직금 계산","평균임금","퇴직금 계산법","재직일수","고용노동부"], status:"published", publishedAt:"2026-11-15", scheduledAt:null, readingMinutes:8, visual:"계산법", authorName:"데스크" },
+  { id:2145, title:"퇴직금 중간정산, 아무 때나 되나요? 법으로 정한 사유와 정산 뒤 달라지는 것(2026)", slug:"severance-pay-interim-settlement-legal-reasons", excerpt:"퇴직금 중간정산은 시행령에 적힌 사유일 때만 가능합니다. 주택 구입·전세금·의료비·파산·개인회생 등 사유, 정산 뒤 기준일 변화, 퇴직연금 중도인출과의 차이를 정리했습니다.", body:`<p><strong>퇴직금 중간정산은 아무 때나 신청할 수 없고, 근로자퇴직급여 보장법 시행령에 적힌 사유에 해당할 때만 가능합니다.</strong> 법 제8조 제2항은 주택 구입 등 대통령령으로 정하는 사유로 근로자가 요구하는 경우 퇴직 전에 퇴직금을 미리 정산해 지급할 수 있다고 정합니다. 이 글은 2026년 11월 15일에 확인한 국가법령정보센터와 고용노동부 상담 답변을 기준으로 정리했습니다.</p>
+
+<h2>중간정산이 가능한 사유는 무엇인가요?</h2>
+<p>시행령 제3조 제1항이 정한 사유를 묶어 보면 아래 네 가지 유형입니다.</p>
+<figure class="article-image"><img src="/article-images/interim-settlement-reasons.svg" alt="퇴직금 중간정산이 가능한 법정 사유를 집, 의료비, 채무, 근로조건 네 묶음으로 나눈 카드"><figcaption>시행령 제3조 제1항 사유 요약 · 퇴직생활연구소 제작 도표</figcaption></figure>
+<table>
+<thead><tr><th>유형</th><th>조건 요약</th></tr></thead>
+<tbody>
+<tr><td>주택 구입</td><td>무주택자인 근로자가 본인 명의로 주택을 구입하는 경우</td></tr>
+<tr><td>전세금·보증금</td><td>무주택자가 주거 목적으로 전세금 또는 임대차 보증금을 부담하는 경우 (한 사업에 근로하는 동안 1회)</td></tr>
+<tr><td>의료비</td><td>6개월 이상 요양이 필요한 본인·배우자·부양가족의 질병이나 부상 의료비를 본인 연간 임금총액의 1천분의 125(12.5%) 초과해 부담하는 경우</td></tr>
+<tr><td>파산·개인회생</td><td>신청일부터 거꾸로 5년 이내에 파산선고 또는 개인회생절차 개시 결정을 받은 경우</td></tr>
+<tr><td>임금 감액 제도</td><td>정년을 연장·보장하는 조건으로 일정 나이·근속·임금액 기준 임금을 줄이는 제도를 시행하는 경우</td></tr>
+<tr><td>근로시간 단축</td><td>합의로 소정근로시간을 1일 1시간 또는 1주 5시간 이상 줄여 3개월 이상 계속 근로하기로 한 경우, 또는 근로시간 단축으로 퇴직금이 줄어드는 경우</td></tr>
+<tr><td>재난</td><td>재난 피해로 고용노동부장관이 고시하는 사유에 해당하는 경우</td></tr>
+</tbody>
+</table>
+<p>"큰돈이 급하다"는 사정만으로는 사유가 되지 않습니다. 목록에 없는 이유라면 중간정산이 아니라 다른 방법을 찾아야 합니다.</p>
+
+<h2>중간정산을 하면 무엇이 달라지나요?</h2>
+<p>미리 정산해 지급하면 그 뒤 퇴직금 계산에 쓰는 계속근로기간은 정산한 시점부터 새로 셉니다. 고용노동부 1350 상담 답변(2025년 10월 28일)도 같은 취지로, 중간정산 이전 기간은 총 재직일수에서 제외하고 계산한다고 안내합니다.</p>
+<figure class="article-image"><img src="/article-images/interim-settlement-effect.svg" alt="법정 사유 확인, 근로자 요구, 정산 시점부터 새 계산, 증빙 5년 보존으로 이어지는 중간정산 흐름도"><figcaption>정산 이후의 기준일이 바뀌는 것이 핵심입니다 · 퇴직생활연구소 제작 도표</figcaption></figure>
+<p>나중에 퇴직할 때 받는 퇴직금은 그만큼 짧은 기간으로 계산되므로, 평균임금과 재직일수를 다시 따져 보아야 합니다. 계산 방법은 <a href="/posts/severance-pay-calculation-average-wage-formula">퇴직금 계산법 글</a>을 참고하세요.</p>
+
+<h2>회사가 증빙을 요구하면 어떻게 하나요?</h2>
+<p>사용자는 사유에 따라 미리 정산해 지급한 경우 근로자가 퇴직한 뒤 5년이 되는 날까지 관련 증명 서류를 보존해야 합니다(시행령 제3조 제2항). 어떤 서류를 내야 하는지는 사유별로 달라서 회사 담당자와 관할 고용노동관서 안내를 확인하는 편이 정확합니다.</p>
+
+<h2>퇴직연금 중도인출과는 같은 제도인가요?</h2>
+<p>아닙니다. 중간정산은 회사가 직접 지급하는 퇴직금을 미리 받는 제도이고, 퇴직연금(DC형·IRP)의 중도인출은 계좌에 쌓인 돈을 꺼내는 별도 제도입니다. 어느 쪽에 해당하는지는 회사의 퇴직급여 제도에 따라 달라집니다.</p>
+<figure class="article-image"><img src="/article-images/interim-vs-pension-withdrawal.svg" alt="퇴직금 중간정산과 퇴직연금 중도인출이 서로 다른 제도임을 비교한 카드"><figcaption>제도부터 확인해야 신청 창구가 맞습니다 · 퇴직생활연구소 제작 도표</figcaption></figure>
+<p>DB형·DC형 차이는 <a href="/posts/retirement-pension-db-dc-difference">퇴직연금이 DB형이라면, 임금피크제 들어가기 전에 확인하세요</a>에서, IRP로 들어온 뒤의 선택은 <a href="/posts/retirement-pay-irp-five-checks-before-withdrawal">IRP 해지 전에 볼 5가지</a>에서 이어서 볼 수 있습니다.</p>
+
+<h2>신청하기 전에 무엇을 점검하나요?</h2>
+<figure class="article-image"><img src="/article-images/interim-settlement-checklist.svg" alt="퇴직금 중간정산을 신청하기 전에 확인할 다섯 가지 체크리스트"><figcaption>하나라도 비어 있으면 회사 담당자에게 먼저 확인하세요 · 퇴직생활연구소 제작 도표</figcaption></figure>
+<p>퇴직 후 지급 방식은 <a href="/posts/severance-pay-payment-rules-irp-transfer">14일 기한, IRP 의무 이전, 연 20% 지연이자</a> 글에서 확인할 수 있습니다.</p>
+
+<h2>자주 묻는 질문</h2>
+<h3>돈이 급하면 중간정산을 요구할 수 있나요?</h3>
+<p>시행령에 적힌 사유가 있을 때만 가능합니다. 사유에 해당하지 않으면 회사가 해줄 의무가 없습니다.</p>
+<h3>임금피크제를 시행 중이면 가능한가요?</h3>
+<p>정년을 연장·보장하는 조건으로 임금을 줄이는 제도를 시행하는 경우가 사유에 포함됩니다. 실제 적용 여부는 회사 제도와 규정을 확인하세요.</p>
+<h3>중간정산 뒤 퇴직금은 처음부터 다시 계산하나요?</h3>
+<p>정산 이후 퇴직금 계산의 계속근로기간은 정산 시점부터 새로 셉니다.</p>
+
+<p>이 글은 법령과 공식 답변을 정리한 참고자료이며 개별 사안의 법률 자문이 아닙니다. 사유 해당 여부와 서류는 고용노동부(1350)와 관할 고용노동관서에서 확인하세요.</p>
+
+<h2>공식 출처 (2026-11-15 확인)</h2>
+<ul>
+<li><a href="https://www.law.go.kr/lumLsLinkPop.do?chrClsCd=010202&lspttninfSeq=71009" rel="noopener noreferrer" target="_blank">국가법령정보센터 · 근로자퇴직급여 보장법 시행령</a></li>
+<li><a href="https://1350.moel.go.kr/rtmview.do?id=1000308093" rel="noopener noreferrer" target="_blank">고용노동부 1350 상담사례 · 퇴직금 중간정산과 계속근로기간</a></li>
+<li><a href="https://www.moel.go.kr/retirementpay.do" rel="noopener noreferrer" target="_blank">고용노동부 퇴직연금제도 안내</a></li>
+</ul>`, category:"퇴직금·노후 생활비", tags:["퇴직금 중간정산","중간정산 사유","근로자퇴직급여 보장법","퇴직금","시행령"], status:"published", publishedAt:"2026-11-15", scheduledAt:null, readingMinutes:8, visual:"중간정산", authorName:"데스크" },
+  { id:2146, title:"퇴직하면 4대보험은 어떻게 되나요? 건강·연금·고용·산재 내가 할 일 정리(2026)", slug:"after-retirement-four-insurances-what-to-do", excerpt:"퇴직하면 건강보험은 지역가입자로, 국민연금은 납부예외 등 선택으로, 고용보험은 실업급여 확인으로 이어집니다. 산재보험 권리는 퇴직해도 남습니다. 보험별 내가 할 일을 순서대로 정리했습니다.", body:`<p><strong>퇴직하면 4대보험은 자동으로 끝나는 것이 아니라 보험마다 다음 단계가 이어집니다.</strong> 건강보험은 지역가입자로 바뀌고, 국민연금은 소득이 없으면 납부예외 등을 선택해야 하며, 고용보험은 이직확인서가 처리돼야 실업급여를 확인할 수 있습니다. 산재보험은 퇴직해도 보험급여를 받을 권리가 사라지지 않습니다. 2026년 11월 15일 기준 공식 안내로 정리했습니다.</p>
+
+<figure class="article-image"><img src="/article-images/four-insurances-overview.svg" alt="퇴직 후 건강보험, 국민연금, 고용보험, 산재보험이 각각 어떻게 바뀌는지 정리한 카드"><figcaption>보험마다 내가 해야 할 일이 다릅니다 · 퇴직생활연구소 제작 도표</figcaption></figure>
+
+<h2>퇴직 직후에는 어떤 순서로 움직이나요?</h2>
+<p>회사가 처리해야 하는 신고가 먼저 끝나야 내가 할 선택이 열립니다. 아래 순서로 확인하면 놓치는 일이 줄어듭니다.</p>
+<figure class="article-image"><img src="/article-images/four-insurances-order.svg" alt="회사 상실신고 확인, 건강보험 고지서, 국민연금 선택, 고용센터 방문 순서의 흐름도"><figcaption>회사 처리, 내 선택, 기한 관리 순서 · 퇴직생활연구소 제작 도표</figcaption></figure>
+
+<h2>건강보험은 퇴직하면 어떻게 되나요?</h2>
+<p>직장가입자 자격이 끝나면 지역가입자로 전환되어 보험료 고지서가 따로 옵니다. 배우자나 자녀의 피부양자로 등재할 수 있는지, 퇴직 전 18개월 중 통산 1년 이상 직장가입자였다면 임의계속가입을 할 수 있는지 비교합니다. 임의계속가입은 첫 지역보험료 납부기한에서 2개월이 지나기 전까지 신청해야 하고 최대 36개월까지 적용됩니다.</p>
+<figure class="article-image"><img src="/article-images/four-insurances-health-compare.svg" alt="피부양자, 임의계속가입, 보험료 비교, 최대 36개월 적용 순서의 건강보험 비교 표"><figcaption>먼저 피부양자부터 확인합니다 · 퇴직생활연구소 제작 도표</figcaption></figure>
+<p>자세한 확인 순서는 <a href="/posts/post-retirement-health-insurance-voluntary-continuation">임의계속가입 확인 순서</a>와 <a href="/posts/health-insurance-after-retirement-three-checks">퇴직 다음 달 건강보험료 고지서 확인할 3가지</a>에 있습니다.</p>
+
+<h2>국민연금은 계속 내야 하나요?</h2>
+<p>직장가입이 끝난 뒤 소득이 없어 보험료를 낼 수 없으면 국민연금공단 안내상 실직·퇴사 등으로 소득이 없는 경우 납부예외 사유에 해당할 수 있습니다. 다만 납부예외 기간은 가입기간으로 인정되지 않으므로 임의가입이나 추후납부와 비교해야 합니다. 구직급여를 받는 중이면 실업크레딧(보험료 일부 지원)도 확인하세요.</p>
+<table>
+<thead><tr><th>선택지</th><th>핵심</th><th>더 보기</th></tr></thead>
+<tbody>
+<tr><td>납부예외</td><td>보험료 면제, 가입기간 불인정</td><td><a href="/posts/national-pension-after-retirement-options">퇴직하면 국민연금은 어떻게 되나요?</a></td></tr>
+<tr><td>실업크레딧</td><td>구직급여 수급 중 보험료 일부 지원</td><td><a href="/posts/2026-unemployment-credit-guide">실업크레딧 75% 지원</a></td></tr>
+</tbody>
+</table>
+
+<h2>고용보험은 실업급여와 어떻게 이어지나요?</h2>
+<p>퇴사 사유와 가입기간은 회사가 제출하는 이직확인서로 확인됩니다. 실업급여는 이직 다음 날부터 12개월(수급기간) 안에 신청해야 하고, 소정급여일수는 연령과 가입기간에 따라 120~270일 범위입니다. 180일 요건 계산은 <a href="/posts/unemployment-benefit-180-days-insured-period-how-to-count">실업급여 180일 계산법</a>에서, 신청 순서는 <a href="/posts/unemployment-benefit-eight-steps">퇴직 전부터 준비하는 8단계</a>에서 볼 수 있습니다.</p>
+
+<h2>산재보험은 퇴직하면 끝나나요?</h2>
+<p>산업재해보상보험법 제88조 제1항은 근로자의 보험급여를 받을 권리는 퇴직하여도 소멸되지 아니한다고 정합니다(2026년 7월 1일 시행 조문 기준). 재직 중 업무상 사고나 질병으로 치료가 필요하다면 퇴직했다는 이유로 포기하지 말고 근로복지공단에 문의하세요.</p>
+
+<h2>회사가 하는 일과 내가 하는 일은 어떻게 다른가요?</h2>
+<figure class="article-image"><img src="/article-images/four-insurances-employer-vs-me.svg" alt="퇴직 때 회사가 처리하는 일과 근로자가 직접 하는 일을 나눈 카드"><figcaption>서로 확인해야 빈틈이 생기지 않습니다 · 퇴직생활연구소 제작 도표</figcaption></figure>
+<p>퇴직 직후 전체 일정은 <a href="/posts/first-30-days-after-retirement">퇴직 후 첫 30일 체크리스트</a>와 함께 보면 좋습니다.</p>
+
+<h2>자주 묻는 질문</h2>
+<h3>퇴직하면 4대보험은 저절로 해지되나요?</h3>
+<p>회사가 상실신고를 해야 자격이 정리됩니다. 처리 여부는 고용24, 국민건강보험공단, 국민연금공단에서 확인할 수 있습니다.</p>
+<h3>소득이 없는데 건강보험료가 나오면 어떻게 하나요?</h3>
+<p>지역보험료는 소득 외에 재산과 자동차도 반영합니다. 피부양자 등재와 임의계속가입을 먼저 비교해 보세요.</p>
+<h3>국민연금을 안 내면 불리한가요?</h3>
+<p>납부예외 기간은 가입기간으로 인정되지 않아 나중에 연금 수급 요건과 금액에 영향을 줄 수 있습니다.</p>
+
+<p>이 글은 공식 안내를 정리한 참고자료이며 개인별 자격·보험료를 확정하지 않습니다. 건강보험은 국민건강보험공단(1577-1000), 연금은 국민연금공단, 실업급여는 고용센터(1350)에서 확인하세요.</p>
+
+<h2>공식 출처 (2026-11-15 확인)</h2>
+<ul>
+<li><a href="https://www.law.go.kr/LSW/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1031639747" rel="noopener noreferrer" target="_blank">국가법령정보센터 · 산업재해보상보험법 제88조 수급권의 보호</a></li>
+<li><a href="https://www.nps.or.kr/pnsinfo/ntpsklg/getOHAF0021M0.do?menuId=MN24001109&tab=tab8" rel="noopener noreferrer" target="_blank">국민연금공단 · 납부예외 사유</a></li>
+<li><a href="https://1350.moel.go.kr/rtmview.do?id=1000302825" rel="noopener noreferrer" target="_blank">고용노동부 1350 상담사례 · 실업급여 수급요건과 수급기간</a></li>
+<li><a href="https://www.nhis.or.kr/static/alim/paper/oldpaper/202212/sub/18.html" rel="noopener noreferrer" target="_blank">국민건강보험공단 · 임의계속가입 안내</a></li>
+</ul>`, category:"퇴직금·노후 생활비", tags:["퇴직 후 4대보험","건강보험","국민연금","고용보험","산재보험"], status:"published", publishedAt:"2026-11-15", scheduledAt:null, readingMinutes:8, visual:"4대보험", authorName:"데스크" },
+  { id:2147, title:"실업급여 180일, 달력상 6개월이면 될까? 피보험단위기간 계산법(주 5일 예시)", slug:"unemployment-benefit-180-days-insured-period-how-to-count", excerpt:"실업급여 180일은 달력상 재직기간이 아니라 보수 지급의 기초가 된 날의 합계입니다. 주휴일·무급휴일을 나눠 세는 법, 이전 직장 합산, 확인 경로를 고용노동부 답변 기준으로 정리했습니다.", body:`<p><strong>실업급여의 "180일"은 달력상 6개월이 아니라, 이직 전 18개월 동안 보수 지급의 기초가 된 날을 합산한 피보험단위기간입니다.</strong> 근로를 하지 않아도 임금이 지급된 유급 주휴일은 들어가고, 무급휴일은 빠집니다. 그래서 주 5일 근무자는 달력으로 6개월을 채워도 180일에 못 미칠 수 있습니다. 2026년 11월 15일 기준 고용노동부 1350 답변과 고용24 안내로 정리했습니다.</p>
+
+<h2>피보험단위기간에는 어떤 날이 들어가나요?</h2>
+<p>고용노동부 답변에 따르면 피보험단위기간은 피보험기간 중 보수 지급의 기초가 된 날을 합산합니다. 반드시 근로한 날일 필요는 없고, 유급 주휴일, 사업장 사정으로 휴업하며 평균임금의 70% 이상 휴업수당을 받은 기간, 출산전후휴가 같은 유급휴가 기간이 포함됩니다. 무급휴일은 보수 지급의 기초가 아니어서 포함하지 않습니다.</p>
+<figure class="article-image"><img src="/article-images/insured-period-what-counts.svg" alt="피보험단위기간에 포함되는 날과 포함되지 않는 날을 나란히 비교한 카드"><figcaption>임금이 지급된 날인지가 기준입니다 · 퇴직생활연구소 제작 도표</figcaption></figure>
+
+<h2>주 5일 근무자는 한 달에 며칠로 세나요?</h2>
+<p>고용노동부가 든 예시는 주 5일 근무에 일요일이 유급 주휴일, 토요일은 무급 휴무일, 관공서 공휴일은 약정 유급휴일인 경우입니다. 이 경우 2024년 1월은 근무 22일에 주휴 4일, 신년 유급휴일 1일을 더해 26일이고, 2024년 8월은 근무 22일에 주휴 4일, 광복절 1일을 더해 27일입니다.</p>
+<figure class="article-image"><img src="/article-images/insured-period-example.svg" alt="주 5일 근무자의 월별 피보험단위기간 예시와 180일 도달 시점을 보여주는 표"><figcaption>무급 토요일은 계산에서 빠집니다 · 퇴직생활연구소 제작 도표</figcaption></figure>
+<table>
+<thead><tr><th>월별 일수(가정)</th><th>180일까지 걸리는 기간</th></tr></thead>
+<tbody>
+<tr><td>매월 26일</td><td>약 6.9개월</td></tr>
+<tr><td>매월 27일</td><td>약 6.7개월</td></tr>
+</tbody>
+</table>
+<p>위 표는 두 예시 월의 일수가 매달 이어진다고 가정한 단순 계산입니다. 실제 값은 월별 근로일, 유급 공휴일, 결근 공제에 따라 달라지므로 이직확인서의 숫자를 기준으로 하세요.</p>
+
+<h2>180일만 채우면 실업급여를 받을 수 있나요?</h2>
+<p>아닙니다. 기간 요건은 4가지 요건 가운데 하나입니다. 고용노동부 답변 기준으로 ① 이직 전 18개월 중 180일 이상, ② 근로 의사와 능력이 있음에도 취업하지 못한 상태, ③ 폐업·권고사직·계약만료 같은 비자발적 이직, ④ 실업인정 기간 중 적극적 재취업 노력이 모두 필요합니다.</p>
+<figure class="article-image"><img src="/article-images/insured-period-four-conditions.svg" alt="실업급여 수급자격 네 가지 요건인 기간, 근로 의사, 이직 사유, 구직 노력을 정리한 카드"><figcaption>기간 요건만으로 수급이 결정되지 않습니다 · 퇴직생활연구소 제작 도표</figcaption></figure>
+<p>이직 사유별 판단은 <a href="/posts/voluntary-resignation-unemployment-benefit-conditions">자진퇴사 인정 사유</a>와 <a href="/posts/resignation-vs-layoff-vs-contract-end-unemployment-benefits">권고사직·자진퇴사·계약만료 차이</a>에서 볼 수 있습니다.</p>
+
+<h2>이전 직장 기간도 합산되나요?</h2>
+<p>최종 이직일 이전 18개월 안이라면 사업장이 달라도 사업장별 피보험단위기간을 합산합니다. 다만 이직 사유는 최종 사업장 기준으로 판단합니다. 종전 사업에서 자격을 잃은 날부터 3년 이내에 현재 사업에서 자격을 취득했다면 종전 기간을 합산하는데, 종전 자격 상실로 실업급여를 받은 적이 없어야 합니다. 고용24 모의테스트는 퇴직 전 18개월(초단시간근로자는 24개월) 중 가입기간 180일 이상을 안내합니다.</p>
+
+<h2>내 180일은 어디서 확인하나요?</h2>
+<p>피보험단위기간은 퇴직 후 이직확인서가 처리되어야 확인할 수 있다고 안내합니다. 고용보험 가입기간은 근로복지공단 고용산재토탈서비스에서 볼 수 있고, 숫자가 급여 기록과 다르면 회사에 정정을 요청하세요.</p>
+<figure class="article-image"><img src="/article-images/insured-period-check-steps.svg" alt="기준기간 잡기, 사업장별 기간 모으기, 180일 합산, 고용센터 최종 확인 순서의 흐름도"><figcaption>이직확인서 처리가 선행되어야 합니다 · 퇴직생활연구소 제작 도표</figcaption></figure>
+<p>전체 신청 절차는 <a href="/posts/unemployment-benefit-eight-steps">퇴직 전부터 준비하는 8단계</a>, 지급액 구조는 <a href="/posts/2026-unemployment-benefits-revision-guide">2026 실업급여 상한액·반복수급 감액</a>, 퇴직 후 보험 정리는 <a href="/posts/after-retirement-four-insurances-what-to-do">퇴직 후 4대보험 정리</a>와 함께 보세요.</p>
+
+<h2>자주 묻는 질문</h2>
+<h3>토요일이 무급이면 6개월 일해도 안 되나요?</h3>
+<p>달력상 6개월은 월 26~27일 가정에서 약 156~162일 정도입니다. 이 가정에서는 180일에 못 미칠 수 있으므로 이직확인서의 월별 합계를 확인하세요.</p>
+<h3>180일이 안 되면 받을 방법이 없나요?</h3>
+<p>실업급여 대상이 아니더라도 국민취업지원제도 같은 다른 지원을 확인할 수 있습니다. <a href="/posts/national-employment-support-program-guide">국민취업지원제도 글</a>을 참고하세요.</p>
+<h3>이직확인서가 처리되기 전에도 계산할 수 있나요?</h3>
+<p>정확한 확인은 이직확인서 처리 후 가능합니다. 처리 전에는 급여명세서로 대략 추정만 할 수 있습니다.</p>
+
+<p>이 글은 공식 답변을 정리한 참고자료이며 수급자격을 판정하지 않습니다. 개인별 가입기간과 이직 사유는 관할 고용센터(1350)의 최신 안내로 최종 확인하세요.</p>
+
+<h2>공식 출처 (2026-11-15 확인)</h2>
+<ul>
+<li><a href="https://1350.moel.go.kr/rtmview.do?id=1000302825" rel="noopener noreferrer" target="_blank">고용노동부 1350 상담사례 · 피보험단위기간 계산 사례와 수급요건</a></li>
+<li><a href="https://1350.moel.go.kr/rtmview.do?id=1000285183" rel="noopener noreferrer" target="_blank">고용노동부 1350 상담사례 · 180일 계산과 소정급여일수 120~270일</a></li>
+<li><a href="https://ei.work24.go.kr/ei/eim/eg/ei/eiEminsr/retrievePb191Info.do" rel="noopener noreferrer" target="_blank">고용24 · 실업급여 수급자격 모의테스트</a></li>
+<li><a href="https://eiac.ei.go.kr/ei/m/pf/MOW-PF-00-180-C.html" rel="noopener noreferrer" target="_blank">고용보험 · 실업급여 모의계산 안내</a></li>
+</ul>`, category:"실업급여", tags:["실업급여 180일","피보험단위기간","구직급여","이직확인서","고용노동부"], status:"published", publishedAt:"2026-11-15", scheduledAt:null, readingMinutes:8, visual:"180일", authorName:"데스크" },
 ];
 const contentQualityUpgrades:Record<string,Pick<Post,"excerpt"|"body"|"readingMinutes">>={
   "vibe-coding-basics-5":{
