@@ -3,93 +3,52 @@
   "label": "애드블스 허브",
   "domain": "adbles.com",
   "repo": "psaksg-debug/teogisa",
-  "scannedAt": "2026-11-15T05:55:47.306Z",
-  "pagesCrawled": 93,
-  "sitemapUrls": 82,
-  "externalChecked": 113,
+  "scannedAt": "2026-11-16T05:59:39.908Z",
+  "pagesCrawled": 97,
+  "sitemapUrls": 71,
+  "externalChecked": 125,
   "summary": {
-    "high": 11,
-    "medium": 12,
-    "low": 1
+    "high": 1,
+    "medium": 16,
+    "low": 3
   },
-  "occurrences": 24,
+  "occurrences": 45,
   "findings": [
     {
       "severity": "high",
       "kind": "noindex",
-      "page": "https://adbles.com/search",
-      "robots": "noindex, follow",
-      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
-    },
-    {
-      "severity": "high",
-      "kind": "noindex",
-      "page": "https://adbles.com/search?category=%ED%87%B4%EC%A7%81%EA%B8%88%C2%B7%EB%85%B8%ED%9B%84%20%EC%83%9D%ED%99%9C%EB%B9%84",
-      "robots": "noindex, follow",
-      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
-    },
-    {
-      "severity": "high",
-      "kind": "noindex",
-      "page": "https://adbles.com/search?category=%EC%8B%A4%EC%97%85%EA%B8%89%EC%97%AC",
-      "robots": "noindex, follow",
-      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
-    },
-    {
-      "severity": "high",
-      "kind": "noindex",
-      "page": "https://adbles.com/search?category=%EA%B5%AD%EB%AF%BC%EC%97%B0%EA%B8%88%C2%B7%ED%87%B4%EC%A7%81%EC%97%B0%EA%B8%88",
-      "robots": "noindex, follow",
-      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
-    },
-    {
-      "severity": "high",
-      "kind": "noindex",
-      "page": "https://adbles.com/search?category=%EC%A0%95%EB%B6%80%EC%A7%80%EC%9B%90%EA%B8%88%C2%B7%EC%84%B8%EA%B8%88",
-      "robots": "noindex, follow",
-      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
-    },
-    {
-      "severity": "high",
-      "kind": "noindex",
-      "page": "https://adbles.com/search?category=%ED%87%B4%EC%A7%81%20%ED%9B%84%20%EB%B6%80%EC%97%85%C2%B7N%EC%9E%A1",
-      "robots": "noindex, follow",
-      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
-    },
-    {
-      "severity": "high",
-      "kind": "noindex",
-      "page": "https://adbles.com/search?category=%EC%A4%91%EC%9E%A5%EB%85%84%20%EC%9E%AC%EC%B7%A8%EC%97%85%C2%B7%EC%B0%BD%EC%97%85",
-      "robots": "noindex, follow",
-      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
-    },
-    {
-      "severity": "high",
-      "kind": "noindex",
-      "page": "https://adbles.com/search?category=AI%20%ED%99%9C%EC%9A%A9%C2%B7%EB%B0%94%EC%9D%B4%EB%B8%8C%EC%BD%94%EB%94%A9",
-      "robots": "noindex, follow",
-      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
-    },
-    {
-      "severity": "high",
-      "kind": "noindex",
-      "page": "https://adbles.com/search?q=%EA%B1%B4%EA%B0%95",
-      "robots": "noindex, follow",
-      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
-    },
-    {
-      "severity": "high",
-      "kind": "noindex",
-      "page": "https://adbles.com/search?category=%EA%B1%B4%EA%B0%95%EB%B3%B4%ED%97%98%EB%A3%8C%C2%B7%EA%B1%B4%EA%B0%95%EA%B2%80%EC%A7%84",
-      "robots": "noindex, follow",
-      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
-    },
-    {
-      "severity": "high",
-      "kind": "noindex",
-      "page": "https://adbles.com/search?category=%EB%AC%B4%EB%A3%8C%20%EB%8F%84%EA%B5%AC%20%ED%99%9C%EC%9A%A9%EB%B2%95",
-      "robots": "noindex, follow",
-      "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      "scope": "site-wide",
+      "page": "https://adbles.com (전역)",
+      "occurrences": 26,
+      "pages": 26,
+      "hrefs": [],
+      "examples": [
+        {
+          "page": "https://adbles.com/search",
+          "href": null,
+          "text": null,
+          "nav": false
+        },
+        {
+          "page": "https://adbles.com/search?category=%ED%87%B4%EC%A7%81%EA%B8%88%C2%B7%EB%85%B8%ED%9B%84%20%EC%83%9D%ED%99%9C%EB%B9%84",
+          "href": null,
+          "text": null,
+          "nav": false
+        },
+        {
+          "page": "https://adbles.com/search?category=%EC%8B%A4%EC%97%85%EA%B8%89%EC%97%AC",
+          "href": null,
+          "text": null,
+          "nav": false
+        },
+        {
+          "page": "https://adbles.com/search?category=%EA%B5%AD%EB%AF%BC%EC%97%B0%EA%B8%88%C2%B7%ED%87%B4%EC%A7%81%EC%97%B0%EA%B8%88",
+          "href": null,
+          "text": null,
+          "nav": false
+        }
+      ],
+      "note": "26쪽 26건에 같은 결함이 있다. 페이지마다 고칠 문제가 아니라 공통 컴포넌트·레이아웃 한 곳의 문제다."
     },
     {
       "severity": "medium",
@@ -99,11 +58,29 @@
     },
     {
       "severity": "medium",
+      "kind": "http-to-https",
+      "page": "https://adbles.com/posts/severance-pay-calculation-average-wage-formula",
+      "href": "http://easylaw.go.kr/CSP/CnpClsMain.laf?ccfNo=3&cciNo=2&cnpClsNo=1&csmSeq=999&popMenu=ov",
+      "text": "찾기쉬운 생활법령정보 · 퇴직금 지급",
+      "nav": false,
+      "note": "http 링크. https로 올려야 한다"
+    },
+    {
+      "severity": "medium",
+      "kind": "http-to-https",
+      "page": "https://adbles.com/posts/severance-pay-calculation-average-wage-formula",
+      "href": "http://easylaw.go.kr/CSP/CnpClsMain.laf?ccfNo=3&cciNo=2&cnpClsNo=1&csmSeq=999&popMenu=ov",
+      "text": "easylaw.go.kr 공식자료 ↗",
+      "nav": false,
+      "note": "http 링크. https로 올려야 한다"
+    },
+    {
+      "severity": "medium",
       "kind": "dead-external-link",
       "page": "https://adbles.com/official-info",
       "href": "https://www.nts.go.kr",
       "status": 400,
-      "refs": 25,
+      "refs": 26,
       "text": "국세청 공식 사이트 ↗",
       "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
     },
@@ -115,6 +92,26 @@
       "status": 404,
       "refs": 1,
       "text": "질병 정보 자세히 보기 ↗",
+      "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-external-link",
+      "page": "https://adbles.com/posts/after-retirement-four-insurances-what-to-do",
+      "href": "https://www.law.go.kr/LSW/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1031639747",
+      "status": 404,
+      "refs": 2,
+      "text": "국가법령정보센터 · 산업재해보상보험법 제88조 수급권의 보호",
+      "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-external-link",
+      "page": "https://adbles.com/posts/severance-pay-interim-settlement-legal-reasons",
+      "href": "https://www.law.go.kr/lumLsLinkPop.do?chrClsCd=010202&lspttninfSeq=71009",
+      "status": 404,
+      "refs": 2,
+      "text": "국가법령정보센터 · 근로자퇴직급여 보장법 시행령",
       "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
     },
     {
@@ -210,14 +207,217 @@
     {
       "severity": "low",
       "kind": "external-unreachable",
+      "page": "https://adbles.com/posts/noranwoosan-mutual-aid-guide",
+      "href": "https://www.8899.or.kr",
+      "status": 0,
+      "error": "fetch failed",
+      "note": "응답없음 — 일시적일 수 있어 다음 회차에 다시 본다"
+    },
+    {
+      "severity": "low",
+      "kind": "external-unreachable",
       "page": "https://adbles.com/posts/national-pension-early-vs-deferred",
       "href": "https://100lifeplan.fss.or.kr",
       "status": 0,
       "error": "fetch failed",
       "note": "응답없음 — 일시적일 수 있어 다음 회차에 다시 본다"
+    },
+    {
+      "severity": "low",
+      "kind": "external-unreachable",
+      "page": "https://adbles.com/posts/cheonan-midlife-job-search-guide",
+      "href": "https://www.cheonan.go.kr/job.do",
+      "status": 0,
+      "error": "fetch failed",
+      "note": "응답없음 — 일시적일 수 있어 다음 회차에 다시 본다"
     }
   ],
-  "detail": {},
+  "detail": {
+    "noindex": [
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/search",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/search?category=%ED%87%B4%EC%A7%81%EA%B8%88%C2%B7%EB%85%B8%ED%9B%84%20%EC%83%9D%ED%99%9C%EB%B9%84",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/search?category=%EC%8B%A4%EC%97%85%EA%B8%89%EC%97%AC",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/search?category=%EA%B5%AD%EB%AF%BC%EC%97%B0%EA%B8%88%C2%B7%ED%87%B4%EC%A7%81%EC%97%B0%EA%B8%88",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/search?category=%EC%A0%95%EB%B6%80%EC%A7%80%EC%9B%90%EA%B8%88%C2%B7%EC%84%B8%EA%B8%88",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/search?category=%ED%87%B4%EC%A7%81%20%ED%9B%84%20%EB%B6%80%EC%97%85%C2%B7N%EC%9E%A1",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/search?category=%EC%A4%91%EC%9E%A5%EB%85%84%20%EC%9E%AC%EC%B7%A8%EC%97%85%C2%B7%EC%B0%BD%EC%97%85",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/search?category=AI%20%ED%99%9C%EC%9A%A9%C2%B7%EB%B0%94%EC%9D%B4%EB%B8%8C%EC%BD%94%EB%94%A9",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/posts/vibe-coding-bootcamp-15",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/posts/vibe-coding-bootcamp-14",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/posts/vibe-coding-bootcamp-13",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/posts/vibe-coding-bootcamp-12",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/search?q=%EA%B1%B4%EA%B0%95",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/search?category=%EA%B1%B4%EA%B0%95%EB%B3%B4%ED%97%98%EB%A3%8C%C2%B7%EA%B1%B4%EA%B0%95%EA%B2%80%EC%A7%84",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/search?category=%EB%AC%B4%EB%A3%8C%20%EB%8F%84%EA%B5%AC%20%ED%99%9C%EC%9A%A9%EB%B2%95",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/posts/vibe-coding-bootcamp-11",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/posts/vibe-coding-bootcamp-10",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/posts/vibe-coding-bootcamp-9",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/posts/vibe-coding-bootcamp-8",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/posts/vibe-coding-bootcamp-7",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/posts/vibe-coding-bootcamp-6",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/posts/vibe-coding-bootcamp-5",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/posts/vibe-coding-bootcamp-4",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/posts/vibe-coding-bootcamp-3",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/posts/vibe-coding-bootcamp-2",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      },
+      {
+        "severity": "high",
+        "kind": "noindex",
+        "page": "https://adbles.com/posts/vibe-coding-bootcamp-1",
+        "robots": "noindex, follow",
+        "note": "색인 차단이 걸려 있다. 의도한 것인지 확인"
+      }
+    ]
+  },
   "autoFixable": [
     "dead-internal-anchor",
     "protocol-relative",
