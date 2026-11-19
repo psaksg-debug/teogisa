@@ -3,16 +3,16 @@
   "label": "애드블스 허브",
   "domain": "adbles.com",
   "repo": "psaksg-debug/teogisa",
-  "scannedAt": "2026-11-18T06:59:36.690Z",
+  "scannedAt": "2026-11-19T06:59:30.033Z",
   "pagesCrawled": 97,
   "sitemapUrls": 71,
   "externalChecked": 125,
   "summary": {
     "high": 1,
-    "medium": 15,
+    "medium": 16,
     "low": 2
   },
-  "occurrences": 43,
+  "occurrences": 44,
   "findings": [
     {
       "severity": "high",
@@ -92,6 +92,16 @@
       "status": 404,
       "refs": 1,
       "text": "질병 정보 자세히 보기 ↗",
+      "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
+    },
+    {
+      "severity": "medium",
+      "kind": "dead-external-link",
+      "page": "https://adbles.com/posts/after-retirement-four-insurances-what-to-do",
+      "href": "https://www.law.go.kr/LSW/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1031639747",
+      "status": 404,
+      "refs": 2,
+      "text": "국가법령정보센터 · 산업재해보상보험법 제88조 수급권의 보호",
       "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
     },
     {
@@ -197,8 +207,8 @@
     {
       "severity": "low",
       "kind": "external-unreachable",
-      "page": "https://adbles.com/official-info",
-      "href": "https://www.work24.go.kr",
+      "page": "https://adbles.com/posts/noranwoosan-mutual-aid-guide",
+      "href": "https://www.8899.or.kr",
       "status": 0,
       "error": "fetch failed",
       "note": "응답없음 — 일시적일 수 있어 다음 회차에 다시 본다"
