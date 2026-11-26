@@ -3,16 +3,16 @@
   "label": "애드블스 허브",
   "domain": "adbles.com",
   "repo": "psaksg-debug/teogisa",
-  "scannedAt": "2026-11-25T08:04:03.524Z",
+  "scannedAt": "2026-11-26T07:56:12.578Z",
   "pagesCrawled": 97,
   "sitemapUrls": 71,
   "externalChecked": 125,
   "summary": {
     "high": 1,
     "medium": 16,
-    "low": 3
+    "low": 4
   },
-  "occurrences": 45,
+  "occurrences": 46,
   "findings": [
     {
       "severity": "high",
@@ -203,6 +203,15 @@
       "refs": 2,
       "text": "국세청 3.3% 원천징수 안내",
       "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
+    },
+    {
+      "severity": "low",
+      "kind": "external-unreachable",
+      "page": "https://adbles.com/official-info",
+      "href": "https://www.work24.go.kr",
+      "status": 0,
+      "error": "fetch failed",
+      "note": "응답없음 — 일시적일 수 있어 다음 회차에 다시 본다"
     },
     {
       "severity": "low",
