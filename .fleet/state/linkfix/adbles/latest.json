@@ -3,16 +3,16 @@
   "label": "애드블스 허브",
   "domain": "adbles.com",
   "repo": "psaksg-debug/teogisa",
-  "scannedAt": "2026-11-26T07:56:12.578Z",
+  "scannedAt": "2026-11-27T07:55:41.435Z",
   "pagesCrawled": 97,
   "sitemapUrls": 71,
   "externalChecked": 125,
   "summary": {
     "high": 1,
-    "medium": 16,
-    "low": 4
+    "medium": 14,
+    "low": 3
   },
-  "occurrences": 46,
+  "occurrences": 43,
   "findings": [
     {
       "severity": "high",
@@ -97,16 +97,6 @@
     {
       "severity": "medium",
       "kind": "dead-external-link",
-      "page": "https://adbles.com/posts/after-retirement-four-insurances-what-to-do",
-      "href": "https://www.law.go.kr/LSW/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1031639747",
-      "status": 404,
-      "refs": 2,
-      "text": "국가법령정보센터 · 산업재해보상보험법 제88조 수급권의 보호",
-      "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
-    },
-    {
-      "severity": "medium",
-      "kind": "dead-external-link",
       "page": "https://adbles.com/posts/severance-pay-interim-settlement-legal-reasons",
       "href": "https://www.law.go.kr/lumLsLinkPop.do?chrClsCd=010202&lspttninfSeq=71009",
       "status": 404,
@@ -132,16 +122,6 @@
       "status": 400,
       "refs": 1,
       "text": "국세청 근로·자녀장려금 심사 및 지급 안내 ↗",
-      "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
-    },
-    {
-      "severity": "medium",
-      "kind": "dead-external-link",
-      "page": "https://adbles.com/posts/affiliate-info-site-real-case",
-      "href": "https://www.law.go.kr/%ED%96%89%EC%A0%95%EA%B7%9C%EC%B9%99/%EC%B6%94%EC%B2%9C%C2%B7%EB%B3%B4%EC%A6%9D%EB%93%B1%EC%97%90%EA%B4%80%ED%95%9C%ED%91%9C%EC%8B%9C%C2%B7%EA%B4%91%EA%B3%A0%EC%8B%AC%EC%82%AC%EC%A7%80%EC%B9%A8",
-      "status": 404,
-      "refs": 2,
-      "text": "국가법령정보센터의 추천·보증 등에 관한 표시·광고 심사지침 원문",
       "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
     },
     {
@@ -203,15 +183,6 @@
       "refs": 2,
       "text": "국세청 3.3% 원천징수 안내",
       "note": "외부 링크가 죽었다. 대체 출처를 찾거나 링크를 걷어낸다"
-    },
-    {
-      "severity": "low",
-      "kind": "external-unreachable",
-      "page": "https://adbles.com/official-info",
-      "href": "https://www.work24.go.kr",
-      "status": 0,
-      "error": "fetch failed",
-      "note": "응답없음 — 일시적일 수 있어 다음 회차에 다시 본다"
     },
     {
       "severity": "low",
